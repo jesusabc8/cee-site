@@ -1,14 +1,16 @@
 ---
 /**
  * Página inicial: herói (linha real do IPCA), "Brasil em números", painel "Panorama da economia
- * brasileira" e, em seguida, pesquisa, formatos, método e convite a participar.
- * Blocos sem conteúdo real mostram estado honesto.
+ * brasileira", pesquisa, publicações recentes (só se houver), formatos, método e convite a participar.
  */
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from './home/Hero.astro';
 import BrasilEmNumeros from './home/BrasilEmNumeros.astro';
 import Panorama from './dashboard/Panorama.astro';
+import Areas from './home/Areas.astro';
+import Formatos from './home/Formatos.astro';
+import Metodo from './home/Metodo.astro';
+import Participe from './home/Participe.astro';
 import PubRow from './pub/PubRow.astro';
 import { getPublicacoes } from '../lib/publicacoes';
 import { href } from '../i18n/routing';
@@ -17,20 +19,26 @@ import { useTranslations, type Lang } from '../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const k = lang === 'en' ? 'en' : 'pt';
-const pubs = await getPublicacoes();
-const areas = (await getCollection('areas')).filter((a) => a.data.tipo === 'area').sort((a, b) => a.data.ordem - b.data.ordem);
+const en = lang === 'en';
+const recentes = (await getPublicacoes()).slice(0, 4);
 ---
 <Base title={t('site.name')} description={t('site.tagline')} lang={lang}>
   <Hero lang={lang} />
   <BrasilEmNumeros lang={lang} />
   <Panorama lang={lang} />
-
-  <section class="section band-white" aria-labelledby="h-areas">
-    <div class="wrap">
-      <h2 id="h-areas">{k === 'en' ? 'Research areas' : 'Áreas de pesquisa'}</h2>
-      <ol>{areas.map((a) => <li><a href={href(`/pesquisa/${a.id}/`, lang)}>{a.data.codigo} {a.data.nome[k]}</a></li>)}</ol>
-      {pubs.slice(0, 3).map((p) => <PubRow pub={p} lang={lang} />)}
-    </div>
-  </section>
+  <Areas lang={lang} />
+  {recentes.length > 0 && (
+    <section class="section band-white" aria-labelledby="h-recentes">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div><p class="eyebrow">{en ? 'Publications' : 'Publicações'}</p><h2 id="h-recentes">{en ? 'Recent publications' : 'Publicações recentes'}</h2></div>
+          <a class="link-arrow" href={href('/publicacoes/', lang)}>{en ? 'All publications' : 'Todas as publicações'}</a>
+        </div>
+        {recentes.map((p) => <PubRow pub={p} lang={lang} />)}
+      </div>
+    </section>
+  )}
+  <Formatos lang={lang} />
+  <Metodo lang={lang} />
+  <Participe lang={lang} />
 </Base>

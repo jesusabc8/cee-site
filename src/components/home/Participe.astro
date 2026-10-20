@@ -1,0 +1,54 @@
+---
+/**
+ * Convite a participar (Proposta §7.2–7.4): entrada aberta, mérito para progredir e assinar,
+ * trilha formativa de oito sessões.
+ */
+import Icon from '../ui/Icon.astro';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const FATOS = en
+  ? [
+    ['door-open', 'Open entry', 'No selection while there is more work than people. Everyone starts with a small, real task.'],
+    ['award', 'Progressive merit', 'From Participant to Area Coordinator, with written criteria. Merit counts for progressing and signing, not for entering.'],
+    ['graduation-cap', 'Training in method', 'Eight sessions per semester: data sources, reproducible workflow, version control, PNAD microdata, research design, growth accounting, technical writing and honest visualisation.'],
+  ]
+  : [
+    ['door-open', 'Entrada aberta', 'Sem seleção enquanto houver mais trabalho do que gente. Cada pessoa começa com uma tarefa pequena e real.'],
+    ['award', 'Mérito progressivo', 'De Participante a Coordenador de Área, com critérios escritos. O mérito vale para progredir e assinar, não para entrar.'],
+    ['graduation-cap', 'Formação em método', 'Oito sessões por semestre: fontes de dados, fluxo reproduzível, controle de versão, microdados da PNAD, desenho de pesquisa, contabilidade do crescimento, redação técnica e visualização honesta.'],
+  ];
+---
+<section class="participe band-petrol" id="participe" aria-labelledby="part-t">
+  <div class="wrap participe__grid">
+    <div class="reveal">
+      <p class="eyebrow">{en ? 'Get involved' : 'Participe'}</p>
+      <h2 id="part-t">{en ? 'Learn economic research by doing economic research.' : 'Aprenda a fazer pesquisa econômica fazendo pesquisa econômica.'}</h2>
+      <p class="participe__lead">{en
+        ? 'Entry is open to Economics students from any campus and the distance-learning track. Responsibility grows with demonstrated quality, according to written, public criteria.'
+        : 'Entrada aberta a estudantes de Ciências Econômicas de qualquer campus e do EAD. A responsabilidade cresce com a qualidade demonstrada, segundo critérios escritos e públicos.'}</p>
+      <a class="btn btn--sky" href={href('/participe/', lang)}>{en ? 'How to get involved' : 'Como participar'} <Icon name="arrow-right" size={16} /></a>
+    </div>
+    <ul class="facts reveal" role="list">
+      {FATOS.map(([ic, t, d]) => (
+        <li class="fact"><span class="fact__icon"><Icon name={ic!} size={26} /></span><span><b>{t}</b><span>{d}</span></span></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .participe { padding-block: clamp(72px, 7vw, 100px); }
+  .participe__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  .participe h2 { font-size: clamp(1.875rem, 1.3rem + 2vw, 2.875rem); line-height: 1.1; margin: 14px 0 18px; max-width: 18ch; }
+  .participe__lead { color: #cfdce8; font-size: 1.0625rem; line-height: 1.6; max-width: 52ch; margin: 0 0 28px; }
+  .facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .fact { display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px; border: 1px solid rgb(255 255 255 / 22%); background: rgb(255 255 255 / 5%); }
+  .fact__icon { color: var(--sky); flex: none; margin-top: 2px; }
+  .fact b { display: block; font-size: 0.96875rem; line-height: 1.3; color: var(--white); }
+  .fact span span { display: block; margin-top: 4px; font-size: 0.875rem; line-height: 1.5; color: #c4d4e3; }
+  @media (max-width: 64rem) { .participe__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; } }
+</style>

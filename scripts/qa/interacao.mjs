@@ -19,5 +19,7 @@ await p.locator('.chip[data-grupo=fiscal]').click();
 console.log('visible tiles fiscal:', await p.locator('.tile:not([hidden])').count());
 const L = p.locator('#grafico-pib-pc [data-legend=CHN]'); await L.hover();
 console.log('focus attr:', await p.locator('#grafico-pib-pc [data-viz-plot]').getAttribute('data-focus'));
+const tab = p.locator('#step-3'); await tab.focus(); await p.keyboard.press('ArrowDown');
+console.log('stepper ArrowDown → selected:', await p.locator('[data-stepper] [role=tab][aria-selected=true]').getAttribute('id'), 'focused:', await p.evaluate(() => document.activeElement?.id), 'panel4 visible:', await p.locator('#step-p-4').isVisible());
 console.log('errors:', errs);
 await b.close();

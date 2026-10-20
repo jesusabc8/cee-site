@@ -136,7 +136,7 @@ hr {
   color: var(--text-on-dark);
 }
 
-:where(.band-navy, .band-petrol) :where(h1, h2, h3, h4) { color: var(--white); }
+:is(.band-navy, .band-petrol) :is(h1, h2, h3, h4) { color: var(--white); }
 :where(.band-navy, .band-petrol) a:not(.btn) { color: var(--sky); }
 
 /* ——— Tipografia utilitária ——— */

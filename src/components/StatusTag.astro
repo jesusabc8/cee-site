@@ -9,17 +9,17 @@ const t = useTranslations(lang);
 <style>
   .status {
     display: inline-block;
-    font-family: var(--font-sans);
-    font-size: var(--step--2);
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    padding: 0.05em 0.5em;
+    font: 500 10px / 1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 6px;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius);
-    color: var(--text-2);
+    color: var(--muted);
     white-space: nowrap;
     vertical-align: 0.15em;
   }
-  .status--ativa { border-color: var(--primary); color: var(--primary); }
-  .status--prevista { border-color: var(--accent); color: var(--text); }
+  .status--ativa { border-color: var(--petrol); color: var(--petrol); }
+  .status--prevista { border-color: var(--navy); color: var(--navy); }
+  :where(.band-navy, .band-petrol) .status { border-color: rgb(255 255 255 / 35%); color: var(--muted-on-dark); }
 </style>

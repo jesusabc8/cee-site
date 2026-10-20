@@ -1,0 +1,101 @@
+---
+/**
+ * Pesquisa: as três áreas permanentes (Proposta §4.3–4.5) com pergunta-guia, linhas e estado,
+ * e a lente transversal (§4.6). Conteúdo lido de src/data/areas.yaml e linhas.yaml.
+ */
+import { getCollection } from 'astro:content';
+import Icon from '../ui/Icon.astro';
+import StatusTag from '../StatusTag.astro';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const k = en ? 'en' : 'pt';
+const todas = (await getCollection('areas')).sort((a, b) => a.data.ordem - b.data.ordem);
+const areas = todas.filter((a) => a.data.tipo === 'area');
+const lente = todas.find((a) => a.data.tipo === 'lente');
+const linhas = (await getCollection('linhas')).sort((a, b) => a.data.codigo.localeCompare(b.data.codigo));
+const ICONE: Record<string, string> = { a: 'trending-up', b: 'chart-column-increasing', c: 'users' };
+---
+<section class="areas-sec band-slate section" id="pesquisa" aria-labelledby="areas-t">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="eyebrow">{en ? 'Research' : 'Pesquisa'}</p>
+        <h2 id="areas-t">{en ? 'Three questions that organise the Centre' : 'Três perguntas que organizam o Centro'}</h2>
+      </div>
+      <p>{en
+        ? 'Permanent areas of work, each with a guiding question, research lines and defined outputs.'
+        : 'Áreas permanentes de trabalho, cada uma com uma pergunta-guia, linhas de pesquisa e produtos definidos.'}</p>
+    </div>
+    <div class="areas">
+      {areas.map((a) => (
+        <article class="area reveal">
+          <span class="area__letter" aria-hidden="true">{a.data.codigo}</span>
+          <span class="area__icon"><Icon name={ICONE[a.id] ?? 'circle'} size={24} /></span>
+          <h3><span class="visually-hidden">{en ? 'Area' : 'Área'} {a.data.codigo}: </span>{a.data.nome[k]}</h3>
+          <p class="area__q">{a.data.pergunta_guia[k]}</p>
+          <ul class="area__linhas">
+            {linhas.filter((l) => l.data.area === a.id).map((l) => (
+              <li><b>{l.data.codigo}</b><span>{l.data.nome[k]}</span><StatusTag estado={l.data.estado} lang={lang} /></li>
+            ))}
+          </ul>
+          <a class="area__go" href={href(`/pesquisa/${a.id}/`, lang)}>{en ? 'See the area' : 'Ver a área'}<span class="visually-hidden"> {a.data.nome[k]}</span> <Icon name="arrow-right" size={15} /></a>
+        </article>
+      ))}
+    </div>
+    {lente && (
+      <div class="lens reveal">
+        <span class="lens__icon"><Icon name="landmark" size={22} /></span>
+        <p><b>{en ? 'Cross-cutting lens' : 'Lente transversal'}: {lente.data.nome[k]}.</b> {en
+          ? 'It runs across the three areas: how the quality of institutions conditions the business cycle, productivity and distribution.'
+          : 'Atravessa as três áreas: como a qualidade das instituições condiciona a conjuntura, a produtividade e a distribuição.'}{' '}
+          <a href={href(`/pesquisa/${lente.id}/`, lang)}>{en ? 'Read more' : 'Saiba mais'}</a></p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .areas-sec .sec-head h2 { color: var(--navy); }
+  .areas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 38px 34px 32px;
+    background: #eef4f9;
+    border: 1px solid rgb(10 34 89 / 12%);
+    overflow: hidden;
+    transition: background-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .area::before { content: ''; position: absolute; inset: 0 0 auto; height: 4px; background: var(--navy); }
+  .area:nth-child(2)::before { background: var(--petrol); }
+  .area:nth-child(3)::before { background: var(--steel); }
+  .area:hover { background: var(--white); transform: translateY(-4px); box-shadow: var(--shadow-card); }
+  .area__letter { position: absolute; right: 22px; top: 22px; font: 600 120px / 0.8 var(--sans); letter-spacing: -0.05em; color: rgb(11 37 69 / 7%); user-select: none; }
+  .area__icon { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 26px; background: var(--navy); color: var(--white); border-radius: var(--radius); }
+  .area:nth-child(2) .area__icon { background: var(--petrol); }
+  .area:nth-child(3) .area__icon { background: var(--steel); }
+  .area h3 { font-size: 1.4375rem; line-height: 1.2; margin-bottom: 12px; }
+  .area__q { font: italic 400 1.0625rem / 1.55 var(--serif); color: #2e3b4b; margin: 0 0 22px; }
+  .area__linhas { list-style: none; margin: 0 0 auto; padding: 0; border-top: 1px solid var(--line); }
+  .area__linhas li { display: grid; grid-template-columns: 2rem 1fr; gap: 4px 10px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.90625rem; line-height: 1.4; }
+  .area__linhas b { font: 600 12px / 1.6 var(--mono); color: var(--petrol); grid-row: span 2; }
+  .area__linhas :global(.status) { justify-self: start; }
+  .area__go { margin-top: 24px; display: inline-flex; align-items: center; gap: 10px; font: 600 0.78rem / 1 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); text-decoration: none; transition: gap 0.2s var(--ease); }
+  .area__go:hover { gap: 14px; color: var(--navy); }
+  .area__go::after { content: ''; position: absolute; inset: 0; }
+  .area:has(.area__go:focus-visible) { outline: 2px solid var(--petrol); outline-offset: 2px; }
+  .area__go:focus-visible { outline: none; }
+  .lens { display: flex; gap: 18px; align-items: flex-start; margin-top: 24px; padding: 22px 26px; background: var(--navy); color: #d6e2ee; }
+  .lens__icon { color: var(--sky); flex: none; margin-top: 2px; }
+  .lens p { margin: 0; font-size: 0.96875rem; line-height: 1.6; }
+  .lens b { color: var(--white); font-weight: 600; }
+  .lens a { color: var(--sky); position: relative; z-index: 1; }
+  .lens a:focus-visible { outline-color: var(--sky); }
+  @media (max-width: 64rem) { .areas { grid-template-columns: minmax(0, 1fr); } .area { padding: 30px 24px 26px; } }
+</style>

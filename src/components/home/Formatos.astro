@@ -1,0 +1,82 @@
+---
+/**
+ * Formatos de publicação (Proposta §5.1–5.2): cadência e revisão exigida de cada produto.
+ * O estado vem das publicações existentes; sem publicação, "primeira edição em preparação".
+ */
+import Icon from '../ui/Icon.astro';
+import { getPublicacoes } from '../../lib/publicacoes';
+import { href } from '../../i18n/routing';
+import type { Tipo } from '../../schemas/publicacao';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const pubs = await getPublicacoes();
+const conta = (t: Tipo) => pubs.filter((p) => p.data.tipo === t).length;
+
+type Produto = { tipo: Tipo | 'painel'; icone: string; pt: [string, string, string]; en: [string, string, string] };
+// [nome, descrição, cadência e revisão] — Proposta, Quadro 11 e §5.2.
+const PRODUTOS: Produto[] = [
+  { tipo: 'painel', icone: 'database', pt: ['Painel do Observatório', 'Séries versionadas por edição numerada, com fonte, série e data de extração em cada gráfico e dados para consulta.', 'Por edição · reexecução independente'], en: ['Observatory dashboard', 'Series versioned in numbered editions, with source, series and extraction date on every chart and data to consult.', 'Per edition · independent re-run'] },
+  { tipo: 'data-insight', icone: 'zap', pt: ['Data Insight', 'Um gráfico, um achado, cerca de 150 palavras. O título é uma afirmação, e não um tema.', 'Quinzenal · verificação numérica'], en: ['Data Insight', 'One chart, one finding, about 150 words. The title is a statement, not a topic.', 'Fortnightly · numerical check'] },
+  { tipo: 'nota-de-conjuntura', icone: 'file-text', pt: ['Nota de Conjuntura', 'Tese em duas frases, um gráfico principal, a incerteza declarada e a planilha com a série histórica.', 'Mensal · duas camadas de revisão'], en: ['Business-Cycle Note', 'Thesis in two sentences, one main chart, the stated uncertainty and the spreadsheet with the historical series.', 'Monthly · two review layers'] },
+  { tipo: 'nota-tecnica', icone: 'scale', pt: ['Nota Técnica', 'Único produto com recomendações, sempre com seção sobre o que a evidência não permite concluir.', 'Uma a duas por trimestre · três camadas'], en: ['Technical Note', 'The only output with recommendations, always with a section on what the evidence does not allow us to conclude.', 'One or two per quarter · three layers'] },
+  { tipo: 'working-paper', icone: 'book-open', pt: ['Working Paper', 'Série numerada, de 25 a 40 páginas, com estratégia de identificação explícita e pacote de replicação.', 'Conforme o material · parecer externo'], en: ['Working Paper', 'Numbered series, 25 to 40 pages, with an explicit identification strategy and a replication package.', 'As material allows · external review'] },
+  { tipo: 'replicacao', icone: 'repeat', pt: ['Replicação', 'Reprodução de um resultado publicado, registrando o que se replica, o que não se replica e por quê.', 'Trimestral · reexecução independente'], en: ['Replication', 'Reproduction of a published result, recording what replicates, what does not, and why.', 'Quarterly · independent re-run'] },
+];
+const estado = (p: Produto) => {
+  if (p.tipo === 'painel') return { txt: en ? 'Preliminary version online' : 'Versão preliminar no ar', vivo: true };
+  const n = conta(p.tipo);
+  return n > 0
+    ? { txt: en ? `${n} published` : `${n} publicada${n > 1 ? 's' : ''}`, vivo: true }
+    : { txt: en ? 'First edition in preparation' : 'Primeira edição em preparação', vivo: false };
+};
+---
+<section class="formatos band-navy section" id="formatos" aria-labelledby="formatos-t">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <p class="eyebrow">{en ? 'Publications' : 'Publicações'}</p>
+        <h2 id="formatos-t">{en ? 'Formats designed to be read and checked' : 'Formatos pensados para serem lidos e verificados'}</h2>
+      </div>
+      <p>{en
+        ? 'Each output has a defined cadence, length and level of review. No number is published unless someone else re-runs the code and obtains the same result.'
+        : 'Cada produto tem cadência, extensão e nível de revisão definidos. Nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado.'}</p>
+    </div>
+    <ul class="prods reveal" role="list">
+      {PRODUTOS.map((p) => {
+        const [nome, desc, cad] = en ? p.en : p.pt;
+        const e = estado(p);
+        return (
+          <li class="prod">
+            <span class="prod__icon"><Icon name={p.icone} size={28} /></span>
+            <h3>{nome}</h3>
+            <p>{desc}</p>
+            <p class="prod__cad mono">{cad}</p>
+            <span class:list={['prod__st', { 'is-live': e.vivo }]}>{e.txt}</span>
+          </li>
+        );
+      })}
+    </ul>
+    <p class="formatos__more"><a class="link-arrow" href={href('/publicacoes/', lang)}>{en ? 'All publications' : 'Todas as publicações'} <Icon name="arrow-right" size={15} /></a></p>
+  </div>
+</section>
+
+<style>
+  .formatos { position: relative; overflow: hidden; }
+  .formatos::after { content: ''; position: absolute; right: -180px; top: -180px; width: 560px; height: 560px; border-radius: 50%; border: 90px solid rgb(255 255 255 / 3%); pointer-events: none; }
+  .formatos .wrap { position: relative; z-index: 1; }
+  .prods { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: rgb(255 255 255 / 14%); border: 1px solid rgb(255 255 255 / 14%); }
+  .prod { display: flex; flex-direction: column; padding: 32px 30px 28px; background: rgb(8 28 70 / 82%); transition: background-color 0.25s; min-width: 0; }
+  .prod:hover { background: rgb(22 62 120 / 92%); }
+  .prod__icon { color: var(--sky); margin-bottom: 20px; }
+  .prod h3 { font-size: 1.1875rem; line-height: 1.25; margin-bottom: 8px; }
+  .prod p { font-size: 0.90625rem; color: #b9c9d9; margin: 0 0 14px; line-height: 1.55; }
+  .prod .prod__cad { color: #d6e3ef; margin-top: auto; font-size: 11.5px; }
+  .prod__st { align-self: flex-start; font: 600 10.5px / 1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid rgb(255 255 255 / 30%); padding: 7px 9px; color: #cfe0ef; }
+  .prod__st.is-live { border-color: var(--sky); color: var(--sky); background: rgb(192 224 240 / 8%); }
+  .formatos__more { margin: 36px 0 0; }
+  @media (max-width: 64rem) { .prods { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) { .prods { grid-template-columns: minmax(0, 1fr); } .prod { padding: 26px 22px; } }
+</style>
