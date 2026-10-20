@@ -1,0 +1,109 @@
+---
+/**
+ * Herói da página inicial. A linha de fundo é dado real (IPCA acumulado em 12 meses, IBGE),
+ * desenhada uma única vez ao carregar; a nota no canto identifica a série e o período.
+ * Sem movimento quando o sistema pede movimento reduzido.
+ */
+import Icon from '../ui/Icon.astro';
+import { serieHero } from '../../lib/panorama';
+import { fmtX } from '../../lib/viz/render';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+
+const pts = serieHero().filter((p): p is { x: number; y: number } => p.y !== null);
+const W = 1440;
+const H = 700;
+const x0 = pts[0]!.x;
+const x1 = pts.at(-1)!.x;
+const yMax = Math.max(...pts.map((p) => p.y));
+const yMin = Math.min(0, ...pts.map((p) => p.y));
+// A linha ocupa a faixa direita-inferior do herói, longe do título.
+const sx = (x: number) => 760 + ((x - x0) / (x1 - x0)) * (W - 760 - 70);
+const sy = (y: number) => 560 - ((y - yMin) / (yMax - yMin)) * 330;
+const d = pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p.x).toFixed(1)} ${sy(p.y).toFixed(1)}`).join('');
+const last = pts.at(-1)!;
+const nota = en
+  ? `Background line: IPCA, 12-month inflation, ${fmtX(x0, 'month', lang)}–${fmtX(x1, 'month', lang)} (IBGE, SIDRA 1737). Real data.`
+  : `Linha de fundo: IPCA acumulado em 12 meses, ${fmtX(x0, 'month', lang)}–${fmtX(x1, 'month', lang)} (IBGE, SIDRA 1737). Dado real.`;
+---
+<section class="hero" aria-labelledby="hero-t">
+  <svg class="hero__bg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g stroke="rgb(255 255 255 / 6%)" stroke-width="1">
+      <path d="M0 140H1440M0 280H1440M0 420H1440M0 560H1440" />
+      <path d="M180 0V700M360 0V700M540 0V700M720 0V700M900 0V700M1080 0V700M1260 0V700" />
+    </g>
+    <defs>
+      <linearGradient id="hero-fade" x1="760" x2="1000" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#C0E0F0" stop-opacity="0.15" />
+        <stop offset="1" stop-color="#C0E0F0" stop-opacity="1" />
+      </linearGradient>
+    </defs>
+    <path class="hero__line" d={d} pathLength="1" fill="none" stroke="url(#hero-fade)" stroke-width="2.4" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
+    <circle class="hero__dot" cx={sx(last.x)} cy={sy(last.y)} r="5.5" fill="#C0E0F0" />
+    <circle class="hero__dot" cx={sx(last.x)} cy={sy(last.y)} r="15" fill="none" stroke="#C0E0F0" stroke-opacity="0.5" />
+  </svg>
+  <div class="wrap hero__wrap">
+    <p class="eyebrow">{en ? 'Centre for Economic Studies · Economics' : 'Centro de estudos · Ciências Econômicas'}</p>
+    <h1 id="hero-t">{en ? <>Open economic <em>evidence</em> on Brazil.</> : <>Evidência econômica <em>aberta</em> sobre o Brasil.</>}</h1>
+    <p class="hero__lead">{en
+      ? 'Versioned data, reproducible code and research-standard analysis, produced and reviewed by undergraduate students.'
+      : 'Dados versionados, código reproduzível e análise com padrão de pesquisa, produzidos e revisados por estudantes de graduação.'}</p>
+    <div class="hero__cta">
+      <a class="btn btn--sky" href="#panorama">{en ? 'Explore the data' : 'Explorar os dados'} <Icon name="arrow-right" size={16} /></a>
+      <a class="btn btn--ghost" href={href('/metodologia/', lang)}>{en ? 'How we work' : 'Como trabalhamos'}</a>
+    </div>
+  </div>
+  <p class="hero__note mono">{nota}</p>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+    background:
+      radial-gradient(900px 520px at 85% 15%, rgb(138 164 179 / 38%), transparent 62%),
+      linear-gradient(135deg, #071a47 0%, var(--navy) 50%, #2d5c7c 125%);
+    padding: clamp(64px, 7vw, 104px) 0 clamp(170px, 14vw, 210px);
+  }
+  .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .hero__wrap { position: relative; }
+  .hero h1 {
+    color: var(--white);
+    font-size: var(--fs-display);
+    line-height: 1.04;
+    letter-spacing: -0.028em;
+    margin: 22px 0 24px;
+    max-width: 15ch;
+  }
+  .hero h1 em { font-style: normal; color: var(--sky); }
+  .hero__lead { font-size: 1.1875rem; line-height: 1.6; max-width: 54ch; color: #cfdce8; margin: 0 0 34px; }
+  .hero__cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero__note {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 140px;
+    max-width: 34ch;
+    margin: 0;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--muted-on-dark);
+  }
+  .js .hero__line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: hero-draw 2.4s var(--ease) 0.2s forwards; }
+  .js .hero__dot { opacity: 0; animation: hero-in 0.5s ease 2.4s forwards; }
+  @keyframes hero-draw { to { stroke-dashoffset: 0; } }
+  @keyframes hero-in { to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .js .hero__line { animation: none; stroke-dashoffset: 0; }
+    .js .hero__dot { animation: none; opacity: 1; }
+  }
+  @media (max-width: 48rem) {
+    .hero__bg { opacity: 0.55; }
+    .hero__note { position: static; text-align: left; margin: 28px var(--gutter) 0; max-width: none; }
+  }
+</style>

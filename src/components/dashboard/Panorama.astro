@@ -1,0 +1,80 @@
+---
+/**
+ * "Panorama da economia brasileira": quatro blocos em grade simétrica de duas colunas
+ * (o IPCA ocupa a largura total). Cada ficha traz fonte, código, extração, CSV e tabela.
+ */
+import Icon from '../ui/Icon.astro';
+import ChartCard from '../charts/ChartCard.astro';
+import DebtStabilizer from './DebtStabilizer.astro';
+import { panorama, type Grafico } from '../../lib/panorama';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang; titulo?: boolean }
+const { lang, titulo = true } = Astro.props;
+const en = lang === 'en';
+const p = panorama(lang);
+const BLOCOS: { id: Grafico['bloco']; icone: string; pt: string; en: string; ptd: string; end: string }[] = [
+  { id: 'atividade', icone: 'activity', pt: 'Atividade e renda', en: 'Activity and income', ptd: 'Crescimento trimestral e renda por habitante em perspectiva internacional.', end: 'Quarterly growth and income per person in international perspective.' },
+  { id: 'precos', icone: 'percent', pt: 'Preços e juros', en: 'Prices and interest rates', ptd: 'Inflação diante da meta, expectativas de mercado, política monetária e câmbio.', end: 'Inflation against the target, market expectations, monetary policy and the exchange rate.' },
+  { id: 'produtividade', icone: 'gauge', pt: 'Produtividade e convergência', en: 'Productivity and convergence', ptd: 'Distância em relação à fronteira, com dados da Penn World Table 11.0.', end: 'Distance to the frontier, using Penn World Table 11.0.' },
+  { id: 'fiscal', icone: 'landmark', pt: 'Fiscal', en: 'Fiscal', ptd: 'Endividamento público, expectativas e o primário que estabilizaria a dívida.', end: 'Public debt, expectations and the primary balance that would stabilise it.' },
+];
+---
+<section class="panorama band-paper" id="panorama" aria-labelledby="pan-t">
+  <div class="wrap">
+    {titulo && (
+      <div class="sec-head reveal">
+        <div>
+          <p class="eyebrow">{en ? 'Data Observatory' : 'Observatório de Dados'}</p>
+          <h2 id="pan-t">{en ? 'Overview of the Brazilian economy' : 'Panorama da economia brasileira'}</h2>
+        </div>
+        <p>{en
+          ? 'Official series extracted by script, with the source, series code and extraction date on every chart. Hover or focus to read values; each chart has a data table and a CSV file.'
+          : 'Séries oficiais extraídas por script, com fonte, código da série e data de extração em cada gráfico. Passe o cursor ou o foco para ler os valores; cada gráfico tem tabela de dados e arquivo CSV.'}</p>
+      </div>
+    )}
+    {!titulo && <h2 id="pan-t" class="visually-hidden">{en ? 'Overview of the Brazilian economy' : 'Panorama da economia brasileira'}</h2>}
+
+    {BLOCOS.map((b) => {
+      const gs = p.graficos.filter((g) => g.bloco === b.id);
+      return (
+        <section class="bloco" aria-labelledby={`bloco-${b.id}`}>
+          <header class="bloco__head reveal">
+            <span class="bloco__icon"><Icon name={b.icone} size={20} /></span>
+            <div>
+              <h3 id={`bloco-${b.id}`}>{en ? b.en : b.pt}</h3>
+              <p>{en ? b.end : b.ptd}</p>
+            </div>
+          </header>
+          <div class="bloco__grid">
+            {gs.map((g) => <div class:list={['reveal', { 'is-wide': g.largo }]}><ChartCard g={g} lang={lang} nivel="h4" /></div>)}
+            {b.id === 'fiscal' && <div class="reveal"><DebtStabilizer e={p.estabilizacao} fontes={p.fonteEstab} lang={lang} /></div>}
+          </div>
+        </section>
+      );
+    })}
+
+    <p class="panorama__foot">
+      <Icon name="database" size={16} />
+      <span>{en ? 'Full catalogue of series, codes and vintages:' : 'Catálogo completo de séries, códigos e vintages:'} <a href={href('/observatorio/catalogo/', lang)}>{en ? 'series catalogue' : 'catálogo de séries'}</a> · <a href={p.repo}>{en ? 'code and data on GitHub' : 'código e dados no GitHub'}</a></span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .panorama { padding-block: var(--section-y); }
+  .bloco + .bloco { margin-top: clamp(56px, 6vw, 88px); }
+  .bloco__head { display: flex; gap: 16px; align-items: flex-start; padding-bottom: 18px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+  .bloco__icon { display: grid; place-items: center; width: 44px; height: 44px; flex: none; background: var(--navy); color: var(--sky); border-radius: 2px; }
+  .bloco__head h3 { font-size: 1.5rem; letter-spacing: -0.015em; }
+  .bloco__head p { margin: 6px 0 0; color: var(--muted); font-size: 0.9375rem; }
+  /* Subgrid: cabeçalho, controles, gráfico e rodapé alinhados entre fichas da mesma linha. */
+  .bloco__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 0; }
+  .bloco__grid > div { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; min-width: 0; margin-bottom: 24px; }
+  .bloco__grid > div > :global(*) { grid-row: 1 / span 4; }
+  .bloco__grid > .is-wide { grid-column: 1 / -1; }
+  .panorama__foot { display: flex; gap: 10px; align-items: center; margin: 16px 0 0; font-size: 0.9375rem; color: var(--muted); }
+  .panorama__foot :global(svg) { color: var(--petrol); }
+  @media (max-width: 64rem) { .bloco__grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

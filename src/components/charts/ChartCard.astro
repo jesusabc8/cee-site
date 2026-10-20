@@ -1,0 +1,189 @@
+---
+/**
+ * Ficha de gráfico do painel: cabeçalho (rótulo com ícone, título, subtítulo gerado do dado),
+ * legenda e períodos (tablist), gráfico SVG (renderizado no build; redesenhado no navegador na
+ * largura real), tooltip, unidade, fontes com código e data de extração, CSV, nota e tabela.
+ */
+import Icon from '../ui/Icon.astro';
+import { renderSvg } from '../../lib/viz/render';
+import type { Grafico } from '../../lib/panorama';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { g: Grafico; lang: Lang; nivel?: 'h3' | 'h4' }
+const { g, lang, nivel = 'h3' } = Astro.props;
+const H = nivel;
+const en = lang === 'en';
+const s = g.spec;
+const xMax = Math.max(...s.series.flatMap((x) => x.points.map((p) => p.x)));
+const def = s.ranges?.find((r) => r.id === s.defaultRange) ?? s.ranges?.[0];
+const xFrom = def?.years ? Date.UTC(new Date(xMax).getUTCFullYear() - def.years, new Date(xMax).getUTCMonth(), 1) : undefined;
+const svg = renderSvg(s, g.largo ? 1100 : 540, xFrom);
+const nf = new Intl.NumberFormat(lang, { maximumFractionDigits: 4 });
+const cell = (v: string | number | null) => (v === null || v === '' ? '—' : typeof v === 'number' ? nf.format(v) : v);
+const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
+const L = en
+  ? { fonte: 'Source', ext: 'extracted', dados: 'Data', tabela: 'Data table', nota: 'Methodological note', periodo: 'Period', legenda: 'Legend', stale: 'source unavailable at last update; previous vintage shown' }
+  : { fonte: 'Fonte', ext: 'extração', dados: 'Dados', tabela: 'Tabela de dados', nota: 'Nota metodológica', periodo: 'Período', legenda: 'Legenda', stale: 'fonte indisponível na última atualização; exibindo o vintage anterior' };
+---
+<article class:list={['chart-card', { 'chart-card--wide': g.largo }]} id={g.id} data-viz role="figure" aria-labelledby={`${g.id}-t`} aria-describedby={`${g.id}-d`}>
+  <header class="chart-card__head">
+    <p class="chart-card__label"><Icon name={g.icone} size={16} /> {g.rotulo}</p>
+    <H id={`${g.id}-t`} class="chart-card__title">{g.titulo}</H>
+    {g.destaque && (
+      <p class="kpi">
+        <span class="kpi__val num">{g.destaque.valor}</span>
+        <span class="kpi__txt">{g.destaque.texto}<span class="kpi__sec">{g.destaque.secundaria} · <span class="mono">{g.destaque.periodo}</span></span></span>
+      </p>
+    )}
+    <p class="chart-card__sub">{g.subtitulo}</p>
+  </header>
+
+  {(g.legenda.length > 0 || s.ranges) ? (
+    <div class="chart-card__controls">
+      {g.legenda.length > 0 && (
+        <ul class="legend" aria-label={L.legenda}>
+          {g.legenda.map((l) => (
+            <li data-legend={l.id} tabindex="0">
+              <span class={`key key--${l.style}`} style={`--k:${l.color}`} aria-hidden="true"></span>{l.label}
+            </li>
+          ))}
+        </ul>
+      )}
+      {s.ranges && (
+        <div class="ranges" role="tablist" aria-label={L.periodo}>
+          {s.ranges.map((r) => (
+            <button type="button" role="tab" data-range={r.id} aria-selected={r.id === def?.id ? 'true' : 'false'} tabindex={r.id === def?.id ? 0 : -1} aria-controls={`${g.id}-plot`}>{r.label}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  ) : <div aria-hidden="true"></div>}
+
+  <div class="chart-card__plot" id={`${g.id}-plot`} data-viz-plot set:html={svg} />
+  <div class="viz-tip" data-viz-tip hidden></div>
+  <p id={`${g.id}-d`} class="visually-hidden">{g.descricao}</p>
+
+  <footer class="chart-card__foot">
+    <p class="mono chart-card__unit">{g.unidade}</p>
+    <p class="mono">
+      {g.fontes.map((f, i) => (
+        <>{i > 0 && ' · '}<a href={f.url}>{f.instituicao === 'Banco Central do Brasil' ? <abbr title={f.instituicao}>BCB</abbr> : f.instituicao}</a>, {f.codigo.replace(/^BCB, /, '')} ({L.ext} {fd(f.extraido_em)}){f.desatualizado && <strong> — {L.stale}</strong>}</>
+      ))}
+    </p>
+    <p class="mono">{L.dados}: {g.csv.map((c, i) => <>{i > 0 && ' · '}<a href={c.href} download>{c.rotulo}</a></>)}</p>
+    {g.nota && (
+      <details class="chart-card__more">
+        <summary>{L.nota}</summary>
+        <p>{g.nota}</p>
+      </details>
+    )}
+    <details class="chart-card__more" data-pagefind-ignore>
+      <summary>{L.tabela}</summary>
+      <div class="table-scroll" role="region" aria-label={`${L.tabela}: ${g.titulo}`} tabindex="0">
+        <table>
+          <thead><tr>{g.tabela.colunas.map((c, i) => <th scope="col" class={i ? 'num' : undefined}>{c}</th>)}</tr></thead>
+          <tbody>{g.tabela.linhas.map((l) => <tr>{l.map((v, i) => (i === 0 ? <th scope="row">{v}</th> : <td class="num">{cell(v)}</td>))}</tr>)}</tbody>
+        </table>
+      </div>
+    </details>
+  </footer>
+  <script type="application/json" set:html={JSON.stringify(s)} />
+</article>
+
+<script>
+  import '../../lib/viz/client';
+</script>
+
+<style>
+  /* Grade em quatro faixas (cabeçalho, controles, gráfico, rodapé). Dentro de uma grade com
+     subgrid (painel), as faixas se alinham entre fichas vizinhas. */
+  .chart-card {
+    position: relative;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--navy);
+    padding: 26px 28px 20px;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    row-gap: 0;
+    align-content: start;
+    min-width: 0;
+  }
+  .chart-card__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 11.5px / 1 var(--sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--petrol);
+  }
+  .chart-card__title { font-size: 1.25rem; margin-top: 12px; letter-spacing: -0.015em; }
+  .chart-card__sub { margin-top: 8px; color: var(--muted); font-size: 0.9375rem; line-height: 1.55; max-width: 72ch; }
+  .chart-card__controls { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 18px; }
+  .chart-card--wide .chart-card__controls { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 20px; min-height: 0; }
+  .kpi { display: flex; align-items: baseline; gap: 12px; margin-top: 12px; }
+  .kpi__val { font: 600 2.375rem / 1 var(--sans); letter-spacing: -0.025em; color: var(--navy); }
+  .kpi__txt { display: grid; gap: 2px; font-size: 0.9375rem; color: var(--ink); line-height: 1.3; }
+  .kpi__sec { font-size: 0.8125rem; color: var(--muted); }
+  .legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--ink); }
+  .legend li { display: inline-flex; align-items: center; gap: 8px; cursor: default; border-radius: 2px; }
+  .key { width: 22px; height: 0; border-top: 2.4px solid var(--k); display: inline-block; }
+  .key--dash { border-top-style: dashed; }
+  .key--step { width: 18px; height: 6px; border: 0; border-top: 2px solid var(--k); border-right: 2px solid var(--k); }
+  .key--bar { width: 12px; height: 12px; border: 0; background: var(--k); }
+  .key--band { width: 18px; height: 12px; border: 1.2px dashed var(--k); background: rgb(138 164 179 / 18%); }
+  .key--marker { width: 22px; border-top: 2px dashed var(--k); position: relative; }
+  .key--marker::after { content: ''; position: absolute; left: 7px; top: -5px; width: 7px; height: 7px; background: var(--k); transform: rotate(45deg); }
+  .ranges { display: flex; gap: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 3px; }
+  .ranges button {
+    font: 600 11.5px / 1 var(--sans);
+    letter-spacing: 0.06em;
+    border: 0;
+    background: transparent;
+    color: var(--navy);
+    padding: 7px 11px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .ranges button[aria-selected='true'] { background: var(--navy); color: var(--white); }
+  .ranges button:hover:not([aria-selected='true']) { background: var(--mist); }
+  .chart-card__plot { margin-top: 14px; position: relative; touch-action: pan-y; align-self: end; }
+  .chart-card__plot :global(svg) { width: 100%; height: auto; }
+  .viz-tip {
+    position: absolute;
+    top: 150px;
+    z-index: 3;
+    pointer-events: none;
+    background: var(--navy);
+    color: var(--white);
+    font: 500 12px / 1.5 var(--mono);
+    padding: 10px 12px;
+    border-radius: 2px;
+    min-width: 150px;
+    box-shadow: 0 12px 30px -12px rgb(7 26 51 / 55%);
+    display: grid;
+    gap: 2px;
+  }
+  .viz-tip[hidden] { display: none; }
+  .viz-tip :global(.viz-tip__x) { color: var(--sky); margin-bottom: 2px; }
+  .viz-tip :global(.viz-tip__row) { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .viz-tip :global(.viz-tip__row i) { width: 10px; height: 3px; display: inline-block; box-shadow: 0 0 0 1px rgb(255 255 255 / 55%); }
+  .viz-tip :global(.viz-tip__row b) { margin-left: auto; padding-left: 12px; font-weight: 500; }
+  .chart-card__foot { margin-top: 0; align-self: start; padding-top: 14px; border-top: 1px solid var(--line); display: grid; gap: 4px; }
+  .chart-card__foot p { color: var(--muted); line-height: 1.5; }
+  .chart-card__foot a { color: var(--petrol); }
+  .chart-card__unit { color: var(--ink) !important; }
+  .chart-card__more { font-size: 13px; color: var(--muted); }
+  .chart-card__more summary { cursor: pointer; color: var(--navy); font: 600 11.5px / 2 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; width: fit-content; }
+  .chart-card__more p { margin: 6px 0 4px; line-height: 1.55; max-width: 80ch; }
+  .chart-card__more .table-scroll { max-height: 18rem; overflow: auto; margin-top: 6px; border-top: 2px solid var(--navy); }
+  .chart-card__more table { border-collapse: collapse; width: 100%; font: 12.5px var(--sans); font-variant-numeric: tabular-nums; }
+  .chart-card__more th, .chart-card__more td { padding: 6px 10px; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--line); }
+  .chart-card__more thead th { position: sticky; top: 0; background: var(--white); font-weight: 600; color: var(--navy); }
+  .chart-card__more tbody th { font-weight: 400; }
+  .chart-card__more .num { text-align: right; }
+  @media (max-width: 40rem) { .chart-card { padding: 20px 16px 16px; } }
+</style>

@@ -35,4 +35,7 @@ const { lang } = Astro.props;
     .topbar :global(.socials) { gap: 14px; }
     .topbar :global(.socials svg) { width: 16px; height: 16px; }
   }
+  @media (max-width: 30rem) {
+    .topbar__line { font-size: 9px; line-height: 1.25; letter-spacing: 0.04em; white-space: normal; max-width: 24ch; }
+  }
 </style>

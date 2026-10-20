@@ -120,7 +120,7 @@ const processadores: Record<string, (c: Record<string, Buffer>, extraido: Date) 
   metas_inflacao: (c) => {
     const pagina = json(c['resposta.json']);
     const conteudo = String(pagina.conteudo);
-    const limpa = (x: string) => x.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&#8203;|​/g, '').replace(/\s+/g, ' ').trim();
+    const limpa = (x: string) => x.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&#8203;|\u200b/g, '').replace(/\s+/g, ' ').trim();
     const linhas: Linha[] = [];
     for (const tr of conteudo.match(/<tr[^>]*>[\s\S]*?<\/tr>/g) ?? []) {
       const cel = (tr.match(/<t[dh][^>]*>[\s\S]*?<\/t[dh]>/g) ?? []).map(limpa);

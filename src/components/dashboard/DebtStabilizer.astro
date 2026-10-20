@@ -1,0 +1,130 @@
+---
+/**
+ * "Primário para estabilizar a dívida" (cálculo do CEE): s* = d (r − g)/(1 + g), com d = DBGG,
+ * r = juro real ex ante implícito no Focus (média t+1..t+3) e g = PIB Focus (média t+1..t+3).
+ * Matriz de sensibilidade em tom único e comparação com o primário efetivo de 12 meses.
+ */
+import Icon from '../ui/Icon.astro';
+import type { Estabilizacao, Fonte } from '../../lib/panorama';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { e: Estabilizacao; fontes: Fonte[]; lang: Lang }
+const { e, fontes, lang } = Astro.props;
+const en = lang === 'en';
+const nf = (v: number, d = 1) => new Intl.NumberFormat(lang, { minimumFractionDigits: d, maximumFractionDigits: d }).format(v);
+const sinal = (v: number) => `${v > 0 ? '+' : v < 0 ? '−' : '±'}${nf(Math.abs(v))}`;
+const gap = e.s_estrela - e.primario_atual;
+const vals = e.matriz.valores.flat();
+const vmin = Math.min(...vals);
+const vmax = Math.max(...vals);
+// Sombreado sequencial em um único tom (marinho), da menor à maior exigência.
+const fundo = (v: number) => `rgb(10 34 89 / ${(0.06 + 0.7 * ((v - vmin) / (vmax - vmin || 1))).toFixed(3)})`;
+const claro = (v: number) => (v - vmin) / (vmax - vmin || 1) > 0.55;
+const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
+const fm = (p: string) => new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${p}-01`));
+const anos = e.horizonte.map((h) => h.ano);
+// Escala da barra comparativa
+const maxBar = Math.max(e.s_estrela, Math.abs(e.primario_atual), 1) * 1.1;
+const pct = (v: number) => `${(Math.abs(v) / maxBar) * 100}%`;
+---
+<article class="debt" id="grafico-estabilizacao" role="figure" aria-labelledby="debt-t" aria-describedby="debt-d">
+  <header>
+    <div class="debt__top">
+      <p class="debt__label"><Icon name="scale" size={16} /> {en ? 'Debt sustainability' : 'Sustentabilidade da dívida'}</p>
+      <span class="tag">{en ? 'CEE calculation' : 'Cálculo do CEE'}</span>
+    </div>
+    <h3 id="debt-t">{en ? 'Primary balance to stabilise the debt' : 'Primário para estabilizar a dívida'}</h3>
+  </header>
+
+  <div class="debt__main">
+    <p class="debt__value"><span class="num">{nf(e.s_estrela)}</span><small>{en ? '% of GDP a year' : '% do PIB ao ano'}</small></p>
+    <p class="debt__params mono">{en ? 'with' : 'com'} d = {nf(e.d)}%, r = {nf(e.r)}%, g = {nf(e.g)}%</p>
+  </div>
+
+  <div class="debt__compare" aria-hidden="true">
+    <div class="bar-row"><span>{en ? 'Required (s*)' : 'Necessário (s*)'}</span><span class="bar"><i style={`width:${pct(e.s_estrela)};background:var(--navy)`}></i></span><b class="num">{sinal(e.s_estrela)}</b></div>
+    <div class="bar-row"><span>{en ? 'Current, 12 months' : 'Atual, 12 meses'}</span><span class="bar"><i class={e.primario_atual < 0 ? 'neg' : ''} style={`width:${pct(e.primario_atual)};background:var(--slate)`}></i></span><b class="num">{sinal(e.primario_atual)}</b></div>
+  </div>
+  <p id="debt-d" class="debt__line">
+    {en
+      ? `Current primary balance (12 months to ${fm(e.primario_periodo)}): ${sinal(e.primario_atual)}% of GDP. Gap to stabilisation: ${nf(gap)} p.p. of GDP.`
+      : `Resultado primário atual (12 meses até ${fm(e.primario_periodo)}): ${sinal(e.primario_atual)}% do PIB. Distância até a estabilização: ${nf(gap)} p.p. do PIB.`}
+  </p>
+
+  <div class="debt__matrix">
+    <p class="mini-title">{en ? `Sensitivity of s* (d = ${nf(e.d)}% of GDP)` : `Sensibilidade de s* (d = ${nf(e.d)}% do PIB)`}</p>
+    <div class="table-scroll" role="region" tabindex="0" aria-label={en ? 'Sensitivity matrix' : 'Matriz de sensibilidade'}>
+      <table>
+        <caption class="visually-hidden">{en ? 'Required primary surplus (% of GDP) by real interest rate (rows) and real GDP growth (columns)' : 'Superávit primário necessário (% do PIB) por juro real (linhas) e crescimento real do PIB (colunas)'}</caption>
+        <thead><tr><th scope="col"><span class="mono">r \ g</span></th>{e.matriz.g.map((g) => <th scope="col" class="num">{nf(g)}%</th>)}</tr></thead>
+        <tbody>
+          {e.matriz.r.map((r, i) => (
+            <tr><th scope="row" class="num">{nf(r, 0)}%</th>{e.matriz.valores[i]!.map((v) => <td class="num" style={`background:${fundo(v)};color:${claro(v) ? '#fff' : 'var(--ink)'}`}>{nf(v)}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <details class="debt__more">
+    <summary>{en ? 'Formula, parameters and references' : 'Fórmula, parâmetros e referências'}</summary>
+    <p class="formula mono">d<sub>t+1</sub> = d<sub>t</sub> · (1 + r)/(1 + g) − s &nbsp;⇒&nbsp; s* = d · (r − g)/(1 + g)</p>
+    <ul>
+      <li><b>d</b> = {en ? 'general government gross debt (DBGG)' : 'dívida bruta do governo geral (DBGG)'}, {fm(e.d_periodo)}: {nf(e.d)}% {en ? 'of GDP' : 'do PIB'}.</li>
+      <li><b>r</b> = {en ? 'average' : 'média'} {anos.join('–')} {en ? 'of the real rate implied by Focus medians' : 'do juro real implícito nas medianas Focus'}, (1 + Selic)/(1 + IPCA) − 1: {e.horizonte.map((h) => `${h.ano}: ${nf(h.juro_real, 2)}%`).join('; ')}.</li>
+      <li><b>g</b> = {en ? 'average of Focus median real GDP growth' : 'média das medianas Focus do PIB Total'}: {e.horizonte.map((h) => `${h.ano}: ${nf(h.pib, 2)}%`).join('; ')}. Focus {en ? 'of' : 'de'} {fd(e.data_focus)}.</li>
+    </ul>
+    <p>{en
+      ? 'Steady-state condition: the primary surplus that keeps the debt-to-GDP ratio constant under the parameters shown. It is not a projection. It ignores balance-sheet adjustments, exchange-rate effects on external debt, recognition of liabilities and the gap between the implicit interest rate on the debt and the Selic. The relevant rate is the effective cost of debt; the Focus ex-ante real interest rate is used as an approximation.'
+      : 'Condição de estado estacionário: indica o superávit primário que mantém constante a razão dívida/PIB sob os parâmetros indicados. Não é uma projeção. Ignora ajustes patrimoniais, efeitos cambiais sobre a dívida externa, reconhecimento de passivos e a diferença entre o juro implícito da dívida e a Selic. O juro relevante é o custo efetivo da dívida; usa-se o juro real ex-ante do Focus como aproximação.'}</p>
+    <p class="refs-title">{en ? 'Institutional references (fixed text, updated by hand)' : 'Referências institucionais (texto fixo, atualizado à mão)'}</p>
+    <ul class="refs">
+      <li>IFI/Senado (RAF nº 113, jun/2026): {en ? 'surplus of 2.1% of GDP a year to stabilise the debt-to-GDP ratio.' : 'superávit de 2,1% do PIB ao ano para estabilizar a relação dívida/PIB.'} <em>{en ? '(Reference provided by the coordination; not yet verified against the report.)' : '(Referência informada pela coordenação; ainda não conferida no relatório.)'}</em></li>
+      <li>Tesouro Nacional ({en ? 'Fiscal Projections Report, 1st half 2026' : 'Relatório de Projeções Fiscais, 1º sem. 2026'}): {en ? 'see Chart 27 and Appendix D.' : 'ver Gráfico 27 e Apêndice D.'} <em>{en ? '(To be verified.)' : '(A conferir.)'}</em></li>
+    </ul>
+  </details>
+
+  <footer class="debt__foot mono">
+    {en ? 'Source' : 'Fonte'}: <a href={fontes[0]!.url}>BCB</a> {en ? 'and' : 'e'} <a href={fontes[2]!.url}>Focus</a> (SGS 13762, SGS 5793; Focus {en ? 'of' : 'de'} {fd(e.data_focus)}) · {en ? 'extracted' : 'extração'} {fd(fontes[0]!.extraido_em)} · {en ? 'CEE calculation' : 'Cálculo do CEE'}
+  </footer>
+</article>
+
+<style>
+  .debt {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--navy);
+    padding: 26px 28px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .debt__top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .debt__label { display: inline-flex; align-items: center; gap: 8px; font: 600 11.5px / 1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--petrol); }
+  .tag { font: 500 10.5px / 1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); border: 1px solid var(--navy); padding: 5px 7px; }
+  .debt h3 { font-size: 1.25rem; margin-top: 12px; }
+  .debt__value { display: flex; align-items: baseline; gap: 10px; font: 600 3.25rem / 1 var(--sans); letter-spacing: -0.03em; color: var(--navy); }
+  .debt__value small { font-size: 1rem; font-weight: 500; letter-spacing: 0; color: var(--muted); }
+  .debt__params { margin-top: 8px; color: var(--ink); }
+  .debt__compare { display: grid; gap: 8px; }
+  .bar-row { display: grid; grid-template-columns: 9.5rem 1fr 3.4rem; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); }
+  .bar { position: relative; height: 10px; background: var(--paper); border-left: 1px solid var(--slate); }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; }
+  .bar i.neg { background: repeating-linear-gradient(135deg, var(--slate) 0 3px, #dbe5ec 3px 6px) !important; }
+  .bar-row b { text-align: right; color: var(--ink); font-weight: 600; }
+  .debt__line { font-size: 0.9375rem; color: var(--muted); line-height: 1.55; }
+  .mini-title { font: 600 13px / 1.3 var(--sans); color: var(--navy); margin-bottom: 8px; }
+  .debt__matrix table { border-collapse: separate; border-spacing: 2px; width: 100%; font: 12.5px var(--sans); font-variant-numeric: tabular-nums; }
+  .debt__matrix th { font-weight: 600; color: var(--muted); padding: 4px 6px; text-align: center; }
+  .debt__matrix tbody th { text-align: right; }
+  .debt__matrix td { text-align: center; padding: 7px 4px; font-weight: 500; }
+  .debt__more { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+  .debt__more summary { cursor: pointer; color: var(--navy); font: 600 11.5px / 2 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; }
+  .debt__more p, .debt__more ul { margin: 8px 0; line-height: 1.55; }
+  .debt__more ul { padding-left: 1.1em; }
+  .formula { color: var(--navy) !important; background: var(--paper); padding: 8px 10px; border-left: 2px solid var(--navy); }
+  .refs-title { font-weight: 600; color: var(--navy); }
+  .debt__foot { color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto; }
+  @media (max-width: 40rem) { .debt { padding: 20px 16px 16px; } .bar-row { grid-template-columns: 7.5rem 1fr 3rem; } .debt__value { font-size: 2.6rem; } }
+</style>

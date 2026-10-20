@@ -1,0 +1,23 @@
+// Interações do painel: tooltip, períodos, filtros e realce de legenda; uso: node scripts/qa/interacao.mjs <pasta-capturas>
+import { chromium } from 'playwright';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const errs = []; p.on('console', (m) => m.type() === 'error' && errs.push(m.text())); p.on('pageerror', (e) => errs.push(String(e)));
+await p.goto('http://localhost:4321/', { waitUntil: 'networkidle' });
+const card = p.locator('#grafico-ipca-meta');
+await card.scrollIntoViewIfNeeded();
+await p.evaluate(() => document.querySelectorAll('.reveal').forEach((e) => e.classList.add('is-in')));
+const box = await card.locator('[data-viz-plot]').boundingBox();
+await p.mouse.move(box.x + box.width * 0.55, box.y + box.height * 0.5);
+await p.waitForTimeout(200);
+console.log('tip:', await card.locator('[data-viz-tip]').innerText().catch(() => 'hidden'));
+await card.screenshot({ path: process.argv[2] + '/shots/ipca-hover.png' });
+await card.locator('[role=tab]', { hasText: /5/ }).first().click();
+await p.waitForTimeout(150);
+console.log('ticks after 5a:', await card.locator('svg text').allTextContents().then((t) => t.slice(0, 12).join('|')));
+await p.locator('.chip[data-grupo=fiscal]').click();
+console.log('visible tiles fiscal:', await p.locator('.tile:not([hidden])').count());
+const L = p.locator('#grafico-pib-pc [data-legend=CHN]'); await L.hover();
+console.log('focus attr:', await p.locator('#grafico-pib-pc [data-viz-plot]').getAttribute('data-focus'));
+console.log('errors:', errs);
+await b.close();

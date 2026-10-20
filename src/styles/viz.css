@@ -1,0 +1,35 @@
+/* Estilos dos gráficos SVG (src/lib/viz/render.ts). Um eixo y; grade fina; rótulos discretos. */
+.viz { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--sans); }
+.viz-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.viz-zero { stroke: var(--slate); stroke-width: 1.2; }
+.viz-base { stroke: #c4d1dd; stroke-width: 1; }
+.viz-tick { fill: var(--chart-axis); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+.viz-note { fill: var(--muted); font: 500 10.5px var(--mono); letter-spacing: 0.02em; text-transform: uppercase; }
+.viz-end { fill: var(--ink); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.viz-end.is-muted { fill: var(--muted); font-weight: 500; }
+.viz-cursor { stroke: var(--navy); stroke-opacity: 0.35; stroke-width: 1; }
+.viz-line, .viz-bars, .viz-end { transition: opacity 0.2s; }
+
+/* Realce de série pela legenda: as demais recuam */
+[data-focus] .viz [data-serie] { opacity: 0.18; }
+[data-focus='BRA'] .viz [data-serie='BRA'],
+[data-focus='CHN'] .viz [data-serie='CHN'],
+[data-focus='CHL'] .viz [data-serie='CHL'],
+[data-focus='MEX'] .viz [data-serie='MEX'],
+[data-focus='ARG'] .viz [data-serie='ARG'],
+[data-focus='PER'] .viz [data-serie='PER'],
+[data-focus='KOR'] .viz [data-serie='KOR'],
+[data-focus='ipca'] .viz [data-serie='ipca'],
+[data-focus='focus'] .viz [data-serie='focus'],
+[data-focus='meta'] .viz [data-serie='meta'],
+[data-focus='sup'] .viz [data-serie='sup'],
+[data-focus='sup'] .viz [data-serie='inf'],
+[data-focus='selic'] .viz [data-serie='selic'],
+[data-focus='real'] .viz [data-serie='real'],
+[data-focus='mercado'] .viz [data-serie='mercado'],
+[data-focus='ppc'] .viz [data-serie='ppc'],
+[data-focus='dbgg'] .viz [data-serie^='dbgg'],
+[data-focus='dlsp'] .viz [data-serie^='dlsp'],
+[data-focus='dbgg_f'] .viz [data-serie$='_f'],
+[data-focus='yoy'] .viz [data-serie='yoy'],
+[data-focus='qoq'] .viz [data-serie='qoq'] { opacity: 1; }

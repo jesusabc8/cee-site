@@ -1,0 +1,202 @@
+---
+/**
+ * "Brasil em números": dez fichas geradas de data/processed/panorama/indicadores.json.
+ * Cada ficha: valor, unidade, data de referência, direção ante a observação anterior (▲▼■, sem cor
+ * de juízo), minigráfico (até 10 anos), fonte, série e data de extração, e marca "calculado"
+ * quando o valor é derivado pelo CEE. Sem valor → estado "dados em atualização", nunca um número.
+ */
+import Icon from '../ui/Icon.astro';
+import { indicadores, type Indicador } from '../../lib/panorama';
+import { sparkline } from '../../lib/viz/render';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const lista = indicadores();
+
+const GRUPOS = [
+  { id: 'todos', pt: 'Todos', en: 'All' },
+  { id: 'atividade', pt: 'Atividade', en: 'Activity' },
+  { id: 'precos', pt: 'Preços e juros', en: 'Prices and rates' },
+  { id: 'externo', pt: 'Externo', en: 'External' },
+  { id: 'fiscal', pt: 'Fiscal', en: 'Fiscal' },
+  { id: 'trabalho', pt: 'Trabalho', en: 'Labour' },
+] as const;
+
+// Textos em inglês por indicador (o JSON do pipeline está em português).
+const EN: Record<string, { titulo: string; unidade: string; descricao: string }> = {
+  pib: { titulo: 'Real GDP', unidade: '% q/q', descricao: 'Change on previous quarter, seasonally adjusted' },
+  ipca: { titulo: 'IPCA inflation', unidade: '% 12m', descricao: '12-month change · target 3% ± 1.5 p.p.' },
+  selic: { titulo: 'Selic target', unidade: '% p.a.', descricao: 'Set by the Copom' },
+  juro_real: { titulo: 'Ex-ante real rate', unidade: '% p.a.', descricao: '(1 + Selic target) ÷ (1 + Focus 12-month IPCA) − 1 · calculated' },
+  focus_ipca: { titulo: 'Focus · IPCA', unidade: '%', descricao: 'Median market expectation, current year' },
+  cambio: { titulo: 'Exchange rate', unidade: 'R$/US$', descricao: 'PTAX selling rate, latest quote' },
+  conta_corrente: { titulo: 'Current account', unidade: '% GDP', descricao: 'Current transactions, 12-month sum' },
+  primario: { titulo: 'Primary balance', unidade: '% GDP', descricao: 'Consolidated public sector, 12 months (+ surplus, − deficit)' },
+  dbgg: { titulo: 'Gross debt', unidade: '% GDP', descricao: 'General government (DBGG)' },
+  desocupacao: { titulo: 'Unemployment', unidade: '%', descricao: 'PNAD Contínua, rolling quarter, not seasonally adjusted' },
+};
+const DIGITOS: Record<string, number> = { pib: 1, ipca: 2, selic: 2, juro_real: 2, focus_ipca: 2, cambio: 4, conta_corrente: 2, primario: 2, dbgg: 1, desocupacao: 1 };
+
+const nf = (v: number, d: number) => new Intl.NumberFormat(lang, { minimumFractionDigits: d, maximumFractionDigits: d }).format(Math.abs(v));
+const valor = (i: Indicador) => (i.valor === null ? null : `${i.valor < 0 ? '−' : ''}${nf(i.valor, DIGITOS[i.id] ?? 2)}`);
+const mesCurto = (a: number, m: number) => new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(a, m - 1, 1))).replace('.', '');
+function referencia(i: Indicador) {
+  const r = i.referencia;
+  if (i.tipo_ref === 'trimestre') return en ? `Q${r.slice(6)} ${r.slice(0, 4)}` : `${r.slice(6)}º tri ${r.slice(0, 4)}`;
+  if (i.tipo_ref === 'mes') return mesCurto(Number(r.slice(0, 4)), Number(r.slice(5, 7)));
+  if (i.tipo_ref === 'trimestre-movel') {
+    const a = Number(r.slice(0, 4)); const m = Number(r.slice(5, 7));
+    const ini = new Date(Date.UTC(a, m - 3, 1));
+    const fmt = (d: Date) => new Intl.DateTimeFormat(lang, { month: 'short', timeZone: 'UTC' }).format(d).replace('.', '');
+    return `${fmt(ini)}–${fmt(new Date(Date.UTC(a, m - 1, 1)))} ${a}`;
+  }
+  return new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${r}T12:00:00Z`)).replace('.', '').replace(/ de /g, ' ');
+}
+const dirTxt: Record<string, string> = en
+  ? { '▲': 'up on previous observation', '▼': 'down on previous observation', '■': 'unchanged from previous observation' }
+  : { '▲': 'acima da observação anterior', '▼': 'abaixo da observação anterior', '■': 'igual à observação anterior' };
+const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
+const serieCurta = (s: string) => s.split(/[,(]/)[0]!.trim();
+const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f);
+---
+<section class="bn" id="brasil-em-numeros" aria-labelledby="bn-t">
+  <div class="wrap">
+    <div class="bn__head">
+      <h2 id="bn-t">{en ? 'Brazil in numbers' : 'Brasil em números'}</h2>
+      <div class="chips" role="group" aria-label={en ? 'Filter indicators' : 'Filtrar indicadores'}>
+        {GRUPOS.map((g, k) => <button type="button" class="chip" data-grupo={g.id} aria-pressed={k === 0 ? 'true' : 'false'}>{en ? g.en : g.pt}</button>)}
+      </div>
+    </div>
+    <ul class="bn__grid" role="list">
+      {lista.map((i) => {
+        const t = en ? EN[i.id] ?? i : i;
+        const v = valor(i);
+        return (
+          <li class="tile" data-grupo={i.grupo}>
+            <p class="tile__top"><Icon name={i.icone} size={18} /> <span>{t.titulo}</span></p>
+            {v === null ? (
+              <p class="tile__skel"><span></span>{en ? 'Data being updated' : 'Dados em atualização'}</p>
+            ) : (
+              <p class="tile__val num">
+                {i.ancora ? <a href={`#${i.ancora}`}>{v}<span class="visually-hidden"> {t.unidade}, {t.titulo}: {en ? 'see chart' : 'ver gráfico'}</span></a> : v}
+                <small aria-hidden={i.ancora ? 'true' : undefined}>{t.unidade}</small>
+              </p>
+            )}
+            <p class="tile__lab">{t.descricao.replace(/ · calculad[oa]$/, '')}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
+            {i.spark.length > 1 && <Fragment set:html={sparkline(i.spark, 200, 34, '#4A7C96', '#0A2259')} />}
+            <p class="tile__meta mono">
+              <span>{referencia(i)}</span>
+              {v !== null && <span class="tile__dir" title={dirTxt[i.variacao]}><span aria-hidden="true">{i.variacao}</span><span class="visually-hidden">{dirTxt[i.variacao]}</span></span>}
+            </p>
+            <p class="tile__src mono"><abbr title={i.fonte}>{sigla(i.fonte)}</abbr> · {serieCurta(i.serie)} · {en ? 'ext.' : 'extr.'} {fd(i.extraido_em)}{i.desatualizado && <> · <span class="tile__stale">{en ? 'previous vintage' : 'vintage anterior'}</span></>}</p>
+          </li>
+        );
+      })}
+    </ul>
+    <p class="bn__note">{en
+      ? 'Each tile is generated from the data pipeline: official source, series code, reference date and extraction date. ▲▼■ show the direction relative to the previous observation and carry no judgement. Sparklines cover up to the last ten years.'
+      : 'Cada ficha é gerada pelo pipeline de dados: fonte oficial, código da série, data de referência e data de extração. ▲▼■ indicam a direção ante a observação anterior, sem juízo de valor. Os minigráficos cobrem até os últimos dez anos.'}</p>
+  </div>
+</section>
+
+<script>
+  const sec = document.getElementById('brasil-em-numeros');
+  const chips = [...(sec?.querySelectorAll<HTMLButtonElement>('.chip') ?? [])];
+  const tiles = [...(sec?.querySelectorAll<HTMLElement>('.tile') ?? [])];
+  chips.forEach((c) => c.addEventListener('click', () => {
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+    const g = c.dataset.grupo;
+    tiles.forEach((t) => { t.hidden = g !== 'todos' && t.dataset.grupo !== g; });
+  }));
+</script>
+
+<style>
+  .bn { position: relative; z-index: 5; margin-top: -120px; }
+  .bn__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 18px; }
+  .bn__head h2 { font-size: 1.375rem; color: var(--white); letter-spacing: -0.01em; }
+  .chips { display: none; gap: 8px; flex-wrap: wrap; }
+  :global(.js) .chips { display: flex; }
+  .chip {
+    font: 600 12px / 1 var(--sans);
+    letter-spacing: 0.06em;
+    padding: 10px 14px;
+    border-radius: 30px;
+    border: 1px solid rgb(255 255 255 / 45%);
+    color: var(--white);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .chip:hover { background: rgb(255 255 255 / 12%); }
+  .chip[aria-pressed='true'] { background: var(--white); color: var(--navy); border-color: var(--white); }
+  .chip:focus-visible { outline-color: var(--sky); }
+  .bn__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    background: var(--white);
+    border-top: 3px solid var(--petrol);
+    box-shadow: var(--shadow-panel);
+  }
+  .tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 228px;
+    padding: 22px 22px 16px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transition: background-color 0.2s;
+  }
+  .tile:nth-child(5n) { border-right: 0; }
+  .tile:hover { background: var(--mist); }
+  .tile[hidden] { display: none; }
+  .tile__top { display: flex; align-items: center; gap: 9px; margin: 0; color: var(--petrol); font: 600 11.5px / 1.2 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
+  .tile__calc { display: inline-block; margin-left: 6px; vertical-align: 1px; font: 500 9.5px / 1 var(--mono); letter-spacing: 0.06em; color: var(--navy); border: 1px solid var(--line-strong); padding: 3px 5px; }
+  .tile__val { margin: 14px 0 2px; font: 600 2.125rem / 1.1 var(--sans); letter-spacing: -0.02em; color: var(--navy); white-space: nowrap; }
+  .tile__val a { color: inherit; text-decoration: none; }
+  .tile__val a::after { content: ''; position: absolute; inset: 0; }
+  .tile__val a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+  .tile__val a:focus-visible { outline: none; }
+  .tile:has(a:focus-visible) { outline: 2px solid var(--petrol); outline-offset: -2px; }
+  .tile__val small { font-size: 0.9375rem; font-weight: 500; letter-spacing: 0; color: var(--muted); margin-left: 4px; }
+  .tile__skel { margin: 14px 0 2px; font-size: 13px; color: var(--muted); }
+  .tile__skel span { display: block; width: 60%; height: 30px; margin-bottom: 6px; background: linear-gradient(90deg, var(--paper), var(--mist), var(--paper)); }
+  .tile__lab { margin: 0; font-size: 13px; line-height: 1.38; color: var(--muted); min-height: 2.8em; }
+  .tile :global(svg.spark) { display: block; width: 100%; height: 34px; margin-top: 10px; }
+  .tile__meta { display: flex; justify-content: space-between; gap: 8px; margin: auto 0 0; padding-top: 10px; font-size: 11px; color: var(--ink); }
+  .tile__dir { color: var(--navy); }
+  .tile__src abbr { text-decoration: none; }
+  .tile__src { margin: 4px 0 0; font-size: 10.5px; line-height: 1.35; color: var(--muted); overflow-wrap: anywhere; }
+  .tile__stale { color: var(--navy); text-decoration: underline dotted; }
+  .bn__note { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+  @media (max-width: 75rem) {
+    .bn__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .tile:nth-child(5n) { border-right: 1px solid var(--line); }
+    .tile:nth-child(3n) { border-right: 0; }
+  }
+  @media (max-width: 48rem) {
+    .bn__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tile:nth-child(3n) { border-right: 1px solid var(--line); }
+    .tile:nth-child(2n) { border-right: 0; }
+    .tile { padding: 18px 16px 14px; min-height: 0; }
+    .tile__val { font-size: 1.75rem; }
+  }
+  @media (max-width: 30rem) {
+    .tile { padding: 16px 12px 12px; }
+    .tile__top { font-size: 10px; letter-spacing: 0.06em; align-items: flex-start; }
+    .tile__val { font-size: 1.5rem; white-space: normal; }
+    .tile__val small { display: block; margin: 2px 0 0; font-size: 0.8125rem; }
+    .tile__lab { font-size: 12px; }
+    .tile__src { font-size: 9.5px; }
+  }
+  @media (max-width: 21rem) {
+    .bn__grid { grid-template-columns: minmax(0, 1fr); }
+    .tile { border-right: 0 !important; }
+  }
+</style>
