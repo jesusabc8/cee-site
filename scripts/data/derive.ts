@@ -69,7 +69,7 @@ const ipcaMeta: Linha[] = [
 ];
 // Liga visualmente a projeção ao último observado (mesmo valor, sem criar dado novo).
 const ultimoObs = ipcaMeta.filter((r) => r.ipca_12m !== null).at(-1)!;
-ultimoObs.ipca_12m_focus = ultimoObs.ipca_12m;
+ultimoObs.ipca_12m_focus = ultimoObs.ipca_12m ?? null;
 await writeFile(join(OUT, 'ipca_meta.csv'), csv(ipcaMeta));
 
 // ——— 3. PWT 11.0 ———

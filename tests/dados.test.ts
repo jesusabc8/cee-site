@@ -37,18 +37,19 @@ const LIMITES: Record<string, Record<string, [number, number]>> = {
 };
 
 describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
+  const v = vintage[id]!;
   const linhas = lerCsv(id);
   const chave = Object.keys(linhas[0]!)[0]!;
 
   it('tem registro de vintage com data de extração e arquivos', () => {
     expect(vintage[id]).toBeDefined();
-    expect(Number.isNaN(Date.parse(vintage[id].extraido_em))).toBe(false);
-    expect(vintage[id].arquivos.length).toBeGreaterThan(0);
+    expect(Number.isNaN(Date.parse(v.extraido_em))).toBe(false);
+    expect(v.arquivos.length).toBeGreaterThan(0);
   });
 
   it('dado bruto íntegro (SHA-256 confere)', () => {
-    for (const a of vintage[id].arquivos) {
-      const p = join(vintage[id].vintage_dir, a.arquivo);
+    for (const a of v.arquivos) {
+      const p = join(v.vintage_dir, a.arquivo);
       expect(existsSync(p), p).toBe(true);
       expect(createHash('sha256').update(readFileSync(p)).digest('hex')).toBe(a.sha256);
     }
@@ -82,7 +83,7 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
   });
 
   it('nenhuma observação posterior à data de extração', () => {
-    const limite = vintage[id].extraido_em.slice(0, 10);
+    const limite = v.extraido_em.slice(0, 10);
     if (['pwt', 'metas_inflacao'].includes(id)) return;
     // Trimestres (AAAA-Tn) comparados pelo último mês do trimestre.
     const comoData = (v: string) => (/^\d{4}-T\d$/.test(v) ? `${v.slice(0, 4)}-${String(Number(v.slice(6)) * 3).padStart(2, '0')}` : v);

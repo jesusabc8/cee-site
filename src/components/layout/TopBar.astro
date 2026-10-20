@@ -1,0 +1,38 @@
+---
+/** Faixa institucional superior (44 px, carvão): linha institucional à esquerda, redes à direita. */
+import { config } from '../../site.config';
+import SocialIcons from '../ui/SocialIcons.astro';
+import type { Lang } from '../../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<div class="topbar">
+  <div class="topbar__inner">
+    <p class="topbar__line">{config.institutionalLine}</p>
+    <SocialIcons lang={lang} />
+  </div>
+</div>
+<style>
+  .topbar { background: var(--topbar); color: var(--white); }
+  .topbar__inner {
+    height: 44px;
+    padding-inline: clamp(20px, 3vw, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+  }
+  .topbar__line {
+    font: 600 11.5px / 1 var(--sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  @media (max-width: 40rem) {
+    .topbar__line { font-size: 10px; letter-spacing: 0.08em; }
+    .topbar :global(.socials) { gap: 14px; }
+    .topbar :global(.socials svg) { width: 16px; height: 16px; }
+  }
+</style>

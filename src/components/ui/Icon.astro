@@ -1,0 +1,16 @@
+---
+/**
+ * Ícone de linha (Lucide), inserido no build como SVG inline: traço 1,6, currentColor.
+ * Uso: <Icon name="trending-up" /> — nomes em https://lucide.dev/icons
+ */
+import { readFileSync } from 'node:fs';
+
+interface Props { name: string; size?: number | string; label?: string; class?: string; strokeWidth?: number }
+const { name, size = '1em', label, class: cls = '', strokeWidth = 1.6 } = Astro.props;
+const raw = readFileSync(`node_modules/lucide-static/icons/${name}.svg`, 'utf8');
+const inner = raw.slice(raw.indexOf('>', raw.indexOf('<svg')) + 1, raw.lastIndexOf('</svg>')).trim();
+---
+<svg class={`icon ${cls}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size}
+  fill="none" stroke="currentColor" stroke-width={strokeWidth} stroke-linecap="round" stroke-linejoin="round"
+  aria-hidden={label ? undefined : 'true'} role={label ? 'img' : undefined} aria-label={label} focusable="false"
+  set:html={inner} />

@@ -2,15 +2,16 @@
 import '../styles/base.css';
 import '../styles/prose.css';
 import '../styles/print.css';
-import { config } from '../config';
-// Pré-carrega as duas fontes do primeiro paint (evita deslocamento de layout ao trocar a fonte).
-import serifUrl from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
-import sansUrl from '@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2?url';
+import { config } from '../site.config';
+// Pré-carrega as fontes do primeiro paint (evita deslocamento de layout ao trocar a fonte).
+import sansUrl from '@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2?url';
+import monoUrl from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
 import { useTranslations, type Lang } from '../i18n/ui';
 import { switchHref } from '../i18n/routing';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PreviewBanner from '../components/PreviewBanner.astro';
+import TopBar from '../components/layout/TopBar.astro';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import SearchModal from '../components/layout/SearchModal.astro';
 
 interface Props {
   title: string;
@@ -25,7 +26,8 @@ interface Props {
 }
 const { title, description = '', lang = 'pt-BR', noindex = false, hasTranslation = true, ogImage = '/og/default.png', ogType = 'website' } = Astro.props;
 const t = useTranslations(lang);
-const robots = !config.lancado || noindex ? 'noindex, nofollow' : 'index, follow';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const robots = !config.launched || noindex ? 'noindex, nofollow' : 'index, follow';
 const isHome = title === t('site.name');
 const fullTitle = isHome ? `${config.sigla} · ${t('site.name')}` : `${title} · ${config.sigla}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -38,42 +40,56 @@ const alt = hasTranslation
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" href={serifUrl} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoUrl} as="font" type="font/woff2" crossorigin />
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
     {alt.map((a) => <link rel="alternate" hreflang={a.l} href={a.href} />)}
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0A2259" />
     <meta property="og:site_name" content={`${config.sigla} · ${t('site.name')}`} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'pt_BR'} />
-    <meta property="og:image" content={new URL(`${import.meta.env.BASE_URL.replace(/\/$/, '')}${ogImage}`, Astro.site).href} />
+    <meta property="og:image" content={new URL(`${base}${ogImage}`, Astro.site).href} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="alternate" type="application/rss+xml" title={`${config.sigla} · ${lang === 'en' ? 'Publications' : 'Publicações'}`} href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/rss.xml`} />
+    <link rel="alternate" type="application/rss+xml" title={`${config.sigla} · ${lang === 'en' ? 'Publications' : 'Publicações'}`} href={`${base}/rss.xml`} />
     {isHome && <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org', '@type': 'Organization', name: `${t('site.name')} (${config.sigla})`,
       url: new URL(import.meta.env.BASE_URL, Astro.site).href, description: t('site.tagline'), sameAs: [config.repoUrl],
+      logo: new URL(`${base}/brand/cee-lockup.svg`, Astro.site).href,
     })} />}
-    <link rel="icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} type="image/svg+xml" />
-    <script is:inline>
-      try { const th = localStorage.getItem('cee-theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch { /* sem armazenamento */ }
-    </script>
+    <link rel="icon" href={`${base}/brand/cee-favicon.svg`} type="image/svg+xml" />
+    <!-- Marca o documento como com JavaScript (ativa revelações ao rolar); sem JS, tudo aparece. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <slot name="head" />
   </head>
   <body>
     <a class="skip-link" href="#conteudo">{t('skip')}</a>
-    <PreviewBanner lang={lang} />
-    <Header lang={lang} hasTranslation={hasTranslation} />
+    <TopBar lang={lang} />
+    <SiteHeader lang={lang} hasTranslation={hasTranslation} />
     <main id="conteudo" tabindex="-1" data-pagefind-body={noindex ? undefined : ''}>
       <slot />
     </main>
-    <Footer lang={lang} />
+    <SiteFooter lang={lang} />
+    <SearchModal lang={lang} />
+    <script>
+      // Revelação ao rolar: uma vez, sem movimento quando o sistema pede movimento reduzido.
+      const els = document.querySelectorAll<HTMLElement>('.reveal');
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach((e) => e.classList.add('is-in'));
+      } else {
+        const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        els.forEach((e) => io.observe(e));
+      }
+    </script>
   </body>
 </html>

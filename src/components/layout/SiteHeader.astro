@@ -1,0 +1,226 @@
+---
+/**
+ * Cabeçalho fixo (84 px): logo + nome, navegação com sublinhado animado, busca (modal, Ctrl/Cmd+K)
+ * e seletor de língua. Sombra e borda ao rolar. No celular, menu em tela cheia (<dialog>).
+ */
+import { config } from '../../site.config';
+import { useTranslations, type Lang } from '../../i18n/ui';
+import { href, neutralPath, switchHref } from '../../i18n/routing';
+import Icon from '../ui/Icon.astro';
+
+interface Props { lang: Lang; hasTranslation?: boolean }
+const { lang, hasTranslation = true } = Astro.props;
+const t = useTranslations(lang);
+const other: Lang = lang === 'pt-BR' ? 'en' : 'pt-BR';
+const atual = neutralPath(Astro.url);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const itens = [
+  { path: '/pesquisa/', label: t('nav.pesquisa') },
+  { path: '/publicacoes/', label: t('nav.publicacoes') },
+  { path: '/observatorio/', label: t('nav.observatorio') },
+  { path: '/metodologia/', label: t('nav.metodologia') },
+  { path: '/sobre/', label: t('nav.sobre') },
+  { path: '/participe/', label: t('nav.participe') },
+  ...(config.showEvents ? [{ path: '/eventos/', label: t('nav.eventos') }] : []),
+];
+const ativo = (p: string) => atual === p || atual.startsWith(p);
+const langHref = hasTranslation ? switchHref(Astro.url, other) : href('/', other);
+---
+<header class="site-header" data-header>
+  <div class="site-header__inner">
+    <a class="brand" href={href('/', lang)} aria-label={`${config.sigla} — ${t('site.name')}: ${t('nav.home')}`}>
+      <img class="brand__logo" src={`${base}/brand/cee-mark.svg`} alt="" width="196" height="84" />
+      <span class="brand__name">{t('site.name')}<small>{t('site.descritor')}</small></span>
+    </a>
+
+    <nav class="nav" aria-label={t('nav.label')}>
+      <ul>
+        {itens.map((i) => (
+          <li><a href={href(i.path, lang)} aria-current={ativo(i.path) ? 'page' : undefined}>{i.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="tools">
+      <button type="button" class="tool-btn" data-search-open aria-label={t('busca.abrir')} title={t('busca.atalho')}>
+        <Icon name="search" size={18} />
+      </button>
+      <a class="lang-pill" href={langHref} hreflang={other} lang={other} title={t('lang.switch.label')}>
+        <span aria-hidden="true">{t('lang.switch.short')}</span><span class="visually-hidden">{t('lang.switch')}</span>
+      </a>
+      <button type="button" class="tool-btn menu-btn" data-menu-open aria-label={t('nav.menu')} aria-haspopup="dialog">
+        <Icon name="menu" size={20} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<dialog class="menu" data-menu aria-label={t('nav.menu')}>
+  <div class="menu__top">
+    <img src={`${base}/brand/cee-mark-white.svg`} alt={`${config.sigla} — ${t('site.name')}`} width="140" height="60" />
+    <button type="button" class="tool-btn tool-btn--dark" data-menu-close aria-label={t('nav.fechar')}><Icon name="x" size={22} /></button>
+  </div>
+  <nav aria-label={t('nav.label')}>
+    <ul>
+      {itens.map((i) => <li><a href={href(i.path, lang)} aria-current={ativo(i.path) ? 'page' : undefined}>{i.label}<Icon name="arrow-right" size={20} /></a></li>)}
+    </ul>
+  </nav>
+  <div class="menu__foot">
+    <a href={langHref} hreflang={other} lang={other}>{t('lang.switch')}</a>
+    <button type="button" class="link-btn" data-search-open>{t('busca.abrir')}</button>
+  </div>
+</dialog>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+  const menu = document.querySelector<HTMLDialogElement>('[data-menu]');
+  document.querySelector('[data-menu-open]')?.addEventListener('click', () => menu?.showModal());
+  document.querySelector('[data-menu-close]')?.addEventListener('click', () => menu?.close());
+  menu?.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', () => menu.close()));
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(255 255 255 / 96%);
+    backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .site-header.is-scrolled { border-color: var(--line); box-shadow: 0 6px 24px -18px rgb(11 37 69 / 50%); }
+  .site-header__inner {
+    height: var(--header-h);
+    padding-inline: clamp(20px, 3vw, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+  }
+  .brand { display: flex; align-items: center; gap: 16px; text-decoration: none; min-width: 0; }
+  .brand__logo { height: 36px; width: auto; display: block; }
+  .brand__name {
+    border-left: 1px solid var(--line);
+    padding-left: 16px;
+    font: 600 13px / 1.25 var(--sans);
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .brand__name small { display: block; font-weight: 500; color: var(--muted); font-size: 11.5px; letter-spacing: 0.01em; }
+  .nav ul { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+  .nav a {
+    position: relative;
+    display: block;
+    font: 600 12.5px / 1 var(--sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 14px;
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 6px;
+    height: 2px;
+    background: var(--petrol);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s var(--ease);
+  }
+  .nav a:hover::after,
+  .nav a[aria-current='page']::after { transform: scaleX(1); }
+  .tools { display: flex; gap: 10px; align-items: center; }
+  .tool-btn {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .tool-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .tool-btn--dark { background: transparent; color: var(--white); border-color: var(--line-dark); }
+  .lang-pill {
+    font: 600 12px / 1 var(--sans);
+    letter-spacing: 0.1em;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 14px 14px;
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .lang-pill:hover { border-color: var(--navy); color: var(--navy); }
+  .menu-btn { display: none; }
+
+  @media (max-width: 75rem) {
+    .brand__name { display: none; }
+  }
+  @media (max-width: 64rem) {
+    .nav { display: none; }
+    .menu-btn { display: grid; }
+  }
+  @media (max-width: 30rem) {
+    .site-header__inner { gap: var(--s-3); }
+    .brand__logo { height: 30px; }
+    .tools { gap: 6px; }
+    .tool-btn { width: 40px; height: 40px; }
+  }
+
+  /* Menu em tela cheia */
+  .menu {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 20px;
+    border: 0;
+    background: linear-gradient(160deg, var(--navy-deep), var(--navy) 60%, #17406f);
+    color: var(--white);
+  }
+  .menu[open] { display: flex; flex-direction: column; }
+  .menu::backdrop { background: rgb(7 26 71 / 60%); }
+  .menu__top { display: flex; justify-content: space-between; align-items: center; }
+  .menu__top img { height: 34px; width: auto; }
+  .menu nav { margin-top: 40px; }
+  .menu ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-dark); }
+  .menu li { border-bottom: 1px solid var(--line-dark); }
+  .menu nav a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 4px;
+    font: 600 1.5rem / 1.1 var(--sans);
+    letter-spacing: -0.01em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .menu nav a[aria-current='page'] { color: var(--sky); }
+  .menu nav a :global(svg) { color: var(--sky); }
+  .menu__foot { margin-top: auto; display: flex; justify-content: space-between; gap: 20px; padding-top: 24px; }
+  .menu__foot a, .link-btn {
+    color: var(--sky);
+    font: 600 13px / 1 var(--sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: none;
+    border: 0;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+</style>

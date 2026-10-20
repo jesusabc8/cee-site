@@ -1,0 +1,91 @@
+---
+/**
+ * Busca em diálogo modal (Pagefind; índice estático gerado no build). A interface do Pagefind
+ * só é carregada na primeira abertura, para não pesar na página inicial.
+ * Abre com o botão de busca ou Ctrl/Cmd+K; fecha com Esc (nativo do <dialog>).
+ */
+import { useTranslations, type Lang } from '../../i18n/ui';
+import Icon from '../ui/Icon.astro';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<dialog class="search" data-search aria-labelledby="busca-titulo" data-base={base} data-placeholder={t('busca.placeholder')}>
+  <div class="search__panel">
+    <div class="search__head">
+      <h2 id="busca-titulo" class="eyebrow">{t('busca.titulo')}</h2>
+      <button type="button" class="search__close" data-search-close aria-label={t('busca.fechar')}><Icon name="x" size={20} /></button>
+    </div>
+    <div id="busca-ui" class="search__ui"></div>
+    <p class="search__hint mono">{t('busca.atalho')} · Esc</p>
+  </div>
+</dialog>
+
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('[data-search]');
+  let carregado = false;
+  type PagefindUICtor = new (o: Record<string, unknown>) => unknown;
+  async function abrir() {
+    if (!dlg) return;
+    dlg.showModal();
+    if (!carregado) {
+      carregado = true;
+      const base = dlg.dataset.base ?? '';
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = `${base}/pagefind/pagefind-ui.css`;
+      document.head.appendChild(css);
+      await new Promise<void>((ok) => {
+        const s = document.createElement('script');
+        s.src = `${base}/pagefind/pagefind-ui.js`;
+        s.onload = () => ok();
+        s.onerror = () => ok();
+        document.head.appendChild(s);
+      });
+      const UI = (window as unknown as { PagefindUI?: PagefindUICtor }).PagefindUI;
+      if (UI) {
+        new UI({ element: '#busca-ui', showSubResults: true, showImages: false, resetStyles: false, translations: { placeholder: dlg.dataset.placeholder } });
+        const input = dlg.querySelector<HTMLInputElement>('input');
+        input?.setAttribute('aria-labelledby', 'busca-titulo');
+      }
+    }
+    dlg.querySelector<HTMLInputElement>('input')?.focus();
+  }
+  document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', abrir));
+  dlg?.querySelector('[data-search-close]')?.addEventListener('click', () => dlg.close());
+  dlg?.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); abrir(); }
+  });
+</script>
+
+<style>
+  .search {
+    width: min(760px, calc(100vw - 32px));
+    max-height: min(80vh, 720px);
+    margin: 10vh auto auto;
+    padding: 0;
+    border: 0;
+    border-top: 3px solid var(--petrol);
+    border-radius: var(--radius);
+    box-shadow: 0 40px 80px -30px rgb(7 26 51 / 60%);
+  }
+  .search::backdrop { background: rgb(7 26 71 / 55%); backdrop-filter: blur(2px); }
+  .search__panel { padding: 24px 28px 18px; }
+  .search__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .search__close { background: none; border: 0; color: var(--navy); cursor: pointer; padding: 6px; }
+  .search__ui {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: var(--petrol);
+    --pagefind-ui-text: var(--ink);
+    --pagefind-ui-background: var(--white);
+    --pagefind-ui-border: var(--line-strong);
+    --pagefind-ui-tag: var(--mist);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 2px;
+    --pagefind-ui-font: var(--sans);
+    min-height: 60px;
+  }
+  .search__hint { margin-top: 12px; color: var(--muted); }
+</style>

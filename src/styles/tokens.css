@@ -1,54 +1,72 @@
 /*
- * Design tokens do CEE. Toda decisão visual parte daqui.
- * Contrastes verificados (WCAG 2.2): texto ≥ 4,5:1; marcas de gráfico ≥ 3:1.
- * Ver /_estilo/ para a referência visual.
+ * Design tokens do CEE (ver docs/DESIGN.md). Paleta monocromática azul; sem verde, vermelho
+ * ou cores quentes. Tema claro. Contrastes (WCAG 2.2): --ink 16,9:1 · --navy 15,4:1 ·
+ * --petrol 6,3:1 · --muted 5,9:1 sobre branco; --sky 11,2:1 e --slate 6,1:1 sobre --navy.
+ * --steel (4,4:1) e --slate (2,5:1) nunca como texto sobre branco.
  */
 :root {
   color-scheme: light;
 
-  /* Cor — modo claro */
-  --bg: #ffffff;
-  --surface: #f5f6f8;
-  --text: #16202c;          /* 16,4:1 sobre --bg */
-  --text-2: #5f6670;        /* 5,8:1 sobre --bg; 5,4:1 sobre --surface */
-  --line: #d5d9df;          /* hairlines (decorativas) */
-  --line-strong: #8a929c;   /* bordas de controles: 3,3:1 */
-  --primary: #1f3a5f;       /* 11,5:1 */
-  --primary-hover: #13263f;
-  --accent: #9c6b1e;        /* ocre: 4,6:1 sobre --bg — texto só sobre --bg */
-  --accent-wash: #f6efe3;
-  --focus: #9c6b1e;
+  /* Marca */
+  --navy: #0a2259;
+  --navy-deep: #071a47;
+  --navy-ink: #06132f;
+  --petrol: #1d5fa6;
+  --azure: #3c8dcb;
+  --steel: #4a7c96;
+  --slate: #8aa4b3;
+  --sky: #c0e0f0;
+  --mist: #e8f0f8;
+  --paper: #f4f7fa;
+  --white: #fff;
 
-  /* Paleta categórica de gráficos — máximo 3 séries por gráfico.
-   * Validada (scripts de validação de paleta, 20/10/2026): faixa de luminosidade, croma,
-   * separação para daltonismo em todos os pares (ΔE ≥ 9,2) e visão normal (ΔE ≥ 24).
-   * --c3 tem contraste 2,8:1 no modo claro: usar sempre com rótulo direto e tabela. */
-  --c1: #2a78d6;
-  --c2: #eb6834;
-  --c3: #1baf7a;
-  --chart-grid: #e6e9ed;
-  --chart-axis: #5f6670;
+  /* Texto e linhas */
+  --ink: #0e1b2e;
+  --muted: #56667a;
+  --line: #d3dee8;
+  --line-strong: #7d93a3; /* bordas de controles: 3,2:1 sobre branco */
+  --line-dark: rgb(255 255 255 / 14%);
+  --text-on-dark: #fff;
+  --muted-on-dark: #b9c9d9; /* 9,6:1 sobre --navy */
+  --topbar: #1e2226;
+
+  /* Gráficos (máx. 5 séries; sempre com codificação secundária: traço, marcador ou rótulo direto) */
+  --c1: #0a2259;
+  --c2: #3c8dcb;
+  --c3: #4a7c96;
+  --c4: #8aa4b3;
+  --c5: #c0e0f0;
+  --chart-grid: #e3e9ef;
+  --chart-axis: #56667a;
+  --chart-band: rgb(138 164 179 / 18%);
 
   /* Tipografia */
-  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif;
 
-  /* Escala modular 1,25 (terça maior), base 1rem = 16px */
-  --step--2: 0.8rem;
-  --step--1: 0.875rem;
-  --step-0: 1rem;
-  --step-1: 1.125rem;       /* corpo de leitura (serifa) */
-  --step-2: 1.25rem;
-  --step-3: clamp(1.4rem, 1.2rem + 0.9vw, 1.5625rem);
-  --step-4: clamp(1.65rem, 1.35rem + 1.4vw, 1.953rem);
-  --step-5: clamp(1.95rem, 1.5rem + 2vw, 2.441rem);
+  --fs-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+  --fs-h1: clamp(2.125rem, 1.6rem + 2.2vw, 3.25rem);
+  --fs-h2: clamp(1.875rem, 1.45rem + 1.7vw, 2.75rem);
+  --fs-h3: 1.375rem;
+  --fs-h4: 1.125rem;
+  --fs-body: 1.03125rem; /* 16,5 px */
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
+  --fs-mono: 0.78125rem;
 
-  --leading-body: 1.6;
-  --leading-tight: 1.2;
-  --measure: 66ch;
+  /* Layout */
+  --wrap: 1200px;
+  --gutter: clamp(20px, 3vw, 32px);
+  --section-y: clamp(72px, 6vw + 32px, 110px);
+  --header-h: 84px;
+  --radius: 2px;
+  --hairline: 1px solid var(--line);
+  --shadow-panel: 0 30px 60px -32px rgb(7 26 51 / 55%);
+  --shadow-card: 0 24px 48px -30px rgb(11 37 69 / 50%);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
-  /* Espaço (múltiplos de 4px) */
+  /* Espaçamento (múltiplos de 4 px) */
   --s-1: 0.25rem;
   --s-2: 0.5rem;
   --s-3: 0.75rem;
@@ -58,51 +76,29 @@
   --s-7: 3rem;
   --s-8: 4.5rem;
 
-  /* Layout */
-  --page-max: 72rem;
-  --gutter: clamp(1rem, 0.6rem + 1.8vw, 2rem);
-  --radius: 2px;
-  --hairline: 1px solid var(--line);
-}
-
-/* Modo escuro: preferência do sistema, salvo escolha explícita de tema claro */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    color-scheme: dark;
-    --bg: #0f1620;
-    --surface: #17202b;
-    --text: #e6e9ed;
-    --text-2: #a3abb5;
-    --line: #2c3644;
-    --line-strong: #6b7685;
-    --primary: #8db4e2;
-    --primary-hover: #b5cff0;
-    --accent: #d9a55a;
-    --accent-wash: #2a2318;
-    --focus: #d9a55a;
-    --c1: #3987e5;
-    --c2: #d95926;
-    --c3: #199e70;
-    --chart-grid: #232d3a;
-    --chart-axis: #a3abb5;
-  }
-}
-:root[data-theme='dark'] {
-  color-scheme: dark;
-  --bg: #0f1620;
-  --surface: #17202b;
-  --text: #e6e9ed;
-  --text-2: #a3abb5;
-  --line: #2c3644;
-  --line-strong: #6b7685;
-  --primary: #8db4e2;
-  --primary-hover: #b5cff0;
-  --accent: #d9a55a;
-  --accent-wash: #2a2318;
-  --focus: #d9a55a;
-  --c1: #3987e5;
-  --c2: #d95926;
-  --c3: #199e70;
-  --chart-grid: #232d3a;
-  --chart-axis: #a3abb5;
+  /* ——— Aliases de transição (componentes antigos) ——— */
+  --bg: var(--white);
+  --surface: var(--paper);
+  --text: var(--ink);
+  --text-2: var(--muted);
+  --primary: var(--petrol);
+  --primary-hover: var(--navy);
+  --accent: var(--petrol);
+  --accent-wash: var(--mist);
+  --focus: var(--petrol);
+  --font-sans: var(--sans);
+  --font-serif: var(--serif);
+  --font-mono: var(--mono);
+  --step--2: 0.75rem;
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: 1.25rem;
+  --step-3: 1.5625rem;
+  --step-4: 1.953rem;
+  --step-5: 2.441rem;
+  --leading-body: 1.65;
+  --leading-tight: 1.15;
+  --measure: 68ch;
+  --page-max: var(--wrap);
 }

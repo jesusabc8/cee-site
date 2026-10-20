@@ -1,124 +1,138 @@
-/* Texto longo de leitura: serifa, medida 62–72 caracteres, entrelinha 1,6 */
+/*
+ * Texto corrido. Padrão: IBM Plex Sans (páginas institucionais).
+ * .prose--serif: Source Serif 4, só no corpo de leitura das publicações.
+ */
 .prose {
-  font-family: var(--font-serif);
-  font-size: var(--step-1);
-  line-height: var(--leading-body);
-  max-width: var(--measure);
-  font-optical-sizing: auto;
-  hanging-punctuation: first;
-}
-.prose > * + * {
-  margin-top: 1em;
-}
-.prose h2 {
-  font-size: var(--step-3);
-  margin-top: 2em;
-}
-.prose h3 {
-  font-size: var(--step-2);
-  margin-top: 1.6em;
-}
-.prose h2 + *,
-.prose h3 + * {
-  margin-top: 0.6em;
-}
-.prose ul,
-.prose ol {
-  padding-left: 1.25em;
-}
-.prose li + li {
-  margin-top: 0.35em;
-}
-.prose li::marker {
-  color: var(--text-2);
-}
-.prose strong {
-  font-weight: 650;
-}
-.prose blockquote {
-  margin-inline: 0;
-  padding-left: var(--s-4);
-  border-left: 2px solid var(--line);
-  color: var(--text-2);
-}
-.prose code {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  background: var(--surface);
-  padding: 0.1em 0.3em;
-  border-radius: var(--radius);
-}
-.prose pre {
-  font-size: var(--step--1);
-  background: var(--surface);
-  padding: var(--s-4);
-  overflow-x: auto;
-  line-height: 1.5;
-}
-.prose pre code {
-  background: none;
-  padding: 0;
-}
-/* Bajada: frase de apoio sob o título */
-.lede {
-  font-family: var(--font-serif);
-  font-size: var(--step-2);
-  line-height: 1.45;
-  color: var(--text);
-  max-width: var(--measure);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  max-width: 70ch;
+  color: var(--ink);
 }
 
-/* Notas de rodapé geradas pelo MDX (remark-gfm) */
-.prose .footnotes {
-  margin-top: var(--s-7);
-  padding-top: var(--s-4);
-  border-top: var(--hairline);
-  font-size: var(--step--1);
-  font-family: var(--font-sans);
-  color: var(--text-2);
+.prose--serif {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.68;
+  max-width: 68ch;
 }
-.prose sup a {
-  text-decoration: none;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  padding-inline: 0.1em;
+
+.prose > * + * { margin-top: 1em; }
+
+.prose h2 {
+  font-size: 1.625rem;
+  margin-top: 2.2em;
+  padding-top: 0.9em;
+  border-top: var(--hairline);
+}
+
+.prose h3 {
+  font-size: 1.1875rem;
+  margin-top: 1.8em;
+}
+
+.prose h2 + *,
+.prose h3 + * { margin-top: 0.7em; }
+.prose ul,
+.prose ol { padding-left: 1.25em; }
+.prose li + li { margin-top: 0.4em; }
+.prose li::marker { color: var(--petrol); }
+.prose strong { font-weight: 600; color: var(--navy); }
+
+.prose blockquote {
+  margin-inline: 0;
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 3px solid var(--petrol);
+  font-family: var(--serif);
+  font-style: italic;
+  color: #34465c;
+}
+
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 0.05em 0.35em;
+  border-radius: var(--radius);
+}
+
+.prose pre {
+  font-size: var(--fs-mono);
+  background: var(--paper);
+  border: var(--hairline);
+  border-left: 3px solid var(--navy);
+  padding: var(--s-4) var(--s-5);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.prose pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.lede {
+  font-family: var(--sans);
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 60ch;
 }
 
 /* Tabelas em texto corrido (Markdown) */
 .prose .table-scroll {
-  overflow-x: auto;
-  max-width: 100%;
-  margin-top: 1.25em;
-  border-top: 1px solid var(--text);
-  border-bottom: 1px solid var(--text);
+  margin-top: 1.4em;
+  border-top: 2px solid var(--navy);
+  border-bottom: 1px solid var(--line);
 }
+
 .prose table {
-  font-family: var(--font-sans);
+  font-family: var(--sans);
   border-collapse: collapse;
   width: 100%;
-  font-size: var(--step--1);
-  line-height: 1.45;
+  font-size: 0.9375rem;
+  line-height: 1.5;
   font-variant-numeric: tabular-nums lining-nums;
 }
+
 .prose th,
 .prose td {
   text-align: left;
   vertical-align: top;
-  padding: var(--s-2) var(--s-3);
+  padding: 12px 14px;
   min-width: 9rem;
 }
+
 .prose th:first-child,
-.prose td:first-child {
-  padding-left: 0;
-}
+.prose td:first-child { padding-left: 0; }
+
 .prose thead th {
-  font-weight: 600;
-  border-bottom: 1px solid var(--line-strong);
+  font: 600 var(--fs-label) / 1.3 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy);
+  border-bottom: 1px solid var(--line);
   vertical-align: bottom;
 }
-.prose tbody tr + tr > * {
+
+.prose tbody tr + tr > * { border-top: var(--hairline); }
+.prose td strong { font-weight: 600; }
+
+/* Notas de rodapé (MDX/GFM) */
+.prose .footnotes {
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
   border-top: var(--hairline);
+  font-family: var(--sans);
+  font-size: var(--fs-small);
+  color: var(--muted);
 }
-.prose td strong {
+
+.prose sup a {
+  text-decoration: none;
+  font-family: var(--sans);
   font-weight: 600;
+  padding-inline: 0.1em;
 }

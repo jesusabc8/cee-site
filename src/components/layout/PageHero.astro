@@ -1,0 +1,74 @@
+---
+/**
+ * Cabeçalho das páginas internas: banda azul com degradê, migas de pão, título e bajada.
+ * Slot "aside" para metadados ou ações à direita.
+ */
+import Icon from '../ui/Icon.astro';
+import { href } from '../../i18n/routing';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  title: string;
+  eyebrow?: string | undefined;
+  lede?: string | undefined;
+  lang: Lang;
+  crumbs?: { label: string; path?: string }[];
+  icon?: string;
+  variant?: 'navy' | 'mist';
+}
+const { title, eyebrow, lede, lang, crumbs = [], icon, variant = 'navy' } = Astro.props;
+const t = useTranslations(lang);
+---
+<section class={`page-hero page-hero--${variant}`}>
+  <svg class="page-hero__grid" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1440 360">
+    <path d="M0 90H1440M0 180H1440M0 270H1440M240 0V360M480 0V360M720 0V360M960 0V360M1200 0V360" />
+  </svg>
+  <div class="wrap page-hero__inner">
+    <nav class="crumbs" aria-label={t('breadcrumb')}>
+      <ol>
+        <li><a href={href('/', lang)}>{t('nav.inicio')}</a></li>
+        {crumbs.map((c) => <li>{c.path ? <a href={href(c.path, lang)}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>)}
+      </ol>
+    </nav>
+    <div class="page-hero__body">
+      <div>
+        {eyebrow && <p class="eyebrow">{icon && <Icon name={icon} size={15} />} {eyebrow}</p>}
+        <h1>{title}</h1>
+        {lede && <p class="page-hero__lede">{lede}</p>}
+      </div>
+      <div class="page-hero__aside"><slot name="aside" /></div>
+    </div>
+    <slot />
+  </div>
+</section>
+<style>
+  .page-hero { position: relative; overflow: hidden; padding-block: 40px 72px; }
+  .page-hero--navy {
+    background:
+      radial-gradient(800px 420px at 88% 0%, rgb(138 164 179 / 38%), transparent 62%),
+      linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, #2c5d84 130%);
+    color: var(--white);
+  }
+  .page-hero--mist { background: linear-gradient(180deg, var(--mist), #d9e7f2); }
+  .page-hero__grid { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .page-hero__grid path { stroke: rgb(255 255 255 / 6%); stroke-width: 1; fill: none; }
+  .page-hero--mist .page-hero__grid path { stroke: rgb(10 34 89 / 6%); }
+  .page-hero__inner { position: relative; }
+  .crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 0; list-style: none; margin: 0 0 44px; padding: 0; font: 500 12px / 1.4 var(--mono); }
+  .crumbs li + li::before { content: '/'; margin: 0 10px; opacity: 0.5; }
+  .page-hero--navy .crumbs { color: #9fb5c9; }
+  .page-hero--navy .crumbs a { color: #cfdce8; text-decoration: none; }
+  .page-hero--navy .crumbs a:hover { color: var(--white); text-decoration: underline; }
+  .page-hero--mist .crumbs { color: var(--muted); }
+  .page-hero--mist .crumbs a { color: var(--petrol); text-decoration: none; }
+  .page-hero__body { display: grid; gap: 28px; align-items: end; }
+  @media (min-width: 64rem) { .page-hero__body { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 64px; } }
+  .page-hero h1 { font-size: var(--fs-h1); margin-top: 14px; max-width: 22ch; }
+  .page-hero--navy h1 { color: var(--white); }
+  .page-hero--navy .eyebrow { color: var(--sky); display: inline-flex; gap: 8px; align-items: center; }
+  .page-hero--mist .eyebrow { display: inline-flex; gap: 8px; align-items: center; }
+  .page-hero__lede { margin-top: 20px; font-size: 1.1875rem; line-height: 1.6; max-width: 58ch; }
+  .page-hero--navy .page-hero__lede { color: #cfdce8; }
+  .page-hero--mist .page-hero__lede { color: var(--muted); }
+  .page-hero__aside:empty { display: none; }
+</style>

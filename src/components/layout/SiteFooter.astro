@@ -1,0 +1,82 @@
+---
+import { config } from '../../site.config';
+import { useTranslations, type Lang } from '../../i18n/ui';
+import { href } from '../../i18n/routing';
+import Disclaimer from '../Disclaimer.astro';
+import SocialIcons from '../ui/SocialIcons.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const en = lang === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const cols = [
+  { title: t('footer.pesquisa'), links: [
+    { href: href('/pesquisa/a/', lang), label: en ? 'Business cycle and macro policy' : 'Conjuntura e política macro' },
+    { href: href('/pesquisa/b/', lang), label: en ? 'Growth and productivity' : 'Crescimento e produtividade' },
+    { href: href('/pesquisa/c/', lang), label: en ? 'Labour, poverty and inequality' : 'Trabalho, pobreza e desigualdade' },
+    { href: href('/observatorio/', lang), label: t('nav.observatorio') },
+    { href: href('/publicacoes/', lang), label: t('nav.publicacoes') },
+  ] },
+  { title: t('footer.transparencia'), links: [
+    { href: href('/metodologia/', lang), label: t('nav.metodologia') },
+    { href: href('/erratas/', lang), label: t('footer.erratas') },
+    { href: href('/observatorio/catalogo/', lang), label: t('footer.catalogo') },
+    { href: config.repoUrl, label: t('footer.repo') },
+    { href: href('/rss.xml'), label: t('footer.rss') },
+  ] },
+  { title: t('footer.institucional'), links: [
+    { href: href('/sobre/', lang), label: t('nav.sobre') },
+    { href: href('/participe/', lang), label: t('nav.participe') },
+    { href: href('/equipe/', lang), label: t('nav.equipe') },
+    { href: href('/contato/', lang), label: t('footer.contato') },
+    { href: href('/privacidade/', lang), label: t('footer.privacidade') },
+    { href: href('/termos/', lang), label: t('footer.termos') },
+    { href: href('/acessibilidade/', lang), label: t('footer.acessibilidade') },
+  ] },
+];
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div class="site-footer__id">
+        <img src={`${base}/brand/cee-lockup-white.svg`} alt={`${config.sigla} — ${t('site.name')}`} width="300" height="70" />
+        <p>{t('footer.descricao')}</p>
+        <SocialIcons lang={lang} size={18} />
+      </div>
+      {cols.map((c) => (
+        <nav aria-label={c.title}>
+          <h2>{c.title}</h2>
+          <ul>{c.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </nav>
+      ))}
+    </div>
+    <div class="site-footer__legal">
+      <Disclaimer lang={lang} />
+      <p>{en ? 'Text and data CC BY 4.0 · Code MIT' : 'Texto e dados CC BY 4.0 · Código MIT'}</p>
+    </div>
+  </div>
+</footer>
+<style>
+  .site-footer { background: #071530; color: #aebccb; padding-top: 72px; font-size: 14px; }
+  .site-footer__grid { display: grid; gap: 40px; padding-bottom: 56px; }
+  @media (min-width: 60rem) { .site-footer__grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; } }
+  @media (min-width: 40rem) and (max-width: 60rem) { .site-footer__grid { grid-template-columns: 1fr 1fr; } .site-footer__id { grid-column: 1 / -1; } }
+  .site-footer__id img { height: 52px; width: auto; display: block; margin-bottom: 20px; }
+  .site-footer__id p { max-width: 36ch; line-height: 1.6; margin-bottom: 22px; }
+  .site-footer h2 { font: 600 12px / 1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); margin-bottom: 18px; }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; }
+  .site-footer li a { display: inline-block; padding: 5px 0; color: #aebccb; text-decoration: none; }
+  .site-footer li a:hover { color: var(--white); text-decoration: underline; }
+  .site-footer__legal {
+    border-top: 1px solid rgb(255 255 255 / 12%);
+    padding-block: 22px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px 30px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: #8f9fb2;
+  }
+  .site-footer__legal :global(.disclaimer) { color: #8f9fb2; font-size: 12.5px; max-width: 80ch; }
+</style>

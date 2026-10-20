@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CEE · Centro de Estudos Econômicos — maquete da página inicial</title>
+<style>
+:root{
+  --navy:#0A2259; --petrol:#1D5FA6; --steel:#4A7C96; --slate:#8AA4B3; --sky:#C0E0F0; --mist:#E8F0F8; --paper:#F4F7FA;
+  --gold:#C0E0F0; --ink:#0E1B2E; --muted:#56667A; --line:#D3DEE8; --white:#fff;
+  --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --serif:"Source Serif 4",Georgia,serif;
+  --wrap:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--petrol)}
+.mono{font-family:var(--mono)}
+
+/* faixa institucional */
+.topbar{background:#1E2226;color:#fff;font:600 11.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:44px;max-width:none;padding:0 40px}
+.topbar .soc{display:flex;gap:22px}
+.topbar .soc svg{width:20px;height:20px;fill:#fff;stroke:none;opacity:.92}
+.topbar .soc span{display:inline-flex;cursor:default}
+
+/* cabeçalho */
+header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid transparent;transition:border-color .25s, box-shadow .25s}
+header.site.sc{border-color:var(--line);box-shadow:0 6px 24px -18px rgba(11,37,69,.5)}
+header.site .wrap{max-width:none;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:84px}
+.brand{display:flex;align-items:center;gap:16px}
+.brand svg.logo{height:36px;width:auto;display:block}
+.brand .name{border-left:1px solid var(--line);padding-left:16px;font:600 13px/1.25 var(--sans);color:var(--navy);letter-spacing:.01em}
+.brand .name small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;letter-spacing:.02em}
+nav.main{display:flex;gap:6px}
+nav.main a{font:600 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:14px 16px;color:var(--navy);position:relative}
+nav.main a::after{content:"";position:absolute;left:16px;right:16px;bottom:6px;height:2px;background:var(--petrol);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+nav.main a:hover::after,nav.main a.on::after{transform:scaleX(1)}
+.tools{display:flex;gap:10px;align-items:center}
+.btn-ico{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);cursor:pointer;font-size:18px;transition:.2s}
+.btn-ico:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lang{font:600 12px/1 var(--sans);letter-spacing:.1em;border:1px solid var(--line);border-radius:20px;padding:12px 14px;color:var(--navy)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;background:
+  radial-gradient(900px 520px at 85% 15%,rgba(138,164,179,.45),transparent 62%),
+  linear-gradient(135deg,#071A47 0%,#0A2259 48%,#3E6E8C 125%);
+  padding:96px 0 190px}
+.hero svg.bg{position:absolute;inset:0;width:100%;height:100%;opacity:.9;pointer-events:none}
+.hero .wrap{position:relative;max-width:var(--wrap)}
+.hero h1{font:600 clamp(38px,5.2vw,68px)/1.04 var(--sans);letter-spacing:-.025em;margin:22px 0 24px;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--sky)}
+.hero p.lead{font:400 19px/1.6 var(--sans);max-width:54ch;color:#CFDCE8;margin:0 0 34px}
+.hero .eyebrow{color:var(--slate)}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:17px 24px;border-radius:2px;transition:.2s;cursor:pointer;border:1px solid transparent}
+.btn.gold{background:var(--sky);color:var(--navy)}
+.btn.gold:hover{background:#DCEFFA;transform:translateY(-2px)}
+.btn.ghost{border-color:rgba(255,255,255,.45);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn.navy{background:var(--navy);color:#fff}.btn.navy:hover{background:var(--petrol)}
+.hero .tag{position:absolute;right:32px;bottom:150px;font:500 11px/1.4 var(--mono);color:#9FB5C9;text-align:right}
+
+/* indicadores */
+.ind-sec{position:relative;margin-top:-120px;z-index:5}
+.ind-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:18px;color:#fff}
+.ind-head h2{font:600 22px/1.2 var(--sans);margin:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:600 12px/1 var(--sans);letter-spacing:.06em;padding:10px 14px;border-radius:30px;border:1px solid rgba(255,255,255,.4);color:#fff;background:transparent;cursor:pointer;transition:.2s}
+.chip:hover{background:rgba(255,255,255,.12)}
+.chip.on{background:#fff;color:var(--navy);border-color:#fff}
+.grid-ind{display:grid;grid-template-columns:repeat(5,1fr);gap:0;background:#fff;box-shadow:0 30px 60px -30px rgba(7,26,51,.55);border-top:3px solid var(--petrol)}
+.card-ind{padding:22px 22px 18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;transition:background .2s, opacity .3s, transform .3s;min-height:190px;display:flex;flex-direction:column}
+.card-ind:nth-child(5n){border-right:0}
+.card-ind:hover{background:var(--mist)}
+.card-ind.hide{display:none}
+.card-ind .top{display:flex;align-items:center;gap:10px;color:var(--petrol);font:600 11.5px/1.2 var(--sans);letter-spacing:.1em;text-transform:uppercase}
+.card-ind .top svg{font-size:20px}
+.card-ind .val{font:600 34px/1.1 var(--sans);letter-spacing:-.02em;margin:14px 0 2px;color:var(--navy);font-variant-numeric:tabular-nums}
+.card-ind .val small{font-size:15px;font-weight:500;color:var(--muted);margin-left:3px}
+.card-ind .lab{font-size:13px;color:var(--muted);line-height:1.35;min-height:35px}
+.card-ind .meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;font:500 11px/1.3 var(--mono);color:#7A8794;padding-top:10px}
+.card-ind svg.spark{width:100%;height:34px;margin-top:8px}
+.delta{font:600 12px/1 var(--mono)}
+.note{font:400 12px/1.5 var(--sans);color:var(--muted);padding:12px 0 0}
+
+/* seções */
+section{padding:110px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:46px;flex-wrap:wrap}
+.sec-head h2{font:600 clamp(30px,3.4vw,44px)/1.1 var(--sans);letter-spacing:-.02em;margin:14px 0 0;max-width:20ch;color:var(--navy)}
+.sec-head p{max-width:46ch;color:var(--muted);margin:0;font-size:16.5px}
+.link-arrow{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--petrol);padding-bottom:6px}
+.link-arrow:hover{gap:16px}
+
+/* gráfico */
+.sec-chart{background:linear-gradient(180deg,var(--mist),#CFE3F1)}
+.chart-card{background:#fff;border:1px solid var(--line);box-shadow:0 20px 50px -30px rgba(11,37,69,.45);display:grid;grid-template-columns:320px 1fr}
+.chart-side{padding:34px 30px;border-right:1px solid var(--line);background:var(--paper)}
+.chart-side h3{font:600 22px/1.25 var(--sans);margin:12px 0 14px;color:var(--navy)}
+.chart-side p{font-size:14.5px;color:var(--muted);margin:0 0 20px}
+.legend{display:flex;flex-direction:column;gap:10px;font-size:13.5px}
+.legend span{display:flex;align-items:center;gap:10px}
+.legend i{width:22px;height:3px;display:inline-block}
+.chart-main{padding:26px 30px 20px;position:relative}
+.ranges{display:flex;gap:6px;justify-content:flex-end;margin-bottom:6px}
+.ranges button{font:600 12px/1 var(--sans);letter-spacing:.08em;border:1px solid var(--line);background:#fff;color:var(--navy);padding:9px 14px;border-radius:30px;cursor:pointer;transition:.2s}
+.ranges button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+#chart{width:100%;height:340px;display:block}
+.tt{position:absolute;pointer-events:none;background:var(--navy);color:#fff;font:500 12px/1.5 var(--mono);padding:10px 12px;border-radius:2px;opacity:0;transition:opacity .12s;white-space:nowrap}
+.src{font:400 11.5px/1.5 var(--mono);color:#7A8794;border-top:1px solid var(--line);margin-top:12px;padding-top:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* áreas */
+.sec-areas{background:var(--slate)}
+.sec-areas .eyebrow{color:var(--navy)}.sec-areas .sec-head h2{color:var(--navy)}.sec-areas .sec-head p{color:#14304F}
+.areas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.area{position:relative;background:#EEF4F9;padding:38px 34px 34px;border:1px solid rgba(10,34,89,.12);overflow:hidden;transition:.3s;min-height:430px;display:flex;flex-direction:column}
+.area::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--navy);transition:.3s}
+.area:nth-child(2)::before{background:var(--petrol)}.area:nth-child(3)::before{background:var(--steel)}
+.area:hover{background:#fff;transform:translateY(-6px);box-shadow:0 28px 50px -28px rgba(11,37,69,.5)}
+.area .letter{font:600 120px/0.8 var(--sans);letter-spacing:-.05em;color:rgba(11,37,69,.07);position:absolute;right:20px;top:26px;user-select:none}
+.area .ico{width:56px;height:56px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:26px;margin-bottom:26px}
+.area:nth-child(2) .ico{background:var(--petrol)}.area:nth-child(3) .ico{background:var(--steel)}
+.area h3{font:600 23px/1.2 var(--sans);margin:0 0 12px;color:var(--navy);letter-spacing:-.01em}
+.area p.q{font:italic 400 16px/1.55 var(--serif);color:#3b4756;margin:0 0 22px}
+.area ul{list-style:none;padding:0;margin:0 0 auto;border-top:1px solid var(--line)}
+.area li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.area li b{font:600 12px/1.6 var(--mono);color:var(--petrol);min-width:26px}
+.area .go{margin-top:24px;display:flex;align-items:center;gap:10px;font:600 12.5px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
+.lens{margin-top:24px;display:flex;align-items:center;gap:20px;border:1px solid rgba(10,34,89,.12);padding:20px 26px;background:var(--navy);color:#fff}
+.lens svg{font-size:30px;color:var(--sky)}
+.lens p{margin:0;font-size:15px;color:#D5E4F0}
+
+/* formatos */
+.sec-prod{background:linear-gradient(160deg,#08204F,#0A2259 55%,#17406F);color:#fff;position:relative;overflow:hidden}
+.sec-prod .sec-head h2{color:#fff}.sec-prod .sec-head p{color:#B6C7D8}.sec-prod .eyebrow{color:var(--sky)}
+.sec-prod::after{content:"";position:absolute;right:-180px;top:-180px;width:560px;height:560px;border-radius:50%;border:90px solid rgba(255,255,255,.03)}
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14)}
+.prod{background:rgba(8,28,70,.55);padding:32px 30px 28px;transition:.25s;position:relative}
+.prod:hover{background:rgba(29,95,166,.35)}
+.prod .ico{font-size:30px;color:var(--sky);margin-bottom:20px;display:block}
+.prod h3{font:600 19px/1.25 var(--sans);margin:0 0 8px}
+.prod p{font-size:14.5px;color:#B6C7D8;margin:0 0 18px;min-height:66px}
+.prod .st{display:inline-block;font:600 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.3);padding:7px 9px;color:#cfe0ef}
+.prod .st.live{border-color:var(--sky);color:var(--sky);background:rgba(192,224,240,.08)}
+
+/* método */
+.sec-method{background:var(--paper)}
+.stepper{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start}
+.steps{display:flex;flex-direction:column}
+.step{display:flex;gap:20px;align-items:flex-start;padding:20px 22px;border:1px solid transparent;border-left:3px solid var(--line);background:transparent;text-align:left;cursor:pointer;font-family:var(--sans);transition:.25s;width:100%}
+.step:hover{background:#fff}
+.step.on{background:#fff;border-left-color:var(--petrol);box-shadow:0 14px 34px -24px rgba(11,37,69,.5)}
+.step .n{font:600 13px/1.6 var(--mono);color:var(--petrol);min-width:26px}
+.step b{display:block;font:600 17px/1.3 var(--sans);color:var(--navy)}
+.step span{font-size:14px;color:var(--muted);display:none;margin-top:6px}
+.step.on span{display:block}
+.panel{background:linear-gradient(160deg,#0A2259,#123A6E);color:#fff;padding:40px;min-height:430px;position:relative;overflow:hidden}
+.panel h3{font:600 26px/1.2 var(--sans);margin:12px 0 16px}
+.panel p{color:#C5D4E2;font-size:16px;margin:0 0 20px}
+.panel .rule{border:1px solid rgba(255,255,255,.2);padding:16px 18px;font:500 13px/1.6 var(--mono);color:#E8F0F7}
+.panel svg.big{position:absolute;right:-30px;bottom:-40px;font-size:240px;color:rgba(255,255,255,.05);stroke-width:1}
+
+/* participe */
+.sec-join{background:linear-gradient(120deg,#2F6A94,#0A2259);color:#fff;padding:90px 0}
+.join{display:grid;grid-template-columns:1.2fr 1fr;gap:70px;align-items:center}
+.join h2{font:600 clamp(30px,3.6vw,46px)/1.1 var(--sans);letter-spacing:-.02em;margin:14px 0 18px}
+.join p{color:#CFDCE8;font-size:17px;max-width:52ch;margin:0 0 28px}
+.facts{display:grid;gap:14px}
+.fact{display:flex;gap:16px;align-items:center;border:1px solid rgba(255,255,255,.22);padding:18px 20px;background:rgba(255,255,255,.05)}
+.fact svg{font-size:26px;color:var(--sky)}
+.fact b{display:block;font:600 15px/1.3 var(--sans)}.fact span{font-size:13.5px;color:#BCCDDD}
+
+/* rodapé */
+footer.site{background:#071530;color:#AEBCCB;padding:70px 0 0;font-size:14px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px}
+.fgrid h4{font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#fff;margin:0 0 18px}
+.fgrid a{display:block;padding:5px 0;color:#AEBCCB}.fgrid a:hover{color:#fff}
+.fgrid .lg svg{height:34px;width:auto;margin-bottom:16px}
+.disc{border-top:1px solid rgba(255,255,255,.12);padding:22px 0;font-size:12.5px;color:#8696A8;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.ribbon{position:fixed;left:14px;bottom:14px;z-index:99;background:#fff;color:#7a2d1a;border:1px solid #e0b4a8;font:600 11px/1.3 var(--mono);padding:8px 10px;max-width:260px}
+
+/* revelar */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.hero svg.bg *{animation:none!important}}
+@media (max-width:1050px){
+  nav.main{display:none}.grid-ind{grid-template-columns:repeat(2,1fr)}.card-ind:nth-child(5n){border-right:1px solid var(--line)}
+  .chart-card{grid-template-columns:1fr}.chart-side{border-right:0;border-bottom:1px solid var(--line)}
+  .areas,.prods,.stepper,.join,.fgrid{grid-template-columns:1fr}.hero .tag{display:none}
+  .wrap,.topbar .wrap,header.site .wrap{padding:0 20px}.topbar .t{display:none}
+}
+.draw path.ln{stroke-dasharray:1400;stroke-dashoffset:1400;animation:dr 3.2s .2s ease forwards}
+.draw path.ln.b{animation-delay:.6s}.draw path.ln.c{animation-delay:1s}
+@keyframes dr{to{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+    <symbol id="i-price" viewBox="0 0 24 24"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L3 13V3h10l7.6 7.6a2 2 0 010 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 21h18"/></symbol>
+    <symbol id="i-fx" viewBox="0 0 24 24"><path d="M7 7h12l-3-3"/><path d="M17 17H5l3 3"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M5 21h14"/><path d="M5 7h14"/><path d="M5 7l-3 7a3 3 0 006 0zM19 7l-3 7a3 3 0 006 0z"/></symbol>
+    <symbol id="i-debt" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 10h18M7 15h4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14c2.6.2 4.5 2.2 4.5 5"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h13v4"/><path d="M3 7v11a2 2 0 002 2h15V9H5a2 2 0 01-2-2z"/><circle cx="16.5" cy="14.5" r="1"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.5 9.5A2 2 0 006.2 21h11.6a2 2 0 001.7-2.5L14 9V3"/><path d="M7.5 15h9"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 013-3h15M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 01-3 3H3"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bridge" viewBox="0 0 24 24"><path d="M3 18h18M5 18V9M19 18V9M5 9c3 5 11 5 14 0M9 14.5V18M15 14.5V18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 19v-14M9 7h6"/></symbol>
+    <symbol id="i-open" viewBox="0 0 24 24"><path d="M12 3a5 5 0 00-5 5v3H6a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-1"/><path d="M15 8a3 3 0 00-6 0v3h6"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><rect x="8" y="12" width="3" height="5"/><rect x="13" y="8" width="3" height="9"/><rect x="18" y="14" width="2" height="3"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="t">Iniciativa estudantil · Ciências Econômicas · PUC Minas</span>
+    <div class="soc" aria-label="Redes sociais (em breve)">
+      <span title="Em breve"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.2V9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5zM5.3 7.4a2.1 2.1 0 110-4.2 2.1 2.1 0 010 4.2zM7.1 20.5H3.5V9h3.6z"/></svg></span>
+      <span title="Em breve"><svg viewBox="0 0 24 24" style="fill:none;stroke:#fff;stroke-width:1.9"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" style="fill:#fff;stroke:none"/></svg></span>
+      <span title="Em breve"><svg viewBox="0 0 24 24"><path d="M17.8 3h3.1l-6.8 7.700L22 21h-6.200l-4.900-6.300L5.300 21H2.200l7.200-8.200L2 3h6.400l4.400 5.800zm-1.100 16.200h1.700L7.400 4.700H5.600z"/></svg></span>
+      <span title="Em breve"><svg viewBox="0 0 24 24"><path d="M21.600 7.200a2.500 2.500 0 00-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 002.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 001.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 001.800-1.800c.4-1.600.4-4.800.4-4.800s0-3.200-.4-4.800zM10 15V9l5.200 3z"/></svg></span>
+    </div>
+  </div>
+</div>
+
+<header class="site" id="hd">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <svg class="logo" viewBox="0 0 112 56" aria-label="CEE">
+        <path d="M43 11.5 A21.5 24 0 1 0 43 44.5" fill="none" stroke="#0A2259" stroke-width="8"/>
+        <g fill="#0A2259"><rect x="52" y="0" width="8" height="56"/><rect x="52" y="0" width="26" height="8"/><rect x="52" y="24" width="20" height="8"/><rect x="52" y="48" width="26" height="8"/><rect x="86" y="0" width="8" height="56"/><rect x="86" y="0" width="26" height="8"/><rect x="86" y="48" width="26" height="8"/></g>
+        <rect x="94" y="24" width="18" height="8" fill="#4A7C96"/>
+      </svg>
+      <span class="name">Centro de Estudos Econômicos<small>Análise empírica da economia brasileira</small></span>
+    </a>
+    <nav class="main" aria-label="Principal">
+      <a href="#pesquisa">Pesquisa</a><a href="#publicacoes">Publicações</a><a class="on" href="#observatorio">Observatório</a><a href="#metodo">Metodologia</a><a href="#sobre">Sobre</a><a href="#participe">Participe</a>
+    </nav>
+    <div class="tools">
+      <button class="btn-ico" aria-label="Buscar"><svg class="i"><use href="#i-search"/></svg></button>
+      <a class="lang" href="#">EN</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<div class="hero">
+  <svg class="bg draw" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+      <path d="M0 140H1440M0 280H1440M0 420H1440M0 560H1440"/>
+      <path d="M180 0V700M360 0V700M540 0V700M720 0V700M900 0V700M1080 0V700M1260 0V700"/>
+    </g>
+    <path class="ln" d="M0 520 C140 500 220 470 330 440 S520 380 620 360 S800 250 900 280 S1100 170 1200 150 S1360 90 1440 60" fill="none" stroke="#C0E0F0" stroke-width="2.6"/>
+    <path class="ln b" d="M0 560 C160 540 260 520 380 510 S560 470 680 450 S860 400 960 380 S1160 330 1260 300 S1380 260 1440 240" fill="none" stroke="rgba(138,164,179,.8)" stroke-width="1.6"/>
+    <path class="ln c" d="M0 600 C200 590 300 560 420 560 S620 540 740 520 S940 500 1040 470 S1220 440 1440 400" fill="none" stroke="rgba(138,164,179,.4)" stroke-width="1.2"/>
+    <circle cx="1200" cy="150" r="6" fill="#C0E0F0"/><circle cx="1200" cy="150" r="16" fill="none" stroke="#C0E0F0" stroke-opacity=".55"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow">Centro de estudos · Ciências Econômicas</span>
+    <h1>Evidência econômica <em>aberta</em> sobre o Brasil.</h1>
+    <p class="lead">Dados versionados, código reproduzível e análise com padrão de pesquisa — produzidos e revisados por estudantes de graduação.</p>
+    <div class="cta">
+      <a class="btn gold" href="#observatorio">Explorar o Observatório <svg class="i"><use href="#i-arrow"/></svg></a>
+      <a class="btn ghost" href="#metodo">Como trabalhamos</a>
+    </div>
+  </div>
+  <div class="tag">Série ilustrativa de fundo<br>não representa dados reais</div>
+</div>
+
+<!-- INDICADORES -->
+<div class="ind-sec" id="observatorio">
+  <div class="wrap">
+    <div class="ind-head rv">
+      <h2>Brasil em números</h2>
+      <div class="chips" id="chips">
+        <button class="chip on" data-f="all">Todos</button><button class="chip" data-f="ativ">Atividade</button><button class="chip" data-f="preco">Preços e juros</button><button class="chip" data-f="ext">Externo</button><button class="chip" data-f="fisc">Fiscal</button><button class="chip" data-f="trab">Trabalho</button>
+      </div>
+    </div>
+    <div class="grid-ind rv" id="gi"></div>
+    <p class="note">Maquete: valores ilustrativos. No site real, cada ficha vem do pipeline de dados com fonte, série, data de referência e vintage.</p>
+  </div>
+</div>
+
+<!-- GRÁFICO -->
+<section class="sec-chart" style="margin-top:80px">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="eyebrow">Observatório de Dados</span><h2>Inflação, juros e o espaço da política monetária</h2></div><a class="link-arrow" href="#">Ir para o Observatório <svg class="i"><use href="#i-arrow"/></svg></a></div>
+    <div class="chart-card rv">
+      <div class="chart-side">
+        <span class="eyebrow">Painel A1</span>
+        <h3>IPCA acumulado em 12 meses e meta Selic</h3>
+        <p>Compare a inflação com a taxa básica de juros. Passe o cursor sobre o gráfico para ler cada ponto e use o período para ampliar ou reduzir o horizonte.</p>
+        <div class="legend"><span><i style="background:#0A2259"></i>IPCA, acum. 12 meses (% a.a.)</span><span><i style="background:#3C8DCB"></i>Meta Selic (% a.a.)</span><span><i style="background:#8AA4B3;height:2px"></i>Centro da meta de inflação (3%)</span></div>
+      </div>
+      <div class="chart-main">
+        <div class="ranges" id="rg"><button data-y="3">3 anos</button><button data-y="5" class="on">5 anos</button><button data-y="10">10 anos</button></div>
+        <svg id="chart" viewBox="0 0 760 340" preserveAspectRatio="none"></svg>
+        <div class="tt" id="tt"></div>
+        <div class="src"><span>Fonte: IBGE (IPCA); Banco Central do Brasil (Selic) · série e extração no site real</span><span>Dados ilustrativos nesta maquete</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÁREAS -->
+<section class="sec-areas" id="pesquisa">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="eyebrow">Pesquisa</span><h2>Três perguntas que organizam o Centro</h2></div><p>Áreas permanentes de trabalho, cada uma com uma pergunta-guia, linhas de pesquisa e produtos definidos.</p></div>
+    <div class="areas">
+      <article class="area rv"><span class="letter">A</span><div class="ico"><svg class="i"><use href="#i-trend"/></svg></div>
+        <h3>Conjuntura e Política Macroeconômica</h3><p class="q">Onde está a economia brasileira e o que a política monetária e fiscal estão fazendo a respeito?</p>
+        <ul><li><b>A1</b>Atividade, inflação e política monetária</li><li><b>A2</b>Política fiscal e dívida</li></ul><a class="go" href="#">Ver a área <svg class="i"><use href="#i-arrow"/></svg></a></article>
+      <article class="area rv"><span class="letter">B</span><div class="ico"><svg class="i"><use href="#i-chart"/></svg></div>
+        <h3>Crescimento, Produtividade e Transformação Estrutural</h3><p class="q">Por que a produtividade brasileira não cresce — e o que mudaria isso?</p>
+        <ul><li><b>B1</b>Produtividade agregada e setorial</li><li><b>B2</b>Tecnologia, IA e capacidade de absorção</li></ul><a class="go" href="#">Ver a área <svg class="i"><use href="#i-arrow"/></svg></a></article>
+      <article class="area rv"><span class="letter">C</span><div class="ico"><svg class="i"><use href="#i-users"/></svg></div>
+        <h3>Trabalho, Pobreza e Desigualdade</h3><p class="q">Quem se beneficia do crescimento e quem fica de fora?</p>
+        <ul><li><b>C1</b>Pobreza e distribuição de renda</li><li><b>C2</b>Informalidade e transições</li></ul><a class="go" href="#">Ver a área <svg class="i"><use href="#i-arrow"/></svg></a></article>
+    </div>
+    <div class="lens rv"><svg class="i"><use href="#i-bridge"/></svg><p><b>Lente transversal: Instituições e Capacidade do Estado.</b> Atravessa as três áreas — como a qualidade das instituições condiciona a conjuntura, a produtividade e a distribuição.</p></div>
+  </div>
+</section>
+
+<!-- FORMATOS -->
+<section class="sec-prod" id="publicacoes">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="eyebrow">Publicações</span><h2>Formatos pensados para serem lidos e verificados</h2></div><p>Cada produto tem periodicidade, extensão e nível de revisão definidos. As primeiras edições estão em preparação.</p></div>
+    <div class="prods rv">
+      <div class="prod"><svg class="i ico"><use href="#i-db"/></svg><h3>Painel do Observatório</h3><p>Séries versionadas, com nota metodológica, dicionário de dados e download aberto.</p><span class="st live">Primeiro painel em construção</span></div>
+      <div class="prod"><svg class="i ico"><use href="#i-bolt"/></svg><h3>Data Insight</h3><p>Um gráfico e cerca de 150 palavras: o achado e o que ele significa.</p><span class="st">Quinzenal</span></div>
+      <div class="prod"><svg class="i ico"><use href="#i-doc"/></svg><h3>Nota de Conjuntura</h3><p>Leitura mensal dos dados, com planilha para download e incerteza declarada.</p><span class="st">Mensal</span></div>
+      <div class="prod"><svg class="i ico"><use href="#i-scale"/></svg><h3>Nota Técnica</h3><p>Única publicação com recomendações — e com seção sobre o que a evidência não permite concluir.</p><span class="st">Com parecer docente</span></div>
+      <div class="prod"><svg class="i ico"><use href="#i-book"/></svg><h3>Working Paper</h3><p>Série numerada, de 25 a 40 páginas, com parecer externo.</p><span class="st">Fase de consolidação</span></div>
+      <div class="prod"><svg class="i ico"><use href="#i-repeat"/></svg><h3>Replicação</h3><p>Reprodução de resultados publicados, com código aberto e divergências registradas.</p><span class="st">Trimestral</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section class="sec-method" id="metodo">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="eyebrow">Metodologia e reprodutibilidade</span><h2>Nenhum número sai sem verificação independente</h2></div><a class="link-arrow" href="#">Ler o protocolo completo <svg class="i"><use href="#i-arrow"/></svg></a></div>
+    <div class="stepper rv">
+      <div class="steps" id="steps"></div>
+      <div class="panel" id="panel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTICIPE -->
+<section class="sec-join" id="participe">
+  <div class="wrap join">
+    <div class="rv"><span class="eyebrow" style="color:var(--sky)">Participe</span><h2>Aprenda a fazer pesquisa econômica fazendo pesquisa econômica.</h2><p>Entrada aberta a estudantes de Ciências Econômicas de qualquer campus e modalidade. A responsabilidade cresce com a qualidade demonstrada, segundo critérios escritos e públicos.</p><a class="btn gold" href="#">Conhecer a trilha de formação <svg class="i"><use href="#i-arrow"/></svg></a></div>
+    <div class="facts rv">
+      <div class="fact"><svg class="i"><use href="#i-open"/></svg><div><b>Entrada aberta</b><span>Sem seleção enquanto houver capacidade de acompanhamento.</span></div></div>
+      <div class="fact"><svg class="i"><use href="#i-star"/></svg><div><b>Mérito progressivo</b><span>De Participante a Coordenador de Área, com critérios publicados.</span></div></div>
+      <div class="fact"><svg class="i"><use href="#i-cap"/></svg><div><b>Formação em método</b><span>Trilha de oito sessões: dados, código, verificação e redação.</span></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="lg"><svg viewBox="0 0 112 56"><path d="M43 11.5 A21.5 24 0 1 0 43 44.5" fill="none" stroke="#fff" stroke-width="8"/><g fill="#fff"><rect x="52" y="0" width="8" height="56"/><rect x="52" y="0" width="26" height="8"/><rect x="52" y="24" width="20" height="8"/><rect x="52" y="48" width="26" height="8"/><rect x="86" y="0" width="8" height="56"/><rect x="86" y="0" width="26" height="8"/><rect x="86" y="48" width="26" height="8"/></g><rect x="94" y="24" width="18" height="8" fill="#4A7C96"/></svg>
+        <p>Centro de Estudos Econômicos. Iniciativa estudantil de análise econômica empírica sobre a economia brasileira.</p></div>
+      <div><h4>Pesquisa</h4><a href="#">Conjuntura e política macro</a><a href="#">Crescimento e produtividade</a><a href="#">Trabalho, pobreza e desigualdade</a></div>
+      <div><h4>Transparência</h4><a href="#">Metodologia</a><a href="#">Erratas</a><a href="#">Política de IA</a><a href="#">Conflitos de interesse</a></div>
+      <div><h4>Institucional</h4><a href="#">Sobre o CEE</a><a href="#">Participe</a><a href="#">Contato</a><a href="#">Privacidade</a></div>
+    </div>
+    <div class="disc"><span>O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.</span><span>Texto e dados CC BY 4.0 · Código MIT</span></div>
+  </div>
+</footer>
+<div class="ribbon">Maquete de design — valores e séries ilustrativos. Referência visual para a implementação.</div>
+
+<script>
+const ICON=n=>`<svg class="i"><use href="#i-${n}"/></svg>`;
+/* indicadores: valores ilustrativos de maquete */
+const IND=[
+ {g:'ativ',i:'trend',t:'PIB real',v:'0,5',u:'% t/t',l:'Variação trimestral dessazonalizada',d:'2º tri 2026',s:[1.1,.6,.9,1.2,.4,.8,1.0,.7,1.1,.5],dl:'+',c:1},
+ {g:'preco',i:'price',t:'IPCA',v:'4,58',u:'% 12m',l:'Acumulado em 12 meses · meta 3% ± 1,5 p.p.',d:'set 2026',s:[5.8,5.4,5.1,4.9,5.2,4.8,4.6,4.7,4.5,4.58],dl:'−',c:0},
+ {g:'preco',i:'bank',t:'Selic meta',v:'13,75',u:'% a.a.',l:'Definida pelo Copom',d:'15–16 set 2026',s:[10.5,11,11.75,12.5,13.25,13.75,13.75,13.75,13.75,13.75],dl:'=',c:2},
+ {g:'preco',i:'scale',t:'Juro real ex ante',v:'8,8',u:'% a.a.',l:'Selic − Focus IPCA 12m à frente (calculado)',d:'out 2026',s:[5,5.5,6.4,7.1,7.8,8.2,8.5,8.6,8.7,8.8],dl:'+',c:3},
+ {g:'preco',i:'chart',t:'Focus · IPCA 2026',v:'4,90',u:'%',l:'Expectativa de mercado, ano corrente',d:'semana mais recente',s:[5.6,5.5,5.3,5.2,5.1,5.0,4.95,4.92,4.9,4.9],dl:'−',c:4},
+ {g:'ext',i:'fx',t:'Câmbio',v:'5,40',u:'R$/US$',l:'PTAX venda, fim de período',d:'ilustrativo',s:[5.2,5.4,5.7,5.5,5.8,5.6,5.5,5.45,5.42,5.4],dl:'−',c:5},
+ {g:'ext',i:'globe',t:'Conta corrente',v:'−2,6',u:'% PIB',l:'Acumulado em 12 meses',d:'ilustrativo',s:[-1.8,-2,-2.2,-2.3,-2.5,-2.4,-2.6,-2.7,-2.6,-2.6],dl:'=',c:6},
+ {g:'fisc',i:'debt',t:'Resultado primário',v:'−0,6',u:'% PIB',l:'Setor público consolidado, 12 meses',d:'ilustrativo',s:[-1.2,-1,-.9,-.8,-.9,-.7,-.7,-.6,-.6,-.6],dl:'+',c:7},
+ {g:'fisc',i:'bank',t:'Dívida bruta',v:'78,0',u:'% PIB',l:'Governo geral',d:'ilustrativo',s:[72,73.5,74.8,75.6,76.4,76.9,77.3,77.6,77.9,78],dl:'+',c:8},
+ {g:'trab',i:'users',t:'Desocupação',v:'5,4',u:'%',l:'PNAD Contínua, trimestre móvel',d:'ilustrativo',s:[7.4,6.9,6.6,6.2,6.0,5.8,5.7,5.6,5.5,5.4],dl:'−',c:9}
+];
+const spark=(a,col)=>{const w=200,h=34,mn=Math.min(...a),mx=Math.max(...a),r=(mx-mn)||1;
+  const p=a.map((y,k)=>[k*(w/(a.length-1)),h-3-((y-mn)/r)*(h-8)]);
+  const d=p.map((q,k)=>(k?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${col}" stroke-width="1.8" vector-effect="non-scaling-stroke"/><circle cx="${p.at(-1)[0]}" cy="${p.at(-1)[1]}" r="2.6" fill="#0A2259"/></svg>`};
+const gi=document.getElementById('gi');
+gi.innerHTML=IND.map(x=>`<div class="card-ind" data-g="${x.g}"><div class="top">${ICON(x.i)}<span>${x.t}</span></div><div class="val">${x.v}<small>${x.u}</small></div><div class="lab">${x.l}</div>${spark(x.s,'#1D5FA6')}<div class="meta"><span>${x.d}</span><span class="delta">${x.dl==='+'?'▲':x.dl==='−'?'▼':'■'}</span></div></div>`).join('');
+document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
+  gi.querySelectorAll('.card-ind').forEach(c=>c.classList.toggle('hide',b.dataset.f!=='all'&&c.dataset.g!==b.dataset.f));});
+
+/* gráfico interativo (série ilustrativa determinística) */
+const N=132; const ipca=[],selic=[];
+for(let k=0;k<N;k++){const t=k/N;ipca.push(+(4.2+2.4*Math.sin(t*9.5+1)+1.5*Math.sin(t*3.1)-0.5*t*3).toFixed(2));
+  selic.push(+(8.5+3.2*Math.sin(t*5.2+2.3)+1.6*Math.cos(t*2.4)).toFixed(2));}
+const svg=document.getElementById('chart'),tt=document.getElementById('tt');let yrs=5;
+function draw(){const W=760,H=340,P={l:44,r:16,t:14,b:30},n=yrs*12,a=ipca.slice(-n),s=selic.slice(-n);
+  const all=[...a,...s,3];const mn=Math.floor(Math.min(...all)-1),mx=Math.ceil(Math.max(...all)+1);
+  const X=i=>P.l+i*(W-P.l-P.r)/(n-1),Y=v=>P.t+(mx-v)*(H-P.t-P.b)/(mx-mn);
+  const ln=(arr)=>arr.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ');
+  let g='';for(let v=Math.ceil(mn/2)*2;v<=mx;v+=2)g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#E3E8EE"/><text x="${P.l-8}" y="${Y(v)+4}" font-size="11" text-anchor="end" fill="#7A8794" font-family="IBM Plex Mono,monospace">${v}</text>`;
+  const yb=new Date().getFullYear();for(let k=0;k<=yrs;k++){const i=Math.round(k*(n-1)/yrs);g+=`<text x="${X(i)}" y="${H-8}" font-size="11" text-anchor="middle" fill="#7A8794" font-family="IBM Plex Mono,monospace">${yb-yrs+k}</text>`;}
+  svg.innerHTML=g+`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(3)}" y2="${Y(3)}" stroke="#8AA4B3" stroke-dasharray="5 4"/>
+  <path d="${ln(s)}" fill="none" stroke="#3C8DCB" stroke-width="2.4"/><path d="${ln(a)}" fill="none" stroke="#0A2259" stroke-width="2.4"/>
+  <line id="cx" y1="${P.t}" y2="${H-P.b}" stroke="#0A2259" stroke-opacity=".4" style="display:none"/><circle id="c1" r="4.5" fill="#0A2259" stroke="#fff" stroke-width="2" style="display:none"/><circle id="c2" r="4.5" fill="#3C8DCB" stroke="#fff" stroke-width="2" style="display:none"/>`;
+  svg.onmousemove=e=>{const r=svg.getBoundingClientRect(),px=(e.clientX-r.left)/r.width*W;let i=Math.round((px-P.l)/((W-P.l-P.r)/(n-1)));i=Math.max(0,Math.min(n-1,i));
+    const cx=svg.querySelector('#cx'),c1=svg.querySelector('#c1'),c2=svg.querySelector('#c2');
+    [cx,c1,c2].forEach(o=>o.style.display='');cx.setAttribute('x1',X(i));cx.setAttribute('x2',X(i));c1.setAttribute('cx',X(i));c1.setAttribute('cy',Y(a[i]));c2.setAttribute('cx',X(i));c2.setAttribute('cy',Y(s[i]));
+    const m=new Date();m.setMonth(m.getMonth()-(n-1-i));tt.style.opacity=1;
+    tt.innerHTML=`${m.toLocaleDateString('pt-BR',{month:'short',year:'numeric'})}<br>IPCA 12m: ${String(a[i]).replace('.',',')}%<br>Selic: ${String(s[i]).replace('.',',')}%`;
+    const bx=svg.parentElement.getBoundingClientRect();tt.style.left=Math.min(e.clientX-bx.left+16,bx.width-170)+'px';tt.style.top=(e.clientY-bx.top-60)+'px';};
+  svg.onmouseleave=()=>{tt.style.opacity=0;svg.querySelectorAll('#cx,#c1,#c2').forEach(o=>o.style.display='none')};}
+document.getElementById('rg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;yrs=+b.dataset.y;document.querySelectorAll('#rg button').forEach(x=>x.classList.toggle('on',x===b));draw();});draw();
+
+/* método */
+const ST=[
+ ['Pergunta','Uma pergunta respondível com dado público.','Toda análise começa por uma pergunta escrita, delimitada e respondível com dado público disponível.','Saída: pergunta registrada, com hipótese e critério de refutação.'],
+ ['Ficha de desenho','Método e robustez definidos antes de ver o resultado.','Antes de olhar qualquer resultado, o autor preenche a ficha de desenho analítico: unidade, período, especificação principal e testes de robustez previstos.','Saída: ficha datada e arquivada no repositório.'],
+ ['Dado e código','Pipeline completo, sem edição manual.','Os dados brutos nunca são editados à mão. Toda transformação está em scripts numerados e versionados, com ambiente registrado.','Saída: repositório que roda do zero com um comando.'],
+ ['Verificação independente','Outra pessoa reexecuta e confere cada número.','Outra pessoa, em outra máquina, reexecuta o código e compara cada tabela e figura com o texto. Divergências voltam por escrito ao autor.','Regra: nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado.'],
+ ['Parecer docente','Revisão de conteúdo por docente de referência.','Para Notas Técnicas e Working Papers, um docente avalia a adequação da evidência às conclusões e os limites declarados.','Saída: parecer arquivado.'],
+ ['Publicação e errata','Licença aberta; erros corrigidos em até 7 dias.','O produto é publicado com licença aberta, autoria por função (CRediT) e declaração de uso de IA. Erros viram errata pública e datada.','Regra: correção silenciosa é falta grave.']
+];
+const stEl=document.getElementById('steps'),pn=document.getElementById('panel');
+stEl.innerHTML=ST.map((s,i)=>`<button class="step${i===3?' on':''}" data-i="${i}"><span class="n">0${i+1}</span><div><b>${s[0]}</b><span>${s[1]}</span></div></button>`).join('');
+function showStep(i){const s=ST[i];pn.innerHTML=`<span class="eyebrow" style="color:var(--sky)">Etapa 0${i+1} de 06</span><h3>${s[0]}</h3><p>${s[2]}</p><div class="rule">${s[3]}</div><svg class="i big"><use href="#i-check"/></svg>`;}
+showStep(3);
+stEl.addEventListener('click',e=>{const b=e.target.closest('.step');if(!b)return;stEl.querySelectorAll('.step').forEach(x=>x.classList.toggle('on',x===b));showStep(+b.dataset.i);});
+
+/* cabeçalho e revelação */
+const hd=document.getElementById('hd');addEventListener('scroll',()=>hd.classList.toggle('sc',scrollY>20),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

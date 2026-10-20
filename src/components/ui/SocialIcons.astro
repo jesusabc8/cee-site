@@ -1,0 +1,45 @@
+---
+/**
+ * Ícones das redes do CEE. Sem URL (contas ainda não criadas): <span> decorativo, não focalizável,
+ * com title "Em breve". Com URL: link com aria-label e rel="noopener".
+ */
+import { readFileSync } from 'node:fs';
+import { config } from '../../site.config';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang; size?: number }
+const { lang, size = 20 } = Astro.props;
+const t = useTranslations(lang);
+const simple = (slug: string) => {
+  const s = readFileSync(`node_modules/simple-icons/icons/${slug}.svg`, 'utf8');
+  return s.match(/ d="([^"]+)"/)![1]!;
+};
+// LinkedIn não está no Simple Icons (pedido da marca); traçado padrão do logotipo "in".
+const PATHS: Record<string, string> = {
+  LinkedIn: 'M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z',
+  Instagram: simple('instagram'),
+  X: simple('x'),
+  YouTube: simple('youtube'),
+};
+---
+<ul class="socials" aria-label={t('redes.label')}>
+  {config.socials.map((s) => (
+    <li>
+      {s.url ? (
+        <a href={s.url} rel="noopener" aria-label={s.name}>
+          <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" aria-hidden="true"><path d={PATHS[s.name]} /></svg>
+        </a>
+      ) : (
+        <span title={t('redes.embreve')} aria-hidden="true">
+          <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor"><path d={PATHS[s.name]} /></svg>
+        </span>
+      )}
+    </li>
+  ))}
+</ul>
+<style>
+  .socials { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; align-items: center; }
+  .socials span, .socials a { display: inline-flex; color: inherit; opacity: 0.92; }
+  .socials a:hover { opacity: 1; }
+  .socials span { cursor: default; }
+</style>
