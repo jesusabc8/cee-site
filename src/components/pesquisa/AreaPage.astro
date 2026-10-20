@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../PageHeader.astro';
 import StatusTag from '../StatusTag.astro';
+import PubRow from '../pub/PubRow.astro';
+import { getPublicacoes } from '../../lib/publicacoes';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
@@ -12,6 +14,7 @@ const { area, lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const linhas = (await getCollection('linhas', (l) => l.data.area === area.id)).sort((a, b) =>
   a.data.codigo.localeCompare(b.data.codigo));
+const relacionadas = (await getPublicacoes()).filter((p) => p.data.area === area.id);
 const T = {
   pt: { area: 'Área', lente: 'Lente transversal', pergunta: 'Pergunta-guia', fund: 'Fundamentação', linhas: 'Linhas de pesquisa',
     perguntas: 'Perguntas típicas', metodos: 'Métodos', fontes: 'Fontes', produtos: 'Produtos típicos', pubs: 'Publicações relacionadas',
@@ -63,7 +66,7 @@ const eyebrow = area.data.tipo === 'lente' ? T.lente : `${T.area} ${area.data.co
 
     <section class="section split">
       <h2 class="section__title">{T.pubs}</h2>
-      <div><slot name="publicacoes"><p class="meta">{T.semPubs}</p></slot></div>
+      <div>{relacionadas.length === 0 ? <p class="meta">{T.semPubs}</p> : relacionadas.map((p) => <PubRow pub={p} lang={lang} />)}</div>
     </section>
 
     <p class="meta"><a href={href('/pesquisa/', lang)}>← {T.voltar}</a></p>
