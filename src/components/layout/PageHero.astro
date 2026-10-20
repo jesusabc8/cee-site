@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Segmentos sem página própria (ex.: /publicacoes/tipo/) não viram migas.
 const SEM_PAGINA = new Set(['tipo']);
 const todos = Astro.url.pathname.slice(base.length).split('/').filter(Boolean).filter((x, i) => !(i === 0 && x === 'en'));
-const crumbs = dados ?? todos.flatMap((sg, i) => {
+const crumbs: { label: string; path?: string }[] = dados ?? todos.flatMap((sg, i): { label: string; path?: string }[] => {
   if (i === todos.length - 1) return [{ label: title }];
   if (SEM_PAGINA.has(sg)) return [];
   return [{ label: SECOES[sg] ?? sg, path: `/${todos.slice(0, i + 1).join('/')}/` }];
