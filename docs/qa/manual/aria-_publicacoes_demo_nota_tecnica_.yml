@@ -1,0 +1,221 @@
+- link "Pular para o conteúdo":
+  - /url: "#conteudo"
+- region "Versão preliminar":
+  - paragraph: Versão preliminar. Conteúdo em discussão, ainda não lançado; páginas não indexadas por buscadores.
+- banner:
+  - link "CEE · Centro de Estudos Econômicos — Início":
+    - /url: /
+    - text: CEE Centro de Estudos Econômicos
+  - link "Buscar":
+    - /url: /busca/
+  - link "English":
+    - /url: /en/publicacoes/demo-nota-tecnica/
+  - navigation "Navegação principal":
+    - list:
+      - listitem:
+        - link "Pesquisa":
+          - /url: /pesquisa/
+      - listitem:
+        - link "Publicações":
+          - /url: /publicacoes/
+      - listitem:
+        - link "Observatório":
+          - /url: /observatorio/
+      - listitem:
+        - link "Metodologia":
+          - /url: /metodologia/
+      - listitem:
+        - link "Sobre":
+          - /url: /sobre/
+      - listitem:
+        - link "Participe":
+          - /url: /participe/
+- main:
+  - article:
+    - paragraph:
+      - link "Nota Técnica":
+        - /url: /publicacoes/tipo/nota-tecnica/
+      - text: ·
+      - link "B Crescimento, Produtividade e Transformação Estrutural":
+        - /url: /pesquisa/b/
+      - text: · Linha B1
+    - heading "[PLACEHOLDER] Título-afirmação da Nota Técnica de demonstração" [level=1]
+    - paragraph: "[PLACEHOLDER] Bajada que resume o problema e a evidência em uma frase"
+    - term: Autoria
+    - definition: "[PLACEHOLDER] Autoria A, [PLACEHOLDER] Autoria B, [PLACEHOLDER] Verificação"
+    - term: Publicado em
+    - definition:
+      - time: 20 de outubro de 2026
+    - term: Versão
+    - definition:
+      - link "1.0":
+        - /url: "#versoes"
+    - term: Licença
+    - definition:
+      - link "CC BY 4.0":
+        - /url: https://creativecommons.org/licenses/by/4.0/
+    - paragraph:
+      - button "Imprimir ou salvar em PDF"
+    - region "[PLACEHOLDER] Conteúdo de exemplo":
+      - heading "[PLACEHOLDER] Conteúdo de exemplo" [level=2]
+      - paragraph: Publicação de demonstração. Todo o conteúdo desta página é fictício e serve apenas para validar o modelo; não é indexada nem listada.
+    - region "[PLACEHOLDER] Gráfico principal":
+      - heading "[PLACEHOLDER] Gráfico principal" [level=2]
+      - paragraph: Aqui entra o gráfico principal, com título-afirmação, unidade, fonte, série, data de extração, tabela alternativa e link para o CSV. Nenhum gráfico com dados fictícios é exibido.
+    - heading "Problema" [level=2]
+    - paragraph: "[PLACEHOLDER] Pergunta e por que importa."
+    - heading "Evidência" [level=2]
+    - paragraph:
+      - text: "[PLACEHOLDER] O que os dados mostram, com metodologia descrita no corpo do texto, e não apenas em nota."
+      - superscript:
+        - link "1":
+          - /url: "#user-content-fn-1"
+    - heading "Opções" [level=2]
+    - paragraph: "[PLACEHOLDER] Alternativas consideradas e o que cada uma exigiria."
+    - heading "Footnotes" [level=2]
+    - list:
+      - listitem:
+        - paragraph:
+          - text: "[PLACEHOLDER] Nota de rodapé com detalhe metodológico."
+          - link "Back to reference 1":
+            - /url: "#user-content-fnref-1"
+            - text: ↩
+    - region "O que a evidência não permite concluir":
+      - heading "O que a evidência não permite concluir" [level=2]
+      - list:
+        - listitem: "[PLACEHOLDER] Primeiro limite: o que a evidência não permite concluir."
+        - listitem: "[PLACEHOLDER] Segundo limite: por que a associação não implica causalidade."
+    - region "Recomendações":
+      - heading "Recomendações" [level=2]
+      - paragraph: Seção normativa, separada da evidência. Recomendações só aparecem em Notas Técnicas.
+      - list:
+        - listitem: "[PLACEHOLDER] Recomendação separada da evidência (só admitida em Nota Técnica)."
+    - region "Fonte, série e extração":
+      - heading "Fonte, série e extração" [level=2]
+      - region "Tabela de fontes":
+        - table:
+          - rowgroup:
+            - row "Fonte Série Código Unidade Extraído em":
+              - columnheader "Fonte"
+              - columnheader "Série"
+              - columnheader "Código"
+              - columnheader "Unidade"
+              - columnheader "Extraído em"
+          - rowgroup:
+            - row "[PLACEHOLDER] Instituição [PLACEHOLDER] Nome da série [PLACEHOLDER] [PLACEHOLDER] unidade 20 de out. de 2026":
+              - cell "[PLACEHOLDER] Instituição"
+              - cell "[PLACEHOLDER] Nome da série":
+                - link "[PLACEHOLDER] Nome da série":
+                  - /url: https://example.org/placeholder
+              - cell "[PLACEHOLDER]":
+                - code: "[PLACEHOLDER]"
+              - cell "[PLACEHOLDER] unidade"
+              - cell "20 de out. de 2026":
+                - time: 20 de out. de 2026
+    - region "Dados e código":
+      - heading "Dados e código" [level=2]
+      - list:
+        - listitem:
+          - link "[PLACEHOLDER] Planilha com a série histórica (CSV)":
+            - /url: /publicacoes/
+        - listitem: Pacote de replicação ainda não publicado.
+    - region "Como citar":
+      - heading "Como citar" [level=2]
+      - heading "ABNT" [level=3]
+      - button "Copiar"
+      - text: "A, [PLACEHOLDER] Autoria; B, [PLACEHOLDER] Autoria; VERIFICAÇÃO, [PLACEHOLDER]. [PLACEHOLDER] Título-afirmação da Nota Técnica de demonstração: [PLACEHOLDER] Bajada que resume o problema e a evidência em uma frase. Belo Horizonte: Centro de Estudos Econômicos (CEE), 2026. (Nota Técnica; versão 1.0). Disponível em: http://localhost:4321/publicacoes/demo-nota-tecnica/. Acesso em: 20 out. 2026."
+      - heading "BibTeX" [level=3]
+      - button "Copiar"
+      - text: "@misc{cee2026demonotatecnica, author = {A, [PLACEHOLDER] Autoria and B, [PLACEHOLDER] Autoria and Verificação, [PLACEHOLDER]}, title = {{[PLACEHOLDER] Título-afirmação da Nota Técnica de demonstração: [PLACEHOLDER] Bajada que resume o problema e a evidência em uma frase}}, publisher = {Centro de Estudos Econômicos (CEE)}, type = {Nota Técnica}, year = {2026}, month = {10}, version = {1.0}, url = {http://localhost:4321/publicacoes/demo-nota-tecnica/}, note = {Licença CC BY 4.0} }"
+      - heading "RIS (Zotero, Mendeley, EndNote)" [level=3]
+      - button "Copiar"
+      - text: "TY - GEN AU - A, [PLACEHOLDER] Autoria AU - B, [PLACEHOLDER] Autoria AU - Verificação, [PLACEHOLDER] TI - [PLACEHOLDER] Título-afirmação da Nota Técnica de demonstração: [PLACEHOLDER] Bajada que resume o problema e a evidência em uma frase PY - 2026 DA - 2026/10/20 PB - Centro de Estudos Econômicos (CEE) CY - Belo Horizonte M3 - Nota Técnica ET - 1.0 UR - http://localhost:4321/publicacoes/demo-nota-tecnica/ AB - [PLACEHOLDER] Resumo de uma a duas linhas. Este texto não contém afirmações sobre dados reais e existe apenas para testar a página. LA - pt-BR ER -"
+      - paragraph:
+        - link "Baixar .ris":
+          - /url: data:application/x-research-info-systems;charset=utf-8,…
+    - region "Autoria por função (CRediT)":
+      - heading "Autoria por função (CRediT)" [level=2]
+      - term: "[PLACEHOLDER] Autoria A"
+      - definition: Conceituação; Análise formal; Escrita – rascunho original
+      - term: "[PLACEHOLDER] Autoria B"
+      - definition: Curadoria de dados; Software
+      - term: "[PLACEHOLDER] Verificação"
+      - definition: Validação
+    - region "Declarações":
+      - heading "Declarações" [level=2]
+      - term: Conflitos de interesse
+      - definition: "[PLACEHOLDER] Os autores declaram não haver conflitos de interesse."
+      - term: Uso de inteligência artificial
+      - definition: "[PLACEHOLDER] Declaração de uso de IA: ferramenta, finalidade, partes afetadas e forma de verificação humana."
+      - term: Licença
+      - definition: Texto e dados sob CC BY 4.0; código sob licença MIT, ressalvadas as restrições das fontes.
+    - region "Versões e erratas":
+      - heading "Versões e erratas" [level=2]
+      - list:
+        - listitem:
+          - time: 20 de out. de 2026
+          - text: · Versão 1.0 Primeira publicação
+      - paragraph: Nenhuma errata.
+    - complementary "Descargo":
+      - heading "Descargo" [level=2]
+      - paragraph:
+        - text: Este documento é produto do Centro de Estudos Econômicos (CEE), iniciativa estudantil de estudantes de Ciências Econômicas da PUC Minas. As opiniões e conclusões são de responsabilidade exclusiva de seus autores e não representam a posição da PUC Minas nem de qualquer outra instituição. Os dados e o código para reproduzir os resultados estão disponíveis em
+        - link "github.com/jesusabc8/cee-site":
+          - /url: https://github.com/jesusabc8/cee-site
+        - text: . Erros identificados após a publicação serão corrigidos por errata pública e datada.
+- contentinfo:
+  - paragraph: CEE · Centro de Estudos Econômicos
+  - paragraph: Iniciativa estudantil de análise econômica empírica sobre a economia brasileira.
+  - navigation "Institucional":
+    - heading "Institucional" [level=2]
+    - list:
+      - listitem:
+        - link "Sobre":
+          - /url: /sobre/
+      - listitem:
+        - link "Metodologia":
+          - /url: /metodologia/
+      - listitem:
+        - link "Participe":
+          - /url: /participe/
+      - listitem:
+        - link "Equipe":
+          - /url: /equipe/
+      - listitem:
+        - link "Contato":
+          - /url: /contato/
+    - heading "Políticas" [level=2]
+    - list:
+      - listitem:
+        - link "Erratas":
+          - /url: /erratas/
+      - listitem:
+        - link "Privacidade":
+          - /url: /privacidade/
+      - listitem:
+        - link "Termos e licenças":
+          - /url: /termos/
+      - listitem:
+        - link "Acessibilidade":
+          - /url: /acessibilidade/
+    - heading "Dados e código" [level=2]
+    - list:
+      - listitem:
+        - link "Catálogo de dados":
+          - /url: /observatorio/catalogo/
+      - listitem:
+        - link "Repositório no GitHub":
+          - /url: https://github.com/jesusabc8/cee-site
+      - listitem:
+        - link "RSS":
+          - /url: /rss.xml
+  - paragraph: O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.
+  - paragraph: Textos e dados sob CC BY 4.0; código sob licença MIT, ressalvadas as restrições das fontes.
+  - group "Tema":
+    - text: Tema
+    - radio "Sistema" [checked]
+    - text: Sistema
+    - radio "Claro"
+    - text: Claro
+    - radio "Escuro"
+    - text: Escuro

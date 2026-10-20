@@ -4,12 +4,16 @@
  * Confere href/src internos (inclusive âncoras #id na mesma página e em outras páginas).
  */
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
-import { join, relative, dirname, resolve } from 'node:path';
+import { join, relative } from 'node:path';
 
 const dist = process.argv[2] ?? 'dist';
 const base = (process.argv[3] ?? '').replace(/\/$/, '');
 const arquivos = [];
-const walk = (d) => readdirSync(d).forEach((f) => { const p = join(d, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.html') && arquivos.push(p); });
+const walk = (d) => readdirSync(d).forEach((f) => {
+  const p = join(d, f);
+  if (statSync(p).isDirectory()) walk(p);
+  else if (p.endsWith('.html')) arquivos.push(p);
+});
 walk(dist);
 
 const ids = new Map();

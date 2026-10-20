@@ -1,0 +1,49 @@
+name: quality
+
+# Portões de qualidade em cada pull request e push: tipos, lint, testes de dados e de esquema,
+# links internos, acessibilidade (axe, WCAG 2.2 AA) e Lighthouse (≥ 95 nas quatro categorias).
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - run: npm run lint
+      - run: npm test
+      - name: Build (versão preliminar, como publicada)
+        run: npm run build
+      - run: npm run qa:links
+      - name: Acessibilidade (axe) em todas as páginas, temas claro e escuro
+        run: |
+          npx astro preview --port 4321 &
+          npx wait-on http://localhost:4321/
+          node scripts/qa/axe.mjs http://localhost:4321
+          kill %1
+      - name: Lighthouse (build com CEE_LANCADO=1 para medir SEO sem o noindex preliminar)
+        run: |
+          CEE_LANCADO=1 npm run build
+          npx astro preview --port 4321 &
+          npx wait-on http://localhost:4321/
+          export CHROME_PATH=$(node -e "console.log(require('playwright').chromium.executablePath())")
+          node scripts/qa/lighthouse.mjs http://localhost:4321 lighthouse-report
+          kill %1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse
+          path: lighthouse-report

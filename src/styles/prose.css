@@ -59,11 +59,7 @@
   background: none;
   padding: 0;
 }
-.prose table {
-  font-family: var(--font-sans);
-}
-
-/* Linha fina sob o título da tese (Nota de Conjuntura) */
+/* Bajada: frase de apoio sob o título */
 .lede {
   font-family: var(--font-serif);
   font-size: var(--step-2);
@@ -97,6 +93,7 @@
   border-bottom: 1px solid var(--text);
 }
 .prose table {
+  font-family: var(--font-sans);
   border-collapse: collapse;
   width: 100%;
   font-size: var(--step--1);

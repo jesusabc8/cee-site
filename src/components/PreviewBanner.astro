@@ -5,7 +5,7 @@ interface Props { lang: Lang }
 const t = useTranslations(Astro.props.lang);
 ---
 {!config.lancado && (
-  <div class="preview-banner" role="note">
+  <div class="preview-banner" role="region" aria-label={Astro.props.lang === 'en' ? 'Preliminary version' : 'Versão preliminar'}>
     <p class="wrap">{t('preview')}</p>
   </div>
 )}

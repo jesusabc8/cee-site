@@ -1,0 +1,62 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-html/astro"
+  ],
+  "rules": {
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "no-descending-specificity": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "global"
+        ]
+      }
+    ],
+    "declaration-block-single-line-max-declarations": null,
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": [
+          "text-size-adjust",
+          "font-smoothing",
+          "line-clamp",
+          "box-orient"
+        ]
+      }
+    ],
+    "value-no-vendor-prefix": [
+      true,
+      {
+        "ignoreValues": [
+          "box"
+        ]
+      }
+    ],
+    "font-family-name-quotes": null,
+    "import-notation": "string",
+    "media-feature-range-notation": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "comment-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "shorthand-property-no-redundant-values": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "number-max-precision": null,
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreProperties": [
+          "font-family",
+          "/^--font/"
+        ]
+      }
+    ],
+    "custom-property-empty-line-before": null,
+    "at-rule-empty-line-before": null,
+    "color-hex-length": null
+  }
+}

@@ -119,7 +119,8 @@ const payload = JSON.stringify({ series, digitos, lang, variantes: variantes.map
         for (const d of fig.querySelectorAll<HTMLElement>('.chart__variant')) {
           const on = d.dataset.variant === val;
           d.hidden = !on;
-          on ? d.removeAttribute('aria-hidden') : d.setAttribute('aria-hidden', 'true');
+          if (on) d.removeAttribute('aria-hidden');
+          else d.setAttribute('aria-hidden', 'true');
         }
       });
     }
@@ -179,7 +180,7 @@ const payload = JSON.stringify({ series, digitos, lang, variantes: variantes.map
   :global(.serie-1) { color: var(--c1); }
   :global(.serie-2) { color: var(--c2); }
   :global(.serie-3) { color: var(--c3); }
-  :global(.sw) { display: inline-block; width: 14px; height: 3px; border-radius: 2px; background: currentColor; flex: none; }
+  :global(.sw) { display: inline-block; width: 14px; height: 3px; border-radius: 2px; background: currentcolor; flex: none; }
   .chart__tip {
     position: absolute; top: 4px; z-index: 2; pointer-events: none;
     background: var(--bg); color: var(--text); border: 1px solid var(--line-strong); border-radius: var(--radius);

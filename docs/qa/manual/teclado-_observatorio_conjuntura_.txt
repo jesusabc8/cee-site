@@ -1,0 +1,44 @@
+Rota: /observatorio/conjuntura/
+Primeiro Tab: "Pular para o conteúdo" → Enter leva o foco a #conteudo
+Elementos sem foco visível: 0
+
+ 1. a "Pular para o conteúdo" foco-visível=true
+ 2. a "CEE · Centro de Estudos Econômicos — Início" foco-visível=true
+ 3. a "Buscar" foco-visível=true
+ 4. a "English" foco-visível=true
+ 5. a "Pesquisa" foco-visível=true
+ 6. a "Publicações" foco-visível=true
+ 7. a "Observatório" foco-visível=true
+ 8. a "Metodologia" foco-visível=true
+ 9. a "Sobre" foco-visível=true
+10. a "Participe" foco-visível=true
+11. input "grafico-juros-inflacao" foco-visível=true
+12. input "grafico-ipca-mensal" foco-visível=true
+13. input "grafico-desocupacao" foco-visível=true
+14. input "grafico-focus-ipca" foco-visível=true
+15. input "10a" foco-visível=true
+16. a "IBGE" foco-visível=true
+17. a "Banco Central do Brasil" foco-visível=true
+18. a "ipca.csv" foco-visível=true
+19. a "selic_meta.csv" foco-visível=true
+20. a "código" foco-visível=true
+21. summary "Tabela de dados" foco-visível=true
+22. input "3a" foco-visível=true
+23. a "IBGE" foco-visível=true
+24. a "ipca.csv" foco-visível=true
+25. a "código" foco-visível=true
+26. summary "Tabela de dados" foco-visível=true
+27. input "5a" foco-visível=true
+28. a "IBGE" foco-visível=true
+29. a "desocupacao.csv" foco-visível=true
+30. a "código" foco-visível=true
+31. summary "Tabela de dados" foco-visível=true
+32. a "Banco Central do Brasil" foco-visível=true
+33. a "focus_ipca.csv" foco-visível=true
+34. a "código" foco-visível=true
+35. summary "Tabela de dados" foco-visível=true
+36. summary "Ler a nota metodológica" foco-visível=true
+37. div "Dicionário de dados" foco-visível=true
+38. a "ipca.csv" foco-visível=true
+39. a "selic_meta.csv" foco-visível=true
+40. a "desocupacao.csv" foco-visível=true

@@ -1,0 +1,171 @@
+- link "Pular para o conteúdo":
+  - /url: "#conteudo"
+- region "Versão preliminar":
+  - paragraph: Versão preliminar. Conteúdo em discussão, ainda não lançado; páginas não indexadas por buscadores.
+- banner:
+  - link "CEE · Centro de Estudos Econômicos — Início":
+    - /url: /
+    - text: CEE Centro de Estudos Econômicos
+  - link "Buscar":
+    - /url: /busca/
+  - link "English":
+    - /url: /en/
+  - navigation "Navegação principal":
+    - list:
+      - listitem:
+        - link "Pesquisa":
+          - /url: /pesquisa/
+      - listitem:
+        - link "Publicações":
+          - /url: /publicacoes/
+      - listitem:
+        - link "Observatório":
+          - /url: /observatorio/
+      - listitem:
+        - link "Metodologia":
+          - /url: /metodologia/
+      - listitem:
+        - link "Sobre":
+          - /url: /sobre/
+      - listitem:
+        - link "Participe":
+          - /url: /participe/
+- main:
+  - heading "Centro de Estudos Econômicos" [level=1]
+  - paragraph: Análise econômica empírica sobre o Brasil, rigorosa, reprodutível e de acesso aberto — e a formação de estudantes de graduação nesse padrão.
+  - paragraph:
+    - text: Nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado.
+    - link "Como trabalhamos":
+      - /url: /metodologia/
+  - region "Última publicação":
+    - heading "Última publicação" [level=2]
+    - paragraph: A primeira publicação do CEE está em preparação. Quando sair, aparecerá aqui, com dados, código e bloco de citação.
+  - region "Observatório de Dados":
+    - heading "Observatório de Dados" [level=2]
+    - link "Ir para o Observatório":
+      - /url: /observatorio/
+    - paragraph: Séries econômicas brasileiras em formato limpo e versionado, com fonte, código da série e data de extração em cada gráfico.
+    - figure "Inflação em 12 meses e meta da taxa Selic":
+      - heading "Inflação em 12 meses e meta da taxa Selic" [level=3]
+      - paragraph: Em set. de 2026, o IPCA acumulado em 12 meses foi de 4,58%. Em 20 de out. de 2026, a meta Selic definida pelo Copom era de 13,75% ao ano.
+      - paragraph: "Unidade: % (IPCA: acumulado em 12 meses; Selic: % ao ano, valor no fim do mês)"
+      - list "Legenda":
+        - listitem: IPCA 12 meses
+        - listitem: Meta Selic
+      - group "Período":
+        - text: Período
+        - radio "10 anos" [checked]
+        - text: 10 anos
+        - radio "5 anos"
+        - text: 5 anos
+        - radio "Desde 2012"
+        - text: Desde 2012
+      - paragraph: "Gráfico de linhas com duas séries mensais desde jan. de 2012: IPCA acumulado em 12 meses e meta Selic. Últimos valores: IPCA 4,58% (set. de 2026); Selic 13,75% (20 de out. de 2026). Os dados completos estão na tabela abaixo."
+      - strong: "Fonte:"
+      - link "IBGE":
+        - /url: https://sidra.ibge.gov.br/tabela/1737
+      - text: ","
+      - code: SIDRA 1737, variáveis 63 e 2265 (Brasil)
+      - text: ; extração em
+      - time: 20 de out. de 2026
+      - text: .
+      - strong: "Fonte:"
+      - link "Banco Central do Brasil":
+        - /url: https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432
+      - text: ","
+      - code: SGS 432
+      - text: ; extração em
+      - time: 20 de out. de 2026
+      - text: . A meta Selic é uma série diária; o gráfico mostra o valor vigente no último dia disponível de cada mês. As duas séries são conceitos distintos (inflação passada em 12 meses e taxa nominal de política) e a diferença entre elas não é uma taxa de juros real.
+      - strong: "Dados:"
+      - link "ipca.csv":
+        - /url: /dados/conjuntura/ipca.csv
+      - text: ·
+      - link "selic_meta.csv":
+        - /url: /dados/conjuntura/selic_meta.csv
+      - text: ·
+      - link "código":
+        - /url: https://github.com/jesusabc8/cee-site/tree/main/scripts/data
+      - group: Tabela de dados
+  - region "Áreas de pesquisa":
+    - heading "Áreas de pesquisa" [level=2]
+    - link "Agenda completa":
+      - /url: /pesquisa/
+    - list:
+      - listitem:
+        - heading "A Conjuntura e Política Macroeconômica" [level=3]:
+          - link "A Conjuntura e Política Macroeconômica":
+            - /url: /pesquisa/a/
+        - paragraph: Onde está a economia brasileira no ciclo, e o que a política monetária e a fiscal estão fazendo a respeito?
+      - listitem:
+        - heading "B Crescimento, Produtividade e Transformação Estrutural" [level=3]:
+          - link "B Crescimento, Produtividade e Transformação Estrutural":
+            - /url: /pesquisa/b/
+        - paragraph: Por que a produtividade brasileira não cresce?
+      - listitem:
+        - heading "C Trabalho, Pobreza e Desigualdade" [level=3]:
+          - link "C Trabalho, Pobreza e Desigualdade":
+            - /url: /pesquisa/c/
+        - paragraph: Quem se beneficia do crescimento, e por que a informalidade persiste?
+  - region "Participe":
+    - heading "Participe" [level=2]
+    - paragraph: A entrada é aberta a estudantes de Ciências Econômicas de qualquer campus e do EAD, sem seleção e sem pré-requisito. Cada pessoa começa com uma tarefa real e revisada.
+    - paragraph:
+      - link "Como participar":
+        - /url: /participe/
+- contentinfo:
+  - paragraph: CEE · Centro de Estudos Econômicos
+  - paragraph: Iniciativa estudantil de análise econômica empírica sobre a economia brasileira.
+  - navigation "Institucional":
+    - heading "Institucional" [level=2]
+    - list:
+      - listitem:
+        - link "Sobre":
+          - /url: /sobre/
+      - listitem:
+        - link "Metodologia":
+          - /url: /metodologia/
+      - listitem:
+        - link "Participe":
+          - /url: /participe/
+      - listitem:
+        - link "Equipe":
+          - /url: /equipe/
+      - listitem:
+        - link "Contato":
+          - /url: /contato/
+    - heading "Políticas" [level=2]
+    - list:
+      - listitem:
+        - link "Erratas":
+          - /url: /erratas/
+      - listitem:
+        - link "Privacidade":
+          - /url: /privacidade/
+      - listitem:
+        - link "Termos e licenças":
+          - /url: /termos/
+      - listitem:
+        - link "Acessibilidade":
+          - /url: /acessibilidade/
+    - heading "Dados e código" [level=2]
+    - list:
+      - listitem:
+        - link "Catálogo de dados":
+          - /url: /observatorio/catalogo/
+      - listitem:
+        - link "Repositório no GitHub":
+          - /url: https://github.com/jesusabc8/cee-site
+      - listitem:
+        - link "RSS":
+          - /url: /rss.xml
+  - paragraph: O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.
+  - paragraph: Textos e dados sob CC BY 4.0; código sob licença MIT, ressalvadas as restrições das fontes.
+  - group "Tema":
+    - text: Tema
+    - radio "Sistema" [checked]
+    - text: Sistema
+    - radio "Claro"
+    - text: Claro
+    - radio "Escuro"
+    - text: Escuro

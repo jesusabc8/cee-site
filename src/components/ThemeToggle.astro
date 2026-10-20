@@ -15,7 +15,7 @@ const t = useTranslations(Astro.props.lang);
   const box = document.querySelector<HTMLFieldSetElement>('.theme-toggle');
   if (box) {
     let saved = 'system';
-    try { saved = localStorage.getItem('cee-theme') ?? 'system'; } catch {}
+    try { saved = localStorage.getItem('cee-theme') ?? 'system'; } catch { /* armazenamento indisponível */ }
     box.hidden = false;
     for (const input of box.querySelectorAll<HTMLInputElement>('input')) {
       input.checked = input.value === saved;
@@ -23,7 +23,10 @@ const t = useTranslations(Astro.props.lang);
         const v = input.value;
         if (v === 'system') root.removeAttribute('data-theme');
         else root.setAttribute('data-theme', v);
-        try { v === 'system' ? localStorage.removeItem('cee-theme') : localStorage.setItem('cee-theme', v); } catch {}
+        try {
+          if (v === 'system') localStorage.removeItem('cee-theme');
+          else localStorage.setItem('cee-theme', v);
+        } catch { /* armazenamento indisponível: a escolha vale só nesta visita */ }
       });
     }
   }

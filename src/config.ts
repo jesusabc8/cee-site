@@ -9,8 +9,12 @@ export const config = {
   useUniversityName: false,
   /** Eventos só aparecem após os critérios de consolidação (Proposta §5.4). */
   showEvents: false,
-  /** false = versão preliminar: noindex, robots Disallow e faixa de aviso. */
-  lancado: false,
+  /**
+   * false = versão preliminar: noindex, robots Disallow e faixa de aviso.
+   * CEE_LANCADO=1 simula o lançamento só em builds de QA (Lighthouse mede SEO sem o noindex).
+   * Para lançar de fato, mude para true aqui (ver checklist em docs/LANCAMENTO.md).
+   */
+  lancado: process.env.CEE_LANCADO === '1' ? true : false,
   /** [PLACEHOLDER] — conta em nome do Centro, não de pessoa (Proposta §8.5). */
   contato: 'contato@[PLACEHOLDER]',
   repoUrl: 'https://github.com/jesusabc8/cee-site',

@@ -23,6 +23,7 @@ export default defineConfig({
   },
   markdown: {
     rehypePlugins: [rehypeTableScroll],
+    remarkRehype: { footnoteLabel: 'Notas', footnoteBackLabel: 'Voltar ao texto' },
   },
   integrations: [
     mdx(),

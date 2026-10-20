@@ -1,0 +1,44 @@
+Rota: /publicacoes/demo-nota-tecnica/
+Primeiro Tab: "Pular para o conteúdo" → Enter leva o foco a #conteudo
+Elementos sem foco visível: 0
+
+ 1. a "Pular para o conteúdo" foco-visível=true
+ 2. a "CEE · Centro de Estudos Econômicos — Início" foco-visível=true
+ 3. a "Buscar" foco-visível=true
+ 4. a "English" foco-visível=true
+ 5. a "Pesquisa" foco-visível=true
+ 6. a "Publicações" foco-visível=true
+ 7. a "Observatório" foco-visível=true
+ 8. a "Metodologia" foco-visível=true
+ 9. a "Sobre" foco-visível=true
+10. a "Participe" foco-visível=true
+11. a "Nota Técnica" foco-visível=true
+12. a "B Crescimento, Produtividade e Transformação Estrutural" foco-visível=true
+13. a "1.0" foco-visível=true
+14. a "CC BY 4.0" foco-visível=true
+15. button "Imprimir ou salvar em PDF" foco-visível=true
+16. a "1" foco-visível=true
+17. a "Back to reference 1" foco-visível=true
+18. div "Tabela de fontes" foco-visível=true
+19. a "[PLACEHOLDER] Nome da série" foco-visível=true
+20. a "[PLACEHOLDER] Planilha com a série histórica (CSV)" foco-visível=true
+21. button "Copiar" foco-visível=true
+22. pre "A, [PLACEHOLDER] Autoria; B, [PLACEHOLDER] Autoria; VERIFICA" foco-visível=true
+23. button "Copiar" foco-visível=true
+24. pre "@misc{cee2026demonotatecnica, author = {A, [PLACEHOLDER] Aut" foco-visível=true
+25. button "Copiar" foco-visível=true
+26. pre "TY - GEN AU - A, [PLACEHOLDER] Autoria AU - B, [PLACEHOLDER]" foco-visível=true
+27. a "Baixar .ris" foco-visível=true
+28. a "github.com/jesusabc8/cee-site" foco-visível=true
+29. a "Sobre" foco-visível=true
+30. a "Metodologia" foco-visível=true
+31. a "Participe" foco-visível=true
+32. a "Equipe" foco-visível=true
+33. a "Contato" foco-visível=true
+34. a "Erratas" foco-visível=true
+35. a "Privacidade" foco-visível=true
+36. a "Termos e licenças" foco-visível=true
+37. a "Acessibilidade" foco-visível=true
+38. a "Catálogo de dados" foco-visível=true
+39. a "Repositório no GitHub" foco-visível=true
+40. a "RSS" foco-visível=true

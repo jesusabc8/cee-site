@@ -3,7 +3,10 @@
  * e rotulado, para tabelas largas em telas pequenas (WCAG 2.1.1 e 1.4.10).
  */
 export default function rehypeTableScroll() {
-  return (tree) => {
+  return (tree, file) => {
+    // Rótulo único por tabela (axe: landmark-unique), na língua da página.
+    const en = /[\\/]en[\\/]/.test(file?.path ?? '');
+    let n = 0;
     const visit = (node) => {
       if (!node.children) return;
       node.children = node.children.map((child) => {
@@ -11,7 +14,7 @@ export default function rehypeTableScroll() {
           return {
             type: 'element',
             tagName: 'div',
-            properties: { className: ['table-scroll'], role: 'region', tabIndex: 0, ariaLabel: 'Tabela' },
+            properties: { className: ['table-scroll'], role: 'region', tabIndex: 0, ariaLabel: `${en ? 'Table' : 'Tabela'} ${++n}` },
             children: [child],
           };
         }

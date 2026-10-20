@@ -12,7 +12,7 @@ const titulo = Astro.props.titulo ?? L.t;
 ---
 <section aria-labelledby="src-title">
   <h2 id="src-title" class="block-title">{titulo}</h2>
-  <div class="table-scroll" role="region" aria-labelledby="src-title" tabindex="0">
+  <div class="table-scroll" role="region" aria-label={lang === 'en' ? 'Table of sources' : 'Tabela de fontes'} tabindex="0">
     <table class="src">
       <thead><tr><th scope="col">{L.inst}</th><th scope="col">{L.serie}</th><th scope="col">{L.cod}</th><th scope="col">{L.un}</th><th scope="col">{L.ext}</th></tr></thead>
       <tbody>
