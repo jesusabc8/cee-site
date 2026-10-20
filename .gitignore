@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+.DS_Store
+.lighthouseci/
+playwright-report/
+test-results/
+
+# Proposta (documento de trabalho não aprovado): mantida apenas localmente
+# até a apresentação à coordenação do curso. Ver docs/fuentes/README.md.
+docs/fuentes/*.docx
+docs/fuentes/*.pdf

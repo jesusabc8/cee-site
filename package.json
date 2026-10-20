@@ -1,0 +1,28 @@
+{
+  "name": "cee-site",
+  "version": "0.0.0",
+  "description": "Sítio do Centro de Estudos Econômicos (CEE) — iniciativa estudantil de análise econômica empírica.",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/check": "0.9.11",
+    "@astrojs/mdx": "8.1.0",
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.4.1",
+    "typescript": "6.0.3"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}

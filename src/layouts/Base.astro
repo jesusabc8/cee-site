@@ -1,0 +1,35 @@
+---
+import { config } from '../config';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'pt-BR' | 'en';
+  noindex?: boolean;
+}
+const { title, description = '', lang = 'pt-BR', noindex = false } = Astro.props;
+const robots = !config.lancado || noindex ? 'noindex, nofollow' : 'index, follow';
+const fullTitle = title === config.nome ? `${config.sigla} · ${config.nome}` : `${title} · ${config.sigla}`;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="robots" content={robots} />
+  </head>
+  <body>
+    {!config.lancado && (
+      <p role="note">Versão preliminar — conteúdo em discussão, ainda não lançado.</p>
+    )}
+    <slot />
+    <footer>
+      <p>
+        O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas
+        nem de qualquer outra instituição.
+      </p>
+    </footer>
+  </body>
+</html>
