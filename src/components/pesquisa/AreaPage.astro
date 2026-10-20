@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import PageHeader from '../PageHeader.astro';
+import PageHero from '../layout/PageHero.astro';
 import StatusTag from '../StatusTag.astro';
 import PubRow from '../pub/PubRow.astro';
 import { getPublicacoes } from '../../lib/publicacoes';
@@ -26,13 +26,13 @@ const T = {
 const eyebrow = area.data.tipo === 'lente' ? T.lente : `${T.area} ${area.data.codigo}`;
 ---
 <Base title={area.data.nome[k]} description={area.data.pergunta_guia[k]} lang={lang}>
+  <PageHero lang={lang} eyebrow={eyebrow} title={area.data.nome[k]}>
+    <blockquote class="guia">
+      <p class="eyebrow">{T.pergunta}</p>
+      <p>{area.data.pergunta_guia[k]}</p>
+    </blockquote>
+  </PageHero>
   <div class="wrap">
-    <PageHeader eyebrow={eyebrow} title={area.data.nome[k]}>
-      <blockquote class="guia">
-        <p class="eyebrow">{T.pergunta}</p>
-        <p>{area.data.pergunta_guia[k]}</p>
-      </blockquote>
-    </PageHeader>
 
     <section class="section split">
       <h2 class="section__title">{T.fund}</h2>

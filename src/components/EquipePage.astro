@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from './PageHeader.astro';
+import PageHero from './layout/PageHero.astro';
 import StatusTag from './StatusTag.astro';
 import { getEquipePublica } from '../lib/equipe';
 import { href } from '../i18n/routing';
@@ -24,8 +24,8 @@ const T = {
 }[k];
 ---
 <Base title={T.title} description={T.lede} lang={lang}>
+  <PageHero lang={lang} eyebrow={k === 'en' ? 'About' : 'Institucional'} title={T.title} lede={T.lede} />
   <div class="wrap">
-    <PageHeader eyebrow={k === 'en' ? 'About' : 'Institucional'} title={T.title} lede={T.lede} />
     <section class="section split">
       <h2 class="section__title">{T.inst}</h2>
       <div>

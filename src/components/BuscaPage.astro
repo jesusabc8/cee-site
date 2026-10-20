@@ -1,7 +1,7 @@
 ---
 /** Busca estática com Pagefind (índice gerado no build; nenhum serviço externo). */
 import Base from '../layouts/Base.astro';
-import PageHeader from './PageHeader.astro';
+import PageHero from './layout/PageHero.astro';
 import type { Lang } from '../i18n/ui';
 
 interface Props { lang: Lang }
@@ -13,8 +13,8 @@ const L = lang === 'en'
 ---
 <Base title={L.t} description={L.lede} lang={lang} noindex>
   <link slot="head" rel="stylesheet" href={`${base}/pagefind/pagefind-ui.css`} />
+  <PageHero lang={lang} title={L.t} lede={L.lede} />
   <div class="wrap">
-    <PageHeader title={L.t} lede={L.lede} />
     <label id="busca-label" for="busca-campo" class="eyebrow busca-label">{L.label}</label>
     <div id="busca" class="busca" data-base={base} data-lang={lang} data-label={L.label}></div>
     <noscript><p class="meta">{L.semjs}</p></noscript>

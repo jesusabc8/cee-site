@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from './PageHeader.astro';
+import PageHero from './layout/PageHero.astro';
 import { getPublicacoes, fmtDate, isoDate } from '../lib/publicacoes';
 import { href } from '../i18n/routing';
 import type { Lang } from '../i18n/ui';
@@ -20,10 +20,10 @@ const L = {
 const dias = (a: Date, b: Date) => Math.round((a.getTime() - b.getTime()) / 86_400_000);
 ---
 <Base title={L.t} description={L.lede} lang={lang}>
+  <PageHero lang={lang} eyebrow={k === 'en' ? 'Policies' : 'Políticas'} title={L.t} lede={L.lede}>
+    <p class="meta"><a href={`${href('/metodologia/', lang)}#${k === 'en' ? 'errata' : 'política-de-errata'}`}>{L.pol}</a></p>
+  </PageHero>
   <div class="wrap">
-    <PageHeader eyebrow={k === 'en' ? 'Policies' : 'Políticas'} title={L.t} lede={L.lede}>
-      <p class="meta"><a href={`${href('/metodologia/', lang)}#${k === 'en' ? 'errata' : 'política-de-errata'}`}>{L.pol}</a></p>
-    </PageHeader>
     {erratas.length === 0 ? <p class="meta vazio">{L.vazio}</p> : (
       <ol class="erratas">
         {erratas.map((e) => (

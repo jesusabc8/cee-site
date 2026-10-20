@@ -2,7 +2,7 @@
 /** Página institucional em MDX, com índice lateral das seções. */
 import { render } from 'astro:content';
 import Base from './Base.astro';
-import PageHeader from '../components/PageHeader.astro';
+import PageHero from '../components/layout/PageHero.astro';
 import { getPagina } from '../lib/paginas';
 import type { Lang } from '../i18n/ui';
 
@@ -18,10 +18,10 @@ const L = lang === 'en'
   : { toc: 'Nesta página', upd: 'Atualizado em', src: 'Fonte: Proposta institucional do CEE v3.0' };
 ---
 <Base title={d.titulo} description={d.descricao} lang={lang}>
+  <PageHero lang={lang} eyebrow={d.eyebrow} title={d.titulo} lede={d.bajada}>
+    <p class="meta">{L.upd} <time datetime={d.atualizado.toISOString().slice(0, 10)}>{fmt.format(d.atualizado)}</time> · {L.src}, {d.fonte_proposta}</p>
+  </PageHero>
   <div class="wrap">
-    <PageHeader eyebrow={d.eyebrow} title={d.titulo} lede={d.bajada}>
-      <p class="meta">{L.upd} <time datetime={d.atualizado.toISOString().slice(0, 10)}>{fmt.format(d.atualizado)}</time> · {L.src}, {d.fonte_proposta}</p>
-    </PageHeader>
     <div class="pagina">
       {toc.length > 2 && (
         <nav class="toc no-print" aria-labelledby="toc-title">

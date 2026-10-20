@@ -1,7 +1,7 @@
 ---
 /** Catálogo de dados e fontes: gerado de scripts/data/series.ts + vintage (fonte única com data/CATALOGO.md). */
 import Base from '../../layouts/Base.astro';
-import PageHeader from '../PageHeader.astro';
+import PageHero from '../layout/PageHero.astro';
 import { SERIES } from '../../../scripts/data/series.ts';
 import { lerVintage } from '../../lib/dados';
 import { fmtDate } from '../../lib/publicacoes';
@@ -20,8 +20,8 @@ const L = {
 }[k];
 ---
 <Base title={L.t} description={L.lede} lang={lang}>
+  <PageHero lang={lang} eyebrow={k === 'en' ? 'Data Observatory' : 'Observatório de Dados'} title={L.t} lede={L.lede} />
   <div class="wrap">
-    <PageHeader eyebrow={k === 'en' ? 'Data Observatory' : 'Observatório de Dados'} title={L.t} lede={L.lede} />
     {SERIES.map((s) => {
       const v = vint[s.id];
       return (

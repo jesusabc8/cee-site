@@ -6,8 +6,8 @@
 import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import PageHeader from '../PageHeader.astro';
-import Chart from '../Chart.astro';
+import PageHero from '../layout/PageHero.astro';
+import ChartCard from '../charts/ChartCard.astro';
 import Box from '../Box.astro';
 import { graficosConjuntura } from '../../lib/conjuntura';
 import { DICIONARIO_CONJUNTURA } from '../../lib/dicionario';
@@ -23,7 +23,7 @@ const k = lang === 'en' ? 'en' : 'pt';
 const area = await getEntry('areas', p.area);
 const publicado = p.estado === 'publicado';
 const g = publicado && painel.id === 'conjuntura' ? graficosConjuntura(lang) : null;
-const graficos = g ? [g.jurosInflacao, g.ipcaMensal, g.desocupacao, g.focus] : [];
+const graficos = g ? [g.jurosInflacao, g.ipcaMensal, g.focus, { ...g.desocupacao, largo: true }] : [];
 const extracoes = g ? Object.values(g.vintage).map((v) => v.extraido_em).sort() : [];
 const vintage = extracoes.at(-1);
 const desatualizadas = g ? Object.entries(g.vintage).filter(([, v]) => v.desatualizado).map(([s]) => s) : [];
@@ -50,15 +50,15 @@ const jsonld = publicado ? {
 ---
 <Base title={p.titulo[k]} description={p.resumo[k]} lang={lang} ogImage={`/og/painel-${painel.id}.png`}>
   {jsonld && <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  <PageHero lang={lang} eyebrow={`${L.obs} · ${area?.data.codigo ?? ''} · ${L.linha} ${p.linha}`} title={p.titulo[k]} lede={p.resumo[k]}>
+    <dl class="meta pmeta">
+      {publicado && <div><dt>{L.edicao}</dt><dd>{p.versao}</dd></div>}
+      {vintage && <div><dt>{L.vintage}</dt><dd><time datetime={vintage.slice(0, 10)}>{fmtDate(new Date(vintage), lang)}</time></dd></div>}
+      <div><dt>{L.licenca}</dt><dd>CC BY 4.0</dd></div>
+      {p.doi && <div><dt>{L.doi}</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
+    </dl>
+  </PageHero>
   <div class="wrap">
-    <PageHeader eyebrow={`${L.obs} · ${area?.data.codigo ?? ''} · ${L.linha} ${p.linha}`} title={p.titulo[k]} lede={p.resumo[k]}>
-      <dl class="meta pmeta">
-        {publicado && <div><dt>{L.edicao}</dt><dd>{p.versao}</dd></div>}
-        {vintage && <div><dt>{L.vintage}</dt><dd><time datetime={vintage.slice(0, 10)}>{fmtDate(new Date(vintage), lang)}</time></dd></div>}
-        <div><dt>{L.licenca}</dt><dd>CC BY 4.0</dd></div>
-        {p.doi && <div><dt>{L.doi}</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
-      </dl>
-    </PageHeader>
 
     {!publicado ? (
       <section class="section split">
@@ -73,12 +73,8 @@ const jsonld = publicado ? {
         {desatualizadas.length > 0 && (
           <Box variant="note" title={`${L.stale} ${desatualizadas.join(', ')}`} lang={lang}><p>{L.staleTxt}</p></Box>
         )}
-        <fieldset class="series-sel no-print" hidden>
-          <legend class="eyebrow">{L.series}</legend>
-          {graficos.map((c) => <label><input type="checkbox" value={c.id} checked /> {c.titulo}</label>)}
-        </fieldset>
-        <div class="graficos">
-          {graficos.map((c) => <section class="section"><Chart {...c} lang={lang} nivel="h2" /></section>)}
+        <div class="graficos section">
+          {graficos.map((c) => <div class:list={['graficos__item', { 'is-wide': c.largo }]}><ChartCard g={c} lang={lang} nivel="h2" /></div>)}
         </div>
 
         <section class="section split">
@@ -125,28 +121,16 @@ const jsonld = publicado ? {
     <p class="meta"><a href={href('/observatorio/', lang)}>← {L.obs}</a></p>
   </div>
 </Base>
-<script>
-  const sel = document.querySelector<HTMLFieldSetElement>('.series-sel');
-  if (sel) {
-    sel.hidden = false;
-    sel.addEventListener('change', (e) => {
-      const cb = e.target as HTMLInputElement;
-      const fig = document.getElementById(cb.value)?.closest<HTMLElement>('.section');
-      if (fig) fig.hidden = !cb.checked;
-    });
-  }
-</script>
 <style>
   .pmeta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: var(--s-2) 0 0; padding-top: var(--s-3); border-top: var(--hairline); }
   .pmeta div { display: flex; gap: 0.4em; }
   .pmeta dt { font-weight: 600; color: var(--text); }
   .pmeta dd { margin: 0; }
-  .series-sel { border: 0; padding: 0; margin: 0 0 var(--s-3); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); font-size: var(--step--1); }
-  .series-sel[hidden] { display: none; }
-  .series-sel legend { width: 100%; margin-bottom: var(--s-2); font-size: var(--step--2); }
-  .series-sel label { display: inline-flex; gap: 0.35em; align-items: center; cursor: pointer; }
-  .series-sel input { accent-color: var(--primary); margin: 0; }
-  .section[hidden] { display: none; }
+  .graficos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 0; }
+  .graficos__item { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; min-width: 0; margin-bottom: 24px; }
+  .graficos__item > :global(*) { grid-row: 1 / span 4; }
+  .graficos__item.is-wide { grid-column: 1 / -1; }
+  @media (max-width: 64rem) { .graficos { grid-template-columns: minmax(0, 1fr); } }
   .metodo summary { cursor: pointer; color: var(--primary); font-family: var(--font-sans); font-size: var(--step-0); }
   .dic { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
   .dic th, .dic td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-top: var(--hairline); vertical-align: top; }

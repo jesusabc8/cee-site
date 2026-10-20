@@ -1,18 +1,41 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/ui/Icon.astro';
 import { href } from '../i18n/routing';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  ['/', 'Início', 'house'],
+  ['/observatorio/', 'Observatório de Dados', 'database'],
+  ['/publicacoes/', 'Publicações', 'file-text'],
+  ['/busca/', 'Buscar no sítio', 'search'],
+  ['/contato/', 'Contato', 'mail'],
+] as const;
 ---
 <Base title="Página não encontrada" noindex hasTranslation={false}>
-  <div class="wrap">
-    <PageHeader eyebrow="Erro 404" title="Página não encontrada"
-      lede="O endereço pode ter mudado ou a página ainda não existe. Publicações nunca são removidas sem errata; se você seguiu um link de citação, avise-nos." />
-    <ul class="prose">
-      <li><a href={href('/')}>Início</a></li>
-      <li><a href={href('/publicacoes/')}>Publicações</a></li>
-      <li><a href={href('/busca/')}>Buscar no sítio</a></li>
-      <li><a href={href('/contato/')}>Contato</a></li>
-    </ul>
-    <p class="meta" lang="en" style="margin-top:var(--s-5)">Page not found. <a href={href('/', 'en')}>English home page</a>.</p>
-  </div>
+  <section class="nf band-navy">
+    <div class="wrap nf__grid">
+      <div>
+        <p class="eyebrow">Erro 404</p>
+        <h1>Página não encontrada</h1>
+        <p class="nf__lede">O endereço pode ter mudado ou a página ainda não existe. Publicações nunca são removidas sem errata; se você seguiu um link de citação, avise-nos.</p>
+        <ul class="nf__links">
+          {links.map(([p, t, i]) => <li><a href={href(p)}><Icon name={i} size={18} /> {t}</a></li>)}
+        </ul>
+        <p class="nf__en" lang="en">Page not found. <a href={href('/', 'en')}>English home page</a>.</p>
+      </div>
+      <img src={`${base}/brand/cee-mark-white.svg`} alt="" width="283" height="84" class="nf__mark" />
+    </div>
+  </section>
 </Base>
+<style>
+  .nf { padding-block: clamp(72px, 9vw, 140px); }
+  .nf__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 64px; align-items: center; }
+  .nf h1 { font-size: var(--fs-h1); margin: 14px 0 18px; }
+  .nf__lede { color: #cfdce8; font-size: 1.125rem; max-width: 56ch; margin: 0 0 32px; }
+  .nf__links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .nf__links a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border: 1px solid rgb(255 255 255 / 30%); color: var(--white); text-decoration: none; font-weight: 500; }
+  .nf__links a:hover { background: rgb(255 255 255 / 10%); color: var(--white); }
+  .nf__en { margin-top: 28px; color: var(--muted-on-dark); font-size: 0.9375rem; }
+  .nf__mark { opacity: 0.9; width: 260px; height: auto; }
+  @media (max-width: 48rem) { .nf__grid { grid-template-columns: minmax(0, 1fr); } .nf__mark { width: 160px; order: -1; } }
+</style>

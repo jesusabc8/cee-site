@@ -42,8 +42,15 @@ function iniciar(fig: HTMLElement) {
 
   // Realce pela legenda
   fig.querySelectorAll<HTMLElement>('[data-legend]').forEach((li) => {
-    const on = () => plot.dataset.focus = li.dataset.legend ?? '';
-    const off = () => delete plot.dataset.focus;
+    const id = li.dataset.legend ?? '';
+    const on = () => {
+      plot.dataset.focus = id;
+      plot.querySelectorAll<SVGElement>('[data-serie]').forEach((el) => el.classList.toggle('is-hl', el.dataset.serie === id));
+    };
+    const off = () => {
+      delete plot.dataset.focus;
+      plot.querySelectorAll('.is-hl').forEach((el) => el.classList.remove('is-hl'));
+    };
     li.addEventListener('mouseenter', on); li.addEventListener('mouseleave', off);
     li.addEventListener('focus', on); li.addEventListener('blur', off);
   });

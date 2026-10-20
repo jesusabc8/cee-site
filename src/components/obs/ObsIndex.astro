@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import PageHeader from '../PageHeader.astro';
+import PageHero from '../layout/PageHero.astro';
 import StatusTag from '../StatusTag.astro';
+import Icon from '../ui/Icon.astro';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
@@ -19,29 +20,55 @@ const L = {
 }[k];
 ---
 <Base title={L.t} description={L.lede} lang={lang}>
-  <div class="wrap">
-    <PageHeader eyebrow="L0" title={L.t} lede={L.lede} />
-    <ol class="paineis">
-      {paineis.map((p) => (
-        <li>
-          <p class="meta">{L.linha} {p.data.linha} · {p.data.estado === 'publicado' ? `${L.pub} ${p.data.versao}` : <StatusTag estado="construcao" lang={lang} />}</p>
-          <h2><a href={href(`/observatorio/${p.id}/`, lang)}>{p.data.titulo[k]}</a></h2>
-          <p class="prose">{p.data.resumo[k]}</p>
-          <p class="meta">{p.data.situacao[k]}</p>
+  <PageHero lang={lang} eyebrow={k === 'en' ? 'Shared infrastructure' : 'Infraestrutura comum'} icon="database" title={L.t} lede={L.lede} />
+  <section class="section band-paper">
+    <div class="wrap">
+      <ul class="cards" role="list">
+        <li class="card card--feature reveal">
+          <p class="card__top"><Icon name="layout-dashboard" size={18} /> {k === 'en' ? 'Dashboard · weekly update' : 'Painel · atualização semanal'}</p>
+          <h2><a href={href('/observatorio/panorama/', lang)}>{k === 'en' ? 'Overview of the Brazilian economy' : 'Panorama da economia brasileira'}</a></h2>
+          <p>{k === 'en'
+            ? 'Nine charts and a debt-stabilisation calculation: GDP, income per person, inflation against the target and Focus, Selic and real rate, exchange rate, productivity, proximity to the frontier and public debt.'
+            : 'Nove gráficos e um cálculo de estabilização da dívida: PIB, renda por habitante, inflação diante da meta e do Focus, Selic e juro real, câmbio, produtividade, proximidade à fronteira e dívida pública.'}</p>
+          <span class="card__go">{L.ver} <Icon name="arrow-right" size={15} /></span>
         </li>
-      ))}
-    </ol>
-    <section class="section split">
-      <h2 class="section__title"><a href={href('/observatorio/catalogo/', lang)}>{L.cat}</a></h2>
-      <p class="prose">{L.catTxt}</p>
-    </section>
-  </div>
+        {paineis.map((p) => (
+          <li class="card reveal">
+            <p class="card__top"><span class="mono">{L.linha} {p.data.linha}</span>{p.data.estado === 'publicado' ? <span class="card__ed mono">{L.pub} {p.data.versao}</span> : <StatusTag estado="construcao" lang={lang} />}</p>
+            <h2><a href={href(`/observatorio/${p.id}/`, lang)}>{p.data.titulo[k]}</a></h2>
+            <p>{p.data.resumo[k]}</p>
+            <p class="card__sit">{p.data.situacao[k]}</p>
+            <span class="card__go">{p.data.estado === 'publicado' ? L.ver : (k === 'en' ? 'See status' : 'Ver situação')} <Icon name="arrow-right" size={15} /></span>
+          </li>
+        ))}
+        <li class="card card--cat reveal">
+          <p class="card__top"><Icon name="list-checks" size={18} /> {k === 'en' ? 'Traceability' : 'Rastreabilidade'}</p>
+          <h2><a href={href('/observatorio/catalogo/', lang)}>{L.cat}</a></h2>
+          <p>{L.catTxt}</p>
+          <span class="card__go">{k === 'en' ? 'Open catalogue' : 'Abrir catálogo'} <Icon name="arrow-right" size={15} /></span>
+        </li>
+      </ul>
+    </div>
+  </section>
 </Base>
 <style>
-  .paineis { list-style: none; padding: 0; margin: 0 0 var(--s-6); }
-  .paineis li { border-top: var(--hairline); padding-block: var(--s-5); display: grid; gap: var(--s-2); }
-  .paineis li:last-child { border-bottom: var(--hairline); }
-  .paineis h2 { font-size: var(--step-3); }
-  .paineis h2 a, .section__title a { color: var(--text); text-decoration: none; }
-  .paineis h2 a:hover, .section__title a:hover { color: var(--primary); text-decoration: underline; }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 30px 30px 26px; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--navy); transition: box-shadow 0.25s, transform 0.25s; min-width: 0; }
+  .card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
+  .card--feature { grid-column: 1 / -1; background: linear-gradient(135deg, var(--navy), #18467a); color: #cfdce8; border-top-color: var(--sky); }
+  .card--feature h2 a { color: var(--white); }
+  .card--feature .card__top, .card--feature .card__go { color: var(--sky); }
+  .card__top { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--petrol); font: 600 11.5px / 1.2 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
+  .card__top .mono { letter-spacing: 0.04em; }
+  .card__ed { margin-left: auto; color: var(--navy); }
+  .card h2 { font-size: 1.375rem; line-height: 1.2; }
+  .card h2 a { color: var(--navy); text-decoration: none; }
+  .card h2 a::after { content: ''; position: absolute; inset: 0; }
+  .card h2 a:focus-visible { outline: none; }
+  .card:has(h2 a:focus-visible) { outline: 2px solid var(--petrol); outline-offset: 2px; }
+  .card p { margin: 0; font-size: 0.96875rem; line-height: 1.55; }
+  .card__sit { font-size: 0.875rem !important; color: var(--muted); }
+  .card--feature p { max-width: 70ch; }
+  .card__go { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 8px; font: 600 12px / 1 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); }
+  @media (max-width: 52rem) { .cards { grid-template-columns: minmax(0, 1fr); } .card { padding: 24px 20px; } }
 </style>

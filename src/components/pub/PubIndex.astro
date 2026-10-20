@@ -5,7 +5,7 @@
  */
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import PageHeader from '../PageHeader.astro';
+import PageHero from '../layout/PageHero.astro';
 import PubRow from './PubRow.astro';
 import { getPublicacoes } from '../../lib/publicacoes';
 import { TIPOS, TIPO_KEYS, type Tipo } from '../../schemas/publicacao';
@@ -35,10 +35,10 @@ const titulo = tipo ? TIPOS[tipo].plural[k] : L.t;
 const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
 ---
 <Base title={titulo} description={L.lede} lang={lang}>
+  <PageHero lang={lang} eyebrow={tipo ? L.t : undefined} title={titulo} lede={tipo ? undefined : L.lede}>
+    <p class="meta"><a href={href(feed)}>{L.rss}</a></p>
+  </PageHero>
   <div class="wrap">
-    <PageHeader eyebrow={tipo ? L.t : undefined} title={titulo} lede={tipo ? undefined : L.lede}>
-      <p class="meta"><a href={href(feed)}>{L.rss}</a></p>
-    </PageHeader>
 
     <nav class="tipos" aria-label={L.porTipo}>
       <ul>

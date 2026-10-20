@@ -16,8 +16,20 @@ interface Props {
   icon?: string;
   variant?: 'navy' | 'mist';
 }
-const { title, eyebrow, lede, lang, crumbs = [], icon, variant = 'navy' } = Astro.props;
+const { title, eyebrow, lede, lang, crumbs: dados, icon, variant = 'navy' } = Astro.props;
 const t = useTranslations(lang);
+// Migas automáticas a partir do caminho: seções conhecidas com nome traduzido; a última é o título.
+const SECOES: Record<string, string> = {
+  pesquisa: t('nav.pesquisa'), publicacoes: t('nav.publicacoes'), observatorio: t('nav.observatorio'),
+  metodologia: t('nav.metodologia'), sobre: t('nav.sobre'), participe: t('nav.participe'), equipe: t('nav.equipe'),
+};
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const segs = Astro.url.pathname.slice(base.length).split('/').filter(Boolean).filter((x, i) => !(i === 0 && x === 'en'));
+const crumbs = dados ?? segs.map((sg, i) => {
+  const ultimo = i === segs.length - 1;
+  const path = `/${segs.slice(0, i + 1).join('/')}/`;
+  return ultimo ? { label: title } : { label: SECOES[sg] ?? sg, path };
+});
 ---
 <section class={`page-hero page-hero--${variant}`}>
   <svg class="page-hero__grid" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1440 360">
@@ -71,4 +83,12 @@ const t = useTranslations(lang);
   .page-hero--navy .page-hero__lede { color: #cfdce8; }
   .page-hero--mist .page-hero__lede { color: var(--muted); }
   .page-hero__aside:empty { display: none; }
+  /* Conteúdo extra (metadados, links, filtros) sobre a banda escura */
+  .page-hero--navy .page-hero__inner > :global(:not(.crumbs, .page-hero__body)) { color: #cfdce8; }
+  .page-hero--navy .page-hero__inner :global(a) { color: var(--sky); }
+  .page-hero--navy .page-hero__inner :global(:focus-visible) { outline-color: var(--sky); }
+  .page-hero--navy .page-hero__inner :global(dt) { color: var(--muted-on-dark); }
+  .page-hero--navy .page-hero__inner :global(dd) { color: var(--white); }
+  .page-hero--navy .page-hero__inner :global(.meta) { color: var(--muted-on-dark); }
+  .page-hero--navy .page-hero__inner :global([class*='pmeta']), .page-hero--navy .page-hero__inner :global(hr) { border-color: rgb(255 255 255 / 18%); }
 </style>

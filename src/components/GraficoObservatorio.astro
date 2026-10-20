@@ -5,7 +5,7 @@
  *   <GraficoObservatorio grafico="jurosInflacao" />
  * Gráficos disponíveis (painel Conjuntura): jurosInflacao, ipcaMensal, desocupacao, focus.
  */
-import Chart from './Chart.astro';
+import ChartCard from './charts/ChartCard.astro';
 import { graficosConjuntura } from '../lib/conjuntura';
 import type { Lang } from '../i18n/ui';
 
@@ -13,4 +13,4 @@ interface Props { grafico: 'jurosInflacao' | 'ipcaMensal' | 'desocupacao' | 'foc
 const { grafico, lang = 'pt-BR' } = Astro.props;
 const g = graficosConjuntura(lang)[grafico];
 ---
-<Chart {...g} lang={lang} />
+<ChartCard g={g} lang={lang} />

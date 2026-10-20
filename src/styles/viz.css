@@ -32,4 +32,5 @@
 [data-focus='dlsp'] .viz [data-serie^='dlsp'],
 [data-focus='dbgg_f'] .viz [data-serie$='_f'],
 [data-focus='yoy'] .viz [data-serie='yoy'],
-[data-focus='qoq'] .viz [data-serie='qoq'] { opacity: 1; }
+[data-focus='qoq'] .viz [data-serie='qoq'],
+[data-focus] .viz [data-serie].is-hl { opacity: 1; }

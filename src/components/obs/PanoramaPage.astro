@@ -1,0 +1,30 @@
+---
+/**
+ * /observatorio/panorama/: o painel "Panorama da economia brasileira" (o mesmo da página inicial),
+ * com cabeçalho, data de extração mais recente e acesso ao catálogo.
+ */
+import Base from '../../layouts/Base.astro';
+import PageHero from '../layout/PageHero.astro';
+import Panorama from '../dashboard/Panorama.astro';
+import { lerVintage } from '../../lib/dados';
+import { fmtDate } from '../../lib/publicacoes';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const ext = Object.values(lerVintage('panorama')).map((v) => v.extraido_em).sort().at(-1)!;
+const t = en ? 'Overview of the Brazilian economy' : 'Panorama da economia brasileira';
+const lede = en
+  ? 'Activity, prices and interest rates, productivity and public finances in one dashboard. Official series extracted by script and updated weekly, after the Focus survey is released.'
+  : 'Atividade, preços e juros, produtividade e contas públicas em um só painel. Séries oficiais extraídas por script e atualizadas semanalmente, após a divulgação do Focus.';
+---
+<Base title={t} description={lede} lang={lang}>
+  <PageHero lang={lang} eyebrow={en ? 'Data Observatory' : 'Observatório de Dados'} icon="layout-dashboard" title={t} lede={lede}>
+    <p class="mono pano-meta" slot="aside">{en ? 'Latest extraction' : 'Última extração'}: <time datetime={ext.slice(0, 10)}>{fmtDate(new Date(ext), lang)}</time><br />{en ? 'Licence' : 'Licença'}: CC BY 4.0</p>
+  </PageHero>
+  <Panorama lang={lang} titulo={false} />
+</Base>
+<style>
+  .pano-meta { color: #cfdce8; line-height: 1.7; }
+</style>

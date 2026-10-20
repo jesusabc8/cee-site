@@ -9,7 +9,7 @@ import { renderSvg } from '../../lib/viz/render';
 import type { Grafico } from '../../lib/panorama';
 import type { Lang } from '../../i18n/ui';
 
-interface Props { g: Grafico; lang: Lang; nivel?: 'h3' | 'h4' }
+interface Props { g: Grafico; lang: Lang; nivel?: 'h2' | 'h3' | 'h4' }
 const { g, lang, nivel = 'h3' } = Astro.props;
 const H = nivel;
 const en = lang === 'en';
