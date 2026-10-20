@@ -1,0 +1,582 @@
+- link "Pular para o conteúdo":
+  - /url: "#conteudo"
+- complementary "Instituição e redes sociais":
+  - paragraph: Pontifícia Universidade Católica de Minas Gerais
+  - list "Redes sociais do CEE":
+    - listitem
+    - listitem
+    - listitem
+    - listitem
+- banner:
+  - 'link "CEE — Centro de Estudos Econômicos: Página inicial"':
+    - /url: /
+  - navigation "Navegação principal":
+    - list:
+      - listitem:
+        - link "Pesquisa":
+          - /url: /pesquisa/
+      - listitem:
+        - link "Publicações":
+          - /url: /publicacoes/
+      - listitem:
+        - link "Observatório":
+          - /url: /observatorio/
+      - listitem:
+        - link "Metodologia":
+          - /url: /metodologia/
+      - listitem:
+        - link "Sobre":
+          - /url: /sobre/
+      - listitem:
+        - link "Participe":
+          - /url: /participe/
+  - button "Buscar no sítio"
+  - link "English":
+    - /url: /en/
+- main:
+  - region "Evidência econômica aberta sobre o Brasil.":
+    - paragraph: Centro de estudos · Ciências Econômicas
+    - heading "Evidência econômica aberta sobre o Brasil." [level=1]:
+      - text: Evidência econômica
+      - emphasis: aberta
+      - text: sobre o Brasil.
+    - paragraph: Dados versionados, código reproduzível e análise com padrão de pesquisa, produzidos e revisados por estudantes de graduação.
+    - link "Explorar os dados":
+      - /url: "#panorama"
+    - link "Como trabalhamos":
+      - /url: /metodologia/
+    - paragraph: "Linha de fundo: IPCA acumulado em 12 meses, jan 2012–set 2026 (IBGE, SIDRA 1737). Dado real."
+  - region "Brasil em números":
+    - heading "Brasil em números" [level=2]
+    - group "Filtrar indicadores":
+      - button "Todos" [pressed]
+      - button "Atividade"
+      - button "Preços e juros"
+      - button "Externo"
+      - button "Fiscal"
+      - button "Trabalho"
+    - list:
+      - listitem:
+        - paragraph: PIB real
+        - paragraph:
+          - 'link "0,5 % t/t, PIB real: ver gráfico"':
+            - /url: "#grafico-pib"
+        - paragraph: Variação ante o trimestre anterior, com ajuste sazonal
+        - paragraph: 2º tri 2026 abaixo da observação anterior
+        - paragraph: IBGE · SIDRA 5932 · extr. 20/10/2026
+      - listitem:
+        - paragraph: IPCA
+        - paragraph:
+          - 'link "4,58 % 12m, IPCA: ver gráfico"':
+            - /url: "#grafico-ipca-meta"
+        - paragraph: Acumulado em 12 meses · meta 3% ± 1,5 p.p.
+        - paragraph: set de 2026 acima da observação anterior
+        - paragraph: IBGE · SIDRA 1737 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Selic meta
+        - paragraph:
+          - 'link "13,75 % a.a., Selic meta: ver gráfico"':
+            - /url: "#grafico-juros"
+        - paragraph: Definida pelo Copom
+        - paragraph: 20 out 2026 igual à observação anterior
+        - paragraph: BCB · SGS 432 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Juro real ex ante
+        - paragraph:
+          - 'link "8,84 % a.a., Juro real ex ante: ver gráfico"':
+            - /url: "#grafico-juros"
+        - paragraph: (1 + Selic meta) ÷ (1 + Focus IPCA 12 meses) − 1 calculado
+        - paragraph: 16 out 2026 acima da observação anterior
+        - paragraph: BCB · Olinda Expectativas v1 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Focus · IPCA 2026
+        - paragraph:
+          - 'link "5,22 %, Focus · IPCA 2026: ver gráfico"':
+            - /url: "#grafico-ipca-meta"
+        - paragraph: Mediana das expectativas de mercado, ano corrente
+        - paragraph: 16 out 2026 acima da observação anterior
+        - paragraph: BCB · Olinda Expectativas v1 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Câmbio
+        - paragraph:
+          - 'link "5,0564 R$/US$, Câmbio: ver gráfico"':
+            - /url: "#grafico-cambio"
+        - paragraph: PTAX venda, última cotação
+        - paragraph: 19 out 2026 abaixo da observação anterior
+        - paragraph: BCB · SGS 1 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Conta corrente
+        - paragraph: −2,47% PIB
+        - paragraph: Transações correntes, acumulado em 12 meses
+        - paragraph: ago de 2026 abaixo da observação anterior
+        - paragraph: BCB · SGS 23079 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Resultado primário
+        - paragraph:
+          - 'link "−0,62 % PIB, Resultado primário: ver gráfico"':
+            - /url: "#grafico-estabilizacao"
+        - paragraph: Setor público consolidado, 12 meses (+ superávit, − déficit)
+        - paragraph: ago de 2026 acima da observação anterior
+        - paragraph: BCB · SGS 5793 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Dívida bruta
+        - paragraph:
+          - 'link "82,9 % PIB, Dívida bruta: ver gráfico"':
+            - /url: "#grafico-divida"
+        - paragraph: Governo geral (DBGG)
+        - paragraph: ago de 2026 acima da observação anterior
+        - paragraph: BCB · SGS 13762 · extr. 20/10/2026
+      - listitem:
+        - paragraph: Desocupação
+        - paragraph: 5,3%
+        - paragraph: PNAD Contínua, trimestre móvel, sem ajuste sazonal
+        - paragraph: jun–ago 2026 igual à observação anterior
+        - paragraph: IBGE · SIDRA 6381 · extr. 20/10/2026
+    - paragraph: "Cada ficha é gerada pelo pipeline de dados: fonte oficial, código da série, data de referência e data de extração. ▲▼■ indicam a direção ante a observação anterior, sem juízo de valor. Os minigráficos cobrem até os últimos dez anos."
+  - region "Panorama da economia brasileira":
+    - paragraph: Observatório de Dados
+    - heading "Panorama da economia brasileira" [level=2]
+    - paragraph: Séries oficiais extraídas por script, com fonte, código da série e data de extração em cada gráfico. Passe o cursor ou o foco para ler os valores; cada gráfico tem tabela de dados e arquivo CSV.
+    - region "Atividade e renda":
+      - heading "Atividade e renda" [level=3]
+      - paragraph: Crescimento trimestral e renda por habitante em perspectiva internacional.
+      - figure "Crescimento do PIB real":
+        - paragraph: PIB
+        - heading "Crescimento do PIB real" [level=4]
+        - paragraph: No 2º tri 2026, o PIB cresceu 0,5% ante o trimestre anterior (com ajuste sazonal) e 2,0% ante o mesmo trimestre do ano anterior.
+        - list "Legenda":
+          - listitem: Interanual
+          - listitem: Contra o trimestre anterior, dessazonalizado
+        - tablist "Período":
+          - tab "5 anos"
+          - tab "10 anos" [selected]
+          - tab "Tudo"
+        - paragraph: "Barras trimestrais: variação interanual. Linha com marcadores: variação contra o trimestre anterior, com ajuste sazonal."
+        - paragraph: variação %
+        - paragraph:
+          - link "IBGE":
+            - /url: https://sidra.ibge.gov.br/tabela/5932
+          - text: ", SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil) (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "pib.csv":
+            - /url: /dados/panorama/pib.csv
+        - group: Tabela de dados
+      - figure "PIB per capita em PPC, 1950–2023":
+        - paragraph: PWT 11.0
+        - heading "PIB per capita em PPC, 1950–2023" [level=4]
+        - paragraph: "Em 2023, o PIB per capita do Brasil era de US$ 18,5 mil (dólares de 2021 em PPC): abaixo da Argentina, do Chile, da China e do México e acima do Peru."
+        - list "Legenda":
+          - listitem: Brasil
+          - listitem: China
+          - listitem: Chile
+          - listitem: México
+          - listitem: Argentina
+          - listitem: Peru
+        - paragraph: Linhas do Brasil (em destaque) e de cinco países de comparação, de 1950 a 2023.
+        - paragraph: US$ de 2021 em PPC por habitante (rgdpna / pop)
+        - paragraph:
+          - link "Groningen Growth and Development Centre":
+            - /url: https://doi.org/10.34894/FABVLR
+          - text: ", PWT 11.0: rgdpna, pop (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "pwt_pib_pc.csv":
+            - /url: /dados/panorama/pwt_pib_pc.csv
+        - group: Nota metodológica
+        - group: Tabela de dados
+    - region "Preços e juros":
+      - heading "Preços e juros" [level=3]
+      - paragraph: Inflação diante da meta, expectativas de mercado, política monetária e câmbio.
+      - figure "IPCA, meta para a inflação e expectativas de mercado":
+        - paragraph: IPCA
+        - heading "IPCA, meta para a inflação e expectativas de mercado" [level=4]
+        - paragraph: Em set 2026, o IPCA em 12 meses foi de 4,58%, acima do limite superior do intervalo de tolerância (4,5%). Pela mediana do Focus de 16 out 2026, chegaria a 5,22% em dez. 2026 e a 4,33% em dez. 2027.
+        - list "Legenda":
+          - listitem: IPCA ocorrido
+          - listitem: Focus mais recente (cálculo do CEE)
+          - listitem: Meta para a inflação
+          - listitem: Intervalo de tolerância
+        - tablist "Período":
+          - tab "5 anos"
+          - tab "10 anos" [selected]
+          - tab "Tudo"
+        - paragraph: IPCA em 12 meses observado, meta para a inflação, limites superior e inferior do intervalo de tolerância e trajetória implícita nas medianas mensais do Focus mais recente.
+        - paragraph: variação % em 12 meses (dados mensais)
+        - paragraph:
+          - link "IBGE":
+            - /url: https://sidra.ibge.gov.br/tabela/1737
+          - text: ", SIDRA 1737, variáveis 63 e 2265 (Brasil) (extração 20 de out. de 2026) ·"
+          - link "BCB":
+            - /url: https://www.bcb.gov.br/controleinflacao/historicometas
+          - text: ", histórico de metas (Resolução CMN nº 5.141/2024 desde 2025) (extração 20 de out. de 2026) ·"
+          - link "BCB":
+            - /url: https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+          - text: ", Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "ipca_meta.csv":
+            - /url: /dados/panorama/ipca_meta.csv
+          - text: ·
+          - link "focus_mensal_ipca.csv":
+            - /url: /dados/panorama/focus_mensal_ipca.csv
+        - group: Nota metodológica
+        - group: Tabela de dados
+      - figure "Selic meta e juro real ex ante":
+        - paragraph: Selic
+        - heading "Selic meta e juro real ex ante" [level=4]
+        - paragraph: Em 20 out 2026, a Selic meta era de 13,75% a.a.; com expectativa Focus de 4,51% para os 12 meses seguintes, o juro real ex ante era de 8,84% (calculado).
+        - list "Legenda":
+          - listitem: Selic meta (Copom)
+          - listitem: Juro real ex ante (calculado)
+        - tablist "Período":
+          - tab "3 anos"
+          - tab "5 anos"
+          - tab "10 anos" [selected]
+          - tab "Tudo"
+        - paragraph: Selic meta no fim de cada mês (linha em degraus) e juro real ex ante calculado pela equação de Fisher.
+        - paragraph: "% ao ano"
+        - paragraph:
+          - link "BCB":
+            - /url: https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432
+          - text: ", SGS 432 (extração 20 de out. de 2026) ·"
+          - link "BCB":
+            - /url: https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+          - text: ", Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0 (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "juro_real.csv":
+            - /url: /dados/panorama/juro_real.csv
+        - group: Nota metodológica
+        - group: Tabela de dados
+      - figure "Taxa de câmbio, R$ por US$":
+        - paragraph: PTAX
+        - heading "Taxa de câmbio, R$ por US$" [level=4]
+        - paragraph: Em 19 out 2026, a PTAX de venda era de R$ 5,0564 por dólar; a média de out 2026 até agora é de R$ 5,0522.
+        - list "Legenda":
+          - listitem: PTAX venda, média mensal
+        - tablist "Período":
+          - tab "3 anos"
+          - tab "5 anos" [selected]
+          - tab "10 anos"
+          - tab "Tudo"
+        - paragraph: Média mensal da taxa PTAX diária de venda.
+        - paragraph: R$/US$, média mensal da PTAX diária (venda)
+        - paragraph:
+          - link "BCB":
+            - /url: https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1
+          - text: ", SGS 1 (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "ptax.csv":
+            - /url: /dados/panorama/ptax.csv
+        - group: Nota metodológica
+        - group: Tabela de dados
+    - region "Produtividade e convergência":
+      - heading "Produtividade e convergência" [level=3]
+      - paragraph: Distância em relação à fronteira, com dados da Penn World Table 11.0.
+      - figure "Produtividade do trabalho relativa aos EUA":
+        - paragraph: WDR 2024
+        - heading "Produtividade do trabalho relativa aos EUA" [level=4]
+        - paragraph: "26,4% de um trabalhador dos EUA (Brasil) Coreia do Sul: 68,7% · 2023"
+        - paragraph: "PIB por pessoa ocupada relativo aos EUA. Em 1980 as posições eram inversas: Brasil 49,0%, Coreia do Sul 22,8%."
+        - list "Legenda":
+          - listitem: Brasil
+          - listitem: Coreia do Sul
+        - paragraph: "Brasil e Coreia do Sul, de 1950 (Coreia: 1953) a 2023."
+        - paragraph: "% do nível dos EUA, (rgdpna / emp)"
+        - paragraph:
+          - link "Groningen Growth and Development Centre":
+            - /url: https://doi.org/10.34894/FABVLR
+          - text: ", PWT 11.0: rgdpna, emp; definição: Banco Mundial, WDR 2024 (Figura O.7) (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "pwt_produtividade.csv":
+            - /url: /dados/panorama/pwt_produtividade.csv
+        - group: Nota metodológica
+        - group: Tabela de dados
+      - figure "Proximidade à fronteira":
+        - paragraph: WDR 2024
+        - heading "Proximidade à fronteira" [level=4]
+        - paragraph: 12,9% do PIB per capita dos EUA (Brasil) A taxas de câmbio de mercado (sem ajuste por PPC) · 2023
+        - paragraph: Em paridade de poder de compra (rgdpna), o PIB per capita relativo do Brasil era de 25,4% em 2023. A distância entre as linhas reflete o nível de preços relativo aos EUA.
+        - list "Legenda":
+          - listitem: Proximidade à fronteira (câmbio de mercado)
+          - listitem: PIB per capita relativo em PPC
+        - paragraph: "Brasil, de 1950 a 2023: PIB per capita relativo aos EUA a câmbio de mercado e em PPC."
+        - paragraph: "% do PIB per capita dos EUA"
+        - paragraph:
+          - link "Groningen Growth and Development Centre":
+            - /url: https://doi.org/10.34894/FABVLR
+          - text: ", PWT 11.0: cgdpo, pl_gdpo, pop, rgdpna; definição: WDR 2024 (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "pwt_convergencia.csv":
+            - /url: /dados/panorama/pwt_convergencia.csv
+        - group: Nota metodológica
+        - group: Tabela de dados
+    - region "Fiscal":
+      - heading "Fiscal" [level=3]
+      - paragraph: Endividamento público, expectativas e o primário que estabilizaria a dívida.
+      - figure "Dívida pública e projeções do Focus":
+        - paragraph: Dívida
+        - heading "Dívida pública e projeções do Focus" [level=4]
+        - paragraph: Em ago 2026, a dívida bruta do governo geral (DBGG) era de 82,9% do PIB e a dívida líquida do setor público (DLSP), de 69,3%. O Focus de 16 out 2026 projeta 87,3% e 74,0% para o fim de 2027.
+        - list "Legenda":
+          - listitem: Dívida bruta do governo geral (DBGG)
+          - listitem: Dívida líquida do setor público (DLSP)
+          - listitem: Mediana Focus, fim de ano
+        - paragraph: DBGG e DLSP mensais desde 2012 e medianas Focus para o fim de cada ano (tracejado, com marcadores).
+        - paragraph: "% do PIB"
+        - paragraph:
+          - link "BCB":
+            - /url: https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=13762
+          - text: ", SGS 13762 (extração 20 de out. de 2026) ·"
+          - link "BCB":
+            - /url: https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4513
+          - text: ", SGS 4513 (extração 20 de out. de 2026) ·"
+          - link "BCB":
+            - /url: https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+          - text: ", Focus anual: Dívida bruta do governo geral; Dívida líquida do setor público (extração 20 de out. de 2026)"
+        - paragraph:
+          - text: "Dados:"
+          - link "divida.csv":
+            - /url: /dados/panorama/divida.csv
+        - group: Tabela de dados
+      - figure "Primário para estabilizar a dívida":
+        - paragraph: Sustentabilidade da dívida
+        - text: Cálculo do CEE
+        - heading "Primário para estabilizar a dívida" [level=3]
+        - paragraph: 4,1 % do PIB ao ano
+        - paragraph: com d = 82,9%, r = 6,7%, g = 1,7%
+        - paragraph: "Resultado primário atual (12 meses até ago. de 2026): −0,6% do PIB. Distância até a estabilização: 4,7 p.p. do PIB."
+        - paragraph: Sensibilidade de s* (d = 82,9% do PIB)
+        - region "Matriz de sensibilidade":
+          - table "Superávit primário necessário (% do PIB) por juro real (linhas) e crescimento real do PIB (colunas)":
+            - caption: Superávit primário necessário (% do PIB) por juro real (linhas) e crescimento real do PIB (colunas)
+            - rowgroup:
+              - row "r \\ g 1,0% 1,5% 2,0% 2,5% 3,0%":
+                - columnheader "r \\ g"
+                - columnheader "1,0%"
+                - columnheader "1,5%"
+                - columnheader "2,0%"
+                - columnheader "2,5%"
+                - columnheader "3,0%"
+            - rowgroup:
+              - row "4% 2,5 2,0 1,6 1,2 0,8":
+                - rowheader "4%"
+                - cell "2,5"
+                - cell "2,0"
+                - cell "1,6"
+                - cell "1,2"
+                - cell "0,8"
+              - row "5% 3,3 2,9 2,4 2,0 1,6":
+                - rowheader "5%"
+                - cell "3,3"
+                - cell "2,9"
+                - cell "2,4"
+                - cell "2,0"
+                - cell "1,6"
+              - row "6% 4,1 3,7 3,3 2,8 2,4":
+                - rowheader "6%"
+                - cell "4,1"
+                - cell "3,7"
+                - cell "3,3"
+                - cell "2,8"
+                - cell "2,4"
+              - row "7% 4,9 4,5 4,1 3,6 3,2":
+                - rowheader "7%"
+                - cell "4,9"
+                - cell "4,5"
+                - cell "4,1"
+                - cell "3,6"
+                - cell "3,2"
+              - row "8% 5,7 5,3 4,9 4,5 4,0":
+                - rowheader "8%"
+                - cell "5,7"
+                - cell "5,3"
+                - cell "4,9"
+                - cell "4,5"
+                - cell "4,0"
+        - group: Fórmula, parâmetros e referências
+        - text: "Fonte:"
+        - link "BCB":
+          - /url: https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=13762
+        - text: e
+        - link "Focus":
+          - /url: https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+        - text: (SGS 13762, SGS 5793; Focus de 16 de out. de 2026) · extração 20 de out. de 2026 · Cálculo do CEE
+    - paragraph:
+      - text: "Catálogo completo de séries, códigos e vintages:"
+      - link "catálogo de séries":
+        - /url: /observatorio/catalogo/
+      - text: ·
+      - link "código e dados no GitHub":
+        - /url: https://github.com/jesusabc8/cee-site
+  - region "Três perguntas que organizam o Centro":
+    - paragraph: Pesquisa
+    - heading "Três perguntas que organizam o Centro" [level=2]
+    - paragraph: Áreas permanentes de trabalho, cada uma com uma pergunta-guia, linhas de pesquisa e produtos definidos.
+    - article:
+      - 'heading "Área A: Conjuntura e Política Macroeconômica" [level=3]'
+      - paragraph: Onde está a economia brasileira no ciclo, e o que a política monetária e a fiscal estão fazendo a respeito?
+      - list:
+        - listitem: A1 Atividade, inflação e política monetária Prevista (ano 1)
+        - listitem: A2 Política fiscal e dívida pública Planejada (ano 2)
+      - link "Ver a área Conjuntura e Política Macroeconômica":
+        - /url: /pesquisa/a/
+    - article:
+      - 'heading "Área B: Crescimento, Produtividade e Transformação Estrutural" [level=3]'
+      - paragraph: Por que a produtividade brasileira não cresce?
+      - list:
+        - listitem: B1 Produtividade agregada e setorial Prevista (ano 1)
+        - listitem: B2 Tecnologia, IA e capacidade de absorção Planejada (ano 2)
+      - link "Ver a área Crescimento, Produtividade e Transformação Estrutural":
+        - /url: /pesquisa/b/
+    - article:
+      - 'heading "Área C: Trabalho, Pobreza e Desigualdade" [level=3]'
+      - paragraph: Quem se beneficia do crescimento, e por que a informalidade persiste?
+      - list:
+        - listitem: C1 Pobreza e distribuição de renda (Observatório da Pobreza) Prevista (ano 1)
+        - listitem: C2 Informalidade e mercado de trabalho Planejada (ano 2)
+      - link "Ver a área Trabalho, Pobreza e Desigualdade":
+        - /url: /pesquisa/c/
+    - paragraph:
+      - text: "Lente transversal: Instituições e Capacidade do Estado. Atravessa as três áreas: como a qualidade das instituições condiciona a conjuntura, a produtividade e a distribuição."
+      - link "Ver a página da lente":
+        - /url: /pesquisa/instituicoes/
+  - region "Formatos pensados para serem lidos e verificados":
+    - paragraph: Publicações
+    - heading "Formatos pensados para serem lidos e verificados" [level=2]
+    - paragraph: Cada produto tem cadência, extensão e nível de revisão definidos. Nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado.
+    - list:
+      - listitem:
+        - heading "Painel do Observatório" [level=3]
+        - paragraph: Séries versionadas por edição numerada, com fonte, série e data de extração em cada gráfico e dados para consulta.
+        - paragraph: Por edição · reexecução independente
+        - text: Versão preliminar no ar
+      - listitem:
+        - heading "Data Insight" [level=3]
+        - paragraph: Um gráfico, um achado, cerca de 150 palavras. O título é uma afirmação, e não um tema.
+        - paragraph: Quinzenal · verificação numérica
+        - text: Primeira edição em preparação
+      - listitem:
+        - heading "Nota de Conjuntura" [level=3]
+        - paragraph: Tese em duas frases, um gráfico principal, a incerteza declarada e a planilha com a série histórica.
+        - paragraph: Mensal · duas camadas de revisão
+        - text: Primeira edição em preparação
+      - listitem:
+        - heading "Nota Técnica" [level=3]
+        - paragraph: Único produto com recomendações, sempre com seção sobre o que a evidência não permite concluir.
+        - paragraph: Uma a duas por trimestre · três camadas
+        - text: Primeira edição em preparação
+      - listitem:
+        - heading "Working Paper" [level=3]
+        - paragraph: Série numerada, de 25 a 40 páginas, com estratégia de identificação explícita e pacote de replicação.
+        - paragraph: Conforme o material · parecer externo
+        - text: Primeira edição em preparação
+      - listitem:
+        - heading "Replicação" [level=3]
+        - paragraph: Reprodução de um resultado publicado, registrando o que se replica, o que não se replica e por quê.
+        - paragraph: Trimestral · reexecução independente
+        - text: Primeira edição em preparação
+    - paragraph:
+      - link "Todas as publicações":
+        - /url: /publicacoes/
+  - region "Nenhum número sai sem verificação independente":
+    - paragraph: Metodologia e reprodutibilidade
+    - heading "Nenhum número sai sem verificação independente" [level=2]
+    - link "Ler o protocolo completo":
+      - /url: /metodologia/
+    - tablist "Etapas do método":
+      - tab "01 Pergunta"
+      - tab "02 Ficha de desenho"
+      - tab "03 Dado e código"
+      - tab "04 Verificação independente Outra pessoa reexecuta e confere cada número." [selected]
+      - tab "05 Revisão de conteúdo e editorial"
+      - tab "06 Publicação e errata"
+    - tabpanel "04 Verificação independente Outra pessoa reexecuta e confere cada número.":
+      - paragraph: Etapa 04 de 06
+      - heading "Verificação independente" [level=3]
+      - paragraph: Um integrante que não é autor reexecuta o repositório do zero, em máquina distinta, e confere cada tabela e figura do texto.
+      - paragraph: "Regra: nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado."
+  - region "Aprenda a fazer pesquisa econômica fazendo pesquisa econômica.":
+    - paragraph: Participe
+    - heading "Aprenda a fazer pesquisa econômica fazendo pesquisa econômica." [level=2]
+    - paragraph: Entrada aberta a estudantes de Ciências Econômicas de qualquer campus e do EAD. A responsabilidade cresce com a qualidade demonstrada, segundo critérios escritos e públicos.
+    - link "Como participar":
+      - /url: /participe/
+    - list:
+      - listitem: Entrada aberta Sem seleção enquanto houver mais trabalho do que gente. Cada pessoa começa com uma tarefa pequena e real.
+      - listitem: Mérito progressivo De Participante a Coordenador de Área, com critérios escritos. O mérito vale para progredir e assinar, não para entrar.
+      - listitem: "Formação em método Oito sessões por semestre: fontes de dados, fluxo reproduzível, controle de versão, microdados da PNAD, desenho de pesquisa, contabilidade do crescimento, redação técnica e visualização honesta."
+- contentinfo:
+  - img "CEE — Centro de Estudos Econômicos"
+  - paragraph: Centro de Estudos Econômicos. Iniciativa estudantil de análise econômica empírica sobre a economia brasileira.
+  - list "Redes sociais do CEE":
+    - listitem
+    - listitem
+    - listitem
+    - listitem
+  - navigation "Pesquisa":
+    - heading "Pesquisa" [level=2]
+    - list:
+      - listitem:
+        - link "Conjuntura e política macro":
+          - /url: /pesquisa/a/
+      - listitem:
+        - link "Crescimento e produtividade":
+          - /url: /pesquisa/b/
+      - listitem:
+        - link "Trabalho, pobreza e desigualdade":
+          - /url: /pesquisa/c/
+      - listitem:
+        - link "Observatório":
+          - /url: /observatorio/
+      - listitem:
+        - link "Publicações":
+          - /url: /publicacoes/
+  - navigation "Transparência":
+    - heading "Transparência" [level=2]
+    - list:
+      - listitem:
+        - link "Metodologia":
+          - /url: /metodologia/
+      - listitem:
+        - link "Erratas":
+          - /url: /erratas/
+      - listitem:
+        - link "Catálogo de dados":
+          - /url: /observatorio/catalogo/
+      - listitem:
+        - link "Repositório no GitHub":
+          - /url: https://github.com/jesusabc8/cee-site
+      - listitem:
+        - link "RSS":
+          - /url: /rss.xml
+  - navigation "Institucional":
+    - heading "Institucional" [level=2]
+    - list:
+      - listitem:
+        - link "Sobre":
+          - /url: /sobre/
+      - listitem:
+        - link "Participe":
+          - /url: /participe/
+      - listitem:
+        - link "Equipe":
+          - /url: /equipe/
+      - listitem:
+        - link "Contato":
+          - /url: /contato/
+      - listitem:
+        - link "Privacidade":
+          - /url: /privacidade/
+      - listitem:
+        - link "Termos e licenças":
+          - /url: /termos/
+      - listitem:
+        - link "Acessibilidade":
+          - /url: /acessibilidade/
+  - paragraph: O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.
+  - paragraph: Texto e dados CC BY 4.0 · Código MIT

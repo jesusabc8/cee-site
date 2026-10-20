@@ -64,8 +64,8 @@ const L = {
   .card h2 a { color: var(--navy); text-decoration: none; }
   .card--feature h2 a { color: var(--white); }
   .card h2 a::after { content: ''; position: absolute; inset: 0; }
-  .card h2 a:focus-visible { outline: none; }
-  .card:has(h2 a:focus-visible) { outline: 2px solid var(--petrol); outline-offset: 2px; }
+  .card h2 a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
+  .card--feature h2 a:focus-visible { outline-color: var(--sky); }
   .card p { margin: 0; font-size: 0.96875rem; line-height: 1.55; }
   .card__sit { font-size: 0.875rem !important; color: var(--muted); }
   .card--feature p { max-width: 70ch; }

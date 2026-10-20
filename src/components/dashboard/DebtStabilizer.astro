@@ -27,7 +27,7 @@ const anos = e.horizonte.map((h) => h.ano);
 const maxBar = Math.max(e.s_estrela, Math.abs(e.primario_atual), 1) * 1.1;
 const pct = (v: number) => `${(Math.abs(v) / maxBar) * 100}%`;
 ---
-<article class="debt" id="grafico-estabilizacao" role="figure" aria-labelledby="debt-t" aria-describedby="debt-d">
+<figure class="debt" id="grafico-estabilizacao" aria-labelledby="debt-t" aria-describedby="debt-d">
   <header>
     <div class="debt__top">
       <p class="debt__label"><Icon name="scale" size={16} /> {en ? 'Debt sustainability' : 'Sustentabilidade da dívida'}</p>
@@ -87,10 +87,11 @@ const pct = (v: number) => `${(Math.abs(v) / maxBar) * 100}%`;
   <footer class="debt__foot mono">
     {en ? 'Source' : 'Fonte'}: <a href={fontes[0]!.url}>BCB</a> {en ? 'and' : 'e'} <a href={fontes[2]!.url}>Focus</a> (SGS 13762, SGS 5793; Focus {en ? 'of' : 'de'} {fd(e.data_focus)}) · {en ? 'extracted' : 'extração'} {fd(fontes[0]!.extraido_em)} · {en ? 'CEE calculation' : 'Cálculo do CEE'}
   </footer>
-</article>
+</figure>
 
 <style>
   .debt {
+    margin: 0;
     background: var(--white);
     border: 1px solid var(--line);
     border-top: 3px solid var(--navy);

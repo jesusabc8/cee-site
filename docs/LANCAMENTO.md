@@ -1,6 +1,6 @@
 # Checklist de lançamento
 
-O sítio está em **versão preliminar** (`config.lancado = false`: noindex, `robots.txt` com `Disallow` e faixa de aviso).
+O sítio está em **versão preliminar** (`config.launched = false`, isto é, build sem `CEE_LANCADO=1`: noindex e `robots.txt` com `Disallow`).
 Só lançar quando todos os itens estiverem marcados, com data e responsável.
 
 ## Institucional
@@ -28,5 +28,7 @@ Só lançar quando todos os itens estiverem marcados, com data e responsável.
 - [ ] Teste em celular físico (Android e iOS).
 
 ## Virada
-- [ ] `lancado: true` em `src/config.ts` (remover o atalho `CEE_LANCADO`), com ADR em `docs/DECISIONES.md`.
+- [ ] `launched: true` em `src/site.config.ts` (ou build com `CEE_LANCADO=1`), com ADR em `docs/DECISIONES.md`.
+- [ ] Autorização escrita para o nome da Universidade na faixa superior (ADR-012); sem ela, `useUniversityName: false`.
+- [ ] Conferir as referências IFI (RAF nº 113) e Tesouro na ficha do primário estabilizador (`docs/PENDIENTES.md`).
 - [ ] Conferir `robots.txt` (Allow + Sitemap), `sitemap-index.xml` e meta `robots` em produção.

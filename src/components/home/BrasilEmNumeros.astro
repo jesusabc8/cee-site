@@ -162,8 +162,7 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f);
   .tile__val a { color: inherit; text-decoration: none; }
   .tile__val a::after { content: ''; position: absolute; inset: 0; }
   .tile__val a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
-  .tile__val a:focus-visible { outline: none; }
-  .tile:has(a:focus-visible) { outline: 2px solid var(--petrol); outline-offset: -2px; }
+  .tile__val a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
   .tile__val small { font-size: 0.9375rem; font-weight: 500; letter-spacing: 0; color: var(--muted); margin-left: 4px; }
   .tile__skel { margin: 14px 0 2px; font-size: 13px; color: var(--muted); }
   .tile__skel span { display: block; width: 60%; height: 30px; margin-bottom: 6px; background: linear-gradient(90deg, var(--paper), var(--mist), var(--paper)); }

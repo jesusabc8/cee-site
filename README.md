@@ -111,7 +111,7 @@ npm run data      # baixa (data:fetch), processa (data:process), regenera data/C
 
 ## 6. Editar páginas institucionais
 
-As páginas ficam em `src/content/paginas/pt-BR/*.mdx` (texto integral) e `src/content/paginas/en/*.mdx` (resumo). Áreas e linhas de pesquisa estão em [`src/data/areas.yaml`](src/data/areas.yaml) e [`src/data/linhas.yaml`](src/data/linhas.yaml). Integrantes estão em [`src/data/equipe.yaml`](src/data/equipe.yaml) — **só aparecem com `consentimento: true`**. Bandeiras institucionais (`lancado`, `useUniversityName`, `showEvents`) estão em [`src/config.ts`](src/config.ts) e só mudam com registro em [`docs/DECISIONES.md`](docs/DECISIONES.md).
+As páginas ficam em `src/content/paginas/pt-BR/*.mdx` (texto integral) e `src/content/paginas/en/*.mdx` (resumo). Áreas e linhas de pesquisa estão em [`src/data/areas.yaml`](src/data/areas.yaml) e [`src/data/linhas.yaml`](src/data/linhas.yaml). Integrantes estão em [`src/data/equipe.yaml`](src/data/equipe.yaml) — **só aparecem com `consentimento: true`**. Bandeiras institucionais (`launched`, `useUniversityName`, `showEvents`) e a faixa institucional estão em [`src/site.config.ts`](src/site.config.ts) e só mudam com registro em [`docs/DECISIONES.md`](docs/DECISIONES.md).
 
 ## 7. Verificações de qualidade
 

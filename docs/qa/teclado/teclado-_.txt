@@ -1,0 +1,44 @@
+Rota: /
+Primeiro Tab: "Pular para o conteúdo" → Enter leva o foco a #conteudo
+Elementos sem foco visível: 0
+
+ 1. a "Pular para o conteúdo" foco-visível=true
+ 2. a "CEE — Centro de Estudos Econômicos: Página inicial" foco-visível=true
+ 3. a "Pesquisa" foco-visível=true
+ 4. a "Publicações" foco-visível=true
+ 5. a "Observatório" foco-visível=true
+ 6. a "Metodologia" foco-visível=true
+ 7. a "Sobre" foco-visível=true
+ 8. a "Participe" foco-visível=true
+ 9. button "Buscar no sítio" foco-visível=true
+10. a "ENEnglish" foco-visível=true
+11. a "Explorar os dados" foco-visível=true
+12. a "Como trabalhamos" foco-visível=true
+13. button "Todos" foco-visível=true
+14. button "Atividade" foco-visível=true
+15. button "Preços e juros" foco-visível=true
+16. button "Externo" foco-visível=true
+17. button "Fiscal" foco-visível=true
+18. button "Trabalho" foco-visível=true
+19. a "0,5 % t/t, PIB real: ver gráfico" foco-visível=true
+20. a "4,58 % 12m, IPCA: ver gráfico" foco-visível=true
+21. a "13,75 % a.a., Selic meta: ver gráfico" foco-visível=true
+22. a "8,84 % a.a., Juro real ex ante: ver gráfico" foco-visível=true
+23. a "5,22 %, Focus · IPCA 2026: ver gráfico" foco-visível=true
+24. a "5,0564 R$/US$, Câmbio: ver gráfico" foco-visível=true
+25. a "−0,62 % PIB, Resultado primário: ver gráfico" foco-visível=true
+26. a "82,9 % PIB, Dívida bruta: ver gráfico" foco-visível=true
+27. li "Interanual" foco-visível=true
+28. li "Contra o trimestre anterior, dessazonalizado" foco-visível=true
+29. button "10 anos" foco-visível=true
+30. a "IBGE" foco-visível=true
+31. a "pib.csv" foco-visível=true
+32. summary "Tabela de dados" foco-visível=true
+33. li "Brasil" foco-visível=true
+34. li "China" foco-visível=true
+35. li "Chile" foco-visível=true
+36. li "México" foco-visível=true
+37. li "Argentina" foco-visível=true
+38. li "Peru" foco-visível=true
+39. a "Groningen Growth and Development Centre" foco-visível=true
+40. a "pwt_pib_pc.csv" foco-visível=true

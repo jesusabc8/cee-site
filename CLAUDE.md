@@ -9,7 +9,8 @@ Sítio do **Centro de Estudos Econômicos (CEE)**, iniciativa estudantil. Fonte 
    Texto de exemplo leva `[PLACEHOLDER]` visível e é listado em `docs/PLACEHOLDERS.md`.
 2. **Não é sítio oficial da PUC Minas.** Sem escudo, logotipo, cores institucionais nem o nome da Universidade
    no domínio, no `<title>` ou na marca. Menção apenas descritiva. Descargo no rodapé e em cada publicação.
-   `config.useUniversityName` só vira `true` com autorização escrita (Proposta §8.5).
+   Exceção registrada (ADR-012): por pedido da coordenação, `useUniversityName: true` mostra o nome completo, só em texto,
+   na faixa superior (`src/site.config.ts`), pendente de autorização escrita (Proposta §8.5); se negada, voltar a `false`.
 3. **Pessoas só com consentimento.** `equipe` exige `consentimento: true`; sem isso, não renderiza.
    Não nomear a docente consultada nem articuladores (Proposta, Anexo H, ponto 3).
 4. **Dados rastreáveis.** Todo gráfico/tabela: fonte, código da série, data de extração, unidade, link para dado e código.
@@ -19,27 +20,30 @@ Sítio do **Centro de Estudos Econômicos (CEE)**, iniciativa estudantil. Fonte 
 
 ## Decisões de conteúdo já tomadas
 - Linhas A1, B1, C1: estado `prevista` (não `ativa`) até cumprirem §4.7. A2, B2, C2: `planejada`.
-- Primeiro painel real: Conjuntura (A1). Pobreza (C1) e Crescimento (B1) aparecem "em institucionalização", sem cifras.
-- `config.lancado = false` → noindex + robots Disallow + faixa "Versão preliminar".
+- Painéis reais: Conjuntura (A1) e "Panorama da economia brasileira" (página inicial e `/observatorio/panorama/`).
+  Pobreza (C1) e Crescimento (B1) aparecem "em institucionalização", sem cifras.
+- `config.launched = false` (sem `CEE_LANCADO=1`) → noindex + robots Disallow.
 - `config.showEvents = false` (critérios §5.4).
 
 ## Stack e convenções
 - Astro 7 (estático), TypeScript estrito, MDX, Content Collections com Zod. CSS próprio com tokens (sem Tailwind).
-- Gráficos: Observable Plot renderizado no build para SVG; tabela alternativa obrigatória.
+- Gráficos: renderizador SVG próprio (`src/lib/viz/render.ts`), desenhado no build e redesenhado no navegador; ficha `ChartCard`; tabela alternativa obrigatória (ADR-010).
 - pt-BR na raiz, inglês em `/en/` com os mesmos slugs. Strings de interface em `src/i18n/`.
 - Links internos sempre via `href(path, lang)` de `src/i18n/routing.ts` (respeita `base` e língua).
 - Dados brutos em `data/raw/` são imutáveis; tudo derivado vem de script.
 - Commits pequenos, em português ou inglês, mensagem no imperativo.
 
 ## Gráficos
-- No máximo 3 séries, um único eixo y (nunca eixo duplo), paleta validada (`--c1..--c3`, ADR-007).
-- Título descritivo; subtítulo com número só se gerado do dado (`src/lib/conjuntura.ts`). Sempre tabela alternativa e CSV.
+- No máximo 3 séries (exceção documentada: PIB per capita, ADR-010), um único eixo y (nunca eixo duplo), paleta azul `--c1..--c5`;
+  a partir da 3ª série, codificação secundária obrigatória (traço, marcador, rótulo direto).
+- Título descritivo; subtítulo com número só se gerado do dado (`src/lib/conjuntura.ts`, `src/lib/panorama.ts`). Sempre tabela alternativa e CSV.
 - Novas séries: verificar nos metadados oficiais e registrar `verificacao` em `scripts/data/series.ts`.
 
 ## Comandos
 - `npm ci` · `npm run dev` · `npm run build` (inclui Pagefind) · `npm run check` · `npm run lint` · `npm test`
 - `npm run data` (extração + processamento + catálogo + testes; requer rede)
-- QA: `npm run qa:links`; `scripts/qa/axe.mjs`, `lighthouse.mjs`, `teclado.mjs`, `overflow.mjs` (com `npm run preview`)
+- QA: `npm run qa:links`; `scripts/qa/axe.mjs`, `lighthouse.mjs`, `teclado.mjs`, `larguras.mjs`, `movimento.mjs`, `interacao.mjs`,
+  `frame.mjs` (capturas) — todos com `npm run preview`. Desenho: `docs/DESIGN.md`.
 - Neste ambiente de nuvem: `CHROMIUM_PATH=/opt/pw-browsers/chromium` e `CHROME_PATH=/opt/pw-browsers/chromium` para os scripts de QA;
   o `fetch` do Node precisa de `NODE_USE_ENV_PROXY=1` (já embutido em `npm run data:fetch`).
 

@@ -52,7 +52,7 @@ const ICONE: Record<string, string> = { a: 'trending-up', b: 'chart-column-incre
         <p><b>{en ? 'Cross-cutting lens' : 'Lente transversal'}: {lente.data.nome[k]}.</b> {en
           ? 'It runs across the three areas: how the quality of institutions conditions the business cycle, productivity and distribution.'
           : 'Atravessa as três áreas: como a qualidade das instituições condiciona a conjuntura, a produtividade e a distribuição.'}{' '}
-          <a href={href(`/pesquisa/${lente.id}/`, lang)}>{en ? 'Read more' : 'Saiba mais'}</a></p>
+          <a href={href(`/pesquisa/${lente.id}/`, lang)}>{en ? 'See the lens page' : 'Ver a página da lente'}</a></p>
       </div>
     )}
   </div>
@@ -89,8 +89,7 @@ const ICONE: Record<string, string> = { a: 'trending-up', b: 'chart-column-incre
   .area__go { margin-top: 24px; display: inline-flex; align-items: center; gap: 10px; font: 600 0.78rem / 1 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); text-decoration: none; transition: gap 0.2s var(--ease); }
   .area__go:hover { gap: 14px; color: var(--navy); }
   .area__go::after { content: ''; position: absolute; inset: 0; }
-  .area:has(.area__go:focus-visible) { outline: 2px solid var(--petrol); outline-offset: 2px; }
-  .area__go:focus-visible { outline: none; }
+  .area__go:focus-visible { outline: 2px solid var(--petrol); outline-offset: 4px; }
   .lens { display: flex; gap: 18px; align-items: flex-start; margin-top: 24px; padding: 22px 26px; background: var(--navy); color: #d6e2ee; }
   .lens__icon { color: var(--sky); flex: none; margin-top: 2px; }
   .lens p { margin: 0; font-size: 0.96875rem; line-height: 1.6; }

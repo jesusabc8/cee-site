@@ -6,12 +6,12 @@ import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 ---
-<div class="topbar">
+<aside class="topbar" aria-label={lang === 'en' ? 'Institution and social media' : 'Instituição e redes sociais'}>
   <div class="topbar__inner">
     <p class="topbar__line">{config.institutionalLine}</p>
     <SocialIcons lang={lang} />
   </div>
-</div>
+</aside>
 <style>
   .topbar { background: var(--topbar); color: var(--white); }
   .topbar__inner {
