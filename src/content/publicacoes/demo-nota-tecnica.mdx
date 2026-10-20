@@ -1,0 +1,58 @@
+---
+# PUBLICAÇÃO DE DEMONSTRAÇÃO — conteúdo fictício para validar o modelo.
+# demo: true → nunca listada, sempre noindex, fora do RSS, do sitemap e da busca.
+tipo: nota-tecnica
+titulo: "[PLACEHOLDER] Título-afirmação da Nota Técnica de demonstração"
+subtitulo: "[PLACEHOLDER] Bajada que resume o problema e a evidência em uma frase"
+data: 2026-10-20
+versao: "1.0"
+area: b
+linha: B1
+autoria:
+  - nome: "[PLACEHOLDER] Autoria A"
+    funcao_credit: [conceituacao, analise, redacao]
+  - nome: "[PLACEHOLDER] Autoria B"
+    funcao_credit: [curadoria, software]
+  - nome: "[PLACEHOLDER] Verificação"
+    funcao_credit: [validacao]
+resumo: "[PLACEHOLDER] Resumo de uma a duas linhas. Este texto não contém afirmações sobre dados reais e existe apenas para testar a página."
+resumo_en: "[PLACEHOLDER] One- or two-line summary. This text makes no claims about real data and only tests the page template."
+limites:
+  - "[PLACEHOLDER] Primeiro limite: o que a evidência não permite concluir."
+  - "[PLACEHOLDER] Segundo limite: por que a associação não implica causalidade."
+recomendacoes:
+  - "[PLACEHOLDER] Recomendação separada da evidência (só admitida em Nota Técnica)."
+fontes:
+  - instituicao: "[PLACEHOLDER] Instituição"
+    serie: "[PLACEHOLDER] Nome da série"
+    codigo: "[PLACEHOLDER]"
+    unidade: "[PLACEHOLDER] unidade"
+    extraido_em: 2026-10-20
+    url: "https://example.org/placeholder"
+dados:
+  - rotulo: "[PLACEHOLDER] Planilha com a série histórica (CSV)"
+    url: "/publicacoes/"
+conflitos: "[PLACEHOLDER] Os autores declaram não haver conflitos de interesse."
+uso_ia: "[PLACEHOLDER] Declaração de uso de IA: ferramenta, finalidade, partes afetadas e forma de verificação humana."
+demo: true
+noindex: true
+---
+import Box from '../../components/Box.astro';
+
+<Box variant="placeholder" title="[PLACEHOLDER] Gráfico principal">
+  <p>Aqui entra o gráfico principal, com título-afirmação, unidade, fonte, série, data de extração, tabela alternativa e link para o CSV. Nenhum gráfico com dados fictícios é exibido.</p>
+</Box>
+
+## Problema
+
+[PLACEHOLDER] Pergunta e por que importa.
+
+## Evidência
+
+[PLACEHOLDER] O que os dados mostram, com metodologia descrita no corpo do texto, e não apenas em nota.[^1]
+
+## Opções
+
+[PLACEHOLDER] Alternativas consideradas e o que cada uma exigiria.
+
+[^1]: [PLACEHOLDER] Nota de rodapé com detalhe metodológico.

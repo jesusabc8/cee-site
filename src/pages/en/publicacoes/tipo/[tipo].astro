@@ -1,0 +1,10 @@
+---
+import PubIndex from '../../../../components/pub/PubIndex.astro';
+import { TIPO_KEYS, type Tipo } from '../../../../schemas/publicacao';
+
+export function getStaticPaths() {
+  return TIPO_KEYS.map((tipo) => ({ params: { tipo } }));
+}
+const tipo = Astro.params.tipo as Tipo;
+---
+<PubIndex lang="en" tipo={tipo} />

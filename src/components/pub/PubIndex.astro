@@ -1,0 +1,113 @@
+---
+/**
+ * Índice de publicações. Sem JavaScript, mostra tudo em ordem cronológica inversa;
+ * com JavaScript, os filtros (tipo, área, ano, autoria) e a ordenação atuam na lista.
+ */
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../PageHeader.astro';
+import PubRow from './PubRow.astro';
+import { getPublicacoes } from '../../lib/publicacoes';
+import { TIPOS, TIPO_KEYS, type Tipo } from '../../schemas/publicacao';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang; tipo?: Tipo }
+const { lang, tipo } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const todas = await getPublicacoes();
+const pubs = tipo ? todas.filter((p) => p.data.tipo === tipo) : todas;
+const areas = (await getCollection('areas')).sort((a, b) => a.data.ordem - b.data.ordem);
+const anos = [...new Set(todas.map((p) => p.data.data.getUTCFullYear()))].sort((a, b) => b - a);
+const autores = [...new Set(todas.flatMap((p) => p.data.autoria.map((a) => a.nome)))].sort();
+
+const L = {
+  pt: { t: 'Publicações', lede: 'Notas de Conjuntura, Data Insights, Notas Técnicas, Working Papers numerados, Replicações e Edições especiais. Cada uma com dados, código, bloco de citação e histórico de versões.',
+    tipo: 'Tipo', area: 'Área', ano: 'Ano', autoria: 'Autoria', todos: 'Todos', todas: 'Todas', ordem: 'Ordenar', recentes: 'Mais recentes', antigas: 'Mais antigas',
+    vazio: 'Nenhuma publicação até o momento. A primeira Nota de Conjuntura e os primeiros Data Insights estão em preparação; cada publicação passará pela verificação numérica independente antes de sair.',
+    nenhumFiltro: 'Nenhuma publicação corresponde aos filtros.', porTipo: 'Por tipo', rss: 'Assinar (RSS)', resultado: 'publicações' },
+  en: { t: 'Publications', lede: 'Business-Cycle Notes, Data Insights, Technical Notes, numbered Working Papers, Replications and Special editions — each with data, code, a citation block and version history. Full texts are in Portuguese; summaries are in English.',
+    tipo: 'Type', area: 'Area', ano: 'Year', autoria: 'Author', todos: 'All', todas: 'All', ordem: 'Sort', recentes: 'Newest first', antigas: 'Oldest first',
+    vazio: 'No publications yet. The first Business-Cycle Note and Data Insights are in preparation; each will undergo independent numerical verification before release.',
+    nenhumFiltro: 'No publications match the filters.', porTipo: 'By type', rss: 'Subscribe (RSS)', resultado: 'publications' },
+}[k];
+const titulo = tipo ? TIPOS[tipo].plural[k] : L.t;
+const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
+---
+<Base title={titulo} description={L.lede} lang={lang}>
+  <div class="wrap">
+    <PageHeader eyebrow={tipo ? L.t : undefined} title={titulo} lede={tipo ? undefined : L.lede}>
+      <p class="meta"><a href={href(feed)}>{L.rss}</a></p>
+    </PageHeader>
+
+    <nav class="tipos" aria-label={L.porTipo}>
+      <ul>
+        <li><a href={href('/publicacoes/', lang)} aria-current={!tipo ? 'page' : undefined}>{L.todas}</a></li>
+        {TIPO_KEYS.map((t) => (
+          <li><a href={href(`/publicacoes/tipo/${t}/`, lang)} aria-current={tipo === t ? 'page' : undefined}>{TIPOS[t].plural[k]}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    {pubs.length === 0 ? (
+      <p class="vazio">{L.vazio}</p>
+    ) : (
+      <>
+        <form class="filtros no-print" hidden aria-label="Filtros">
+          {!tipo && (
+            <label>{L.tipo}<select name="tipo"><option value="">{L.todos}</option>{TIPO_KEYS.map((t) => <option value={t}>{TIPOS[t][k]}</option>)}</select></label>
+          )}
+          <label>{L.area}<select name="area"><option value="">{L.todas}</option>{areas.map((a) => <option value={a.id}>{a.data.codigo} {a.data.nome[k]}</option>)}</select></label>
+          <label>{L.ano}<select name="ano"><option value="">{L.todos}</option>{anos.map((y) => <option value={y}>{y}</option>)}</select></label>
+          <label>{L.autoria}<select name="autor"><option value="">{L.todos}</option>{autores.map((a) => <option value={a}>{a}</option>)}</select></label>
+          <label>{L.ordem}<select name="ordem"><option value="desc">{L.recentes}</option><option value="asc">{L.antigas}</option></select></label>
+        </form>
+        <p class="meta contagem" aria-live="polite"><span data-count>{pubs.length}</span> {L.resultado}</p>
+        <div class="lista" data-lista>
+          {pubs.map((p) => <PubRow pub={p} lang={lang} headingLevel="h2" />)}
+        </div>
+        <p class="meta" data-vazio hidden>{L.nenhumFiltro}</p>
+      </>
+    )}
+  </div>
+</Base>
+<script>
+  const form = document.querySelector<HTMLFormElement>('.filtros');
+  const lista = document.querySelector<HTMLElement>('[data-lista]');
+  if (form && lista) {
+    form.hidden = false;
+    const rows = [...lista.querySelectorAll<HTMLElement>('.pub-row')];
+    const count = document.querySelector('[data-count]');
+    const vazio = document.querySelector<HTMLElement>('[data-vazio]');
+    const apply = () => {
+      const f = new FormData(form);
+      const get = (n: string) => String(f.get(n) ?? '');
+      let n = 0;
+      for (const r of rows) {
+        const ok = (!get('tipo') || r.dataset.tipo === get('tipo')) && (!get('area') || r.dataset.area === get('area'))
+          && (!get('ano') || r.dataset.ano === get('ano')) && (!get('autor') || (r.dataset.autores ?? '').split('|').includes(get('autor')));
+        r.hidden = !ok;
+        if (ok) n++;
+      }
+      const sorted = get('ordem') === 'asc' ? [...rows].reverse() : rows;
+      sorted.forEach((r) => lista.appendChild(r));
+      if (count) count.textContent = String(n);
+      if (vazio) vazio.hidden = n > 0;
+    };
+    form.addEventListener('change', apply);
+  }
+</script>
+<style>
+  .tipos ul { list-style: none; padding: 0; margin: 0 0 var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); font-size: var(--step--1); border-bottom: var(--hairline); padding-bottom: var(--s-3); }
+  .tipos a { color: var(--text); text-decoration: none; }
+  .tipos a:hover { color: var(--primary); text-decoration: underline; }
+  .tipos a[aria-current='page'] { color: var(--primary); font-weight: 700; }
+  .filtros { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-bottom: var(--s-4); font-size: var(--step--1); }
+  .filtros[hidden] { display: none; }
+  .filtros label { display: grid; gap: var(--s-1); font-weight: 600; color: var(--text-2); }
+  .filtros select { font: inherit; font-weight: 400; color: var(--text); background: var(--bg); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.3em 0.5em; min-width: 9rem; }
+  .contagem { margin-bottom: var(--s-2); }
+  .lista { border-bottom: var(--hairline); }
+  .vazio { font-family: var(--font-serif); font-size: var(--step-1); max-width: var(--measure); color: var(--text-2); border-top: var(--hairline); padding-top: var(--s-5); }
+  .pub-row[hidden] { display: none; }
+</style>

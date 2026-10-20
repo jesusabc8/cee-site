@@ -1,0 +1,30 @@
+---
+import type { Publicacao } from '../../schemas/publicacao';
+import { fmtDate, isoDate } from '../../lib/publicacoes';
+import type { Lang } from '../../i18n/ui';
+interface Props { p: Publicacao; lang: Lang }
+const { p, lang } = Astro.props;
+const L = lang === 'en'
+  ? { t: 'Versions and errata', v: 'Version', e: 'Erratum', ident: 'identified', efeito: 'Effect on conclusions', corr: 'Correction', nenhuma: 'No errata.', orig: 'First publication' }
+  : { t: 'Versões e erratas', v: 'Versão', e: 'Errata', ident: 'identificado em', efeito: 'Efeito sobre as conclusões', corr: 'Correção', nenhuma: 'Nenhuma errata.', orig: 'Primeira publicação' };
+const versoes = p.versoes.length ? p.versoes : [{ versao: p.versao, data: p.data, nota: L.orig }];
+---
+<section aria-labelledby="ver-title" id="versoes">
+  <h2 id="ver-title" class="block-title">{L.t}</h2>
+  <ol class="ver">
+    {versoes.map((v) => <li><span class="meta"><time datetime={isoDate(v.data)}>{fmtDate(v.data, lang, 'short')}</time> · {L.v} {v.versao}</span> {v.nota}</li>)}
+  </ol>
+  {p.erratas.length === 0 ? <p class="meta">{L.nenhuma}</p> : p.erratas.map((e) => (
+    <div class="errata">
+      <p class="meta"><strong>{L.e}</strong> · <time datetime={isoDate(e.data)}>{fmtDate(e.data, lang, 'short')}</time> ({L.ident} {fmtDate(e.identificado_em, lang, 'short')}) · {L.v} {e.versao_corrigida}</p>
+      <p>{e.descricao}</p>
+      <p><strong>{L.efeito}:</strong> {e.efeito}</p>
+      <p><strong>{L.corr}:</strong> {e.correcao}</p>
+    </div>
+  ))}
+</section>
+<style>
+  .ver { list-style: none; padding: 0; margin: var(--s-3) 0; font-size: var(--step--1); }
+  .ver li { padding-block: var(--s-2); border-top: var(--hairline); }
+  .errata { border-left: 3px solid var(--accent); padding-left: var(--s-3); margin-top: var(--s-3); font-size: var(--step--1); display: grid; gap: var(--s-1); }
+</style>

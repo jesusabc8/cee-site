@@ -1,0 +1,38 @@
+---
+/** "Fonte, série e extração": cada série com instituição, código, unidade, data de extração e link. */
+import type { Publicacao } from '../../schemas/publicacao';
+import { fmtDate, isoDate } from '../../lib/publicacoes';
+import type { Lang } from '../../i18n/ui';
+interface Props { fontes: Publicacao['fontes']; lang: Lang; titulo?: string }
+const { fontes, lang } = Astro.props;
+const L = lang === 'en'
+  ? { t: 'Source, series and extraction', inst: 'Source', serie: 'Series', cod: 'Code', un: 'Unit', ext: 'Extracted' }
+  : { t: 'Fonte, série e extração', inst: 'Fonte', serie: 'Série', cod: 'Código', un: 'Unidade', ext: 'Extraído em' };
+const titulo = Astro.props.titulo ?? L.t;
+---
+<section aria-labelledby="src-title">
+  <h2 id="src-title" class="block-title">{titulo}</h2>
+  <div class="table-scroll" role="region" aria-labelledby="src-title" tabindex="0">
+    <table class="src">
+      <thead><tr><th scope="col">{L.inst}</th><th scope="col">{L.serie}</th><th scope="col">{L.cod}</th><th scope="col">{L.un}</th><th scope="col">{L.ext}</th></tr></thead>
+      <tbody>
+        {fontes.map((f) => (
+          <tr>
+            <td>{f.instituicao}</td>
+            <td><a href={f.url}>{f.serie}</a></td>
+            <td><code>{f.codigo}</code></td>
+            <td>{f.unidade}</td>
+            <td><time datetime={isoDate(f.extraido_em)}>{fmtDate(f.extraido_em, lang, 'short')}</time></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+<style>
+  .table-scroll { overflow-x: auto; margin-top: var(--s-3); }
+  .src { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
+  .src th, .src td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-top: var(--hairline); vertical-align: top; }
+  .src thead th { border-top: 0; border-bottom: 1px solid var(--line-strong); font-weight: 600; }
+  .src code { font-family: var(--font-mono); font-size: 0.95em; }
+</style>

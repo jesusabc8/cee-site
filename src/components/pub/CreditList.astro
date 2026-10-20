@@ -1,0 +1,24 @@
+---
+import { CREDIT } from '../../schemas/credit';
+import type { Publicacao } from '../../schemas/publicacao';
+import type { Lang } from '../../i18n/ui';
+interface Props { autoria: Publicacao['autoria']; lang: Lang }
+const { autoria, lang } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const titulo = lang === 'en' ? 'Authorship by role (CRediT)' : 'Autoria por função (CRediT)';
+---
+<section aria-labelledby="credit-title">
+  <h2 id="credit-title" class="block-title">{titulo}</h2>
+  <dl class="credit">
+    {autoria.map((a) => (
+      <div><dt>{a.nome}</dt><dd>{a.funcao_credit.map((f) => CREDIT[f][k]).join('; ')}</dd></div>
+    ))}
+  </dl>
+</section>
+<style>
+  .credit { margin: var(--s-3) 0 0; font-size: var(--step--1); }
+  .credit div { display: grid; gap: var(--s-1) var(--s-4); padding-block: var(--s-2); border-top: var(--hairline); }
+  @media (min-width: 40rem) { .credit div { grid-template-columns: 12rem 1fr; } }
+  .credit dt { font-weight: 600; }
+  .credit dd { margin: 0; color: var(--text-2); }
+</style>

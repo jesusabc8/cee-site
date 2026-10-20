@@ -1,0 +1,74 @@
+---
+import { abnt, bibtex, ris } from '../../lib/citation';
+import type { Publicacao } from '../../schemas/publicacao';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { p: Publicacao; url: string; slug: string; lang: Lang }
+const { p, url, slug, lang } = Astro.props;
+const L = lang === 'en'
+  ? { titulo: 'How to cite', copiar: 'Copy', copiado: 'Copied', abnt: 'ABNT', bib: 'BibTeX', ris: 'RIS (Zotero, Mendeley, EndNote)', baixar: 'Download .ris', doi: 'DOI' }
+  : { titulo: 'Como citar', copiar: 'Copiar', copiado: 'Copiado', abnt: 'ABNT', bib: 'BibTeX', ris: 'RIS (Zotero, Mendeley, EndNote)', baixar: 'Baixar .ris', doi: 'DOI' };
+const formatos = [
+  { id: 'abnt', label: L.abnt, text: abnt({ p, url, slug }) },
+  { id: 'bibtex', label: L.bib, text: bibtex({ p, url, slug }) },
+  { id: 'ris', label: L.ris, text: ris({ p, url, slug }) },
+];
+const risHref = `data:application/x-research-info-systems;charset=utf-8,${encodeURIComponent(formatos[2]!.text)}`;
+---
+<section class="cite" aria-labelledby="cite-title">
+  <h2 id="cite-title" class="block-title">{L.titulo}</h2>
+  {p.doi && <p class="meta">{L.doi}: <a href={`https://doi.org/${p.doi}`}>https://doi.org/{p.doi}</a></p>}
+  {formatos.map((f) => (
+    <div class="cite__item">
+      <div class="cite__head">
+        <h3 class="eyebrow" id={`cite-${f.id}`}>{f.label}</h3>
+        <button type="button" class="btn-copy" data-copy={`cite-text-${f.id}`} data-done={L.copiado} hidden>{L.copiar}</button>
+      </div>
+      <pre id={`cite-text-${f.id}`} class={f.id === 'abnt' ? 'cite__abnt' : 'cite__code'} tabindex="0" aria-labelledby={`cite-${f.id}`}>{f.text}</pre>
+    </div>
+  ))}
+  <p class="meta"><a href={risHref} download={`${slug}.ris`}>{L.baixar}</a></p>
+</section>
+<script>
+  for (const b of document.querySelectorAll<HTMLButtonElement>('.btn-copy')) {
+    if (!navigator.clipboard) continue;
+    b.hidden = false;
+    const original = b.textContent;
+    b.addEventListener('click', async () => {
+      const el = document.getElementById(b.dataset.copy ?? '');
+      if (!el) return;
+      await navigator.clipboard.writeText(el.textContent ?? '');
+      b.textContent = b.dataset.done ?? '✓';
+      setTimeout(() => (b.textContent = original), 2000);
+    });
+  }
+</script>
+<style>
+  .cite__item { margin-top: var(--s-4); }
+  .cite__head { display: flex; justify-content: space-between; align-items: center; gap: var(--s-3); }
+  .cite__head h3 { font-size: var(--step--2); }
+  pre {
+    margin: var(--s-2) 0 0;
+    padding: var(--s-3);
+    background: var(--surface);
+    border: var(--hairline);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .cite__abnt { font-family: var(--font-serif); font-size: var(--step-0); }
+  .cite__code { font-family: var(--font-mono); }
+  .btn-copy {
+    font: inherit;
+    font-size: var(--step--1);
+    background: var(--bg);
+    color: var(--primary);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 0.1em 0.7em;
+    cursor: pointer;
+  }
+  .btn-copy:hover { border-color: var(--primary); }
+  .btn-copy[hidden] { display: none; }
+</style>

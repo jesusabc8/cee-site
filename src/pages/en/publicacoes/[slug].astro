@@ -1,0 +1,11 @@
+---
+import Publicacao from '../../../layouts/Publicacao.astro';
+import { getTodasPublicacoes } from '../../../lib/publicacoes';
+
+export async function getStaticPaths() {
+  const pubs = await getTodasPublicacoes();
+  return pubs.map((pub) => ({ params: { slug: pub.id }, props: { pub } }));
+}
+const { pub } = Astro.props;
+---
+<Publicacao pub={pub} lang="en" />

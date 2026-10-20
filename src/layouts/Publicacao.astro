@@ -1,0 +1,185 @@
+---
+/**
+ * Página de publicação (Proposta §5.2 e Anexo D). Ordem fixa:
+ * cabeçalho → tese (Nota de Conjuntura) → corpo → incerteza / limites / recomendações →
+ * fonte, série e extração → dados e código → como citar → autoria CRediT → declarações →
+ * versões e erratas → descargo.
+ * Em `lang="en"` mostra o resumo em inglês e remete ao texto integral em português.
+ */
+import { getEntry, render } from 'astro:content';
+import Base from './Base.astro';
+import Box from '../components/Box.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CiteBox from '../components/pub/CiteBox.astro';
+import CreditList from '../components/pub/CreditList.astro';
+import SourceBlock from '../components/pub/SourceBlock.astro';
+import VersionHistory from '../components/pub/VersionHistory.astro';
+import { config } from '../config';
+import { href } from '../i18n/routing';
+import type { Lang } from '../i18n/ui';
+import { TIPOS } from '../schemas/publicacao';
+import { fmtDate, isoDate, type Pub } from '../lib/publicacoes';
+
+interface Props { pub: Pub; lang: Lang }
+const { pub, lang } = Astro.props;
+const p = pub.data;
+const k = lang === 'en' ? 'en' : 'pt';
+const { Content } = await render(pub);
+const area = await getEntry('areas', p.area);
+const url = new URL(href(`/publicacoes/${pub.id}/`, 'pt-BR'), Astro.site).href;
+const noindex = p.demo || p.noindex;
+
+const L = {
+  pt: {
+    tese: 'Tese', incerteza: 'Incerteza principal', recom: 'Recomendações', recomNota: 'Seção normativa, separada da evidência. Recomendações só aparecem em Notas Técnicas.',
+    dados: 'Dados e código', codigo: 'Código e pacote de replicação', semCodigo: 'Pacote de replicação ainda não publicado.',
+    decl: 'Declarações', conflitos: 'Conflitos de interesse', ia: 'Uso de inteligência artificial', licenca: 'Licença',
+    licTxt: 'Texto e dados sob CC BY 4.0; código sob licença MIT, ressalvadas as restrições das fontes.',
+    versao: 'Versão', publicado: 'Publicado em', por: 'Autoria', imprimir: 'Imprimir ou salvar em PDF', linha: 'Linha',
+    demo: 'Publicação de demonstração. Todo o conteúdo desta página é fictício e serve apenas para validar o modelo; não é indexada nem listada.',
+  },
+  en: {
+    tese: 'Thesis', incerteza: 'Main uncertainty', recom: 'Recommendations', recomNota: '',
+    dados: 'Data and code', codigo: 'Code and replication package', semCodigo: 'Replication package not yet published.',
+    decl: 'Declarations', conflitos: 'Conflicts of interest', ia: 'Use of artificial intelligence', licenca: 'Licence',
+    licTxt: 'Text and data under CC BY 4.0; code under the MIT licence, subject to the terms of the original sources.',
+    versao: 'Version', publicado: 'Published', por: 'Authors', imprimir: 'Print or save as PDF', linha: 'Line',
+    demo: 'Demonstration publication. All content on this page is fictitious and only validates the template; it is neither indexed nor listed.',
+  },
+}[k];
+const titulo = k === 'en' && p.titulo_en ? p.titulo_en : p.titulo;
+const autores = p.autoria.map((a) => a.nome).join(', ');
+const ymd = isoDate(p.data).replaceAll('-', '/');
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  headline: p.titulo,
+  alternativeHeadline: p.subtitulo,
+  abstract: p.resumo,
+  datePublished: isoDate(p.data),
+  version: p.versao,
+  inLanguage: p.idioma,
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+  author: p.autoria.map((a) => ({ '@type': 'Person', name: a.nome })),
+  publisher: { '@type': 'Organization', name: 'Centro de Estudos Econômicos (CEE)' },
+  url,
+  ...(p.doi ? { identifier: `https://doi.org/${p.doi}` } : {}),
+  isAccessibleForFree: true,
+};
+---
+<Base title={titulo} description={k === 'en' && p.resumo_en ? p.resumo_en : p.resumo} lang={lang} noindex={noindex}>
+  <Fragment slot="head">
+    <meta name="citation_title" content={`${p.titulo}: ${p.subtitulo}`} />
+    {p.autoria.map((a) => <meta name="citation_author" content={a.nome} />)}
+    <meta name="citation_publication_date" content={ymd} />
+    <meta name="citation_online_date" content={ymd} />
+    <meta name="citation_publisher" content="Centro de Estudos Econômicos (CEE)" />
+    <meta name="citation_technical_report_institution" content="Centro de Estudos Econômicos (CEE)" />
+    {p.numero && <meta name="citation_technical_report_number" content={p.numero} />}
+    <meta name="citation_language" content={p.idioma} />
+    <meta name="citation_abstract_html_url" content={url} />
+    {p.doi && <meta name="citation_doi" content={p.doi} />}
+    {p.pdf_url && <meta name="citation_pdf_url" content={new URL(p.pdf_url, Astro.site).href} />}
+    <meta name="DC.rights" content="CC BY 4.0" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+  </Fragment>
+
+  <div class="wrap">
+    <article class="pub" data-pagefind-body={noindex ? undefined : ''}>
+      <header class="pub__header">
+        <p class="eyebrow">
+          <a href={href(`/publicacoes/tipo/${p.tipo}/`, lang)}>{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</a>
+          {area && <> · <a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} {area.data.nome[k]}</a></>}
+          {p.linha && <> · {L.linha} {p.linha}</>}
+        </p>
+        <h1>{titulo}</h1>
+        <p class="lede">{k === 'en' && p.titulo_en ? p.titulo : p.subtitulo}</p>
+        <dl class="pub__meta meta">
+          <div><dt>{L.por}</dt><dd>{autores}</dd></div>
+          <div><dt>{L.publicado}</dt><dd><time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></dd></div>
+          <div><dt>{L.versao}</dt><dd><a href="#versoes">{p.versao}</a></dd></div>
+          {p.doi && <div><dt>DOI</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
+          <div><dt>{L.licenca}</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd></div>
+        </dl>
+        <p class="no-print meta"><button type="button" class="link-btn" onclick="window.print()">{L.imprimir}</button></p>
+      </header>
+
+      {p.demo && <Box variant="placeholder" lang={lang}><p>{L.demo}</p></Box>}
+
+      <div class="pub__body">
+        {k === 'en' ? (
+          <div class="prose">
+            <p>{p.resumo_en ?? p.resumo}</p>
+            {p.idioma === 'pt-BR' && (
+              <p><a href={href(`/publicacoes/${pub.id}/`, 'pt-BR')} hreflang="pt-BR" lang="pt-BR">Ler o texto integral em português</a> (full text in Portuguese).</p>
+            )}
+          </div>
+        ) : (
+          <>
+            {p.tese && <p class="pub__tese prose"><strong>{p.tese}</strong></p>}
+            <div class="prose"><Content /></div>
+            {p.incerteza_principal && (
+              <Box variant="note" title={L.incerteza} lang={lang}><p>{p.incerteza_principal}</p></Box>
+            )}
+            {p.limites && (
+              <Box variant="limits" lang={lang}><ul>{p.limites.map((l) => <li>{l}</li>)}</ul></Box>
+            )}
+            {p.recomendacoes && (
+              <section class="pub__recom prose" aria-labelledby="recom-title">
+                <h2 id="recom-title">{L.recom}</h2>
+                <p class="meta">{L.recomNota}</p>
+                <ol>{p.recomendacoes.map((r) => <li>{r}</li>)}</ol>
+              </section>
+            )}
+          </>
+        )}
+      </div>
+
+      <div class="pub__blocks">
+        <SourceBlock fontes={p.fontes} lang={lang} />
+
+        <section aria-labelledby="dados-title">
+          <h2 id="dados-title" class="block-title">{L.dados}</h2>
+          <ul class="links">
+            {p.dados.map((d) => <li><a href={d.url.startsWith('http') ? d.url : href(d.url)}>{d.rotulo}</a></li>)}
+            <li>{p.codigo_url ? <a href={p.codigo_url}>{L.codigo}</a> : <span class="meta">{L.semCodigo}</span>}</li>
+          </ul>
+        </section>
+
+        <CiteBox p={p} url={url} slug={pub.id} lang={lang} />
+        <CreditList autoria={p.autoria} lang={lang} />
+
+        <section aria-labelledby="decl-title">
+          <h2 id="decl-title" class="block-title">{L.decl}</h2>
+          <dl class="decl">
+            <dt>{L.conflitos}</dt><dd>{p.conflitos}</dd>
+            <dt>{L.ia}</dt><dd>{p.uso_ia}</dd>
+            <dt>{L.licenca}</dt><dd>{L.licTxt}</dd>
+          </dl>
+        </section>
+
+        <VersionHistory p={p} lang={lang} />
+        <Disclaimer lang={lang} variant="full" dataUrl={p.codigo_url ?? config.repoUrl} />
+      </div>
+    </article>
+  </div>
+</Base>
+<style>
+  .pub__header { padding-block: var(--s-7) var(--s-5); display: grid; gap: var(--s-3); max-width: 50rem; }
+  .pub__header .eyebrow a { color: inherit; text-decoration: none; }
+  .pub__header .eyebrow a:hover { color: var(--primary); text-decoration: underline; }
+  .pub__meta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: var(--s-2) 0 0; padding-top: var(--s-3); border-top: var(--hairline); }
+  .pub__meta div { display: flex; gap: 0.4em; }
+  .pub__meta dt { font-weight: 600; color: var(--text); }
+  .pub__meta dd { margin: 0; }
+  .link-btn { font: inherit; background: none; border: 0; padding: 0; color: var(--primary); text-decoration: underline; cursor: pointer; }
+  .pub__body { display: grid; gap: var(--s-5); padding-bottom: var(--s-6); }
+  .pub__tese { font-size: var(--step-2); line-height: 1.45; }
+  .pub__tese strong { font-weight: 600; }
+  .pub__blocks { display: grid; gap: var(--s-6); max-width: 50rem; }
+  .links { list-style: none; padding: 0; margin: var(--s-3) 0 0; display: grid; gap: var(--s-2); }
+  .decl { margin: var(--s-3) 0 0; font-size: var(--step--1); display: grid; gap: var(--s-1) var(--s-4); }
+  @media (min-width: 40rem) { .decl { grid-template-columns: 14rem 1fr; } }
+  .decl dt { font-weight: 600; }
+  .decl dd { margin: 0 0 var(--s-2); color: var(--text-2); }
+</style>

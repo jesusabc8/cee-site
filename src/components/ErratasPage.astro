@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from './PageHeader.astro';
+import { getPublicacoes, fmtDate, isoDate } from '../lib/publicacoes';
+import { href } from '../i18n/routing';
+import type { Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const pubs = await getPublicacoes();
+const erratas = pubs.flatMap((p) => p.data.erratas.map((e) => ({ ...e, pub: p })))
+  .sort((a, b) => b.data.getTime() - a.data.getTime());
+const L = {
+  pt: { t: 'Erratas', lede: 'Registro público e cronológico de todas as correções. Cada errata descreve o erro, seu efeito sobre as conclusões e a correção aplicada; o arquivo original permanece acessível. A meta é publicar a errata em menos de sete dias após a identificação do erro.',
+    vazio: 'Nenhuma errata registrada até o momento.', pub: 'Publicação', ident: 'Erro identificado em', prazo: 'dias até a errata', efeito: 'Efeito sobre as conclusões', corr: 'Correção', versao: 'versão corrigida', pol: 'Política de errata' },
+  en: { t: 'Errata', lede: 'Public, chronological register of every correction. Each erratum describes the error, its effect on the conclusions and the correction applied; the original remains available. The target is to publish the erratum less than seven days after the error is identified.',
+    vazio: 'No errata recorded so far.', pub: 'Publication', ident: 'Error identified', prazo: 'days to erratum', efeito: 'Effect on conclusions', corr: 'Correction', versao: 'corrected version', pol: 'Errata policy' },
+}[k];
+const dias = (a: Date, b: Date) => Math.round((a.getTime() - b.getTime()) / 86_400_000);
+---
+<Base title={L.t} description={L.lede} lang={lang}>
+  <div class="wrap">
+    <PageHeader eyebrow={k === 'en' ? 'Policies' : 'Políticas'} title={L.t} lede={L.lede}>
+      <p class="meta"><a href={`${href('/metodologia/', lang)}#${k === 'en' ? 'errata' : 'política-de-errata'}`}>{L.pol}</a></p>
+    </PageHeader>
+    {erratas.length === 0 ? <p class="meta vazio">{L.vazio}</p> : (
+      <ol class="erratas">
+        {erratas.map((e) => (
+          <li>
+            <p class="meta"><time datetime={isoDate(e.data)}>{fmtDate(e.data, lang)}</time> · {L.ident} {fmtDate(e.identificado_em, lang, 'short')} ({dias(e.data, e.identificado_em)} {L.prazo}) · {L.versao} {e.versao_corrigida}</p>
+            <h2><a href={href(`/publicacoes/${e.pub.id}/`, lang)}>{e.pub.data.titulo}</a></h2>
+            <p>{e.descricao}</p>
+            <p><strong>{L.efeito}:</strong> {e.efeito}</p>
+            <p><strong>{L.corr}:</strong> {e.correcao}</p>
+          </li>
+        ))}
+      </ol>
+    )}
+  </div>
+</Base>
+<style>
+  .vazio { border-top: var(--hairline); padding-top: var(--s-5); }
+  .erratas { list-style: none; padding: 0; margin: 0; }
+  .erratas li { border-top: var(--hairline); padding-block: var(--s-5); display: grid; gap: var(--s-2); max-width: var(--measure); }
+  .erratas h2 { font-size: var(--step-2); }
+</style>
