@@ -91,3 +91,21 @@ describe('metas de inflação', () => {
     }
   });
 });
+
+describe('pobreza (SIS 2025, Tabela 2.18) e abertura comercial', () => {
+  const pob = lerCsvTexto(readFileSync('data/processed/panorama/pobreza.csv', 'utf8'));
+  it('2024 confere com a divulgação do IBGE (23,1 % e 3,5 %)', () => {
+    const r = pob.find((l) => l.ano === '2024')!;
+    expect(Number(r.pobreza_us685_ppc2017)).toBeCloseTo(23.1, 1);
+    expect(Number(r.extrema_us215_ppc2017)).toBeCloseTo(3.5, 1);
+  });
+  it('abertura = (X12 + M12) / PIB12 × 100', () => {
+    const ab = lerCsvTexto(readFileSync('data/processed/panorama/abertura.csv', 'utf8'));
+    for (const l of ab.slice(-24)) {
+      const esperado = ((Number(l.exportacoes_12m_usd_milhoes) + Number(l.importacoes_12m_usd_milhoes)) / Number(l.pib_12m_usd_milhoes)) * 100;
+      expect(Number(l.abertura_pib)).toBeCloseTo(esperado, 1);
+      expect(Number(l.abertura_pib)).toBeGreaterThan(10);
+      expect(Number(l.abertura_pib)).toBeLessThan(50);
+    }
+  });
+});

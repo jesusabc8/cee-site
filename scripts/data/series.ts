@@ -4,9 +4,15 @@
  * Não acrescente série sem registrar `verificacao`.
  */
 
-export interface Requisicao { url: string; arquivo: string }
+export interface Requisicao {
+  url: string;
+  arquivo: string;
+  /** Padrão: GET. A API do ComexStat recebe a consulta em JSON via POST. */
+  metodo?: 'POST';
+  corpo?: string;
+}
 
-export type Fonte = 'bcb-sgs' | 'ibge-sidra' | 'bcb-olinda' | 'bcb-site' | 'pwt';
+export type Fonte = 'bcb-sgs' | 'ibge-sidra' | 'ibge-sis' | 'mdic-comexstat' | 'bcb-olinda' | 'bcb-site' | 'pwt';
 
 export interface Serie {
   id: string;
@@ -66,6 +72,17 @@ function sgs(codigo: number, desde: number, passo: number) {
     return out;
   };
 }
+
+/** ComexStat (MDIC/Secex): total mensal, sem detalhamento, em US$ FOB. */
+const COMEXSTAT = 'https://api-comexstat.mdic.gov.br/general';
+const comexstat = (desde: number) => (hoje: Date): Requisicao[] => (['export', 'import'] as const).map((flow) => ({
+  url: COMEXSTAT, arquivo: `${flow}.json`, metodo: 'POST' as const,
+  corpo: JSON.stringify({ flow, monthDetail: true, period: { from: `${desde}-01`, to: `${hoje.getUTCFullYear()}-12` }, filters: [], details: [], metrics: ['metricFOB'] }),
+}));
+
+/** Síntese de Indicadores Sociais: tabelas em ODS, por edição (atualizar a URL a cada nova edição anual). */
+const SIS_EDICAO = 2025;
+const SIS_RENDA = `https://ftp.ibge.gov.br/Indicadores_Sociais/Sintese_de_Indicadores_Sociais/Sintese_de_Indicadores_Sociais_${SIS_EDICAO}/Tabelas/ods/2_Distribuicao_Renda_ods.zip`;
 
 const LIC_BCB = 'Dados abertos do Banco Central do Brasil';
 const LIC_IBGE = 'Dados públicos do IBGE; reutilização com citação da fonte';
@@ -358,6 +375,63 @@ export const SERIES: Serie[] = [
       metodo: 'API do Dataverse (lista de arquivos do DOI 10.34894/FABVLR com checksum SHA-1); o arquivo enviado pela coordenação é idêntico (mesmo SHA-1)',
       nome_oficial: 'rgdpna "Real GDP at constant 2021 national prices (in mil. 2021US$)"; pop "Population (in millions)"; emp "Number of persons engaged (in millions)"; cgdpo "Output-side real GDP at current PPPs (in mil. 2021US$)"; pl_gdpo "Price level of CGDPo (PPP/XR), price level of USA GDPo in 2021=1"',
       observacoes: 'Fonte estática (versão 11.0). Cita-se: Feenstra, Inklaar e Timmer (2015), American Economic Review 105(10).',
+    },
+  },
+  {
+    id: 'pib_usd',
+    painel: 'panorama',
+    fonte: 'bcb-sgs',
+    instituicao: 'Banco Central do Brasil',
+    nome: 'PIB acumulado dos últimos 12 meses, em US$ milhões',
+    codigo: 'SGS 4192',
+    unidade: 'US$ milhões (12 meses)',
+    frequencia: 'mensal',
+    url_publica: sgsPublica(4192),
+    licenca_fonte: LIC_BCB,
+    requisicoes: sgs(4192, 2014, 5),
+    verificacao: {
+      data: '2026-10-20',
+      metodo: 'Webservice SOAP do SGS (FachadaWSSGS.getUltimoValorXML, código 4192); a série não consta do catálogo CKAN',
+      nome_oficial: 'PIB acumulado dos últimos 12 meses - Em US$ milhões (periodicidade M, unidade US$ (milhões))',
+    },
+  },
+  {
+    id: 'comercio',
+    painel: 'panorama',
+    fonte: 'mdic-comexstat',
+    instituicao: 'MDIC/Secex — ComexStat',
+    nome: 'Exportações e importações brasileiras de bens, total mensal',
+    codigo: 'ComexStat API /general: flow export e import, monthDetail, metricFOB',
+    unidade: 'US$ FOB',
+    frequencia: 'mensal',
+    url_publica: 'https://comexstat.mdic.gov.br/pt/geral',
+    licenca_fonte: 'Dados abertos do MDIC (ComexStat); reutilização com citação da fonte',
+    requisicoes: comexstat(2014),
+    verificacao: {
+      data: '2026-10-20',
+      metodo: 'API do ComexStat (/general/filters e /general/dates/updated; consulta /general por fluxo, sem filtros)',
+      nome_oficial: 'Dados Gerais de Exportação e Importação — métrica Valor US$ FOB',
+      observacoes: 'Comércio de bens (Siscomex). Importações também em US$ FOB, para somar com exportações na mesma base.',
+    },
+  },
+  {
+    id: 'pobreza',
+    painel: 'panorama',
+    fonte: 'ibge-sis',
+    instituicao: 'IBGE — Síntese de Indicadores Sociais',
+    nome: 'Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18)',
+    codigo: `SIS ${SIS_EDICAO}, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia`,
+    unidade: '% da população',
+    frequencia: 'anual (2012–)',
+    url_publica: 'https://www.ibge.gov.br/estatisticas/sociais/populacao/9221-sintese-de-indicadores-sociais.html',
+    licenca_fonte: LIC_IBGE,
+    formato: 'binario',
+    requisicoes: () => [{ url: SIS_RENDA, arquivo: '2_Distribuicao_Renda_ods.zip' }],
+    verificacao: {
+      data: '2026-10-20',
+      metodo: 'Arquivo oficial no FTP do IBGE; cabeçalhos e notas da Tabela 2.18 conferidos (2024: 23,1 % e 3,5 %, iguais aos divulgados pela Agência IBGE em 3/12/2025)',
+      nome_oficial: 'Tabela 2.18 — Proporção de pessoas por classes de rendimento domiciliar per capita: menos de US$ 2,15, US$ 3,65 e US$ 6,85 PPC 2017',
+      observacoes: 'PNAD Contínua, acumulado de primeiras visitas. Conversão PPC para consumo privado (R$ 2,3273771 por US$ 1,00 PPC 2017), valores mensais inflacionados pelo IPCA. A tabela SIDRA 5877 (ODS 1.2.1) não foi usada: dá valores diferentes (26,5 % em 2024) e a linha não está documentada na API.',
     },
   },
 ];

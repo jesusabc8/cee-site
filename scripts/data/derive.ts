@@ -1,7 +1,7 @@
 /**
  * Derivados do painel Panorama (cálculos do CEE), a partir de data/processed:
  *   juro_real.csv · ipca_meta.csv · pwt_pib_pc.csv · pwt_produtividade.csv · pwt_convergencia.csv ·
- *   divida.csv · estabilizacao.json · indicadores.json · derivados.json (metadados e fórmulas)
+ *   divida.csv · abertura.csv · estabilizacao.json · indicadores.json · derivados.json (metadados e fórmulas)
  * Uso: node scripts/data/derive.ts
  */
 import { readFile, writeFile } from 'node:fs/promises';
@@ -34,6 +34,9 @@ const fMensal = await ler('panorama', 'focus_mensal_ipca');
 const f12 = await ler('panorama', 'focus_12m_ipca');
 const metas = await ler('panorama', 'metas_inflacao');
 const pwt = await ler('panorama', 'pwt');
+const comercio = await ler('panorama', 'comercio');
+const pibUsd = await ler('panorama', 'pib_usd');
+const pobreza = await ler('panorama', 'pobreza');
 
 // ——— 1. Juro real ex ante (mensal): Selic meta no fim do mês ÷ Focus IPCA 12 meses (suavizada) ———
 const f12PorMes = new Map<string, { data: string; v: number }>();
@@ -148,6 +151,22 @@ const estabilizacao = {
 };
 await writeFile(join(OUT, 'estabilizacao.json'), JSON.stringify(estabilizacao, null, 2) + '\n');
 
+// ——— Abertura comercial: (X + M de bens, 12 meses, US$ FOB) ÷ PIB em US$ acumulado em 12 meses (SGS 4192) ———
+const pibUsdMes = new Map(pibUsd.map((r) => [r.periodo!, n(r.pib_usd_milhoes_12m)]));
+const abertura: Linha[] = [];
+for (let i = 11; i < comercio.length; i++) {
+  const janela = comercio.slice(i - 11, i + 1);
+  const periodo = comercio[i]!.periodo!;
+  const contiguo = janela.every((r, k) => k === 0 || Date.UTC(Number(r.periodo!.slice(0, 4)), Number(r.periodo!.slice(5, 7)) - 1) - Date.UTC(Number(janela[k - 1]!.periodo!.slice(0, 4)), Number(janela[k - 1]!.periodo!.slice(5, 7)) - 1) < 32 * 864e5);
+  const y = pibUsdMes.get(periodo);
+  if (!contiguo || !y || janela.some((r) => !r.exportacao_usd || !r.importacao_usd)) continue;
+  const x12 = janela.reduce((a, r) => a + Number(r.exportacao_usd), 0) / 1e6;
+  const m12 = janela.reduce((a, r) => a + Number(r.importacao_usd), 0) / 1e6;
+  abertura.push({ periodo, exportacoes_12m_usd_milhoes: r2(x12), importacoes_12m_usd_milhoes: r2(m12), pib_12m_usd_milhoes: y, abertura_pib: r2(((x12 + m12) / y) * 100) });
+}
+if (!abertura.length) throw new Error('Abertura comercial: nenhum mês com comércio e PIB em US$.');
+await writeFile(join(OUT, 'abertura.csv'), csv(abertura));
+
 // ——— 6. Indicadores "Brasil em números" ———
 type Tile = Record<string, unknown>;
 const spark = <T>(arr: T[], k: number, f: (x: T) => number | null) => arr.slice(-k).map(f).filter((x): x is number => x !== null);
@@ -163,22 +182,20 @@ const tiles: Tile[] = [];
   tiles.push({ id: 'ipca', grupo: 'precos', icone: 'tag', titulo: 'IPCA', valor: n(u.acumulada_12m), unidade: '% 12m', descricao: `Acumulado em 12 meses · meta ${metaDoAno(Number(u.periodo!.slice(0, 4))).meta.toString().replace('.', ',')}% ± 1,5 p.p.`, referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.acumulada_12m), n(p.acumulada_12m)), spark: spark(ipca, 120, (x) => n(x.acumulada_12m)), ancora: 'grafico-ipca-meta', ...fonte('ipca') }); }
 { const u = ult(selic), p = pen(selic);
   tiles.push({ id: 'selic', grupo: 'precos', icone: 'landmark', titulo: 'Selic meta', valor: n(u.meta_selic), unidade: '% a.a.', descricao: 'Definida pelo Copom', referencia: u.data_referencia, tipo_ref: 'dia', variacao: sinal(n(u.meta_selic), n(p.meta_selic)), spark: spark(selic, 120, (x) => n(x.meta_selic)), ancora: 'grafico-juros', ...fonte('selic_meta') }); }
-{ const u = ult(juroReal), p = pen(juroReal);
-  tiles.push({ id: 'juro_real', grupo: 'precos', icone: 'scale', titulo: 'Juro real ex ante', valor: u.juro_real_fisher, unidade: '% a.a.', descricao: '(1 + Selic meta) ÷ (1 + Focus IPCA 12 meses) − 1 · calculado', referencia: u.data_focus, tipo_ref: 'dia', variacao: sinal(u.juro_real_fisher as number, p.juro_real_fisher as number), spark: spark(juroReal, 120, (x) => x.juro_real_fisher as number), ancora: 'grafico-juros', calculado: true, ...fonte('focus_12m_ipca') }); }
-{ const anoC = anoAtual;
-  const serieAno = focusIpca.filter((x) => Number(x.ano_referencia) === anoC && x.mediana);
-  const u = ult(serieAno), p = serieAno.at(-6) ?? pen(serieAno);
-  tiles.push({ id: 'focus_ipca', grupo: 'precos', icone: 'gauge', titulo: `Focus · IPCA ${anoC}`, valor: n(u.mediana), unidade: '%', descricao: 'Mediana das expectativas de mercado, ano corrente', referencia: u.data, tipo_ref: 'dia', variacao: sinal(n(u.mediana), n(p.mediana)), spark: spark(serieAno.filter((_, k) => k % 5 === 0), 120, (x) => n(x.mediana)), ancora: 'grafico-ipca-meta', ...fonte('focus_ipca') }); }
 { const u = ult(ptax), p = pen(ptax);
   tiles.push({ id: 'cambio', grupo: 'externo', icone: 'arrow-left-right', titulo: 'Câmbio', valor: n(u.fim_periodo), unidade: 'R$/US$', descricao: 'PTAX venda, última cotação', referencia: u.data_ultimo, tipo_ref: 'dia', variacao: sinal(n(u.fim_periodo), n(p.fim_periodo)), spark: spark(ptax, 120, (x) => n(x.media_mensal)), ancora: 'grafico-cambio', ...fonte('ptax') }); }
 { const u = ult(cc), p = pen(cc);
   tiles.push({ id: 'conta_corrente', grupo: 'externo', icone: 'globe', titulo: 'Conta corrente', valor: n(u.transacoes_correntes_pib), unidade: '% PIB', descricao: 'Transações correntes, acumulado em 12 meses', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.transacoes_correntes_pib), n(p.transacoes_correntes_pib)), spark: spark(cc, 120, (x) => n(x.transacoes_correntes_pib)), ancora: null, ...fonte('conta_corrente') }); }
+{ const u = ult(abertura), p = pen(abertura);
+  tiles.push({ id: 'abertura', grupo: 'externo', icone: 'ship', titulo: 'Abertura comercial', valor: u.abertura_pib, unidade: '% PIB', descricao: '(Exportações + importações de bens) ÷ PIB, 12 meses', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(u.abertura_pib as number, p.abertura_pib as number), spark: spark(abertura, 120, (x) => x.abertura_pib as number), ancora: null, calculado: true, ...fonte('comercio'), serie: 'ComexStat (US$ FOB) e SGS 4192' }); }
 { const u = ult(prim), p = pen(prim);
   tiles.push({ id: 'primario', grupo: 'fiscal', icone: 'wallet', titulo: 'Resultado primário', valor: n(u.superavit_primario_pib), unidade: '% PIB', descricao: 'Setor público consolidado, 12 meses (+ superávit, − déficit)', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.superavit_primario_pib), n(p.superavit_primario_pib)), spark: spark(prim, 120, (x) => n(x.superavit_primario_pib)), ancora: 'grafico-estabilizacao', ...fonte('primario') }); }
 { const u = ult(dbgg), p = pen(dbgg);
   tiles.push({ id: 'dbgg', grupo: 'fiscal', icone: 'building-2', titulo: 'Dívida bruta', valor: n(u.dbgg_pib), unidade: '% PIB', descricao: 'Governo geral (DBGG)', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.dbgg_pib), n(p.dbgg_pib)), spark: spark(dbgg, 120, (x) => n(x.dbgg_pib)), ancora: 'grafico-divida', ...fonte('dbgg') }); }
 { const u = ult(deso), p = pen(deso);
   tiles.push({ id: 'desocupacao', grupo: 'trabalho', icone: 'users', titulo: 'Desocupação', valor: n(u.taxa), unidade: '%', descricao: 'PNAD Contínua, trimestre móvel, sem ajuste sazonal', referencia: u.periodo_fim_trimestre, tipo_ref: 'trimestre-movel', variacao: sinal(n(u.taxa), n(p.taxa)), spark: spark(deso, 120, (x) => n(x.taxa)), ancora: null, ...fonte('desocupacao') }); }
+{ const u = ult(pobreza), p = pen(pobreza);
+  tiles.push({ id: 'pobreza', grupo: 'trabalho', icone: 'hand-coins', titulo: 'Pobreza', valor: n(u.pobreza_us685_ppc2017), unidade: '% pop.', descricao: 'Abaixo de US$ 6,85 PPC 2017 por dia (Banco Mundial)', secundario: n(u.extrema_us215_ppc2017), referencia: u.ano, tipo_ref: 'ano', variacao: sinal(n(u.pobreza_us685_ppc2017), n(p.pobreza_us685_ppc2017)), spark: spark(pobreza, 20, (x) => n(x.pobreza_us685_ppc2017)), ancora: null, ...fonte('pobreza'), serie: `SIS ${V.pobreza!.codigo.slice(4, 8)}, Tabela 2.18` }); }
 await writeFile(join(OUT, 'indicadores.json'), JSON.stringify(tiles, null, 2) + '\n');
 
 // ——— Metadados dos derivados ———
@@ -188,6 +205,7 @@ await writeFile(join(OUT, 'derivados.json'), JSON.stringify({
   ipca_meta: { entradas: ['ipca', 'metas_inflacao', 'focus_mensal_ipca'], data_focus_mensal: dataFocusMensal, metodo: 'IPCA 12 meses observado; meta e limites do ano (meta contínua desde 2025); trajetória: acumulação de 12 meses com variações observadas e, nos meses futuros, a mediana Focus mensal.' },
   pwt: { entradas: ['pwt'], pib_pc: 'rgdpna / pop', produtividade: '(rgdpna/emp)_i ÷ (rgdpna/emp)_EUA × 100', proximidade: '(cgdpo × pl_gdpo / pop)_i ÷ (cgdpo × pl_gdpo / pop)_EUA × 100', pib_pc_rel_ppc: '(rgdpna/pop)_i ÷ (rgdpna/pop)_EUA × 100' },
   divida: { entradas: ['dbgg', 'dlsp', 'focus_anual'], data_focus: dataFocus },
+  abertura: { entradas: ['comercio', 'pib_usd'], formula: '(exportações + importações de bens, US$ FOB, soma de 12 meses) / PIB em US$ acumulado em 12 meses × 100' },
   estabilizacao: { entradas: ['dbgg', 'primario', 'focus_anual', 'focus_ipca'] },
 }, null, 2) + '\n');
 console.log(`✓ derivados: juro real (${juroReal.length}), IPCA×meta (${ipcaMeta.length}, projeção até ${projecao.at(-1)?.periodo}), PWT, dívida, s* = ${r2(sStar)} (d=${d}, r=${r2(rCentral)}, g=${r2(gCentral)}), ${tiles.length} indicadores`);

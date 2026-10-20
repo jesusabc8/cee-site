@@ -25,6 +25,11 @@ Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publ
 - **Taxa de câmbio PPC e comparação de níveis**: o PIB per capita usa `rgdpna/pop` como pedido; Feenstra et al. (2015)
   recomendam `rgdpe`/`rgdpo` para comparar níveis entre países. Avaliar trocar ou acrescentar nota mais longa.
 
+## Brasil em números
+- **SIS 2026**: quando sair, atualizar `SIS_EDICAO` em `scripts/data/series.ts`. Conferir se a Tabela 2.18 mantém o nome e se as linhas
+  mudam para PPC 2021 (US$ 3,00 e US$ 8,30). Nesse caso, ajustar o rótulo e o processador e registrar a quebra de série.
+- **SIDRA 5877 / 5817 (ODS 1.2.1 e 1.1.1)**: valores diferentes dos da SIS (26,5 % e 4,7 % em 2024) e linha não documentada. Não usadas (ADR-013).
+
 ## Conteúdo
 - **Autorização escrita para o nome da Universidade** na faixa superior (ADR-012; Proposta §8.5).
 - Endereço de e-mail do Centro (ver `docs/PLACEHOLDERS.md`).

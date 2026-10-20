@@ -1,0 +1,15 @@
+{
+  "serie": "pobreza",
+  "fonte": "ibge-sis",
+  "codigo": "SIS 2025, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia",
+  "extraido_em": "2026-10-20T13:40:32.044Z",
+  "arquivos": [
+    {
+      "arquivo": "2_Distribuicao_Renda_ods.zip",
+      "url": "https://ftp.ibge.gov.br/Indicadores_Sociais/Sintese_de_Indicadores_Sociais/Sintese_de_Indicadores_Sociais_2025/Tabelas/ods/2_Distribuicao_Renda_ods.zip",
+      "sha256": "4f277da335eeac7434168d2843ceba86eb78378e5d9cc2e5f9cbb89be6bfe8a0",
+      "bytes": 6073177,
+      "sha1": "a0e991edea0ac23d4d919927ead899b4d3155be0"
+    }
+  ]
+}

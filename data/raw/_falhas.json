@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "serie": "comercio",
+    "data": "2026-10-20T13:40:32.044Z",
+    "erro": "Error: Falha ao baixar https://api-comexstat.mdic.gov.br/general: Error: HTTP 429"
+  }
+]

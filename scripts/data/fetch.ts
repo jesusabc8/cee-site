@@ -8,18 +8,26 @@
 import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { SERIES, type Serie } from './series.ts';
+import { SERIES, type Requisicao, type Serie } from './series.ts';
 
 const RAW = 'data/raw';
 const hoje = new Date();
 const dia = hoje.toISOString().slice(0, 10);
 const only = process.argv.find((a) => a.startsWith('--only='))?.slice(7).split(',');
 
-async function baixar(url: string, s: Serie, tentativas = 3): Promise<Buffer> {
+async function baixar(r: Requisicao, s: Serie, tentativas = 4): Promise<Buffer> {
+  const url = r.url;
   let erro: unknown;
   for (let i = 0; i < tentativas; i++) {
     try {
-      const res = await fetch(url, { headers: { Accept: s.formato === 'binario' ? '*/*' : 'application/json' }, signal: AbortSignal.timeout(180_000) });
+      const res = await fetch(url, {
+        method: r.metodo ?? 'GET',
+        headers: { Accept: s.formato === 'binario' ? '*/*' : 'application/json', ...(r.corpo ? { 'Content-Type': 'application/json' } : {}) },
+        ...(r.corpo ? { body: r.corpo } : {}),
+        signal: AbortSignal.timeout(180_000),
+      });
+      // ComexStat limita a frequência de consultas (HTTP 429, "tente novamente em 10 segundos").
+      if (res.status === 429) { await new Promise((ok) => setTimeout(ok, 11_000)); throw new Error('HTTP 429'); }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const body = Buffer.from(await res.arrayBuffer());
       if (s.formato === 'binario') {
@@ -57,7 +65,10 @@ async function extrair(s: Serie) {
   const dir = join(RAW, s.fonte, s.id, dia);
   const arquivos = [];
   const respostas: [string, Buffer][] = [];
-  for (const r of s.requisicoes(hoje)) respostas.push([r.arquivo, await baixar(r.url, s)]);
+  for (const r of s.requisicoes(hoje)) {
+    if (respostas.length && r.metodo === 'POST') await new Promise((ok) => setTimeout(ok, 11_000));
+    respostas.push([r.arquivo, await baixar(r, s)]);
+  }
   // Vintage idêntico ao anterior (mesmos arquivos, mesmos hashes): não duplica.
   const base = join(RAW, s.fonte, s.id);
   const anteriores = (await readdir(base).catch(() => [])).filter((d) => d !== dia).sort();
@@ -76,7 +87,7 @@ async function extrair(s: Serie) {
   for (const [i, [arquivo, body]] of respostas.entries()) {
     await writeFile(join(dir, arquivo), body);
     arquivos.push({
-      arquivo, url: reqs[i]!.url, sha256: createHash('sha256').update(body).digest('hex'), bytes: body.length,
+      arquivo, url: reqs[i]!.url, ...(reqs[i]!.corpo ? { metodo: 'POST', corpo: JSON.parse(reqs[i]!.corpo!) } : {}), sha256: createHash('sha256').update(body).digest('hex'), bytes: body.length,
       ...(s.formato === 'binario' ? { sha1: createHash('sha1').update(body).digest('hex') } : {}),
     });
   }

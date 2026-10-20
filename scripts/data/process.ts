@@ -8,6 +8,7 @@ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import readXlsxFile from 'read-excel-file/node';
+import { strFromU8, unzipSync } from 'fflate';
 import { SERIES, type Serie } from './series.ts';
 import { csv, type Linha } from './csv.ts';
 
@@ -63,6 +64,22 @@ function fimDeMes(lista: { data: string; valor: number | null }[]) {
   return porMes;
 }
 const odataValores = (c: Record<string, Buffer>) => Object.keys(c).sort().flatMap((k) => json(c[k]).value as Record<string, unknown>[]);
+
+/** Linhas de uma folha ODS (content.xml) como texto, expandindo células repetidas; valores numéricos de office:value. */
+function odsLinhas(folha: string): string[][] {
+  const out: string[][] = [];
+  for (const [, linha] of folha.matchAll(/<table:table-row\b[^>]*>([\s\S]*?)<\/table:table-row>/g)) {
+    const cel: string[] = [];
+    for (const m of linha!.matchAll(/<table:(?:covered-)?table-cell\b([^>]*?)(?:\/>|>([\s\S]*?)<\/table:(?:covered-)?table-cell>)/g)) {
+      const attrs = m[1]!;
+      const rep = Math.min(Number(/table:number-columns-repeated="(\d+)"/.exec(attrs)?.[1] ?? 1), 64);
+      const valor = /office:value="([^"]+)"/.exec(attrs)?.[1] ?? (m[2] ?? '').replace(/<text:line-break\/>/g, ' ').replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').trim();
+      for (let i = 0; i < rep; i++) cel.push(valor);
+    }
+    out.push(cel);
+  }
+  return out;
+}
 
 const PWT_PAISES = ['BRA', 'USA', 'KOR', 'CHN', 'CHL', 'MEX', 'ARG', 'PER'];
 const PWT_VARS = ['rgdpna', 'pop', 'emp', 'cgdpo', 'pl_gdpo'] as const;
@@ -141,6 +158,34 @@ const processadores: Record<string, (c: Record<string, Buffer>, extraido: Date) 
     linhas.push({ ano: 2025, meta: metaC, tolerancia_pp: tolC, limite_inferior: metaC - tolC, limite_superior: metaC + tolC, norma: `Resolução CMN nº ${m[1]} (${m[2]})`, sistematica: 'contínua (12 meses) desde 2025' });
     return linhas.sort((a, b) => Number(a.ano) - Number(b.ano));
   },
+
+  // SIS (IBGE): Tabela 2.18, linha "Brasil", colunas "Menos de US$ 6,85 PPC 2017" e "Menos de US$ 2,15 PPC 2017"; uma folha por ano.
+  pobreza: (c) => {
+    const externo = unzipSync(new Uint8Array(c['2_Distribuicao_Renda_ods.zip']!));
+    const nome = Object.keys(externo).find((k) => /Tabela 2\.18 \(Pobr_Geo\)\.ods$/.test(k));
+    if (!nome) throw new Error('Tabela 2.18 não encontrada no arquivo da SIS.');
+    const xml = strFromU8(unzipSync(externo[nome]!)['content.xml']!);
+    const linhas: Linha[] = [];
+    for (const [, ano, corpo] of xml.matchAll(/<table:table table:name="(\d{4})"[^>]*>([\s\S]*?)<\/table:table>/g)) {
+      const grade = odsLinhas(corpo!);
+      const cab = grade.find((l) => l.some((x) => x.includes('US$ 6,85')));
+      const br = grade.find((l) => l[0] === 'Brasil');
+      if (!cab || !br) throw new Error(`SIS ${ano}: cabeçalho ou linha Brasil ausente.`);
+      const col = (rotulo: string) => { const i = cab.findIndex((x) => x.includes(rotulo)); if (i < 0) throw new Error(`SIS ${ano}: coluna ${rotulo} ausente.`); return num(br[i]); };
+      linhas.push({ ano: Number(ano), pobreza_us685_ppc2017: col('US$ 6,85'), extrema_us215_ppc2017: col('US$ 2,15') });
+    }
+    return linhas.sort((a, b) => Number(a.ano) - Number(b.ano));
+  },
+
+  // ComexStat: totais mensais (US$ FOB) de exportação e importação.
+  comercio: (c) => {
+    const mapa = (k: string) => new Map((json(c[k]).data.list as { year: string; monthNumber: string; metricFOB: string }[])
+      .map((r) => [`${r.year}-${r.monthNumber}`, Number(r.metricFOB)]));
+    const x = mapa('export.json'); const m = mapa('import.json');
+    return [...new Set([...x.keys(), ...m.keys()])].sort().map((periodo) => ({ periodo, exportacao_usd: x.get(periodo) ?? null, importacao_usd: m.get(periodo) ?? null }));
+  },
+
+  pib_usd: (c, e) => mensalSgs(c, e).map((r) => ({ periodo: r.periodo, pib_usd_milhoes_12m: r.valor })),
 
   pwt: async (c) => {
     const folhas = (await readXlsxFile(c['pwt110.xlsx']!)) as unknown as { sheet: string; data: unknown[][] }[];

@@ -1,0 +1,26 @@
+{
+  "serie": "pib_usd",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 4192",
+  "extraido_em": "2026-10-20T13:40:32.044Z",
+  "arquivos": [
+    {
+      "arquivo": "2014.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2018",
+      "sha256": "b5e32c80f48d714fced5ee7378a924e8e44777112541db76ab943c3d3e87af0a",
+      "bytes": 2401
+    },
+    {
+      "arquivo": "2019.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2019&dataFinal=31/12/2023",
+      "sha256": "67dccf1adbc27ab53c2b71e98033e848bc9ee3776904ef636169f593461d9e95",
+      "bytes": 2401
+    },
+    {
+      "arquivo": "2024.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=20/10/2026",
+      "sha256": "b43c3930c2a71d7e4a05f68d27e4f22d0f874db98cf63e5cdea5e623823fb425",
+      "bytes": 1321
+    }
+  ]
+}

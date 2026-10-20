@@ -21,7 +21,7 @@ const GRUPOS = [
   { id: 'precos', pt: 'Preços e juros', en: 'Prices and rates' },
   { id: 'externo', pt: 'Externo', en: 'External' },
   { id: 'fiscal', pt: 'Fiscal', en: 'Fiscal' },
-  { id: 'trabalho', pt: 'Trabalho', en: 'Labour' },
+  { id: 'trabalho', pt: 'Trabalho e renda', en: 'Labour and income' },
 ] as const;
 
 // Textos em inglês por indicador (o JSON do pipeline está em português).
@@ -29,15 +29,15 @@ const EN: Record<string, { titulo: string; unidade: string; descricao: string }>
   pib: { titulo: 'Real GDP', unidade: '% q/q', descricao: 'Change on previous quarter, seasonally adjusted' },
   ipca: { titulo: 'IPCA inflation', unidade: '% 12m', descricao: '12-month change · target 3% ± 1.5 p.p.' },
   selic: { titulo: 'Selic target', unidade: '% p.a.', descricao: 'Set by the Copom' },
-  juro_real: { titulo: 'Ex-ante real rate', unidade: '% p.a.', descricao: '(1 + Selic target) ÷ (1 + Focus 12-month IPCA) − 1 · calculated' },
-  focus_ipca: { titulo: 'Focus · IPCA', unidade: '%', descricao: 'Median market expectation, current year' },
   cambio: { titulo: 'Exchange rate', unidade: 'R$/US$', descricao: 'PTAX selling rate, latest quote' },
   conta_corrente: { titulo: 'Current account', unidade: '% GDP', descricao: 'Current transactions, 12-month sum' },
   primario: { titulo: 'Primary balance', unidade: '% GDP', descricao: 'Consolidated public sector, 12 months (+ surplus, − deficit)' },
   dbgg: { titulo: 'Gross debt', unidade: '% GDP', descricao: 'General government (DBGG)' },
+  abertura: { titulo: 'Trade openness', unidade: '% GDP', descricao: '(Exports + imports of goods) ÷ GDP, 12 months' },
+  pobreza: { titulo: 'Poverty', unidade: '% pop.', descricao: 'Below US$6.85 a day, 2017 PPP (World Bank)' },
   desocupacao: { titulo: 'Unemployment', unidade: '%', descricao: 'PNAD Contínua, rolling quarter, not seasonally adjusted' },
 };
-const DIGITOS: Record<string, number> = { pib: 1, ipca: 2, selic: 2, juro_real: 2, focus_ipca: 2, cambio: 4, conta_corrente: 2, primario: 2, dbgg: 1, desocupacao: 1 };
+const DIGITOS: Record<string, number> = { pib: 1, ipca: 2, selic: 2, abertura: 1, pobreza: 1, cambio: 4, conta_corrente: 2, primario: 2, dbgg: 1, desocupacao: 1 };
 
 const nf = (v: number, d: number) => new Intl.NumberFormat(lang, { minimumFractionDigits: d, maximumFractionDigits: d }).format(Math.abs(v));
 const valor = (i: Indicador) => (i.valor === null ? null : `${i.valor < 0 ? '−' : ''}${nf(i.valor, DIGITOS[i.id] ?? 2)}`);
@@ -45,6 +45,7 @@ const mesCurto = (a: number, m: number) => new Intl.DateTimeFormat(lang, { month
 function referencia(i: Indicador) {
   const r = i.referencia;
   if (i.tipo_ref === 'trimestre') return en ? `Q${r.slice(6)} ${r.slice(0, 4)}` : `${r.slice(6)}º tri ${r.slice(0, 4)}`;
+  if (i.tipo_ref === 'ano') return String(r);
   if (i.tipo_ref === 'mes') return mesCurto(Number(r.slice(0, 4)), Number(r.slice(5, 7)));
   if (i.tipo_ref === 'trimestre-movel') {
     const a = Number(r.slice(0, 4)); const m = Number(r.slice(5, 7));
@@ -84,7 +85,7 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f);
                 <small aria-hidden={i.ancora ? 'true' : undefined}>{t.unidade}</small>
               </p>
             )}
-            <p class="tile__lab">{t.descricao.replace(/ · (calculad[oa]|calculated)$/, '')}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
+            <p class="tile__lab">{t.descricao.replace(/ · (calculad[oa]|calculated)$/, '')}{i.secundario != null && (en ? `; extreme poverty (US$2.15): ${nf(i.secundario, 1)}%` : `; extrema pobreza (US$ 2,15): ${nf(i.secundario, 1)}%`)}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
             {i.spark.length > 1 && <Fragment set:html={sparkline(i.spark, 200, 34, '#4A7C96', '#0A2259')} />}
             <p class="tile__meta mono">
               <span>{referencia(i)}</span>

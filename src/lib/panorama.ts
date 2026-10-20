@@ -317,8 +317,8 @@ export function panorama(lang: Lang) {
       ],
       fontes: [fonte('pwt', 'PWT 11.0: cgdpo, pl_gdpo, pop, rgdpna; definição: WDR 2024')], csv: [csvLink('panorama', 'pwt_convergencia')],
       nota: en
-        ? 'Proximity = (cgdpo × pl_gdpo / pop)_Brazil ÷ (cgdpo × pl_gdpo / pop)_US × 100: cgdpo is GDP at PPP and pl_gdpo the PPP/exchange-rate ratio, so the product is GDP at market exchange rates (WDR 2024 glossary). The scale constant cancels out.'
-        : 'Proximidade = (cgdpo × pl_gdpo / pop)_Brasil ÷ (cgdpo × pl_gdpo / pop)_EUA × 100: cgdpo é o PIB em PPC e pl_gdpo a razão PPC/câmbio, de modo que o produto é o PIB a câmbio de mercado (glossário do WDR 2024). A constante de escala se cancela.',
+        ? 'Definition (World Development Report 2024, glossary): "A measure used in the World Development Report 2024 to clarify the distribution of growth slowdowns along the national income spectrum around the world, defined as the ratio of a country’s GDP per capita to that of the frontier country each year (not adjusted for differences in purchasing power parity). The frontier represents the growth leader—the country with the most advanced combination of economic production, innovation, and workforce—which is proxied by the United States." Calculation: Proximity = (cgdpo × pl_gdpo / pop)_Brazil ÷ (cgdpo × pl_gdpo / pop)_US × 100: cgdpo is GDP at PPP and pl_gdpo the PPP/exchange-rate ratio, so the product is GDP at market exchange rates (WDR 2024 glossary). The scale constant cancels out.'
+        : 'Definição (World Development Report 2024, glossário; tradução do CEE): medida usada no Relatório sobre o Desenvolvimento Mundial 2024 para esclarecer a distribuição das desacelerações do crescimento ao longo do espectro de renda nacional no mundo, definida como a razão entre o PIB per capita de um país e o do país da fronteira em cada ano (sem ajuste pelas diferenças de paridade do poder de compra). A fronteira representa o líder do crescimento — o país com a combinação mais avançada de produção econômica, inovação e força de trabalho —, aproximado pelos Estados Unidos. Cálculo: Proximidade = (cgdpo × pl_gdpo / pop)_Brasil ÷ (cgdpo × pl_gdpo / pop)_EUA × 100: cgdpo é o PIB em PPC e pl_gdpo a razão PPC/câmbio, de modo que o produto é o PIB a câmbio de mercado (glossário do WDR 2024). A constante de escala se cancela.',
       tabela: { colunas: [en ? 'Year' : 'Ano', en ? 'Market (%)' : 'Mercado (%)', en ? 'PPP (%)' : 'PPC (%)'], linhas: [...cv].reverse().map((r) => [r.ano!, n(r.proximidade_fronteira_mercado), n(r.pib_pc_rel_ppc_rgdpna)]) },
     });
   }
@@ -377,6 +377,8 @@ export interface Indicador {
   id: string; grupo: 'atividade' | 'precos' | 'externo' | 'fiscal' | 'trabalho'; icone: string; titulo: string;
   valor: number | null; unidade: string; descricao: string; referencia: string; tipo_ref: string; variacao: string;
   spark: number[]; ancora: string | null; calculado?: boolean;
+  /** Valor complementar mostrado na descrição (ex.: extrema pobreza). */
+  secundario?: number | null;
   fonte: string; serie: string; extraido_em: string; url: string; desatualizado: boolean;
 }
 export const indicadores = (): Indicador[] => lerJson<Indicador[]>('panorama', 'indicadores');

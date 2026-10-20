@@ -71,3 +71,16 @@ Paleta de dados: marinho `#0A2259`, azul `#3C8DCB`, aço `#4A7C96`, ardósia `#8
 - o descargo continua no rodapé e em cada publicação.
 O texto vem de `src/site.config.ts` (`institutionalLine`, `useUniversityName`).
 **Consequências.** Antes do lançamento, obter a autorização escrita (`docs/LANCAMENTO.md`). Se ela for negada, basta `useUniversityName: false` para retirar o nome.
+
+## ADR-013 — Pobreza pela SIS e abertura comercial de bens no "Brasil em números" (2026-10-20)
+**Contexto.** A coordenação pediu trocar as fichas "Juro real ex ante" e "Focus · IPCA" por pobreza (IBGE) e grau de abertura comercial (com a API do ComexStat). Os dois indicadores retirados continuam no gráfico "Selic meta e juro real ex ante" e no gráfico do IPCA.
+**Pobreza.** Os indicadores ODS do SIDRA (tabelas 5817 e 5877) dão valores diferentes dos divulgados pelo IBGE: por exemplo, 26,5 % em 2024 contra 23,1 % na SIS. Além disso, a linha usada não está documentada na API. Por isso usa-se a **Síntese de Indicadores Sociais**, Tabela 2.18 (arquivo ODS oficial no FTP do IBGE), cujo cabeçalho declara a linha:
+- **pobreza** = menos de US$ 6,85 PPC 2017 por dia; **extrema pobreza** = menos de US$ 2,15;
+- os valores conferem com a Agência IBGE (2024: 23,1 % e 3,5 %);
+- a URL é fixa por edição (`SIS_EDICAO` em `scripts/data/series.ts`) e precisa ser atualizada a cada nova edição anual. A SIS de 2026 deve adotar as linhas do Banco Mundial em PPC 2021, o que mudará o nível da série.
+**Abertura comercial.** Fórmula: (exportações + importações de **bens**, US$ FOB, soma de 12 meses, ComexStat) ÷ PIB em US$ acumulado em 12 meses (SGS 4192) × 100.
+- Não é o indicador do Banco Mundial (NE.TRD.GNFS.ZS), que inclui serviços e usa contas nacionais.
+- O nome do SGS 4192 foi verificado no webservice do SGS; a série não está no catálogo CKAN.
+**Consequências.**
+- Os chips passam a "Trabalho e renda" (desocupação e pobreza).
+- A API do ComexStat limita a frequência de consultas (HTTP 429): o extrator espera 11 s entre requisições e em cada nova tentativa. Se a cota não se recuperar, mantém-se o vintage anterior.

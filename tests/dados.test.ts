@@ -34,6 +34,9 @@ const LIMITES: Record<string, Record<string, [number, number]>> = {
   focus_12m_ipca: { mediana: [-2, 30] },
   metas_inflacao: { meta: [1, 10], limite_inferior: [0, 10], limite_superior: [2, 12] },
   pwt: { rgdpna: [1, 5e7], pop: [0.1, 2000], emp: [0.01, 1000] },
+  pib_usd: { pib_usd_milhoes_12m: [5e5, 6e6] },
+  comercio: { exportacao_usd: [5e9, 6e10], importacao_usd: [5e9, 6e10] },
+  pobreza: { pobreza_us685_ppc2017: [5, 60], extrema_us215_ppc2017: [0.5, 20] },
 };
 
 describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
