@@ -6,6 +6,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../layout/PageHero.astro';
+import Icon from '../ui/Icon.astro';
 import PubRow from './PubRow.astro';
 import { getPublicacoes } from '../../lib/publicacoes';
 import { TIPOS, TIPO_KEYS, type Tipo } from '../../schemas/publicacao';
@@ -38,7 +39,7 @@ const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
   <PageHero lang={lang} eyebrow={tipo ? L.t : undefined} title={titulo} lede={tipo ? undefined : L.lede}>
     <p class="meta"><a href={href(feed)}>{L.rss}</a></p>
   </PageHero>
-  <div class="wrap">
+  <div class="wrap pubs">
 
     <nav class="tipos" aria-label={L.porTipo}>
       <ul>
@@ -50,7 +51,11 @@ const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
     </nav>
 
     {pubs.length === 0 ? (
-      <p class="vazio">{L.vazio}</p>
+      <div class="vazio">
+        <span class="vazio__icon"><Icon name="file-clock" size={28} /></span>
+        <p>{L.vazio}</p>
+        <a class="link-arrow" href={href('/metodologia/', lang)}>{k === 'en' ? 'How each publication is checked' : 'Como cada publicação é verificada'} <Icon name="arrow-right" size={15} /></a>
+      </div>
     ) : (
       <>
         <form class="filtros no-print" hidden aria-label="Filtros">
@@ -98,16 +103,19 @@ const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
   }
 </script>
 <style>
-  .tipos ul { list-style: none; padding: 0; margin: 0 0 var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); font-size: var(--step--1); border-bottom: var(--hairline); padding-bottom: var(--s-3); }
-  .tipos a { color: var(--text); text-decoration: none; }
-  .tipos a:hover { color: var(--primary); text-decoration: underline; }
-  .tipos a[aria-current='page'] { color: var(--primary); font-weight: 700; }
+  .pubs { padding-block: clamp(40px, 5vw, 64px) var(--section-y); }
+  .tipos ul { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tipos a { display: inline-block; font: 600 12px / 1 var(--sans); letter-spacing: 0.04em; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: 30px; color: var(--navy); text-decoration: none; transition: background-color 0.2s, color 0.2s; }
+  .tipos a:hover { background: var(--mist); }
+  .tipos a[aria-current='page'] { background: var(--navy); border-color: var(--navy); color: var(--white); }
   .filtros { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-bottom: var(--s-4); font-size: var(--step--1); }
   .filtros[hidden] { display: none; }
   .filtros label { display: grid; gap: var(--s-1); font-weight: 600; color: var(--text-2); }
   .filtros select { font: inherit; font-weight: 400; color: var(--text); background: var(--bg); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.3em 0.5em; min-width: 9rem; }
   .contagem { margin-bottom: var(--s-2); }
   .lista { border-bottom: var(--hairline); }
-  .vazio { font-family: var(--font-serif); font-size: var(--step-1); max-width: var(--measure); color: var(--text-2); border-top: var(--hairline); padding-top: var(--s-5); }
+  .vazio { display: grid; gap: 16px; justify-items: start; max-width: 44rem; padding: 32px; background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--navy); }
+  .vazio__icon { color: var(--petrol); }
+  .vazio p { margin: 0; font-size: 1.0625rem; line-height: 1.6; color: var(--ink); }
   .pub-row[hidden] { display: none; }
 </style>

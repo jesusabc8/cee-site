@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../layout/PageHero.astro';
-import StatusTag from '../StatusTag.astro';
+import Areas from '../home/Areas.astro';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
@@ -10,8 +10,6 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const areas = (await getCollection('areas')).sort((a, b) => a.data.ordem - b.data.ordem);
-const linhas = (await getCollection('linhas')).sort((a, b) => a.data.codigo.localeCompare(b.data.codigo));
-const permanentes = areas.filter((a) => a.data.tipo === 'area');
 const lente = areas.find((a) => a.data.tipo === 'lente');
 
 const T = {
@@ -21,7 +19,6 @@ const T = {
     niveis: 'Área, linha e tema',
     niveisTxt: 'A área é um campo permanente de trabalho, com uma pergunta-guia, e só muda por reforma da Carta de Princípios. A linha é uma agenda de dois a três anos dentro de uma área. O tema é um projeto de um semestre que gera um ou mais produtos.',
     obs: 'Observatório de Dados', obsTxt: 'Não é uma das áreas: é a infraestrutura que as três compartilham — séries econômicas brasileiras em formato limpo e versionado, com dicionário de variáveis, script de extração e data de cada atualização.', obsLink: 'Ver o Observatório',
-    areasTit: 'Áreas permanentes', area: 'Área', pergunta: 'Pergunta-guia', linhas: 'Linhas', ver: 'Ver a área',
     lenteTit: 'Lente transversal',
     regras: 'Regras de gestão das linhas',
     regrasList: [
@@ -38,7 +35,6 @@ const T = {
     niveis: 'Area, line and topic',
     niveisTxt: 'An area is a permanent field of work with a guiding question, changed only by amending the Charter. A line is a two-to-three-year agenda within an area. A topic is a one-semester project producing one or more outputs.',
     obs: 'Data Observatory', obsTxt: 'Not an area but the infrastructure all three share — clean, versioned Brazilian economic series with a data dictionary, extraction script and the date of every update.', obsLink: 'Go to the Observatory',
-    areasTit: 'Permanent areas', area: 'Area', pergunta: 'Guiding question', linhas: 'Lines', ver: 'Go to the area',
     lenteTit: 'Cross-cutting lens',
     regras: 'Rules for research lines',
     regrasList: [
@@ -52,12 +48,15 @@ const T = {
 }[k];
 ---
 <Base title={T.title} description={T.lede} lang={lang}>
-  <PageHero lang={lang} eyebrow={T.eyebrow} title={T.title} lede={T.lede} />
+  <PageHero lang={lang} eyebrow={T.eyebrow} icon="compass" title={T.title} lede={T.lede} />
+  <Areas lang={lang} />
   <div class="wrap">
-
     <section class="section split">
       <h2 class="section__title">{T.niveis}</h2>
-      <p class="prose">{T.niveisTxt}</p>
+      <div class="prose">
+        <p>{T.niveisTxt}</p>
+        <p class="meta">{T.estadoNota}</p>
+      </div>
     </section>
 
     <section class="section split">
@@ -66,27 +65,6 @@ const T = {
         <p>{T.obsTxt}</p>
         <p><a href={href('/observatorio/', lang)}>{T.obsLink}</a></p>
       </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section__title">{T.areasTit}</h2>
-      <ol class="areas">
-        {permanentes.map((a) => (
-          <li class="area">
-            <p class="area__code" aria-hidden="true">{a.data.codigo}</p>
-            <div class="area__body">
-              <h3><a href={href(`/pesquisa/${a.id}/`, lang)}><span class="visually-hidden">{T.area} {a.data.codigo}: </span>{a.data.nome[k]}</a></h3>
-              <p class="area__q"><span class="eyebrow">{T.pergunta}</span> {a.data.pergunta_guia[k]}</p>
-              <ul class="area__linhas" aria-label={`${T.linhas} ${a.data.codigo}`}>
-                {linhas.filter((l) => l.data.area === a.id).map((l) => (
-                  <li><span class="code">{l.data.codigo}</span> {l.data.nome[k]} <StatusTag estado={l.data.estado} lang={lang} /></li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        ))}
-      </ol>
-      <p class="meta">{T.estadoNota}</p>
     </section>
 
     {lente && (
@@ -105,23 +83,3 @@ const T = {
     </section>
   </div>
 </Base>
-<style>
-  .areas { list-style: none; margin: 0 0 var(--s-4); padding: 0; }
-  .area {
-    display: grid;
-    grid-template-columns: 3rem 1fr;
-    gap: var(--s-4);
-    padding-block: var(--s-5);
-    border-top: var(--hairline);
-  }
-  .area:last-child { border-bottom: var(--hairline); }
-  .area__code { font-family: var(--font-serif); font-size: var(--step-4); font-weight: 600; color: var(--primary); line-height: 1; }
-  .area h3 { font-size: var(--step-3); }
-  .area h3 a { color: var(--text); text-decoration: none; }
-  .area h3 a:hover { color: var(--primary); text-decoration: underline; }
-  .area__q { font-family: var(--font-serif); font-size: var(--step-1); margin-top: var(--s-2); max-width: var(--measure); }
-  .area__q .eyebrow { display: block; font-size: var(--step--2); margin-bottom: var(--s-1); }
-  .area__linhas { list-style: none; padding: 0; margin: var(--s-3) 0 0; font-size: var(--step--1); display: grid; gap: var(--s-1); }
-  .code { font-weight: 700; color: var(--primary); margin-right: 0.25em; }
-  @media (min-width: 52rem) { .area { grid-template-columns: 5rem 1fr; } }
-</style>

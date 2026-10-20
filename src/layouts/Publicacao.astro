@@ -9,6 +9,8 @@
 import { getEntry, render } from 'astro:content';
 import Base from './Base.astro';
 import Box from '../components/Box.astro';
+import PageHero from '../components/layout/PageHero.astro';
+import Icon from '../components/ui/Icon.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CiteBox from '../components/pub/CiteBox.astro';
 import CreditList from '../components/pub/CreditList.astro';
@@ -85,31 +87,23 @@ const jsonld = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   </Fragment>
 
-  <div class="wrap">
-    <article class="pub" data-pagefind-filter={`tipo:${TIPOS[p.tipo][k]}`}>
-      <header class="pub__header">
-        <p class="eyebrow">
-          <a href={href(`/publicacoes/tipo/${p.tipo}/`, lang)}>{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</a>
-          {area && <> · <a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} {area.data.nome[k]}</a></>}
-          {p.linha && <> · {L.linha} {p.linha}</>}
-        </p>
-        <h1>{titulo}</h1>
-        <p class="lede">{k === 'en' && p.titulo_en ? p.titulo : p.subtitulo}</p>
-        <dl class="pub__meta meta">
-          <div><dt>{L.por}</dt><dd>{autores}</dd></div>
-          <div><dt>{L.publicado}</dt><dd><time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></dd></div>
-          <div><dt>{L.versao}</dt><dd><a href="#versoes">{p.versao}</a></dd></div>
-          {p.doi && <div><dt>DOI</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
-          <div><dt>{L.licenca}</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd></div>
-        </dl>
-        <p class="no-print meta"><button type="button" class="link-btn" onclick="window.print()">{L.imprimir}</button></p>
-      </header>
+  <PageHero lang={lang} title={titulo} lede={k === 'en' && p.titulo_en ? p.titulo : p.subtitulo}
+    crumbs={[{ label: k === 'en' ? 'Publications' : 'Publicações', path: '/publicacoes/' }, { label: TIPOS[p.tipo].plural[k], path: `/publicacoes/tipo/${p.tipo}/` }, { label: titulo }]}>
+    <p class="pub__eyebrow" slot="eyebrow">
+      <a href={href(`/publicacoes/tipo/${p.tipo}/`, lang)}>{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</a>
+      {area && <> · <a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} {area.data.nome[k]}</a></>}
+      {p.linha && <> · {L.linha} {p.linha}</>}
+    </p>
+    <p class="pub__byline">{autores} · <time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></p>
+  </PageHero>
 
+  <div class="wrap pub-wrap">
+    <article class="pub" data-pagefind-filter={`tipo:${TIPOS[p.tipo][k]}`}>
       {p.demo && <Box variant="placeholder" lang={lang}><p>{L.demo}</p></Box>}
 
       <div class="pub__body">
         {k === 'en' ? (
-          <div class="prose">
+          <div class="prose prose--serif">
             <p>{p.resumo_en ?? p.resumo}</p>
             {p.idioma === 'pt-BR' && (
               <p><a href={href(`/publicacoes/${pub.id}/`, 'pt-BR')} hreflang="pt-BR" lang="pt-BR">Ler o texto integral em português</a> (full text in Portuguese).</p>
@@ -117,8 +111,8 @@ const jsonld = {
           </div>
         ) : (
           <>
-            {p.tese && <p class="pub__tese prose"><strong>{p.tese}</strong></p>}
-            <div class="prose"><Content /></div>
+            {p.tese && <p class="pub__tese"><strong>{p.tese}</strong></p>}
+            <div class="prose prose--serif"><Content /></div>
             {p.incerteza_principal && (
               <Box variant="note" title={L.incerteza} lang={lang}><p>{p.incerteza_principal}</p></Box>
             )}
@@ -126,7 +120,7 @@ const jsonld = {
               <Box variant="limits" lang={lang}><ul>{p.limites.map((l) => <li>{l}</li>)}</ul></Box>
             )}
             {p.recomendacoes && (
-              <section class="pub__recom prose" aria-labelledby="recom-title">
+              <section class="pub__recom prose prose--serif" aria-labelledby="recom-title">
                 <h2 id="recom-title">{L.recom}</h2>
                 <p class="meta">{L.recomNota}</p>
                 <ol>{p.recomendacoes.map((r) => <li>{r}</li>)}</ol>
@@ -139,7 +133,7 @@ const jsonld = {
       <div class="pub__blocks">
         <SourceBlock fontes={p.fontes} lang={lang} />
 
-        <section aria-labelledby="dados-title">
+        <section aria-labelledby="dados-title" id="dados">
           <h2 id="dados-title" class="block-title">{L.dados}</h2>
           <ul class="links">
             {p.dados.map((d) => <li><a href={d.url.startsWith('http') ? d.url : href(d.url)}>{d.rotulo}</a></li>)}
@@ -147,7 +141,7 @@ const jsonld = {
           </ul>
         </section>
 
-        <CiteBox p={p} url={url} slug={pub.id} lang={lang} />
+        <div id="citar"><CiteBox p={p} url={url} slug={pub.id} lang={lang} /></div>
         <CreditList autoria={p.autoria} lang={lang} />
 
         <section aria-labelledby="decl-title">
@@ -163,24 +157,54 @@ const jsonld = {
         <Disclaimer lang={lang} variant="full" dataUrl={p.codigo_url ?? config.repoUrl} />
       </div>
     </article>
+
+    <aside class="pub__side" aria-label={k === 'en' ? 'Publication details' : 'Ficha da publicação'}>
+      <div class="side-card">
+        <p class="side-card__t">{k === 'en' ? 'Details' : 'Ficha'}</p>
+        <dl>
+          <div><dt>{k === 'en' ? 'Type' : 'Tipo'}</dt><dd>{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</dd></div>
+          <div><dt>{L.por}</dt><dd>{autores}</dd></div>
+          <div><dt>{L.publicado}</dt><dd><time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></dd></div>
+          <div><dt>{L.versao}</dt><dd><a href="#versoes">{p.versao}</a></dd></div>
+          {area && <div><dt>{k === 'en' ? 'Area' : 'Área'}</dt><dd><a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} · {area.data.nome[k]}</a>{p.linha && ` · ${p.linha}`}</dd></div>}
+          {p.doi && <div><dt>DOI</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
+          <div><dt>{L.licenca}</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd></div>
+        </dl>
+        <ul class="side-card__links no-print">
+          <li><a href="#dados"><Icon name="database" size={16} /> {L.dados}</a></li>
+          <li><a href="#citar"><Icon name="quote" size={16} /> {k === 'en' ? 'How to cite' : 'Como citar'}</a></li>
+          <li><a href="#versoes"><Icon name="history" size={16} /> {k === 'en' ? 'Versions and errata' : 'Versões e erratas'}</a></li>
+          <li><button type="button" class="link-btn" onclick="window.print()"><Icon name="printer" size={16} /> {L.imprimir}</button></li>
+        </ul>
+      </div>
+    </aside>
   </div>
 </Base>
 <style>
-  .pub__header { padding-block: var(--s-7) var(--s-5); display: grid; gap: var(--s-3); max-width: 50rem; }
-  .pub__header .eyebrow a { color: inherit; text-decoration: none; }
-  .pub__header .eyebrow a:hover { color: var(--primary); text-decoration: underline; }
-  .pub__meta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: var(--s-2) 0 0; padding-top: var(--s-3); border-top: var(--hairline); }
-  .pub__meta div { display: flex; gap: 0.4em; }
-  .pub__meta dt { font-weight: 600; color: var(--text); }
-  .pub__meta dd { margin: 0; }
-  .link-btn { font: inherit; background: none; border: 0; padding: 0; color: var(--primary); text-decoration: underline; cursor: pointer; }
-  .pub__body { display: grid; gap: var(--s-5); padding-bottom: var(--s-6); }
-  .pub__tese { font-size: var(--step-2); line-height: 1.45; }
+  .pub__eyebrow { margin: 0 0 4px; font: 600 var(--fs-label) / 1.4 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--sky); }
+  .pub__eyebrow a { color: inherit; text-decoration: none; }
+  .pub__eyebrow a:hover { text-decoration: underline; }
+  .pub__byline { font: 500 13px / 1.5 var(--mono); color: #cfdce8; }
+  .pub-wrap { display: grid; gap: 48px; padding-block: clamp(40px, 5vw, 64px) var(--section-y); }
+  @media (min-width: 64rem) { .pub-wrap { grid-template-columns: minmax(0, 1fr) 18rem; gap: 72px; } }
+  .pub { min-width: 0; max-width: 46rem; }
+  .pub__body { display: grid; gap: var(--s-5); padding-bottom: var(--s-7); }
+  .pub__tese { font: 500 1.3125rem / 1.5 var(--serif); color: var(--ink); border-left: 3px solid var(--petrol); padding-left: 20px; margin: 0; }
   .pub__tese strong { font-weight: 600; }
-  .pub__blocks { display: grid; gap: var(--s-6); max-width: 50rem; }
+  .pub__blocks { display: grid; gap: var(--s-6); border-top: 2px solid var(--navy); padding-top: var(--s-6); }
+  .pub__side { position: relative; }
+  .side-card { position: sticky; top: calc(var(--header-h) + 24px); background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--navy); padding: 22px 22px 18px; }
+  .side-card__t { margin: 0 0 12px; font: 600 var(--fs-label) / 1.2 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); }
+  .side-card dl { margin: 0; display: grid; gap: 10px; font-size: 0.875rem; }
+  .side-card dt { font: 500 11px / 1.3 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .side-card dd { margin: 2px 0 0; color: var(--ink); }
+  .side-card__links { list-style: none; margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 0.875rem; }
+  .side-card__links a, .link-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--petrol); }
+  .link-btn { font: inherit; background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
   .links { list-style: none; padding: 0; margin: var(--s-3) 0 0; display: grid; gap: var(--s-2); }
   .decl { margin: var(--s-3) 0 0; font-size: var(--step--1); display: grid; gap: var(--s-1) var(--s-4); }
   @media (min-width: 40rem) { .decl { grid-template-columns: 14rem 1fr; } }
   .decl dt { font-weight: 600; }
   .decl dd { margin: 0 0 var(--s-2); color: var(--text-2); }
+  @media print { .pub__side { display: none; } .pub-wrap { display: block; } }
 </style>

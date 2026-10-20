@@ -324,6 +324,13 @@ hr {
 
 .section__title { font-size: 1.5625rem; }
 
+/* Seções em duas colunas dentro de páginas internas: ritmo mais curto e régua fina entre blocos */
+.wrap > .section.split { padding-block: clamp(40px, 4vw, 56px); }
+.wrap > .section.split + .section.split { border-top: 1px solid var(--line); }
+.wrap > .section:first-child { padding-top: clamp(48px, 5vw, 72px); }
+.split > .section__title { font-size: 1.25rem; position: relative; padding-top: 14px; }
+.split > .section__title::before { content: ''; position: absolute; left: 0; top: 0; width: 32px; height: 3px; background: var(--petrol); }
+
 .block-title {
   font: 600 var(--fs-label) / 1.2 var(--sans);
   letter-spacing: 0.14em;

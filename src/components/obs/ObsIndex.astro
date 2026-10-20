@@ -56,13 +56,13 @@ const L = {
   .card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 30px 30px 26px; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--navy); transition: box-shadow 0.25s, transform 0.25s; min-width: 0; }
   .card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
   .card--feature { grid-column: 1 / -1; background: linear-gradient(135deg, var(--navy), #18467a); color: #cfdce8; border-top-color: var(--sky); }
-  .card--feature h2 a { color: var(--white); }
   .card--feature .card__top, .card--feature .card__go { color: var(--sky); }
   .card__top { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--petrol); font: 600 11.5px / 1.2 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
   .card__top .mono { letter-spacing: 0.04em; }
   .card__ed { margin-left: auto; color: var(--navy); }
   .card h2 { font-size: 1.375rem; line-height: 1.2; }
   .card h2 a { color: var(--navy); text-decoration: none; }
+  .card--feature h2 a { color: var(--white); }
   .card h2 a::after { content: ''; position: absolute; inset: 0; }
   .card h2 a:focus-visible { outline: none; }
   .card:has(h2 a:focus-visible) { outline: 2px solid var(--petrol); outline-offset: 2px; }

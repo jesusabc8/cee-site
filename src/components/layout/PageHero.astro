@@ -45,6 +45,7 @@ const crumbs = dados ?? segs.map((sg, i) => {
     <div class="page-hero__body">
       <div>
         {eyebrow && <p class="eyebrow">{icon && <Icon name={icon} size={15} />} {eyebrow}</p>}
+        <slot name="eyebrow" />
         <h1>{title}</h1>
         {lede && <p class="page-hero__lede">{lede}</p>}
       </div>
@@ -83,6 +84,7 @@ const crumbs = dados ?? segs.map((sg, i) => {
   .page-hero--navy .page-hero__lede { color: #cfdce8; }
   .page-hero--mist .page-hero__lede { color: var(--muted); }
   .page-hero__aside:empty { display: none; }
+  .page-hero__inner > :global(:not(.crumbs, .page-hero__body)) { margin-top: 20px; }
   /* Conteúdo extra (metadados, links, filtros) sobre a banda escura */
   .page-hero--navy .page-hero__inner > :global(:not(.crumbs, .page-hero__body)) { color: #cfdce8; }
   .page-hero--navy .page-hero__inner :global(a) { color: var(--sky); }
