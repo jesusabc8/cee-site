@@ -1,8 +1,4 @@
 ---
-import Base from '../layouts/Base.astro';
-import { useTranslations } from '../i18n/ui';
-const t = useTranslations('pt-BR');
+import Home from '../components/Home.astro';
 ---
-<Base title={t('site.name')} description={t('site.tagline')}>
-  <div class="wrap"><h1 style="padding-block:var(--s-7)">Em construção</h1></div>
-</Base>
+<Home lang="pt-BR" />

@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from './PageHeader.astro';
+import StatusTag from './StatusTag.astro';
+import { getEquipePublica } from '../lib/equipe';
+import { href } from '../i18n/routing';
+import type { Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const pessoas = await getEquipePublica();
+const instancias = {
+  pt: ['Docente de referência', 'Conselho Acadêmico', 'Comitê Editorial', 'Coordenação Executiva', 'Coordenadores de Área', 'Diretoria de Formação', 'Mantenedor do Observatório'],
+  en: ['Faculty adviser', 'Academic Council', 'Editorial Committee', 'Executive Coordination', 'Area Coordinators', 'Training Directorate', 'Observatory maintainer'],
+}[k];
+const T = {
+  pt: { title: 'Equipe', lede: 'A equipe do CEE está em formação. Nomes só são publicados com consentimento registrado de cada pessoa.',
+    inst: 'Instâncias', pessoas: 'Integrantes', vazio: 'Nenhum integrante com consentimento de publicação registrado até o momento.',
+    gov: 'Composição e atribuições de cada instância', part: 'Quer participar?' },
+  en: { title: 'Team', lede: 'The CEE team is being formed. Names are only published with each person\'s recorded consent.',
+    inst: 'Bodies', pessoas: 'Members', vazio: 'No member has recorded consent to publication so far.',
+    gov: 'Composition and remit of each body', part: 'Want to get involved?' },
+}[k];
+---
+<Base title={T.title} description={T.lede} lang={lang}>
+  <div class="wrap">
+    <PageHeader eyebrow={k === 'en' ? 'About' : 'Institucional'} title={T.title} lede={T.lede} />
+    <section class="section split">
+      <h2 class="section__title">{T.inst}</h2>
+      <div>
+        <ul class="inst">
+          {instancias.map((i) => <li><span>{i}</span> <StatusTag estado="construcao" lang={lang} /></li>)}
+        </ul>
+        <p class="meta"><a href={`${href('/sobre/', lang)}#governança`}>{T.gov}</a></p>
+      </div>
+    </section>
+    <section class="section split">
+      <h2 class="section__title">{T.pessoas}</h2>
+      {pessoas.length === 0 ? <p class="meta">{T.vazio}</p> : (
+        <ul class="inst">{pessoas.map((p) => <li><span>{p.data.nome}</span> <span class="meta">{p.data.funcao[k]} · {p.data.instancia}</span></li>)}</ul>
+      )}
+    </section>
+    <p><a href={href('/participe/', lang)}>{T.part}</a></p>
+  </div>
+</Base>
+<style>
+  .inst { list-style: none; margin: 0 0 var(--s-3); padding: 0; }
+  .inst li { display: flex; justify-content: space-between; gap: var(--s-3); flex-wrap: wrap; padding-block: var(--s-3); border-top: var(--hairline); }
+  .inst li:last-child { border-bottom: var(--hairline); }
+</style>

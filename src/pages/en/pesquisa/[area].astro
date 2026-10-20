@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import AreaPage from '../../../components/pesquisa/AreaPage.astro';
+
+export async function getStaticPaths() {
+  const areas = await getCollection('areas');
+  return areas.map((area) => ({ params: { area: area.id }, props: { area } }));
+}
+const { area } = Astro.props;
+---
+<AreaPage area={area} lang="en" />

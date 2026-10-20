@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import rehypeTableScroll from './src/lib/rehype-table-scroll.mjs';
 
 // SITE_URL e BASE_PATH são definidos pelo workflow de deploy.
 // Em GitHub Pages de projeto: SITE_URL=https://<usuario>.github.io  BASE_PATH=/cee-site
@@ -19,6 +20,9 @@ export default defineConfig({
     locales: ['pt-BR', 'en'],
     defaultLocale: 'pt-BR',
     routing: { prefixDefaultLocale: false },
+  },
+  markdown: {
+    rehypePlugins: [rehypeTableScroll],
   },
   integrations: [
     mdx(),

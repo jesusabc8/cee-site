@@ -1,0 +1,29 @@
+---
+titulo: Acessibilidade
+descricao: Compromisso de acessibilidade do sítio do CEE (WCAG 2.2, nível AA), medidas adotadas e limitações conhecidas.
+eyebrow: Políticas
+fonte_proposta: "Não consta da Proposta; política do sítio (docs/DECISIONES.md)"
+atualizado: 2026-10-20
+---
+## Compromisso
+
+O sítio do CEE tem como meta atender às Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.2, nível AA.
+
+## Medidas adotadas
+
+- Contraste mínimo de 4,5:1 para texto e de 3:1 para elementos gráficos, verificado para os modos claro e escuro.
+- Navegação completa por teclado, com foco visível e link para pular direto ao conteúdo.
+- Todo gráfico traz descrição textual e tabela de dados alternativa, além do arquivo CSV para download.
+- Cores de gráficos escolhidas para leitores com daltonismo (paleta Okabe-Ito adaptada), com no máximo cinco séries por gráfico; as séries são identificadas também por rótulo direto, e não só por cor.
+- Tabelas com cabeçalhos marcados e rolagem horizontal acessível por teclado em telas pequenas.
+- Estrutura de títulos hierárquica e marcos de navegação (cabeçalho, navegação, conteúdo principal, rodapé).
+- Respeito à preferência do sistema por movimento reduzido e por tema escuro.
+- Testes automáticos com axe e Lighthouse a cada alteração do sítio.
+
+## Limitações conhecidas
+
+O sítio está em versão preliminar. Os registros de verificação manual (leitor de tela, navegação por teclado, dispositivos móveis) ficam em `docs/qa/` no repositório.
+
+## Como relatar um problema
+
+Se encontrar uma barreira de acessibilidade, escreva ao [contato](../contato/) ou abra uma *issue* no repositório do sítio, indicando a página e o problema.

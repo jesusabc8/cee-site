@@ -1,0 +1,97 @@
+# Áreas permanentes e lente transversal — Proposta v3.0, §4.3–4.6.
+# Só se alteram por reforma da Carta de Princípios (Proposta, Quadro 10).
+- id: a
+  codigo: A
+  tipo: area
+  ordem: 1
+  nome:
+    pt: Conjuntura e Política Macroeconômica
+    en: Business Cycle and Macroeconomic Policy
+  pergunta_guia:
+    pt: Onde está a economia brasileira no ciclo, e o que a política monetária e a fiscal estão fazendo a respeito?
+    en: Where does the Brazilian economy stand in the cycle, and what are monetary and fiscal policy doing about it?
+  descricao:
+    pt: >-
+      Análise de conjuntura baseada em decomposições claras, séries atualizadas e comparação explícita com
+      as projeções publicadas (Focus, Banco Central, FMI), sem projeção própria. A área deve ser desenhada em
+      diálogo com o grupo de conjuntura brasileira já existente no curso, para não duplicar o seu boletim.
+    en: >-
+      Business-cycle analysis based on transparent decompositions, up-to-date series and explicit comparison with
+      published forecasts (Focus survey, Central Bank, IMF), with no in-house forecasting. The area is designed in
+      dialogue with the existing Brazilian business-cycle group in the programme so as not to duplicate its bulletin.
+  produtos:
+    pt: Nota de Conjuntura mensal; data insights quinzenais; painel de conjuntura no Observatório; replicações de resultados de documentos oficiais.
+    en: Monthly Business-Cycle Note; fortnightly data insights; business-cycle dashboard in the Observatory; replications of results from official reports.
+- id: b
+  codigo: B
+  tipo: area
+  ordem: 2
+  nome:
+    pt: Crescimento, Produtividade e Transformação Estrutural
+    en: Growth, Productivity and Structural Transformation
+  pergunta_guia:
+    pt: Por que a produtividade brasileira não cresce?
+    en: Why does Brazilian productivity not grow?
+  descricao:
+    pt: >-
+      A agenda de longo prazo do Centro. Estimativas de contabilidade do crescimento sugerem que o crescimento
+      brasileiro de longo prazo se explicou sobretudo pela acumulação de fatores, e não por ganhos de eficiência;
+      reproduzir e documentar essa decomposição, com verificação independente, é o primeiro produto previsto da
+      linha B1. O diagnóstico regional do Banco Mundial (2026) aponta a capacidade de absorção de novas
+      tecnologias como restrição principal.
+    en: >-
+      The Centre's long-run agenda. Growth-accounting estimates suggest that Brazil's long-run growth was driven mainly
+      by factor accumulation rather than efficiency gains; reproducing and documenting that decomposition, with
+      independent verification, is the first planned output of line B1. The World Bank's regional diagnosis (2026)
+      points to the capacity to absorb new technologies as the main constraint.
+  produtos:
+    pt: Painel de crescimento e produtividade no Observatório; Notas Técnicas; working papers; replicações.
+    en: Growth and productivity dashboard in the Observatory; Technical Notes; working papers; replications.
+- id: c
+  codigo: C
+  tipo: area
+  ordem: 3
+  nome:
+    pt: Trabalho, Pobreza e Desigualdade
+    en: Labour, Poverty and Inequality
+  pergunta_guia:
+    pt: Quem se beneficia do crescimento, e por que a informalidade persiste?
+    en: Who benefits from growth, and why does informality persist?
+  descricao:
+    pt: >-
+      Reúne a medição de pobreza, renda e desigualdade e o estudo da informalidade e das transições no mercado de
+      trabalho. É o espaço natural de agregação e de apoio quantitativo às pesquisas docentes do departamento em
+      desenvolvimento e erradicação da pobreza.
+    en: >-
+      Brings together the measurement of poverty, income and inequality and the study of informality and labour-market
+      transitions. It is the natural home for quantitative support to faculty research in development and poverty
+      reduction.
+  produtos:
+    pt: Edições do Observatório da Pobreza; data insights; Notas Técnicas; replicações.
+    en: Poverty Observatory editions; data insights; Technical Notes; replications.
+- id: instituicoes
+  codigo: I
+  tipo: lente
+  ordem: 4
+  nome:
+    pt: Instituições e Capacidade do Estado
+    en: Institutions and State Capacity
+  pergunta_guia:
+    pt: Como a qualidade das instituições e a capacidade do Estado condicionam a produtividade e a inclusão?
+    en: How do institutional quality and state capacity shape productivity and inclusion?
+  descricao:
+    pt: >-
+      Não é uma área independente, mas uma lente que atravessa as três áreas: na literatura de crescimento e
+      desenvolvimento, as instituições aparecem como variável explicativa da produtividade (área B) e da exclusão
+      (área C), e separá-las as isolaria do que explicam. Sob esta lente publicam-se, quando pertinente, edições
+      especiais com método próprio — rubrica pré-especificada e publicada antes da aplicação, concordância entre
+      avaliadores reportada, citação por página e análise de consistência fiscal.
+    en: >-
+      Not a separate area but a lens across all three: in the growth and development literature, institutions explain
+      productivity (area B) and exclusion (area C), and separating them would isolate them from what they explain.
+      Under this lens the Centre occasionally publishes special editions with their own method — a rubric pre-specified
+      and published before it is applied, reported inter-rater agreement, page-level citation and fiscal-consistency
+      analysis.
+  produtos:
+    pt: Edições especiais ocasionais, ligadas a ciclos (por exemplo, eleitorais); não constituem produto regular.
+    en: Occasional special editions tied to cycles (e.g. elections); not a regular product.

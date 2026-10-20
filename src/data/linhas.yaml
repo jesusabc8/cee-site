@@ -1,0 +1,181 @@
+# Linhas de pesquisa — Proposta v3.0, Quadros 12–15.
+# Estado: "prevista" = prevista para o ano 1, ainda sem cumprir os critérios de abertura (§4.7);
+# "planejada" = ano 2; "ativa" exige 3 integrantes, docente de referência e produto comprometido
+# (registrar em docs/DECISIONES.md antes de mudar).
+- id: a1
+  codigo: A1
+  area: a
+  estado: prevista
+  ano: 1
+  nome:
+    pt: Atividade, inflação e política monetária
+    en: Activity, inflation and monetary policy
+  pergunta_guia:
+    pt: A desaceleração é cíclica ou estrutural, e como evoluem a inflação e as expectativas em relação à meta?
+    en: Is the slowdown cyclical or structural, and how are inflation and expectations evolving relative to the target?
+  perguntas:
+    pt:
+      - A desaceleração é cíclica ou estrutural?
+      - De onde vieram as surpresas de inflação (administrados, alimentos, serviços)?
+      - Como evoluem as expectativas em relação à meta?
+      - Qual a trajetória da taxa de juros real ex-ante?
+    en:
+      - Is the slowdown cyclical or structural?
+      - Where did inflation surprises come from (administered prices, food, services)?
+      - How are expectations evolving relative to the target?
+      - What is the path of the ex-ante real interest rate?
+  metodos:
+    pt:
+      - Séries com ajuste sazonal e decomposição por setores
+      - Decomposição do IPCA por grupos
+      - Comparação com as projeções publicadas (Focus, BCB, FMI), sem projeção própria
+      - Medidas alternativas de hiato do produto e sua dispersão
+    en:
+      - Seasonally adjusted series and sectoral decomposition
+      - Decomposition of the IPCA by groups
+      - Comparison with published forecasts (Focus, BCB, IMF), without in-house forecasts
+      - Alternative output-gap measures and their dispersion
+  fontes: IBGE (Contas Nacionais Trimestrais, PIM, PMS, PMC, IPCA, PNAD Contínua); BCB (SGS, Focus, Relatório de Política Monetária); FGV; MTE (Novo Caged)
+- id: a2
+  codigo: A2
+  area: a
+  estado: planejada
+  ano: 2
+  nome:
+    pt: Política fiscal e dívida pública
+    en: Fiscal policy and public debt
+  pergunta_guia:
+    pt: Qual o espaço fiscal sob juros reais elevados?
+    en: How much fiscal space is there under high real interest rates?
+  perguntas:
+    pt:
+      - Qual o espaço fiscal sob juros reais elevados?
+      - O que explica a variação da razão dívida/PIB?
+    en:
+      - How much fiscal space is there under high real interest rates?
+      - What explains changes in the debt-to-GDP ratio?
+  metodos:
+    pt:
+      - Dinâmica da dívida e decomposição de suas variações
+      - Análise de resultado primário e serviço da dívida
+    en:
+      - Debt dynamics and decomposition of its changes
+      - Analysis of the primary balance and debt service
+  fontes: Tesouro Nacional (Tesouro Transparente, SICONFI); BCB (estatísticas fiscais); SIOP
+- id: b1
+  codigo: B1
+  area: b
+  estado: prevista
+  ano: 1
+  nome:
+    pt: Produtividade agregada e setorial
+    en: Aggregate and sectoral productivity
+  pergunta_guia:
+    pt: Quanto do crescimento é acumulação de fatores e quanto é eficiência?
+    en: How much of growth is factor accumulation and how much is efficiency?
+  perguntas:
+    pt:
+      - Quanto do crescimento é acumulação e quanto é eficiência?
+      - O baixo crescimento da produtividade agregada vem de que setores?
+      - Por que a produtividade relativa ao padrão americano caiu desde 1980?
+    en:
+      - How much of growth is accumulation and how much is efficiency?
+      - Which sectors drive low aggregate productivity growth?
+      - Why has productivity relative to the United States fallen since 1980?
+  metodos:
+    pt:
+      - Contabilidade do crescimento (Solow, 1957)
+      - Decomposição shift-share entre e dentro de setores
+      - Dispersão de produtividade entre firmas e distorções alocativas, onde houver acesso a microdados
+    en:
+      - Growth accounting (Solow, 1957)
+      - Within- and between-sector shift-share decomposition
+      - Productivity dispersion across firms and allocative distortions, where microdata are available
+  fontes: Penn World Table 11.0; Contas Nacionais (anuais e trimestrais); PNAD Contínua (horas trabalhadas); PIM e PMS
+- id: b2
+  codigo: B2
+  area: b
+  estado: planejada
+  ano: 2
+  nome:
+    pt: Tecnologia, IA e capacidade de absorção
+    en: Technology, AI and absorptive capacity
+  pergunta_guia:
+    pt: Que barreiras limitam o uso produtivo de novas tecnologias?
+    en: What barriers limit the productive use of new technologies?
+  perguntas:
+    pt:
+      - Que barreiras (informalidade, capital, gestão) limitam o uso produtivo de novas tecnologias?
+      - Como a difusão varia entre setores e estados?
+    en:
+      - Which barriers (informality, capital, management) limit the productive use of new technologies?
+      - How does diffusion vary across sectors and states?
+  metodos:
+    pt:
+      - Análise descritiva de adoção e uso
+      - Replicação de resultados de relatórios de referência
+    en:
+      - Descriptive analysis of adoption and use
+      - Replication of results from reference reports
+  fontes: Bases públicas de adoção tecnológica (a identificar no Mapa de Lacunas); pacote de reprodutibilidade do World Development Report 2026
+  nota:
+    pt: Abertura condicionada à capacidade do ano 2; o Mapa de Lacunas pode indicar outra prioridade.
+    en: Opening depends on year-2 capacity; the Gap Map may point to a different priority.
+- id: c1
+  codigo: C1
+  area: c
+  estado: prevista
+  ano: 1
+  nome:
+    pt: Pobreza e distribuição de renda (Observatório da Pobreza)
+    en: Poverty and income distribution (Poverty Observatory)
+  pergunta_guia:
+    pt: Como evoluíram a pobreza e a desigualdade, e quanto da variação vem de crescimento e quanto de redistribuição?
+    en: How have poverty and inequality evolved, and how much of the change comes from growth versus redistribution?
+  perguntas:
+    pt:
+      - Como evoluíram a pobreza e a desigualdade entre 2012 e 2024?
+      - Quanto da variação vem de crescimento e quanto de redistribuição?
+      - Onde divergem as fontes?
+    en:
+      - How did poverty and inequality evolve between 2012 and 2024?
+      - How much of the change comes from growth and how much from redistribution?
+      - Where do sources diverge?
+  metodos:
+    pt:
+      - Medidas de pobreza monetária (classe FGT) e multidimensional (Alkire e Foster, 2011)
+      - Índices de desigualdade
+      - Decomposição crescimento–distribuição
+    en:
+      - Monetary (FGT class) and multidimensional (Alkire and Foster, 2011) poverty measures
+      - Inequality indices
+      - Growth–redistribution decomposition
+  fontes: Síntese de Indicadores Sociais (IBGE); PNAD Contínua; CEPAL; Banco Mundial; OCDE
+- id: c2
+  codigo: C2
+  area: c
+  estado: planejada
+  ano: 2
+  nome:
+    pt: Informalidade e mercado de trabalho
+    en: Informality and the labour market
+  pergunta_guia:
+    pt: Por que o rendimento informal recua com a desocupação no mínimo histórico?
+    en: Why are informal earnings falling while unemployment is at a historic low?
+  perguntas:
+    pt:
+      - Por que o rendimento informal recua com desocupação no mínimo histórico?
+      - Quais as transições entre formalidade, informalidade e inatividade?
+    en:
+      - Why are informal earnings falling while unemployment is at a historic low?
+      - What are the transitions between formality, informality and inactivity?
+  metodos:
+    pt:
+      - Matrizes de transição
+      - Decomposição de diferenciais de rendimento
+      - Séries de rendimento por posição na ocupação
+    en:
+      - Transition matrices
+      - Decomposition of earnings differentials
+      - Earnings series by employment status
+  fontes: PNAD Contínua (microdados); Novo Caged; RAIS; proteção social

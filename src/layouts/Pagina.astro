@@ -1,0 +1,55 @@
+---
+/** Página institucional em MDX, com índice lateral das seções. */
+import { render } from 'astro:content';
+import Base from './Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getPagina } from '../lib/paginas';
+import type { Lang } from '../i18n/ui';
+
+interface Props { slug: string; lang: Lang }
+const { slug, lang } = Astro.props;
+const entry = await getPagina(lang, slug);
+const { Content, headings } = await render(entry);
+const toc = headings.filter((h) => h.depth === 2);
+const d = entry.data;
+const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const L = lang === 'en'
+  ? { toc: 'On this page', upd: 'Last updated', src: 'Source: CEE institutional proposal v3.0' }
+  : { toc: 'Nesta página', upd: 'Atualizado em', src: 'Fonte: Proposta institucional do CEE v3.0' };
+---
+<Base title={d.titulo} description={d.descricao} lang={lang}>
+  <div class="wrap">
+    <PageHeader eyebrow={d.eyebrow} title={d.titulo} lede={d.bajada}>
+      <p class="meta">{L.upd} <time datetime={d.atualizado.toISOString().slice(0, 10)}>{fmt.format(d.atualizado)}</time> · {L.src}, {d.fonte_proposta}</p>
+    </PageHeader>
+    <div class="pagina">
+      {toc.length > 2 && (
+        <nav class="toc no-print" aria-labelledby="toc-title">
+          <h2 id="toc-title" class="eyebrow">{L.toc}</h2>
+          <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+        </nav>
+      )}
+      <article class="prose">
+        <Content />
+      </article>
+    </div>
+  </div>
+</Base>
+<style>
+  .pagina {
+    display: grid;
+    gap: var(--s-6);
+    border-top: var(--hairline);
+    padding-top: var(--s-6);
+  }
+  @media (min-width: 60rem) {
+    .pagina { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--s-7); }
+    .toc { position: sticky; top: 7rem; align-self: start; max-height: calc(100vh - 8rem); overflow: auto; }
+  }
+  .toc h2 { font-size: var(--step--2); margin-bottom: var(--s-2); }
+  .toc ol { list-style: none; margin: 0; padding: 0; font-size: var(--step--1); }
+  .toc li { border-top: var(--hairline); }
+  .toc a { display: block; padding: var(--s-2) 0; color: var(--text); text-decoration: none; line-height: 1.3; }
+  .toc a:hover { color: var(--primary); text-decoration: underline; }
+  .prose :global(h2) { scroll-margin-top: 7.5rem; }
+</style>

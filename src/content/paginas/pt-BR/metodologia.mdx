@@ -1,0 +1,133 @@
+---
+titulo: Metodologia e reprodutibilidade
+descricao: Ciclo de produção em seis etapas, três camadas de revisão, estrutura fixa de repositório, vintages, errata, autoria CRediT, conflitos de interesse e uso de inteligência artificial.
+eyebrow: Institucional
+bajada: Nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado. Esta é a regra que não se negocia.
+fonte_proposta: "§5.1 e §5.3 (produtos e regras), §6 (qualidade e reprodutibilidade), Anexos E e F"
+atualizado: 2026-10-20
+---
+import Box from '../../../components/Box.astro';
+
+## Ciclo de produção
+
+Seis etapas, sempre nesta ordem, para todo produto quantitativo.
+
+| Etapa | O que ocorre | Saída ou critério |
+|---|---|---|
+| 1. Escolha da pergunta | A linha propõe uma pergunta respondível com dado público disponível. Pergunta que exige base inacessível ou método fora do alcance da equipe é registrada para o futuro, e não iniciada. | Pergunta registrada na agenda da linha, com responsável e prazo |
+| 2. Ficha de desenho analítico | Antes de examinar qualquer resultado, o autor registra unidade de observação, período, fonte, especificação principal, testes de robustez previstos e o que constituiria evidência contrária. | Ficha arquivada com data; reduz a margem para escolher a especificação depois de ver o resultado |
+| 3. Construção do dado e do código | Dados brutos imutáveis; toda transformação em script numerado e versionado; dicionário de variáveis escrito junto com o dado. | Repositório reexecutável do zero, com ambiente registrado |
+| 4. Verificação numérica independente | Um integrante que não é autor clona o repositório, reexecuta em máquina distinta e compara cada tabela e figura com o que o código gera. | 100 % das tabelas e figuras reproduzidas |
+| 5. Parecer docente de conteúdo | O docente de referência avalia a adequação do método, a leitura dos resultados e a declaração de limites. | Sem esta etapa, o produto não leva filiação institucional |
+| 6. Publicação, licença e errata | Publicação com autoria por função (CRediT), licença aberta e pacote de replicação. Erro identificado depois gera errata pública e datada. | Correção silenciosa é falta grave |
+
+## Três camadas de revisão
+
+| Camada | Quem executa | O que verifica | Critério de aprovação |
+|---|---|---|---|
+| 1. Verificação numérica | Integrante que não é autor | Reexecuta o repositório do zero, em máquina distinta | Toda tabela e figura é reproduzida |
+| 2. Revisão de conteúdo | Docente de referência | Adequação do método, leitura dos resultados, limitações | Parecer escrito de aprovação |
+| 3. Revisão editorial | Comitê Editorial | Clareza, citação, unidades, rótulos, licença | Lista de verificação integralmente assinalada |
+
+O número de camadas depende da pretensão do produto, **nunca do prazo disponível**. Quando o prazo aperta, reduz-se o escopo — não a revisão.
+
+| Produto | Camadas exigidas | Extensão de referência |
+|---|---|---|
+| Data Insight | 1 | Um gráfico e cerca de 150 palavras |
+| Nota de Conjuntura | 1 e 3 | Cerca de 700 palavras |
+| Nota Técnica | 1, 2 e 3 | 4 a 8 páginas |
+| Working Paper | 1, 2 e 3, mais parecer externo ao Centro | 25 a 40 páginas |
+| Replicação | Reexecução independente | Relatório curto |
+| Edição especial | 1, 2 e 3; rubrica publicada antes da aplicação | Variável |
+| Painel do Observatório | Reexecução independente; auditoria da cadeia de dados a cada atualização | Contínua, por edição numerada |
+
+## Estrutura fixa de repositório
+
+Todo produto é um repositório com a mesma estrutura, de modo que qualquer integrante consiga reexecutar o trabalho de outro sem instruções adicionais.
+
+```text
+projeto/
+  00_dados_brutos/     # imutável; jamais editado à mão
+  01_scripts/          # numerados na ordem de execução
+  02_dados_tratados/   # gerado inteiramente por código
+  03_saidas/           # tabelas e figuras, regeneráveis
+  README.md            # pergunta, fontes, como reexecutar
+  DICIONARIO.md        # cada variável, unidade e origem
+  ambiente.lock        # versões de linguagem e pacotes
+```
+
+- **Nenhuma transformação manual de dado.** Toda mudança passa por código versionado.
+- **Sementes fixadas** onde há aleatoriedade; registro de sessão arquivado com a saída.
+- **Ferramental aberto** (R ou Python), para que a reprodução não dependa de licença paga. Stata e EViews podem complementar, nunca como única via de reprodução.
+- **Licença padrão:** texto e dados em CC BY 4.0; código em MIT, salvo restrição da base de origem.
+- **Rastreabilidade:** toda afirmação quantitativa indica fonte, série e data de extração.
+
+## Versões, vintages e citação
+
+- **Edições numeradas.** Cada edição de um painel do Observatório é numerada e acompanhada de nota de mudanças, incluindo qualquer alteração metodológica e a regra de recálculo da série.
+- **Vintages de dados.** As séries oficiais são revisadas pelas fontes; por isso cada extração é arquivada com sua data, de modo que um resultado publicado possa ser reproduzido com os dados daquele momento. Neste sítio, os dados brutos ficam em `data/raw/` com a data de extração e um hash de verificação, e nunca são editados.
+- **Identificador persistente.** Cada edição recebe DOI por meio de repositório aberto de pesquisa, quando disponível, e traz sugestão de citação.
+- **Repositório institucional.** O repositório deve pertencer a uma organização com ao menos três administradores, e não a uma conta pessoal.
+
+<Box variant="note" title="Pendência declarada">
+  <p>Nesta fase, o repositório do sítio está em conta pessoal, provisoriamente. A transferência para uma organização com três administradores é condição do lançamento.</p>
+</Box>
+
+## Política de errata
+
+Erro identificado após a publicação gera **errata pública e datada**, anexada ao produto original, que descreve o erro, seu efeito sobre as conclusões e a correção aplicada. O arquivo original permanece acessível. Correção silenciosa é falta grave. A meta de erratas não é zero — meta zero cria incentivo a esconder erro. O que se monitora é o intervalo entre a identificação e a publicação da errata, que deve ser **inferior a sete dias**. Todas as erratas ficam no [registro público de erratas](../erratas/).
+
+## Autoria por função (CRediT)
+
+A contribuição de cada pessoa é declarada por função, segundo a taxonomia CRediT (*Contributor Roles Taxonomy*): quem construiu o dado (curadoria de dados), quem analisou (análise formal), quem escreveu (redação), quem revisou (revisão e edição), quem verificou (validação), entre outras. Ferramentas de inteligência artificial não constam como autoras.
+
+| Nível | Pode assinar |
+|---|---|
+| Participante | Coautoria de Data Insights |
+| Assistente de Pesquisa | Coautoria de Notas de Conjuntura |
+| Analista | Autoria principal de Notas de Conjuntura; coautoria de Notas Técnicas |
+| Pesquisador Associado | Autoria principal de Nota Técnica; Working Paper, com docente |
+
+## Independência e conflito de interesse
+
+- Integrantes declaram, ao ingressar e a cada semestre, vínculos partidários, empregos e estágios relevantes.
+- Quem tem vínculo com organização diretamente avaliada em um produto não participa de sua elaboração nem de sua revisão.
+- Todo instrumento de notação (rubrica) é publicado antes da aplicação, com concordância entre avaliadores reportada.
+- O Comitê Editorial não responde às linhas de pesquisa.
+
+## Uso de inteligência artificial
+
+O uso de ferramentas de inteligência artificial é permitido e deve ser declarado em cada produto, indicando ferramenta, finalidade e partes afetadas. Regras:
+
+- **Verificação humana de todo julgamento analítico.** Código gerado por IA passa pela mesma reexecução independente, e quem reexecuta é sempre um integrante.
+- **Sem dados pessoais em ferramentas externas.**
+- **Autoria e responsabilidade humanas.**
+
+## Checklist de replicação
+
+### Verificação numérica (camada 1)
+
+- O repositório foi clonado em máquina distinta, a partir do zero.
+- O ambiente registrado (versões de linguagem e pacotes) foi reconstruído.
+- Todo o código executou sem intervenção manual e sem erro.
+- Cada tabela e cada figura do texto foi comparada com a saída do código.
+- Os dados brutos não foram editados à mão; todas as transformações estão em scripts numerados.
+- As sementes de aleatoriedade estão fixadas, quando aplicável.
+- Divergências foram registradas por escrito e devolvidas ao autor.
+
+### Revisão editorial (camada 3)
+
+- A tese está clara na abertura e é sustentada pelos dados.
+- Unidades, rótulos de eixos e fontes estão corretos em todas as figuras e tabelas.
+- Toda afirmação quantitativa indica fonte, série e data de extração.
+- A metodologia está descrita no corpo do texto.
+- A incerteza principal e os limites estão declarados; a Nota Técnica traz a seção sobre o que a evidência não permite concluir.
+- A autoria está declarada por função (CRediT), com o descargo e a declaração de uso de IA.
+- A licença está indicada e o pacote de replicação está disponível.
+- Citações e referências estão completas.
+- Não há dados pessoais não autorizados nem posicionamento partidário.
+- O parecer docente está arquivado, quando exigido.
+
+## Ficha de desenho analítico
+
+Preenchida antes do exame de qualquer resultado, em uma página, e arquivada com data: (1) pergunta; (2) hipótese; (3) unidade de observação; (4) período; (5) fontes e licença; (6) especificação principal; (7) testes de robustez previstos; (8) o que constituiria evidência contrária; (9) verificação ética — se houver coleta primária ou dados identificáveis, submissão prévia ao Comitê de Ética em Pesquisa; (10) responsáveis e prazo; (11) data de arquivamento.

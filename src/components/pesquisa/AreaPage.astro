@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../PageHeader.astro';
+import StatusTag from '../StatusTag.astro';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { area: CollectionEntry<'areas'>; lang: Lang }
+const { area, lang } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const linhas = (await getCollection('linhas', (l) => l.data.area === area.id)).sort((a, b) =>
+  a.data.codigo.localeCompare(b.data.codigo));
+const T = {
+  pt: { area: 'Área', lente: 'Lente transversal', pergunta: 'Pergunta-guia', fund: 'Fundamentação', linhas: 'Linhas de pesquisa',
+    perguntas: 'Perguntas típicas', metodos: 'Métodos', fontes: 'Fontes', produtos: 'Produtos típicos', pubs: 'Publicações relacionadas',
+    semPubs: 'Nenhuma publicação nesta área até o momento.', voltar: 'Todas as áreas', ano: 'Ano' },
+  en: { area: 'Area', lente: 'Cross-cutting lens', pergunta: 'Guiding question', fund: 'Rationale', linhas: 'Research lines',
+    perguntas: 'Typical questions', metodos: 'Methods', fontes: 'Sources', produtos: 'Typical outputs', pubs: 'Related publications',
+    semPubs: 'No publications in this area yet.', voltar: 'All areas', ano: 'Year' },
+}[k];
+const eyebrow = area.data.tipo === 'lente' ? T.lente : `${T.area} ${area.data.codigo}`;
+---
+<Base title={area.data.nome[k]} description={area.data.pergunta_guia[k]} lang={lang}>
+  <div class="wrap">
+    <PageHeader eyebrow={eyebrow} title={area.data.nome[k]}>
+      <blockquote class="guia">
+        <p class="eyebrow">{T.pergunta}</p>
+        <p>{area.data.pergunta_guia[k]}</p>
+      </blockquote>
+    </PageHeader>
+
+    <section class="section split">
+      <h2 class="section__title">{T.fund}</h2>
+      <p class="prose">{area.data.descricao[k]}</p>
+    </section>
+
+    {linhas.length > 0 && (
+      <section class="section split">
+        <h2 class="section__title">{T.linhas}</h2>
+        <div>
+          {linhas.map((l) => (
+            <article class="linha" id={l.data.codigo.toLowerCase()}>
+              <h3><span class="code">{l.data.codigo}</span> {l.data.nome[k]} <StatusTag estado={l.data.estado} lang={lang} /></h3>
+              <p class="linha__q">{l.data.pergunta_guia[k]}</p>
+              <div class="linha__grid">
+                <div><h4 class="eyebrow">{T.perguntas}</h4><ul>{l.data.perguntas[k].map((p) => <li>{p}</li>)}</ul></div>
+                <div><h4 class="eyebrow">{T.metodos}</h4><ul>{l.data.metodos[k].map((m) => <li>{m}</li>)}</ul></div>
+              </div>
+              <p class="meta"><strong>{T.fontes}:</strong> {l.data.fontes}</p>
+              {l.data.nota && <p class="meta">{l.data.nota[k]}</p>}
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="section split">
+      <h2 class="section__title">{T.produtos}</h2>
+      <p class="prose">{area.data.produtos[k]}</p>
+    </section>
+
+    <section class="section split">
+      <h2 class="section__title">{T.pubs}</h2>
+      <div><slot name="publicacoes"><p class="meta">{T.semPubs}</p></slot></div>
+    </section>
+
+    <p class="meta"><a href={href('/pesquisa/', lang)}>← {T.voltar}</a></p>
+  </div>
+</Base>
+<style>
+  .guia { margin: var(--s-3) 0 0; padding-left: var(--s-4); border-left: 3px solid var(--accent); max-width: var(--measure); }
+  .guia p:last-child { font-family: var(--font-serif); font-size: var(--step-3); line-height: 1.3; }
+  .linha { padding-block: var(--s-5); border-top: var(--hairline); }
+  .linha:first-child { border-top: 0; padding-top: 0; }
+  .linha h3 { font-size: var(--step-2); }
+  .code { color: var(--primary); }
+  .linha__q { font-family: var(--font-serif); font-size: var(--step-1); margin-top: var(--s-2); max-width: var(--measure); }
+  .linha__grid { display: grid; gap: var(--s-4); margin-block: var(--s-4); font-size: var(--step--1); }
+  @media (min-width: 46rem) { .linha__grid { grid-template-columns: 1fr 1fr; } }
+  .linha__grid h4 { font-size: var(--step--2); margin-bottom: var(--s-2); }
+  .linha__grid ul { margin: 0; padding-left: 1.1em; display: grid; gap: var(--s-1); }
+</style>
