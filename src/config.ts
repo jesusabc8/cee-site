@@ -15,10 +15,3 @@ export const config = {
   contato: 'contato@[PLACEHOLDER]',
   repoUrl: 'https://github.com/jesusabc8/cee-site',
 } as const;
-
-/** Prefixa caminhos internos com o `base` configurado. */
-export function url(path: string): string {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-  const clean = path.startsWith('/') ? path : `/${path}`;
-  return `${base}${clean}`;
-}

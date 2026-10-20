@@ -1,0 +1,111 @@
+---
+/**
+ * Guia de estilo interno em /_estilo/ (Astro ignora arquivos de página iniciados por "_",
+ * por isso a rota é gerada aqui). Excluída do sitemap e sempre noindex.
+ */
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Box from '../components/Box.astro';
+import StatusTag from '../components/StatusTag.astro';
+import DataTable from '../components/DataTable.astro';
+import Sidenote from '../components/Sidenote.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+
+export function getStaticPaths() {
+  return [{ params: { estilo: '_estilo' } }];
+}
+
+const cores = [
+  ['--bg', 'Fundo'], ['--surface', 'Superfície'], ['--text', 'Texto'], ['--text-2', 'Texto secundário'],
+  ['--line', 'Hairline'], ['--line-strong', 'Borda de controle'], ['--primary', 'Primário (marinho)'],
+  ['--accent', 'Acento (ocre)'], ['--accent-wash', 'Fundo de aviso'],
+];
+const series = ['--c1', '--c2', '--c3', '--c4', '--c5'];
+const escala = ['--step-5', '--step-4', '--step-3', '--step-2', '--step-1', '--step-0', '--step--1', '--step--2'];
+---
+<Base title="Guia de estilo" noindex hasTranslation={false}>
+  <div class="wrap">
+    <PageHeader eyebrow="Interno · não indexado" title="Guia de estilo"
+      lede="Referência dos tokens e componentes do sítio. Qualquer novo componente deve aparecer aqui antes de ser usado." />
+
+    <section class="section">
+      <h2 class="section__title">Cor</h2>
+      <ul class="swatches">
+        {cores.map(([v, n]) => (
+          <li><span class="swatch" style={`background:var(${v})`}></span><code>{v}</code><span class="meta">{n}</span></li>
+        ))}
+      </ul>
+      <h3 style="margin-top:var(--s-5)">Séries de gráfico (máx. 5)</h3>
+      <ul class="swatches">
+        {series.map((v) => (<li><span class="swatch" style={`background:var(${v})`}></span><code>{v}</code></li>))}
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section__title">Tipografia</h2>
+      <div class="stack">
+        {escala.map((s) => (
+          <p style={`font-family:var(--font-serif);font-size:var(${s});line-height:1.25`}>
+            <code class="meta">{s}</code> Crescimento sem ganho de produtividade
+          </p>
+        ))}
+        <p class="tabular" style="font-size:var(--step-2)">Algarismos tabulares: 1.234,56 · 10,0 · 99,9</p>
+        <p class="eyebrow">Rótulo (eyebrow)</p>
+        <p class="meta">Metadados · 20 out. 2026 · Área A</p>
+      </div>
+    </section>
+
+    <section class="section split">
+      <h2 class="section__title">Texto longo</h2>
+      <div class="prose">
+        <p class="lede">Bajada: uma ou duas frases que dizem ao leitor o que a página sustenta.</p>
+        <p>Parágrafo de leitura em serifa, com medida limitada a cerca de 66 caracteres e entrelinha de 1,6.
+        Este texto é ilustrativo e não contém afirmações sobre dados.<Sidenote n={1}>Nota lateral: vai para
+        a margem em telas largas e fica em linha nas estreitas.</Sidenote> A continuação do parágrafo mostra
+        o comportamento do fluxo após a nota.</p>
+        <h3>Subtítulo de seção</h3>
+        <ul><li>Item de lista com marcador discreto.</li><li>Segundo item.</li></ul>
+        <blockquote>Citação em bloco, com régua fina à esquerda.</blockquote>
+        <p>Código em linha: <code>npm run build</code>.</p>
+      </div>
+    </section>
+
+    <section class="section split">
+      <h2 class="section__title">Caixas e estados</h2>
+      <div class="stack">
+        <Box variant="limits"><ul><li>Primeiro limite declarado.</li><li>Segundo limite declarado.</li></ul></Box>
+        <Box variant="note"><p>Observação metodológica curta.</p></Box>
+        <Box variant="placeholder"><p>Texto provisório, sempre visível como tal.</p></Box>
+        <p><StatusTag estado="prevista" /> <StatusTag estado="planejada" /> <StatusTag estado="ativa" /> <StatusTag estado="latente" /> <StatusTag estado="construcao" /></p>
+      </div>
+    </section>
+
+    <section class="section split">
+      <h2 class="section__title">Tabela</h2>
+      <DataTable
+        caption="[PLACEHOLDER] Tabela de exemplo — valores fictícios para teste de layout"
+        columns={[
+          { key: 'p', label: 'Período' },
+          { key: 'a', label: 'Série A', numeric: true, unit: '%', digits: 2 },
+          { key: 'b', label: 'Série B', numeric: true, unit: 'índice', digits: 1 },
+        ]}
+        rows={[{ p: 'P1', a: 1, b: 100 }, { p: 'P2', a: 12.5, b: 1234.5 }, { p: 'P3', a: null, b: 98.25 }]}
+        source="[PLACEHOLDER] valores fictícios; sem fonte."
+      />
+    </section>
+
+    <section class="section split">
+      <h2 class="section__title">Descargos</h2>
+      <div class="stack">
+        <Disclaimer lang="pt-BR" />
+        <Disclaimer lang="pt-BR" variant="full" />
+      </div>
+    </section>
+  </div>
+</Base>
+<style>
+  .swatches { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: var(--s-3); }
+  .swatches li { display: grid; grid-template-columns: 2.5rem 1fr; column-gap: var(--s-3); align-items: center; font-size: var(--step--1); }
+  .swatches .meta { grid-column: 2; }
+  .swatch { grid-row: span 2; width: 2.5rem; height: 2.5rem; border: 1px solid var(--line); }
+</style>

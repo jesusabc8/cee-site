@@ -1,0 +1,111 @@
+/*
+ * Design tokens do CEE. Toda decisão visual parte daqui.
+ * Contrastes verificados (WCAG 2.2): texto ≥ 4,5:1; marcas de gráfico ≥ 3:1.
+ * Ver /_estilo/ para a referência visual.
+ */
+:root {
+  color-scheme: light;
+
+  /* Cor — modo claro */
+  --bg: #ffffff;
+  --surface: #f5f6f8;
+  --text: #16202c;          /* 16,4:1 sobre --bg */
+  --text-2: #5f6670;        /* 5,8:1 sobre --bg; 5,4:1 sobre --surface */
+  --line: #d5d9df;          /* hairlines (decorativas) */
+  --line-strong: #8a929c;   /* bordas de controles: 3,3:1 */
+  --primary: #1f3a5f;       /* 11,5:1 */
+  --primary-hover: #13263f;
+  --accent: #9c6b1e;        /* ocre: 4,6:1 sobre --bg — texto só sobre --bg */
+  --accent-wash: #f6efe3;
+  --focus: #9c6b1e;
+
+  /* Paleta categórica de gráficos (Okabe-Ito adaptada; ≥ 3:1 sobre --bg) */
+  --c1: #1f3a5f;
+  --c2: #d55e00;
+  --c3: #009e73;
+  --c4: #0072b2;
+  --c5: #cc79a7;
+  --chart-grid: #e6e9ed;
+  --chart-axis: #5f6670;
+
+  /* Tipografia */
+  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Sans 3 Variable', 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Escala modular 1,25 (terça maior), base 1rem = 16px */
+  --step--2: 0.8rem;
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.125rem;       /* corpo de leitura (serifa) */
+  --step-2: 1.25rem;
+  --step-3: clamp(1.4rem, 1.2rem + 0.9vw, 1.5625rem);
+  --step-4: clamp(1.65rem, 1.35rem + 1.4vw, 1.953rem);
+  --step-5: clamp(1.95rem, 1.5rem + 2vw, 2.441rem);
+
+  --leading-body: 1.6;
+  --leading-tight: 1.2;
+  --measure: 66ch;
+
+  /* Espaço (múltiplos de 4px) */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4.5rem;
+
+  /* Layout */
+  --page-max: 72rem;
+  --gutter: clamp(1rem, 0.6rem + 1.8vw, 2rem);
+  --radius: 2px;
+  --hairline: 1px solid var(--line);
+}
+
+/* Modo escuro: preferência do sistema, salvo escolha explícita de tema claro */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0f1620;
+    --surface: #17202b;
+    --text: #e6e9ed;
+    --text-2: #a3abb5;
+    --line: #2c3644;
+    --line-strong: #6b7685;
+    --primary: #8db4e2;
+    --primary-hover: #b5cff0;
+    --accent: #d9a55a;
+    --accent-wash: #2a2318;
+    --focus: #d9a55a;
+    --c1: #8db4e2;
+    --c2: #e0773a;
+    --c3: #2fb78f;
+    --c4: #56b4e9;
+    --c5: #d98fb8;
+    --chart-grid: #232d3a;
+    --chart-axis: #a3abb5;
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0f1620;
+  --surface: #17202b;
+  --text: #e6e9ed;
+  --text-2: #a3abb5;
+  --line: #2c3644;
+  --line-strong: #6b7685;
+  --primary: #8db4e2;
+  --primary-hover: #b5cff0;
+  --accent: #d9a55a;
+  --accent-wash: #2a2318;
+  --focus: #d9a55a;
+  --c1: #8db4e2;
+  --c2: #e0773a;
+  --c3: #2fb78f;
+  --c4: #56b4e9;
+  --c5: #d98fb8;
+  --chart-grid: #232d3a;
+  --chart-axis: #a3abb5;
+}

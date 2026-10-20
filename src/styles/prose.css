@@ -1,0 +1,89 @@
+/* Texto longo de leitura: serifa, medida 62–72 caracteres, entrelinha 1,6 */
+.prose {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  line-height: var(--leading-body);
+  max-width: var(--measure);
+  font-optical-sizing: auto;
+  hanging-punctuation: first;
+}
+.prose > * + * {
+  margin-top: 1em;
+}
+.prose h2 {
+  font-size: var(--step-3);
+  margin-top: 2em;
+}
+.prose h3 {
+  font-size: var(--step-2);
+  margin-top: 1.6em;
+}
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: 0.6em;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.25em;
+}
+.prose li + li {
+  margin-top: 0.35em;
+}
+.prose li::marker {
+  color: var(--text-2);
+}
+.prose strong {
+  font-weight: 650;
+}
+.prose blockquote {
+  margin-inline: 0;
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--line);
+  color: var(--text-2);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--surface);
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius);
+}
+.prose pre {
+  font-size: var(--step--1);
+  background: var(--surface);
+  padding: var(--s-4);
+  overflow-x: auto;
+  line-height: 1.5;
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+.prose table {
+  font-family: var(--font-sans);
+}
+
+/* Linha fina sob o título da tese (Nota de Conjuntura) */
+.lede {
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  line-height: 1.45;
+  color: var(--text);
+  max-width: var(--measure);
+}
+
+/* Notas de rodapé geradas pelo MDX (remark-gfm) */
+.prose .footnotes {
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
+  border-top: var(--hairline);
+  font-size: var(--step--1);
+  font-family: var(--font-sans);
+  color: var(--text-2);
+}
+.prose sup a {
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  padding-inline: 0.1em;
+}

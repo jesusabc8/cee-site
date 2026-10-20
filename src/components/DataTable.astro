@@ -1,0 +1,98 @@
+---
+/**
+ * Tabela de dados: cabeçalho fixo, números à direita com algarismos tabulares,
+ * nota de fonte abaixo e rolagem horizontal acessível (foco por teclado).
+ */
+import { useTranslations, type Lang } from '../i18n/ui';
+
+export interface Column {
+  key: string;
+  label: string;
+  numeric?: boolean;
+  /** Casas decimais para colunas numéricas. */
+  digits?: number;
+  unit?: string;
+}
+interface Props {
+  caption: string;
+  columns: Column[];
+  rows: Record<string, string | number | null>[];
+  source?: string;
+  lang?: Lang;
+  maxHeight?: string;
+}
+const { caption, columns, rows, source, lang = 'pt-BR', maxHeight } = Astro.props;
+const t = useTranslations(lang);
+const nf = (d: number) => new Intl.NumberFormat(lang, { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmt = (c: Column, v: string | number | null) =>
+  v === null || v === undefined || v === '' ? '—' : c.numeric && typeof v === 'number' ? nf(c.digits ?? 1).format(v) : String(v);
+const id = `tbl-${Math.random().toString(36).slice(2, 8)}`;
+---
+<figure class="data-table">
+  <div class="table-scroll" role="region" aria-labelledby={id} tabindex="0"
+    style={maxHeight ? `max-height:${maxHeight}` : undefined}>
+    <table>
+      <caption id={id}>{caption}</caption>
+      <thead>
+        <tr>
+          {columns.map((c) => (
+            <th scope="col" class={c.numeric ? 'num' : undefined}>
+              {c.label}{c.unit && <span class="unit"> ({c.unit})</span>}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr>
+            {columns.map((c, i) =>
+              i === 0 ? <th scope="row">{fmt(c, r[c.key] ?? null)}</th>
+                      : <td class={c.numeric ? 'num' : undefined}>{fmt(c, r[c.key] ?? null)}</td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {source && <figcaption class="meta"><strong>{t('table.source')}:</strong> {source}</figcaption>}
+</figure>
+<style>
+  .data-table { margin: 0; max-width: 100%; }
+  .table-scroll {
+    overflow: auto;
+    border-top: 1px solid var(--text);
+    border-bottom: 1px solid var(--text);
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  caption {
+    text-align: left;
+    font-weight: 600;
+    font-size: var(--step-0);
+    padding: var(--s-2) 0;
+    caption-side: top;
+  }
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line-strong);
+    font-weight: 600;
+    vertical-align: bottom;
+  }
+  th, td {
+    padding: var(--s-2) var(--s-3);
+    text-align: left;
+    white-space: nowrap;
+  }
+  th:first-child, td:first-child { padding-left: 0; }
+  tbody tr + tr > * { border-top: var(--hairline); }
+  tbody th { font-weight: 400; }
+  .num { text-align: right; }
+  .unit { font-weight: 400; color: var(--text-2); }
+  figcaption { margin-top: var(--s-2); }
+</style>

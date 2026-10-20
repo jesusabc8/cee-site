@@ -1,15 +1,31 @@
 ---
+import '../styles/base.css';
+import '../styles/prose.css';
+import '../styles/print.css';
 import { config } from '../config';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { switchHref } from '../i18n/routing';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PreviewBanner from '../components/PreviewBanner.astro';
 
 interface Props {
   title: string;
   description?: string;
-  lang?: 'pt-BR' | 'en';
+  lang?: Lang;
   noindex?: boolean;
+  /** false quando a página não tem versão na outra língua. */
+  hasTranslation?: boolean;
 }
-const { title, description = '', lang = 'pt-BR', noindex = false } = Astro.props;
+const { title, description = '', lang = 'pt-BR', noindex = false, hasTranslation = true } = Astro.props;
+const t = useTranslations(lang);
 const robots = !config.lancado || noindex ? 'noindex, nofollow' : 'index, follow';
-const fullTitle = title === config.nome ? `${config.sigla} · ${config.nome}` : `${title} · ${config.sigla}`;
+const isHome = title === t('site.name');
+const fullTitle = isHome ? `${config.sigla} · ${t('site.name')}` : `${title} · ${config.sigla}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const alt = hasTranslation
+  ? (['pt-BR', 'en'] as const).map((l) => ({ l, href: new URL(switchHref(Astro.url, l), Astro.site).href }))
+  : [];
 ---
 <!doctype html>
 <html lang={lang}>
@@ -19,17 +35,22 @@ const fullTitle = title === config.nome ? `${config.sigla} · ${config.nome}` : 
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
     <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonical} />
+    {alt.map((a) => <link rel="alternate" hreflang={a.l} href={a.href} />)}
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} type="image/svg+xml" />
+    <script is:inline>
+      try { const th = localStorage.getItem('cee-theme'); if (th) document.documentElement.setAttribute('data-theme', th); } catch (e) {}
+    </script>
+    <slot name="head" />
   </head>
   <body>
-    {!config.lancado && (
-      <p role="note">Versão preliminar — conteúdo em discussão, ainda não lançado.</p>
-    )}
-    <slot />
-    <footer>
-      <p>
-        O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas
-        nem de qualquer outra instituição.
-      </p>
-    </footer>
+    <a class="skip-link" href="#conteudo">{t('skip')}</a>
+    <PreviewBanner lang={lang} />
+    <Header lang={lang} />
+    <main id="conteudo" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
   </body>
 </html>

@@ -1,0 +1,46 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+interface Props { lang: Lang }
+const t = useTranslations(Astro.props.lang);
+---
+<fieldset class="theme-toggle" hidden>
+  <legend>{t('theme.label')}</legend>
+  <label><input type="radio" name="theme" value="system" /> {t('theme.system')}</label>
+  <label><input type="radio" name="theme" value="light" /> {t('theme.light')}</label>
+  <label><input type="radio" name="theme" value="dark" /> {t('theme.dark')}</label>
+</fieldset>
+<script>
+  // Preferência guardada só no navegador (localStorage), sem cookies. Ver /privacidade/.
+  const root = document.documentElement;
+  const box = document.querySelector<HTMLFieldSetElement>('.theme-toggle');
+  if (box) {
+    let saved = 'system';
+    try { saved = localStorage.getItem('cee-theme') ?? 'system'; } catch {}
+    box.hidden = false;
+    for (const input of box.querySelectorAll<HTMLInputElement>('input')) {
+      input.checked = input.value === saved;
+      input.addEventListener('change', () => {
+        const v = input.value;
+        if (v === 'system') root.removeAttribute('data-theme');
+        else root.setAttribute('data-theme', v);
+        try { v === 'system' ? localStorage.removeItem('cee-theme') : localStorage.setItem('cee-theme', v); } catch {}
+      });
+    }
+  }
+</script>
+<style>
+  .theme-toggle {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    font-size: var(--step--1);
+    color: var(--text-2);
+  }
+  .theme-toggle[hidden] { display: none; }
+  .theme-toggle legend { float: left; margin-right: var(--s-2); font-weight: 600; }
+  .theme-toggle label { display: inline-flex; gap: 0.3em; align-items: center; cursor: pointer; }
+  .theme-toggle input { accent-color: var(--primary); margin: 0; }
+</style>

@@ -1,0 +1,60 @@
+---
+/**
+ * Descargo institucional (Proposta, Anexo C.1).
+ * - variant="short": rodapé de todas as páginas.
+ * - variant="full": final de cada publicação; muda de redação quando
+ *   config.useUniversityName for true (após autorização formal).
+ */
+import { config } from '../config';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  variant?: 'short' | 'full';
+  dataUrl?: string;
+}
+const { lang, variant = 'short', dataUrl = config.repoUrl } = Astro.props;
+
+const textos = {
+  'pt-BR': {
+    short:
+      'O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.',
+    antes:
+      'Este documento é produto do Centro de Estudos Econômicos (CEE), iniciativa estudantil de estudantes de Ciências Econômicas da PUC Minas. As opiniões e conclusões são de responsabilidade exclusiva de seus autores e não representam a posição da PUC Minas nem de qualquer outra instituição. Os dados e o código para reproduzir os resultados estão disponíveis em',
+    depois:
+      'Este documento é produto do Centro de Estudos Econômicos (CEE), do curso de Ciências Econômicas da PUC Minas. As opiniões e conclusões são de responsabilidade exclusiva de seus autores e não refletem necessariamente a posição do CEE, de seus docentes de referência, da PUC Minas ou de qualquer outra instituição. Os dados e o código para reproduzir os resultados estão disponíveis em',
+    errata: 'Erros identificados após a publicação serão corrigidos por errata pública e datada.',
+    titulo: 'Descargo',
+  },
+  en: {
+    short:
+      'CEE is a student initiative. Its publications do not represent the position of PUC Minas or any other institution.',
+    antes:
+      'This document is a product of the Centro de Estudos Econômicos (CEE), a student initiative of Economics students at PUC Minas. The views and conclusions are solely those of the authors and do not represent the position of PUC Minas or any other institution. Data and code to reproduce the results are available at',
+    depois:
+      'This document is a product of the Centro de Estudos Econômicos (CEE) of the Economics programme at PUC Minas. The views and conclusions are solely those of the authors and do not necessarily reflect the position of CEE, its faculty advisers, PUC Minas or any other institution. Data and code to reproduce the results are available at',
+    errata: 'Errors identified after publication will be corrected through a public, dated erratum.',
+    titulo: 'Disclaimer',
+  },
+}[lang];
+const corpo = config.useUniversityName ? textos.depois : textos.antes;
+---
+{variant === 'short' ? (
+  <p class="disclaimer disclaimer--short">{textos.short}</p>
+) : (
+  <aside class="disclaimer disclaimer--full" aria-labelledby="descargo-titulo">
+    <h2 id="descargo-titulo" class="eyebrow">{textos.titulo}</h2>
+    <p>{corpo} <a href={dataUrl}>{dataUrl.replace(/^https?:\/\//, '')}</a>. {textos.errata}</p>
+  </aside>
+)}
+<style>
+  .disclaimer { font-family: var(--font-sans); color: var(--text-2); }
+  .disclaimer--short { font-size: var(--step--1); max-width: var(--measure); }
+  .disclaimer--full {
+    border-top: var(--hairline);
+    padding-top: var(--s-4);
+    font-size: var(--step--1);
+    max-width: var(--measure);
+  }
+  .disclaimer--full h2 { margin-bottom: var(--s-2); font-size: var(--step--2); }
+</style>

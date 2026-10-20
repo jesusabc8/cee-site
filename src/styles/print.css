@@ -1,0 +1,63 @@
+/* Impressão / salvar como PDF: título, metadados, corpo e referências; sem navegação */
+@media print {
+  @page {
+    margin: 2cm 2cm 2.2cm;
+  }
+  :root {
+    --bg: #fff;
+    --text: #000;
+    --text-2: #333;
+    --line: #999;
+  }
+  body {
+    font-size: 10.5pt;
+    background: #fff;
+    color: #000;
+  }
+  .site-header,
+  .site-footer nav,
+  .preview-banner,
+  .no-print,
+  .skip-link,
+  button,
+  .theme-toggle,
+  .lang-switch {
+    display: none !important;
+  }
+  .wrap {
+    max-width: none;
+    padding: 0;
+  }
+  .prose {
+    max-width: none;
+    font-size: 11pt;
+  }
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  .prose a[href^='http']::after {
+    content: ' <' attr(href) '>';
+    font-size: 8.5pt;
+    word-break: break-all;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  figure,
+  table,
+  .box {
+    break-inside: avoid;
+  }
+  details {
+    display: block;
+  }
+  details > summary {
+    list-style: none;
+  }
+  .table-scroll {
+    overflow: visible !important;
+  }
+}

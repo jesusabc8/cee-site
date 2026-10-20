@@ -27,7 +27,7 @@ Sítio do **Centro de Estudos Econômicos (CEE)**, iniciativa estudantil. Fonte 
 - Astro 7 (estático), TypeScript estrito, MDX, Content Collections com Zod. CSS próprio com tokens (sem Tailwind).
 - Gráficos: Observable Plot renderizado no build para SVG; tabela alternativa obrigatória.
 - pt-BR na raiz, inglês em `/en/` com os mesmos slugs. Strings de interface em `src/i18n/`.
-- Links internos sempre via `url()` de `src/config.ts` (respeita `base`).
+- Links internos sempre via `href(path, lang)` de `src/i18n/routing.ts` (respeita `base` e língua).
 - Dados brutos em `data/raw/` são imutáveis; tudo derivado vem de script.
 - Commits pequenos, em português ou inglês, mensagem no imperativo.
 

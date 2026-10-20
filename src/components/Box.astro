@@ -1,0 +1,50 @@
+---
+/**
+ * Caixa de destaque com régua lateral (sem sombra).
+ * - limits: "O que a evidência não permite concluir" (obrigatória em Nota Técnica)
+ * - note: observação metodológica
+ * - placeholder: conteúdo provisório, sempre visível como tal
+ */
+import { useTranslations, type Lang } from '../i18n/ui';
+interface Props {
+  variant?: 'limits' | 'note' | 'placeholder';
+  title?: string;
+  lang?: Lang;
+}
+const { variant = 'note', title, lang = 'pt-BR' } = Astro.props;
+const t = useTranslations(lang);
+const defaults = { limits: t('box.limits'), note: t('box.note'), placeholder: `[PLACEHOLDER] ${t('box.placeholder')}` };
+const heading = title ?? defaults[variant];
+const id = `box-${Math.random().toString(36).slice(2, 8)}`;
+---
+<section class={`box box--${variant}`} aria-labelledby={id}>
+  <h2 id={id} class="box__title">{heading}</h2>
+  <div class="box__body"><slot /></div>
+</section>
+<style>
+  .box {
+    border-left: 3px solid var(--line-strong);
+    background: var(--surface);
+    padding: var(--s-4) var(--s-5);
+    max-width: var(--measure);
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+  }
+  .box--limits { border-left-color: var(--accent); }
+  .box--placeholder {
+    border: 1px dashed var(--accent);
+    border-left-width: 3px;
+    background: var(--accent-wash);
+  }
+  .box__title {
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: var(--s-2);
+  }
+  .box__body > :global(* + *) { margin-top: var(--s-2); }
+  .box__body :global(ul) { padding-left: 1.2em; margin: 0; }
+</style>

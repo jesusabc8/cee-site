@@ -1,0 +1,25 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+export type Estado = 'prevista' | 'ativa' | 'latente' | 'planejada' | 'construcao';
+interface Props { estado: Estado; lang?: Lang }
+const { estado, lang = 'pt-BR' } = Astro.props;
+const t = useTranslations(lang);
+---
+<span class={`status status--${estado}`}>{t(`status.${estado}`)}</span>
+<style>
+  .status {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: var(--step--2);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.05em 0.5em;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    color: var(--text-2);
+    white-space: nowrap;
+    vertical-align: 0.15em;
+  }
+  .status--ativa { border-color: var(--primary); color: var(--primary); }
+  .status--prevista { border-color: var(--accent); color: var(--text); }
+</style>

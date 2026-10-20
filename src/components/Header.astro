@@ -1,0 +1,128 @@
+---
+import { config } from '../config';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { href, neutralPath, switchHref } from '../i18n/routing';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const other: Lang = lang === 'pt-BR' ? 'en' : 'pt-BR';
+const current = neutralPath(Astro.url);
+
+const items = [
+  { path: '/pesquisa/', label: t('nav.pesquisa') },
+  { path: '/publicacoes/', label: t('nav.publicacoes') },
+  { path: '/observatorio/', label: t('nav.observatorio') },
+  { path: '/metodologia/', label: t('nav.metodologia') },
+  { path: '/sobre/', label: t('nav.sobre') },
+  { path: '/participe/', label: t('nav.participe') },
+  ...(config.showEvents ? [{ path: '/eventos/', label: t('nav.eventos') }] : []),
+];
+const isCurrent = (p: string) => current === p || current.startsWith(p);
+---
+<header class="site-header">
+  <div class="wrap site-header__top">
+    <a class="brand" href={href('/', lang)} aria-label={`${config.sigla} · ${t('site.name')} — ${t('nav.inicio')}`}>
+      <slot name="logo" />
+      <span class="brand__sigla">{config.sigla}</span>
+      <span class="brand__sep" aria-hidden="true">·</span>
+      <span class="brand__nome">{t('site.name')}</span>
+    </a>
+    <div class="site-header__tools">
+      <a class="tool" href={href('/busca/', lang)}>{t('nav.busca')}</a>
+      <a class="tool lang-switch" href={switchHref(Astro.url, other)} hreflang={other} lang={other}
+        aria-label={t('lang.switch.label')}>{t('lang.switch.short')}</a>
+    </div>
+  </div>
+  <nav class="wrap site-nav" aria-label={t('nav.label')}>
+    <ul>
+      {items.map((i) => (
+        <li>
+          <a href={href(i.path, lang)} aria-current={isCurrent(i.path) ? 'page' : undefined}>{i.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    background: var(--bg);
+    border-bottom: var(--hairline);
+  }
+  @media (min-width: 52rem) {
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+  }
+  .site-header__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-top: var(--s-4);
+    padding-bottom: var(--s-2);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--s-2);
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-serif);
+    line-height: 1.2;
+  }
+  .brand:hover { color: var(--primary); }
+  .brand__sigla {
+    font-weight: 700;
+    font-size: var(--step-2);
+    letter-spacing: 0.04em;
+    color: var(--primary);
+  }
+  .brand__sep { color: var(--text-2); }
+  .brand__nome { font-size: var(--step-1); font-weight: 500; }
+  .site-header__tools {
+    display: flex;
+    gap: var(--s-4);
+    font-size: var(--step--1);
+    white-space: nowrap;
+  }
+  .tool { color: var(--text-2); text-decoration: none; }
+  .tool:hover { color: var(--primary); text-decoration: underline; }
+  .lang-switch {
+    border: 1px solid var(--line-strong);
+    padding: 0 0.4em;
+    border-radius: var(--radius);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .site-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--s-5);
+  }
+  .site-nav a {
+    display: inline-block;
+    padding: var(--s-2) 0 calc(var(--s-2) - 2px);
+    color: var(--text);
+    text-decoration: none;
+    font-size: var(--step-0);
+    border-bottom: 2px solid transparent;
+  }
+  .site-nav a:hover { color: var(--primary); border-bottom-color: var(--line-strong); }
+  .site-nav a[aria-current='page'] {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 600;
+  }
+  @media (max-width: 30rem) {
+    .brand__sep, .brand__nome { display: none; }
+    .site-nav ul { gap: 0 var(--s-4); }
+  }
+</style>
