@@ -99,7 +99,7 @@ const en: Dict = {
   'nav.inicio': 'Home',
   'nav.pesquisa': 'Research',
   'nav.publicacoes': 'Publications',
-  'nav.observatorio': 'Data Observatory',
+  'nav.observatorio': 'Observatory',
   'nav.metodologia': 'Methodology',
   'nav.sobre': 'About',
   'nav.participe': 'Get involved',

@@ -11,7 +11,7 @@ import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
-const vint = lerVintage('conjuntura');
+const vint = { ...lerVintage('conjuntura'), ...lerVintage('panorama') };
 const L = {
   pt: { t: 'Catálogo de dados e fontes', lede: 'Séries mantidas pelo Observatório, com a verificação de cada código contra a fonte oficial. Séries não verificadas não são publicadas.',
     cod: 'Código', un: 'Unidade', freq: 'Frequência', painel: 'Painel', licenca: 'Termos de uso da fonte', verif: 'Verificação', metodo: 'Método', nome: 'Nome oficial', obs: 'Observações', ultima: 'Última extração', cobertura: 'Cobertura', csv: 'CSV', consulta: 'Consulta pública' },
@@ -22,6 +22,19 @@ const L = {
 <Base title={L.t} description={L.lede} lang={lang}>
   <PageHero lang={lang} eyebrow={k === 'en' ? 'Data Observatory' : 'Observatório de Dados'} title={L.t} lede={L.lede} />
   <div class="wrap">
+    <section class="section">
+      <div class="table-scroll" role="region" tabindex="0" aria-label={k === 'en' ? 'Summary of series' : 'Resumo das séries'}>
+        <table class="resumo">
+          <caption class="visually-hidden">{k === 'en' ? 'Series, source, code, dashboard and last extraction' : 'Séries, fonte, código, painel e última extração'}</caption>
+          <thead><tr><th scope="col">{k === 'en' ? 'Series' : 'Série'}</th><th scope="col">{k === 'en' ? 'Source' : 'Fonte'}</th><th scope="col">{L.cod}</th><th scope="col">{L.painel}</th><th scope="col">{L.ultima}</th></tr></thead>
+          <tbody>
+            {SERIES.map((s) => (
+              <tr><th scope="row"><a href={`#${s.id}`}>{s.nome}</a></th><td>{s.instituicao}</td><td><code>{s.codigo}</code></td><td>{s.painel}</td><td>{vint[s.id] ? fmtDate(new Date(vint[s.id]!.extraido_em), lang, 'short') : '—'}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
     {SERIES.map((s) => {
       const v = vint[s.id];
       return (
@@ -52,6 +65,11 @@ const L = {
   .cat { display: grid; gap: var(--s-1) var(--s-4); margin: 0; font-size: var(--step--1); }
   @media (min-width: 40rem) { .cat { grid-template-columns: 11rem 1fr; } }
   .cat dt { font-weight: 600; }
-  .cat dd { margin: 0 0 var(--s-2); color: var(--text-2); }
-  .cat code { font-family: var(--font-mono); font-size: 0.95em; color: var(--text); }
+  .cat dd { margin: 0 0 var(--s-2); color: var(--muted); }
+  .resumo { width: 100%; border-collapse: collapse; font-size: 0.875rem; border-top: 2px solid var(--navy); }
+  .resumo th, .resumo td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .resumo thead th { font: 600 11px / 1.3 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
+  .resumo tbody th { font-weight: 500; }
+  .resumo code { font-family: var(--mono); font-size: 0.8125rem; overflow-wrap: anywhere; }
+  .cat code { font-family: var(--mono); font-size: 0.95em; color: var(--ink); }
 </style>

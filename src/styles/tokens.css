@@ -76,19 +76,7 @@
   --s-7: 3rem;
   --s-8: 4.5rem;
 
-  /* ——— Aliases de transição (componentes antigos) ——— */
-  --bg: var(--white);
-  --surface: var(--paper);
-  --text: var(--ink);
-  --text-2: var(--muted);
-  --primary: var(--petrol);
-  --primary-hover: var(--navy);
-  --accent: var(--petrol);
-  --accent-wash: var(--mist);
-  --focus: var(--petrol);
-  --font-sans: var(--sans);
-  --font-serif: var(--serif);
-  --font-mono: var(--mono);
+  /* ——— Escala de texto secundária (prosa, tabelas) e medida de leitura ——— */
   --step--2: 0.75rem;
   --step--1: 0.875rem;
   --step-0: 1rem;
@@ -97,8 +85,5 @@
   --step-3: 1.5625rem;
   --step-4: 1.953rem;
   --step-5: 2.441rem;
-  --leading-body: 1.65;
-  --leading-tight: 1.15;
   --measure: 68ch;
-  --page-max: var(--wrap);
 }

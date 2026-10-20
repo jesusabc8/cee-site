@@ -9,24 +9,24 @@ const { n } = Astro.props;
 <span class="sidenote-ref" aria-hidden="true">{n}</span><small class="sidenote"><span class="sidenote__n">{n}</span> <slot /></small>
 <style>
   .sidenote-ref {
-    font-family: var(--font-sans);
+    font-family: var(--sans);
     font-size: 0.7em;
     font-weight: 700;
     vertical-align: super;
     line-height: 0;
-    color: var(--accent);
+    color: var(--petrol);
   }
   .sidenote {
     display: block;
     margin: var(--s-2) 0;
     padding-left: var(--s-3);
     border-left: 2px solid var(--line);
-    font-family: var(--font-sans);
+    font-family: var(--sans);
     font-size: var(--step--1);
     line-height: 1.45;
-    color: var(--text-2);
+    color: var(--muted);
   }
-  .sidenote__n { font-weight: 700; color: var(--accent); }
+  .sidenote__n { font-weight: 700; color: var(--petrol); }
   @media (min-width: 76rem) {
     .sidenote {
       float: right;

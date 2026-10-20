@@ -84,7 +84,7 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f);
                 <small aria-hidden={i.ancora ? 'true' : undefined}>{t.unidade}</small>
               </p>
             )}
-            <p class="tile__lab">{t.descricao.replace(/ · calculad[oa]$/, '')}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
+            <p class="tile__lab">{t.descricao.replace(/ · (calculad[oa]|calculated)$/, '')}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
             {i.spark.length > 1 && <Fragment set:html={sparkline(i.spark, 200, 34, '#4A7C96', '#0A2259')} />}
             <p class="tile__meta mono">
               <span>{referencia(i)}</span>

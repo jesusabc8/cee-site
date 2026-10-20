@@ -110,8 +110,8 @@ const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
   .tipos a[aria-current='page'] { background: var(--navy); border-color: var(--navy); color: var(--white); }
   .filtros { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-bottom: var(--s-4); font-size: var(--step--1); }
   .filtros[hidden] { display: none; }
-  .filtros label { display: grid; gap: var(--s-1); font-weight: 600; color: var(--text-2); }
-  .filtros select { font: inherit; font-weight: 400; color: var(--text); background: var(--bg); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.3em 0.5em; min-width: 9rem; }
+  .filtros label { display: grid; gap: var(--s-1); font-weight: 600; color: var(--muted); }
+  .filtros select { font: inherit; font-weight: 400; color: var(--ink); background: var(--white); border: 1px solid var(--line-strong); border-radius: var(--radius); padding: 0.3em 0.5em; min-width: 9rem; }
   .contagem { margin-bottom: var(--s-2); }
   .lista { border-bottom: var(--hairline); }
   .vazio { display: grid; gap: 16px; justify-items: start; max-width: 44rem; padding: 32px; background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--navy); }

@@ -59,13 +59,13 @@ const id = `tbl-${Math.random().toString(36).slice(2, 8)}`;
   .data-table { margin: 0; max-width: 100%; }
   .table-scroll {
     overflow: auto;
-    border-top: 1px solid var(--text);
-    border-bottom: 1px solid var(--text);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
   }
   table {
     border-collapse: collapse;
     width: 100%;
-    font-family: var(--font-sans);
+    font-family: var(--sans);
     font-size: var(--step--1);
     font-variant-numeric: tabular-nums lining-nums;
   }
@@ -79,7 +79,7 @@ const id = `tbl-${Math.random().toString(36).slice(2, 8)}`;
   thead th {
     position: sticky;
     top: 0;
-    background: var(--bg);
+    background: var(--white);
     border-bottom: 1px solid var(--line-strong);
     font-weight: 600;
     vertical-align: bottom;
@@ -93,6 +93,6 @@ const id = `tbl-${Math.random().toString(36).slice(2, 8)}`;
   tbody tr + tr > * { border-top: var(--hairline); }
   tbody th { font-weight: 400; }
   .num { text-align: right; }
-  .unit { font-weight: 400; color: var(--text-2); }
+  .unit { font-weight: 400; color: var(--muted); }
   figcaption { margin-top: var(--s-2); }
 </style>

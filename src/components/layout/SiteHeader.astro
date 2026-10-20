@@ -124,6 +124,7 @@ const langHref = hasTranslation ? switchHref(Astro.url, other) : href('/', other
     padding: 14px 14px;
     color: var(--navy);
     text-decoration: none;
+    white-space: nowrap;
   }
   .nav a::after {
     content: '';
@@ -166,7 +167,7 @@ const langHref = hasTranslation ? switchHref(Astro.url, other) : href('/', other
   .lang-pill:hover { border-color: var(--navy); color: var(--navy); }
   .menu-btn { display: none; }
 
-  @media (max-width: 75rem) {
+  @media (max-width: 85rem) {
     .brand__name { display: none; }
   }
   @media (max-width: 64rem) {
