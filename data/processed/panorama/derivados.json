@@ -1,0 +1,45 @@
+{
+  "gerado_em": "2026-10-20T04:21:33.879Z",
+  "juro_real": {
+    "entradas": [
+      "selic_meta",
+      "focus_12m_ipca"
+    ],
+    "formula_principal": "(1 + Selic meta) / (1 + Focus IPCA 12 meses, suavizada) − 1",
+    "formula_alternativa": "Selic meta − Focus IPCA 12 meses (convenção de bancos centrais)"
+  },
+  "ipca_meta": {
+    "entradas": [
+      "ipca",
+      "metas_inflacao",
+      "focus_mensal_ipca"
+    ],
+    "data_focus_mensal": "2026-10-16",
+    "metodo": "IPCA 12 meses observado; meta e limites do ano (meta contínua desde 2025); trajetória: acumulação de 12 meses com variações observadas e, nos meses futuros, a mediana Focus mensal."
+  },
+  "pwt": {
+    "entradas": [
+      "pwt"
+    ],
+    "pib_pc": "rgdpna / pop",
+    "produtividade": "(rgdpna/emp)_i ÷ (rgdpna/emp)_EUA × 100",
+    "proximidade": "(cgdpo × pl_gdpo / pop)_i ÷ (cgdpo × pl_gdpo / pop)_EUA × 100",
+    "pib_pc_rel_ppc": "(rgdpna/pop)_i ÷ (rgdpna/pop)_EUA × 100"
+  },
+  "divida": {
+    "entradas": [
+      "dbgg",
+      "dlsp",
+      "focus_anual"
+    ],
+    "data_focus": "2026-10-16"
+  },
+  "estabilizacao": {
+    "entradas": [
+      "dbgg",
+      "primario",
+      "focus_anual",
+      "focus_ipca"
+    ]
+  }
+}

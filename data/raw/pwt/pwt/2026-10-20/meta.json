@@ -1,0 +1,15 @@
+{
+  "serie": "pwt",
+  "fonte": "pwt",
+  "codigo": "pwt110.xlsx (Dataverse, DOI 10.34894/FABVLR, arquivo 554105)",
+  "extraido_em": "2026-10-20T04:17:12.993Z",
+  "arquivos": [
+    {
+      "arquivo": "pwt110.xlsx",
+      "url": "https://dataverse.nl/api/access/datafile/554105",
+      "sha256": "7b337e94f39dfe304bc459e433f8ce0624496c812707ae0c924888f5142b3ab3",
+      "bytes": 5839841,
+      "sha1": "f6045409aae2b7e468ba7e97952cbd7cd530a9eb"
+    }
+  ]
+}

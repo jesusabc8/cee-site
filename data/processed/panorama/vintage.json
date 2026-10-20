@@ -1,0 +1,341 @@
+{
+  "pib": {
+    "nome": "PIB a preços de mercado — taxa interanual e taxa contra o trimestre anterior (dessazonalizada)",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil)",
+    "unidade": "%",
+    "frequencia": "trimestral",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/5932",
+    "extraido_em": "2026-10-20T04:18:16.854Z",
+    "vintage_dir": "data/raw/ibge-sidra/pib/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "f0bb225147d66b9a5987f2f95cc7cc472153dc96e0d5d2e4afd96ce23fdc7cbc"
+      }
+    ],
+    "linhas": 122,
+    "primeiro": "1996-T1",
+    "ultimo": "2026-T2",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ptax": {
+    "nome": "Taxa de câmbio — livre — dólar americano (venda), PTAX",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 1",
+    "unidade": "R$/US$",
+    "frequencia": "diária",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-sgs/ptax/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "69c7cdcf9e5ebb59d6db986332c18ed236a68904b2bc6671b751969a3412c6b9"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "dce610136c5200fa6f94300f084fb558999befcebb78fc75067275ea72bbebcc"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "5b56a816c7a7f17dbc5d16591dd87b86c7e5cffc0d34cc07a3cb9932b4576b2e"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "57f499d88f962f58eeb984fa0231db3f260cd04647ffb7cbd744292c8a3218ec"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "f9516a0be09bb9b860f43d1bfa2f17921c17d7e216871f2b47fe96811fc43693"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "9841c76d52b442c3aea2aa9a46753e2d72bfebff653b90b710a269a7a3e2101c"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "99afa8387193c9fa88f7bf537045fb754bb083ee5e40753535e327ec517b850f"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "3bb453067f6995c70d27850be1b04c4e6458457500a43e40931e42cd091fa609"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "8ae655214093cace877b6c031a9054771d116f42b288ea858e18991e31622101"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "3504a59d2d830bf90b117369642d352bebbfa3327783ed12826322c7c9a19de0"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "bc730dda26778ad8c0f0500ab8c13ecc9daded0db0e206717900ae3bd9dfdbe3"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "45a23cb5fd3c5e1cef456c06a522c14329d74c04fd88e545fd7c4eac062ef96f"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "6d604412ba2f95fc93463b3f35dd24e8cd020ba1e2db08502b22d90d751e164a"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "b785dec8c762496b6351ab6e72a42d6ea7ba8b47b8fbe94ad98242f4c352fcd9"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "de7e04cc2cb71de7c13075274d99b645200a72f2ff20f45f415cd2b3160154c9"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "conta_corrente": {
+    "nome": "Transações correntes acumuladas em 12 meses em relação ao PIB",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 23079",
+    "unidade": "% do PIB",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=23079",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-sgs/conta_corrente/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "4e8af2ba4bf5cfbd987b7e1b75c80de5b7d47e0c8d71d24116860523d6b5c9fe"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "990a63dbde1bfcf6c5f78f88e232342ca8a63db5997f6e4f98e65b0f4d1ac834"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "c85d07b7e10de439e54c46b9c8712391167caf8f4f9f964368399654b014664a"
+      }
+    ],
+    "linhas": 176,
+    "primeiro": "2012-01",
+    "ultimo": "2026-08",
+    "desatualizado": false,
+    "falha": null
+  },
+  "primario": {
+    "nome": "NFSP — resultado primário do setor público consolidado, acumulado em 12 meses",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 5793",
+    "unidade": "% do PIB (NFSP: positivo = déficit)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=5793",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-sgs/primario/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "8712027f20c7c8915d065cca5485271ee75afeed973e8134d15d544ab2e85c8d"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "4f998fe602ee565720ff98c09f5e8b2ea62bf3da10c26f4c7d0b8ae41cb8462a"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "b72767c7520b0a98cd4a3e26c0217a351dbb3f61438c5b04073a4f5e802f7534"
+      }
+    ],
+    "linhas": 176,
+    "primeiro": "2012-01",
+    "ultimo": "2026-08",
+    "desatualizado": false,
+    "falha": null
+  },
+  "dbgg": {
+    "nome": "Dívida bruta do governo geral (DBGG)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 13762",
+    "unidade": "% do PIB",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=13762",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-sgs/dbgg/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "a8e25b8180c2a68038a9339895cacb11848de29d741e7379d7cd56e46548ad0e"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "e09065ecaf1deff416446bad5bc260cd49372dfaf9b063014953f5f600322d8e"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "899c0021f688c836e4de9f54d590f412abf10069a5a84bebf03f1266bcc8b394"
+      }
+    ],
+    "linhas": 176,
+    "primeiro": "2012-01",
+    "ultimo": "2026-08",
+    "desatualizado": false,
+    "falha": null
+  },
+  "dlsp": {
+    "nome": "Dívida líquida do setor público (DLSP)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 4513",
+    "unidade": "% do PIB",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4513",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-sgs/dlsp/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "70a36b18c9ee5dae92712a8d000e6af6a35ed26ddfd6f8458cbcf7cda3455355"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "ca4b0a2a5643f53565609a6aaa132949e59445ad13ac79b0f91d5fc48114481f"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "708d20735823ba3d9b864533368360514a28e8348d352b042bb0dd2fafdb17ea"
+      }
+    ],
+    "linhas": 176,
+    "primeiro": "2012-01",
+    "ultimo": "2026-08",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_anual": {
+    "nome": "Expectativas de mercado (Focus) — indicadores anuais, mediana",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0; Indicador ∈ {IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário}",
+    "unidade": "conforme o indicador (% ; R$/US$ ; % do PIB)",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-10-20T04:21:27.322Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_anual/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "indicador-1.json",
+        "sha256": "1af9d2752017282d49e727ed3d68477de917b92bc6f1d45fcae1b371a3a36d62"
+      },
+      {
+        "arquivo": "indicador-2.json",
+        "sha256": "3658d08e8e0edec7f02874ab4b8386a6a7e632f7be23698581359671e6c49aad"
+      },
+      {
+        "arquivo": "indicador-3.json",
+        "sha256": "b285a80db5c4a9745db862e8031fefa90ce073e50cff3acc8766ff8d3e93129e"
+      },
+      {
+        "arquivo": "indicador-4.json",
+        "sha256": "f68536830540cf074f2d067851544e6b82e44bc17c2490780f72d9fdfcea8e0d"
+      },
+      {
+        "arquivo": "indicador-5.json",
+        "sha256": "0326c2dfcae56c1f27557645179708a7d4c78f878d02dac4ea2c193f072b70ef"
+      },
+      {
+        "arquivo": "indicador-6.json",
+        "sha256": "7e93fd1a605bbbf6a33ef0eb533b9353b509521fa214cd1f5a9bd63ac5d81fa8"
+      }
+    ],
+    "linhas": 3735,
+    "primeiro": "2026-06-22",
+    "ultimo": "2026-10-16",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_mensal_ipca": {
+    "nome": "Expectativas de mercado (Focus) — IPCA mensal, mediana",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0",
+    "unidade": "% (variação no mês de referência)",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_mensal_ipca/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "a3b1b76b50871048244d0b87c1e6a1441f82ec93ed6045fed4f3645f93e6499c"
+      }
+    ],
+    "linhas": 700,
+    "primeiro": "2026-09-08",
+    "ultimo": "2026-10-16",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_12m_ipca": {
+    "nome": "Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0",
+    "unidade": "% (próximos 12 meses)",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_12m_ipca/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "9cc0e1c3c3a6a69cb1fcb36b615bcfec01c5e9d1fb57de8d3e3d6e65b15d8279"
+      }
+    ],
+    "linhas": 3715,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-10-16",
+    "desatualizado": false,
+    "falha": null
+  },
+  "metas_inflacao": {
+    "nome": "Metas para a inflação e intervalos de tolerância",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Página \"Histórico: meta de inflação vs. inflação efetiva\" (API de conteúdo do sítio do BCB)",
+    "unidade": "%",
+    "frequencia": "anual (1999–2024); meta contínua desde 2025",
+    "url_publica": "https://www.bcb.gov.br/controleinflacao/historicometas",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/bcb-site/metas_inflacao/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "e7d891b2e7687ebd874c85ebb74ba86b0aa0a62157a1b538cb644253c9ad8beb"
+      }
+    ],
+    "linhas": 21,
+    "primeiro": "2005",
+    "ultimo": "2025",
+    "desatualizado": false,
+    "falha": null
+  },
+  "pwt": {
+    "nome": "Penn World Table, versão 11.0",
+    "instituicao": "Groningen Growth and Development Centre",
+    "codigo": "pwt110.xlsx (Dataverse, DOI 10.34894/FABVLR, arquivo 554105)",
+    "unidade": "conforme a variável",
+    "frequencia": "anual (1950–2023)",
+    "url_publica": "https://doi.org/10.34894/FABVLR",
+    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "vintage_dir": "data/raw/pwt/pwt/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "pwt110.xlsx",
+        "sha256": "7b337e94f39dfe304bc459e433f8ce0624496c812707ae0c924888f5142b3ab3"
+      }
+    ],
+    "linhas": 592,
+    "primeiro": "ARG",
+    "ultimo": "USA",
+    "desatualizado": false,
+    "falha": null
+  }
+}

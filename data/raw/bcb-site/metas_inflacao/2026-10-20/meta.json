@@ -1,0 +1,14 @@
+{
+  "serie": "metas_inflacao",
+  "fonte": "bcb-site",
+  "codigo": "Página \"Histórico: meta de inflação vs. inflação efetiva\" (API de conteúdo do sítio do BCB)",
+  "extraido_em": "2026-10-20T04:17:12.993Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://www.bcb.gov.br/api/paginasite/sitebcb/controleinflacao/historicometas",
+      "sha256": "e7d891b2e7687ebd874c85ebb74ba86b0aa0a62157a1b538cb644253c9ad8beb",
+      "bytes": 22095
+    }
+  ]
+}

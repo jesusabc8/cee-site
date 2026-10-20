@@ -1,10 +1,11 @@
 name: data-refresh
 
-# Atualização semanal dos dados do Observatório (terças, 13:00 UTC = 10:00 em Brasília,
-# depois da divulgação do Focus de segunda-feira). Também pode ser disparada à mão.
+# Atualização semanal às segundas, 12:30 UTC (9:30 em Brasília), logo após a divulgação do
+# boletim Focus (8:25). Vintages idênticos ao anterior não são gravados; só publica se algum
+# dado mudou. Também pode ser disparada à mão (Actions → data-refresh → Run workflow).
 on:
   schedule:
-    - cron: '0 13 * * 2'
+    - cron: '30 12 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -27,6 +28,7 @@ jobs:
       # Extração: se uma fonte falhar, o vintage anterior é mantido e a falha registrada (não quebra).
       - run: npm run data:fetch
       - run: npm run data:process
+      - run: npm run data:derive
       - run: npm run data:catalogo
       # Testes de formato, intervalos, duplicatas e integridade: se falharem, nada é publicado.
       - run: npm test

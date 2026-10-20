@@ -1,0 +1,26 @@
+{
+  "serie": "dlsp",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 4513",
+  "extraido_em": "2026-10-20T04:17:12.993Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "70a36b18c9ee5dae92712a8d000e6af6a35ed26ddfd6f8458cbcf7cda3455355",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "ca4b0a2a5643f53565609a6aaa132949e59445ad13ac79b0f91d5fc48114481f",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=20/10/2026",
+      "sha256": "708d20735823ba3d9b864533368360514a28e8348d352b042bb0dd2fafdb17ea",
+      "bytes": 2129
+    }
+  ]
+}

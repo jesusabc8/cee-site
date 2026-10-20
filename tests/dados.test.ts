@@ -9,14 +9,13 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { SERIES } from '../scripts/data/series.ts';
 
-const DIR = 'data/processed/conjuntura';
-const vintage = JSON.parse(readFileSync(join(DIR, 'vintage.json'), 'utf8'));
+import { lerCsvTexto } from '../scripts/data/csv.ts';
 
-function lerCsv(nome: string) {
-  const [cab, ...linhas] = readFileSync(join(DIR, `${nome}.csv`), 'utf8').trim().split('\n');
-  const cols = cab!.split(',');
-  return linhas.map((l) => Object.fromEntries(l.split(',').map((v, i) => [cols[i], v])));
-}
+const painelDe = Object.fromEntries(SERIES.map((s) => [s.id, s.painel]));
+const vintages = Object.fromEntries(['conjuntura', 'panorama'].map((p) => [p, JSON.parse(readFileSync(join('data/processed', p, 'vintage.json'), 'utf8'))]));
+const vintage: Record<string, { extraido_em: string; arquivos: { arquivo: string; sha256: string }[]; vintage_dir: string }> =
+  Object.assign({}, ...Object.values(vintages));
+const lerCsv = (nome: string) => lerCsvTexto(readFileSync(join('data/processed', painelDe[nome]!, `${nome}.csv`), 'utf8'));
 
 /** Intervalos plausíveis: fora deles, algo mudou na fonte ou no processamento. */
 const LIMITES: Record<string, Record<string, [number, number]>> = {
@@ -24,6 +23,17 @@ const LIMITES: Record<string, Record<string, [number, number]>> = {
   selic_meta: { meta_selic: [1, 30] },
   desocupacao: { taxa: [2, 25], coef_variacao: [0, 10] },
   focus_ipca: { mediana: [-2, 30] },
+  pib: { var_interanual: [-15, 15], var_trimestral_sa: [-12, 12] },
+  ptax: { media_mensal: [1, 15], fim_periodo: [1, 15] },
+  conta_corrente: { transacoes_correntes_pib: [-10, 5] },
+  primario: { nfsp_primario_pib: [-6, 15], superavit_primario_pib: [-15, 6] },
+  dbgg: { dbgg_pib: [40, 120] },
+  dlsp: { dlsp_pib: [20, 120] },
+  focus_anual: {},
+  focus_mensal_ipca: { mediana: [-3, 5] },
+  focus_12m_ipca: { mediana: [-2, 30] },
+  metas_inflacao: { meta: [1, 10], limite_inferior: [0, 10], limite_superior: [2, 12] },
+  pwt: { rgdpna: [1, 5e7], pop: [0.1, 2000], emp: [0.01, 1000] },
 };
 
 describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
@@ -40,7 +50,7 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
     for (const a of vintage[id].arquivos) {
       const p = join(vintage[id].vintage_dir, a.arquivo);
       expect(existsSync(p), p).toBe(true);
-      expect(createHash('sha256').update(readFileSync(p, 'utf8')).digest('hex')).toBe(a.sha256);
+      expect(createHash('sha256').update(readFileSync(p)).digest('hex')).toBe(a.sha256);
     }
   });
 
@@ -57,14 +67,25 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
   });
 
   it('sem duplicatas e em ordem cronológica', () => {
-    const chaves = id === 'focus_ipca' ? linhas.map((l) => `${l.data}|${l.ano_referencia}`) : linhas.map((l) => l[chave]!);
+    const chaveComp: Record<string, (l: Record<string, string>) => string> = {
+      focus_ipca: (l) => `${l.data}|${l.ano_referencia}`,
+      focus_anual: (l) => `${l.data}|${l.indicador}|${l.ano_referencia}`,
+      focus_mensal_ipca: (l) => `${l.data}|${l.mes_referencia}`,
+      pwt: (l) => `${l.pais}|${l.ano}`,
+    };
+    const chaves = linhas.map((l) => (chaveComp[id] ?? ((x) => x[chave]!))(l));
     expect(new Set(chaves).size).toBe(chaves.length);
-    const datas = linhas.map((l) => l[chave]!);
-    expect([...datas].sort()).toEqual(datas);
+    if (id !== 'pwt') {
+      const datas = linhas.map((l) => l[chave]!);
+      expect([...datas].sort()).toEqual(datas);
+    }
   });
 
   it('nenhuma observação posterior à data de extração', () => {
     const limite = vintage[id].extraido_em.slice(0, 10);
-    for (const l of linhas) expect(String(l[chave]) <= limite).toBe(true);
+    if (['pwt', 'metas_inflacao'].includes(id)) return;
+    // Trimestres (AAAA-Tn) comparados pelo último mês do trimestre.
+    const comoData = (v: string) => (/^\d{4}-T\d$/.test(v) ? `${v.slice(0, 4)}-${String(Number(v.slice(6)) * 3).padStart(2, '0')}` : v);
+    for (const l of linhas) expect(comoData(String(l[chave])) <= limite).toBe(true);
   });
 });

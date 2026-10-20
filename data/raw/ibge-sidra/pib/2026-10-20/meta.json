@@ -1,0 +1,14 @@
+{
+  "serie": "pib",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil)",
+  "extraido_em": "2026-10-20T04:18:16.854Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/5932/periodos/all/variaveis/6561%7C6564?localidades=N1%5Ball%5D&classificacao=11255%5B90707%5D",
+      "sha256": "f0bb225147d66b9a5987f2f95cc7cc472153dc96e0d5d2e4afd96ce23fdc7cbc",
+      "bytes": 4371
+    }
+  ]
+}

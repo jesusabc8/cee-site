@@ -14,12 +14,13 @@
     "data:fetch": "NODE_USE_ENV_PROXY=1 node scripts/data/fetch.ts",
     "data:process": "node scripts/data/process.ts",
     "data:catalogo": "node scripts/data/catalogo.ts",
-    "data": "npm run data:fetch && npm run data:process && npm run data:catalogo && npm test",
+    "data": "npm run data:fetch && npm run data:process && npm run data:derive && npm run data:catalogo && npm test",
     "test": "vitest run",
     "qa:screens": "node scripts/qa/screens.mjs",
     "qa:links": "node scripts/qa/links.mjs dist",
     "qa:busca": "node scripts/qa/busca.mjs",
-    "lint": "eslint . && stylelint \"src/**/*.{css,astro}\""
+    "lint": "eslint . && stylelint \"src/**/*.{css,astro}\"",
+    "data:derive": "node scripts/data/derive.ts"
   },
   "license": "MIT",
   "dependencies": {
@@ -36,6 +37,7 @@
     "d3": "7.9.0",
     "linkedom": "0.18.13",
     "pagefind": "1.5.2",
+    "read-excel-file": "9.3.12",
     "typescript": "6.0.3"
   },
   "private": true,
