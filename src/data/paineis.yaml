@@ -1,0 +1,78 @@
+# Painéis do Observatório de Dados — Proposta v3.0, Quadro 11.
+# Um painel só passa a "publicado" com dados verificados no catálogo (data/CATALOGO.md),
+# edição numerada, metodologia e changelog. Até lá, nenhuma cifra aparece no sítio.
+- id: pobreza
+  ordem: 1
+  area: c
+  linha: C1
+  estado: em-institucionalizacao
+  titulo:
+    pt: Pobreza, renda e desigualdade
+    en: Poverty, income and inequality
+  resumo:
+    pt: Pobreza monetária, distribuição de renda e desigualdade no Brasil, a partir da Síntese de Indicadores Sociais do IBGE, com comparação internacional.
+    en: Monetary poverty, income distribution and inequality in Brazil, based on IBGE's Summary of Social Indicators, with international comparison.
+  situacao:
+    pt: Existe uma versão construída individualmente pelo proponente do CEE. Antes de ser publicada aqui como edição 1, precisa passar pela verificação numérica independente, receber número de edição, nota de mudanças e DOI.
+    en: A version built individually by CEE's proposer exists. Before being published here as edition 1, it must pass independent numerical verification and receive an edition number, change log and DOI.
+  fontes_previstas: Síntese de Indicadores Sociais (IBGE); PNAD Contínua; CEPAL; Banco Mundial; OCDE
+- id: crescimento
+  ordem: 2
+  area: b
+  linha: B1
+  estado: em-institucionalizacao
+  titulo:
+    pt: Crescimento e produtividade do Brasil, 1950–2023
+    en: Growth and productivity in Brazil, 1950–2023
+  resumo:
+    pt: Contabilidade do crescimento com dados da Penn World Table 11.0, com comparações internacionais selecionadas.
+    en: Growth accounting with Penn World Table 11.0 data, with selected international comparisons.
+  situacao:
+    pt: Painel construído individualmente pelo proponente; falta institucionalizá-lo com versão, DOI e nota de mudanças. Há uma discrepância não reconciliada na decomposição (a soma dos componentes difere do crescimento médio do PIB do mesmo painel), que precisa ser resolvida antes de qualquer publicação.
+    en: Panel built individually by the proposer; it still needs a version number, DOI and change log. An unreconciled discrepancy in the decomposition (the components do not add up to the panel's average GDP growth) must be resolved before publication.
+  fontes_previstas: Penn World Table 11.0; Contas Nacionais (IBGE); IPCA (BCB/IBGE)
+- id: conjuntura
+  ordem: 3
+  area: a
+  linha: A1
+  estado: publicado
+  versao: "1.0"
+  dados_dir: data/processed/conjuntura
+  titulo:
+    pt: Conjuntura — inflação, juros, expectativas e desocupação
+    en: Business cycle — inflation, interest rates, expectations and unemployment
+  resumo:
+    pt: Séries de conjuntura extraídas diretamente das APIs oficiais do IBGE e do Banco Central do Brasil, com data de extração, vintages arquivados e verificação automática a cada atualização.
+    en: Business-cycle series extracted directly from the official APIs of IBGE and the Central Bank of Brazil, with extraction dates, archived vintages and automated checks at every update.
+  situacao:
+    pt: Edição 1.0. Atualização automática semanal; cada extração é arquivada com data e hash.
+    en: Edition 1.0. Weekly automated update; every extraction is archived with its date and hash.
+  fontes_previstas: IBGE (SIDRA — IPCA e PNAD Contínua); BCB (SGS e Focus)
+  metodologia:
+    pt: >-
+      Os dados são baixados pelas APIs oficiais (IBGE SIDRA v3, BCB SGS e BCB Olinda) por scripts em
+      scripts/data/. A resposta bruta de cada requisição é gravada sem alteração em data/raw/, com URL,
+      data e hora da extração e hash SHA-256. O processamento (scripts/data/process.ts) lê o vintage mais
+      recente, confere o hash e gera os CSV em data/processed/conjuntura/. Transformações aplicadas:
+      (i) meta Selic diária convertida em série mensal pelo valor vigente no último dia disponível do mês,
+      descartando datas posteriores à extração (a API do BCB publica valores até a próxima reunião do Copom);
+      (ii) expectativas Focus amostradas semanalmente no gráfico (última observação de cada semana), mantendo
+      todas as observações diárias no CSV; (iii) intervalo aproximado de 95% da taxa de desocupação calculado
+      como taxa × (1 ± 1,96 × CV), com o CV publicado pelo IBGE. Nenhum valor é ajustado sazonalmente pelo CEE.
+      Testes automáticos verificam formato, intervalos plausíveis, duplicatas, ordem cronológica, ausência de
+      datas futuras e integridade do dado bruto.
+    en: >-
+      Data are downloaded from the official APIs (IBGE SIDRA v3, BCB SGS and BCB Olinda) by scripts in
+      scripts/data/. Each raw response is stored unchanged in data/raw/ with its URL, extraction timestamp and
+      SHA-256 hash. Processing (scripts/data/process.ts) reads the latest vintage, checks the hash and writes CSV
+      files to data/processed/conjuntura/. Transformations: (i) the daily Selic target is converted to a monthly
+      series using the value in force on the last available day of each month, discarding dates after the
+      extraction (the BCB API publishes values up to the next Copom meeting); (ii) Focus expectations are sampled
+      weekly in the chart (last observation of each week), with all daily observations kept in the CSV;
+      (iii) an approximate 95% interval for the unemployment rate is computed as rate × (1 ± 1.96 × CV), using the
+      CV published by IBGE. CEE applies no seasonal adjustment. Automated tests check format, plausible ranges,
+      duplicates, chronological order, absence of future dates and raw-data integrity.
+  changelog:
+    - versao: "1.0"
+      data: 2026-10-20
+      nota: Primeira edição. Séries IPCA (SIDRA 1737), meta Selic (SGS 432), desocupação (SIDRA 6381) e expectativas Focus para o IPCA.

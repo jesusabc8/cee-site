@@ -1,0 +1,157 @@
+---
+/**
+ * Página de painel do Observatório. Painéis não publicados mostram apenas a situação
+ * (sem cifras). O painel de Conjuntura traz os gráficos gerados de data/processed.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../PageHeader.astro';
+import Chart from '../Chart.astro';
+import Box from '../Box.astro';
+import { graficosConjuntura } from '../../lib/conjuntura';
+import { DICIONARIO_CONJUNTURA } from '../../lib/dicionario';
+import { fmtDate, isoDate } from '../../lib/publicacoes';
+import { config } from '../../config';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { painel: CollectionEntry<'paineis'>; lang: Lang }
+const { painel, lang } = Astro.props;
+const p = painel.data;
+const k = lang === 'en' ? 'en' : 'pt';
+const area = await getEntry('areas', p.area);
+const publicado = p.estado === 'publicado';
+const g = publicado && painel.id === 'conjuntura' ? graficosConjuntura(lang) : null;
+const graficos = g ? [g.jurosInflacao, g.ipcaMensal, g.desocupacao, g.focus] : [];
+const extracoes = g ? Object.values(g.vintage).map((v) => v.extraido_em).sort() : [];
+const vintage = extracoes.at(-1);
+const desatualizadas = g ? Object.entries(g.vintage).filter(([, v]) => v.desatualizado).map(([s]) => s) : [];
+const url = new URL(href(`/observatorio/${painel.id}/`), Astro.site).href;
+const ano = vintage ? vintage.slice(0, 4) : '';
+
+const L = {
+  pt: { obs: 'Observatório de Dados', edicao: 'Edição', vintage: 'Dados extraídos em', linha: 'Linha', licenca: 'Licença', situacao: 'Situação',
+    fontes: 'Fontes previstas', series: 'Mostrar séries', metodo: 'Nota metodológica', dic: 'Dicionário de dados', arquivo: 'Arquivo', variavel: 'Variável', descricao: 'Descrição', unidade: 'Unidade', origem: 'Origem',
+    mudancas: 'Histórico de mudanças', citar: 'Como citar este painel', downloads: 'Downloads', vint: 'Registro de vintage (JSON)', doi: 'DOI', doiPend: 'DOI ainda não atribuído; será solicitado via Zenodo após a transferência do repositório para a organização do CEE.',
+    catalogo: 'Catálogo de dados e fontes', stale: 'Atenção: a última atualização automática falhou para', staleTxt: 'Os gráficos exibem o vintage anterior, com a data indicada.', codigo: 'Código de extração e processamento' },
+  en: { obs: 'Data Observatory', edicao: 'Edition', vintage: 'Data extracted on', linha: 'Line', licenca: 'Licence', situacao: 'Status',
+    fontes: 'Planned sources', series: 'Show series', metodo: 'Methodological note', dic: 'Data dictionary', arquivo: 'File', variavel: 'Variable', descricao: 'Description', unidade: 'Unit', origem: 'Origin',
+    mudancas: 'Change log', citar: 'How to cite this dashboard', downloads: 'Downloads', vint: 'Vintage record (JSON)', doi: 'DOI', doiPend: 'No DOI yet; it will be requested via Zenodo once the repository is transferred to the CEE organisation.',
+    catalogo: 'Data and source catalogue', stale: 'Warning: the last automated update failed for', staleTxt: 'Charts show the previous vintage, with its date.', codigo: 'Extraction and processing code' },
+}[k];
+const citacao = `CENTRO DE ESTUDOS ECONÔMICOS (CEE). ${p.titulo.pt}. Edição ${p.versao ?? '—'}. Dados extraídos em ${vintage?.slice(0, 10) ?? '—'}. Belo Horizonte: CEE, ${ano}. Disponível em: ${url}.`;
+const jsonld = publicado ? {
+  '@context': 'https://schema.org', '@type': 'Dataset', name: p.titulo.pt, description: p.resumo.pt, version: p.versao,
+  dateModified: vintage?.slice(0, 10), license: 'https://creativecommons.org/licenses/by/4.0/', url, isAccessibleForFree: true,
+  creator: { '@type': 'Organization', name: 'Centro de Estudos Econômicos (CEE)' },
+  distribution: ['ipca', 'selic_meta', 'desocupacao', 'focus_ipca'].map((s) => ({ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: new URL(href(`/dados/conjuntura/${s}.csv`), Astro.site).href })),
+} : null;
+---
+<Base title={p.titulo[k]} description={p.resumo[k]} lang={lang}>
+  {jsonld && <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  <div class="wrap">
+    <PageHeader eyebrow={`${L.obs} · ${area?.data.codigo ?? ''} · ${L.linha} ${p.linha}`} title={p.titulo[k]} lede={p.resumo[k]}>
+      <dl class="meta pmeta">
+        {publicado && <div><dt>{L.edicao}</dt><dd>{p.versao}</dd></div>}
+        {vintage && <div><dt>{L.vintage}</dt><dd><time datetime={vintage.slice(0, 10)}>{fmtDate(new Date(vintage), lang)}</time></dd></div>}
+        <div><dt>{L.licenca}</dt><dd>CC BY 4.0</dd></div>
+        {p.doi && <div><dt>{L.doi}</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
+      </dl>
+    </PageHeader>
+
+    {!publicado ? (
+      <section class="section split">
+        <h2 class="section__title">{L.situacao}</h2>
+        <div class="stack">
+          <p class="prose">{p.situacao[k]}</p>
+          <p class="meta"><strong>{L.fontes}:</strong> {p.fontes_previstas}</p>
+        </div>
+      </section>
+    ) : (
+      <>
+        {desatualizadas.length > 0 && (
+          <Box variant="note" title={`${L.stale} ${desatualizadas.join(', ')}`} lang={lang}><p>{L.staleTxt}</p></Box>
+        )}
+        <fieldset class="series-sel no-print" hidden>
+          <legend class="eyebrow">{L.series}</legend>
+          {graficos.map((c) => <label><input type="checkbox" value={c.id} checked /> {c.titulo}</label>)}
+        </fieldset>
+        <div class="graficos">
+          {graficos.map((c) => <section class="section"><Chart {...c} lang={lang} nivel="h2" /></section>)}
+        </div>
+
+        <section class="section split">
+          <h2 class="section__title">{L.metodo}</h2>
+          <details class="prose metodo">
+            <summary>{k === 'en' ? 'Read the methodological note' : 'Ler a nota metodológica'}</summary>
+            <p>{p.metodologia?.[k]}</p>
+            <p><a href={`${config.repoUrl}/tree/main/scripts/data`}>{L.codigo}</a> · <a href={href('/observatorio/catalogo/', lang)}>{L.catalogo}</a></p>
+          </details>
+        </section>
+
+        <section class="section split" id="dicionario">
+          <h2 class="section__title">{L.dic}</h2>
+          <div class="table-scroll" role="region" aria-label={L.dic} tabindex="0">
+            <table class="dic">
+              <thead><tr><th scope="col">{L.arquivo}</th><th scope="col">{L.variavel}</th><th scope="col">{L.descricao}</th><th scope="col">{L.unidade}</th><th scope="col">{L.origem}</th></tr></thead>
+              <tbody>{DICIONARIO_CONJUNTURA.map((d) => <tr><td><code>{d.arquivo}</code></td><td><code>{d.variavel}</code></td><td>{d.descricao}</td><td>{d.unidade}</td><td>{d.origem}</td></tr>)}</tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section split">
+          <h2 class="section__title">{L.downloads}</h2>
+          <ul class="dl">
+            {['ipca', 'selic_meta', 'desocupacao', 'focus_ipca'].map((s) => <li><a href={href(`/dados/conjuntura/${s}.csv`)} download>{s}.csv</a></li>)}
+            <li><a href={href('/dados/conjuntura/vintage.json')}>{L.vint}</a></li>
+          </ul>
+        </section>
+
+        <section class="section split">
+          <h2 class="section__title">{L.mudancas}</h2>
+          <ol class="dl">{p.changelog.map((c) => <li><span class="meta"><time datetime={isoDate(c.data)}>{fmtDate(c.data, lang, 'short')}</time> · {L.edicao} {c.versao}</span> {c.nota}</li>)}</ol>
+        </section>
+
+        <section class="section split">
+          <h2 class="section__title">{L.citar}</h2>
+          <div class="stack">
+            <p class="cite">{citacao}</p>
+            {!p.doi && <p class="meta">{L.doiPend}</p>}
+          </div>
+        </section>
+      </>
+    )}
+    <p class="meta"><a href={href('/observatorio/', lang)}>← {L.obs}</a></p>
+  </div>
+</Base>
+<script>
+  const sel = document.querySelector<HTMLFieldSetElement>('.series-sel');
+  if (sel) {
+    sel.hidden = false;
+    sel.addEventListener('change', (e) => {
+      const cb = e.target as HTMLInputElement;
+      const fig = document.getElementById(cb.value)?.closest<HTMLElement>('.section');
+      if (fig) fig.hidden = !cb.checked;
+    });
+  }
+</script>
+<style>
+  .pmeta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: var(--s-2) 0 0; padding-top: var(--s-3); border-top: var(--hairline); }
+  .pmeta div { display: flex; gap: 0.4em; }
+  .pmeta dt { font-weight: 600; color: var(--text); }
+  .pmeta dd { margin: 0; }
+  .series-sel { border: 0; padding: 0; margin: 0 0 var(--s-3); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); font-size: var(--step--1); }
+  .series-sel[hidden] { display: none; }
+  .series-sel legend { width: 100%; margin-bottom: var(--s-2); font-size: var(--step--2); }
+  .series-sel label { display: inline-flex; gap: 0.35em; align-items: center; cursor: pointer; }
+  .series-sel input { accent-color: var(--primary); margin: 0; }
+  .section[hidden] { display: none; }
+  .metodo summary { cursor: pointer; color: var(--primary); font-family: var(--font-sans); font-size: var(--step-0); }
+  .dic { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
+  .dic th, .dic td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-top: var(--hairline); vertical-align: top; }
+  .dic thead th { border-top: 0; border-bottom: 1px solid var(--line-strong); }
+  .dic code { font-family: var(--font-mono); font-size: 0.92em; }
+  .dl { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); }
+  .cite { font-family: var(--font-serif); background: var(--surface); border: var(--hairline); padding: var(--s-3); max-width: var(--measure); }
+</style>

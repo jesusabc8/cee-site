@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import PainelPage from '../../../components/obs/PainelPage.astro';
+
+export async function getStaticPaths() {
+  const paineis = await getCollection('paineis');
+  return paineis.map((painel) => ({ params: { painel: painel.id }, props: { painel } }));
+}
+const { painel } = Astro.props;
+---
+<PainelPage painel={painel} lang="en" />

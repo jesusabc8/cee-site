@@ -1,0 +1,57 @@
+---
+/** Catálogo de dados e fontes: gerado de scripts/data/series.ts + vintage (fonte única com data/CATALOGO.md). */
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../PageHeader.astro';
+import { SERIES } from '../../../scripts/data/series.ts';
+import { lerVintage } from '../../lib/dados';
+import { fmtDate } from '../../lib/publicacoes';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const vint = lerVintage('conjuntura');
+const L = {
+  pt: { t: 'Catálogo de dados e fontes', lede: 'Séries mantidas pelo Observatório, com a verificação de cada código contra a fonte oficial. Séries não verificadas não são publicadas.',
+    cod: 'Código', un: 'Unidade', freq: 'Frequência', painel: 'Painel', licenca: 'Termos de uso da fonte', verif: 'Verificação', metodo: 'Método', nome: 'Nome oficial', obs: 'Observações', ultima: 'Última extração', cobertura: 'Cobertura', csv: 'CSV', consulta: 'Consulta pública' },
+  en: { t: 'Data and source catalogue', lede: 'Series maintained by the Observatory, with the verification of each code against the official source. Unverified series are not published.',
+    cod: 'Code', un: 'Unit', freq: 'Frequency', painel: 'Dashboard', licenca: 'Source terms of use', verif: 'Verification', metodo: 'Method', nome: 'Official name', obs: 'Notes', ultima: 'Last extraction', cobertura: 'Coverage', csv: 'CSV', consulta: 'Public query page' },
+}[k];
+---
+<Base title={L.t} description={L.lede} lang={lang}>
+  <div class="wrap">
+    <PageHeader eyebrow={k === 'en' ? 'Data Observatory' : 'Observatório de Dados'} title={L.t} lede={L.lede} />
+    {SERIES.map((s) => {
+      const v = vint[s.id];
+      return (
+        <section class="section split" id={s.id}>
+          <div>
+            <h2 class="section__title">{s.nome}</h2>
+            <p class="meta">{s.instituicao}</p>
+          </div>
+          <dl class="cat">
+            <dt>{L.cod}</dt><dd><code>{s.codigo}</code></dd>
+            <dt>{L.un}</dt><dd>{s.unidade}</dd>
+            <dt>{L.freq}</dt><dd>{s.frequencia}</dd>
+            <dt>{L.painel}</dt><dd><a href={href(`/observatorio/${s.painel}/`, lang)}>{s.painel}</a></dd>
+            {v && <><dt>{L.ultima}</dt><dd>{fmtDate(new Date(v.extraido_em), lang)}{v.desatualizado && ' ⚠'}</dd><dt>{L.cobertura}</dt><dd>{v.primeiro} → {v.ultimo} ({v.linhas})</dd></>}
+            <dt>{L.csv}</dt><dd><a href={href(`/dados/${s.painel}/${s.id}.csv`)}>{s.id}.csv</a> · <a href={s.url_publica}>{L.consulta}</a></dd>
+            <dt>{L.licenca}</dt><dd>{s.licenca_fonte}</dd>
+            <dt>{L.verif}</dt><dd>{s.verificacao.data}</dd>
+            <dt>{L.metodo}</dt><dd>{s.verificacao.metodo}</dd>
+            <dt>{L.nome}</dt><dd>{s.verificacao.nome_oficial}</dd>
+            {s.verificacao.observacoes && <><dt>{L.obs}</dt><dd>{s.verificacao.observacoes}</dd></>}
+          </dl>
+        </section>
+      );
+    })}
+  </div>
+</Base>
+<style>
+  .cat { display: grid; gap: var(--s-1) var(--s-4); margin: 0; font-size: var(--step--1); }
+  @media (min-width: 40rem) { .cat { grid-template-columns: 11rem 1fr; } }
+  .cat dt { font-weight: 600; }
+  .cat dd { margin: 0 0 var(--s-2); color: var(--text-2); }
+  .cat code { font-family: var(--font-mono); font-size: 0.95em; color: var(--text); }
+</style>

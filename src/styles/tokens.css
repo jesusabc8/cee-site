@@ -19,12 +19,13 @@
   --accent-wash: #f6efe3;
   --focus: #9c6b1e;
 
-  /* Paleta categórica de gráficos (Okabe-Ito adaptada; ≥ 3:1 sobre --bg) */
-  --c1: #1f3a5f;
-  --c2: #d55e00;
-  --c3: #009e73;
-  --c4: #0072b2;
-  --c5: #cc79a7;
+  /* Paleta categórica de gráficos — máximo 3 séries por gráfico.
+   * Validada (scripts de validação de paleta, 20/10/2026): faixa de luminosidade, croma,
+   * separação para daltonismo em todos os pares (ΔE ≥ 9,2) e visão normal (ΔE ≥ 24).
+   * --c3 tem contraste 2,8:1 no modo claro: usar sempre com rótulo direto e tabela. */
+  --c1: #2a78d6;
+  --c2: #eb6834;
+  --c3: #1baf7a;
   --chart-grid: #e6e9ed;
   --chart-axis: #5f6670;
 
@@ -79,11 +80,9 @@
     --accent: #d9a55a;
     --accent-wash: #2a2318;
     --focus: #d9a55a;
-    --c1: #8db4e2;
-    --c2: #e0773a;
-    --c3: #2fb78f;
-    --c4: #56b4e9;
-    --c5: #d98fb8;
+    --c1: #3987e5;
+    --c2: #d95926;
+    --c3: #199e70;
     --chart-grid: #232d3a;
     --chart-axis: #a3abb5;
   }
@@ -101,11 +100,9 @@
   --accent: #d9a55a;
   --accent-wash: #2a2318;
   --focus: #d9a55a;
-  --c1: #8db4e2;
-  --c2: #e0773a;
-  --c3: #2fb78f;
-  --c4: #56b4e9;
-  --c5: #d98fb8;
+  --c1: #3987e5;
+  --c2: #d95926;
+  --c3: #199e70;
   --chart-grid: #232d3a;
   --chart-axis: #a3abb5;
 }

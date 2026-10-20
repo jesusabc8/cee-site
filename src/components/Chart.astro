@@ -1,0 +1,205 @@
+---
+/**
+ * Figura de dados acessível. O SVG é gerado no build (src/lib/charts.ts) e funciona sem
+ * JavaScript; com JavaScript, ganha seletor de período e tooltip. Sempre inclui:
+ * fonte, código da série, data de extração, unidade, links para CSV e código,
+ * descrição textual e tabela alternativa (Proposta §5.2; WCAG 1.1.1).
+ */
+import type { Variante } from '../lib/charts';
+import type { Lang } from '../i18n/ui';
+
+export interface FonteGrafico { instituicao: string; codigo: string; extraido_em: string; url: string; desatualizado?: boolean }
+interface Props {
+  id: string;
+  titulo: string;
+  subtitulo?: string;
+  unidade: string;
+  descricao: string;
+  series: string[];
+  variantes: Variante[];
+  digitos?: number;
+  fontes: FonteGrafico[];
+  csv: { rotulo: string; href: string }[];
+  codigoUrl: string;
+  nota?: string;
+  tabela: { colunas: string[]; linhas: (string | number | null)[][] };
+  lang?: Lang;
+  nivel?: 'h2' | 'h3';
+}
+const { id, titulo, subtitulo, unidade, descricao, series, variantes, digitos = 1, fontes, csv, codigoUrl, nota, tabela, lang = 'pt-BR', nivel = 'h3' } = Astro.props;
+const H = nivel;
+const L = lang === 'en'
+  ? { fonte: 'Source', ext: 'extracted', un: 'Unit', dados: 'Data', codigo: 'code', tabela: 'Data table', periodo: 'Period', desat: 'source unavailable at last update; showing previous vintage', legenda: 'Legend' }
+  : { fonte: 'Fonte', ext: 'extração em', un: 'Unidade', dados: 'Dados', codigo: 'código', tabela: 'Tabela de dados', periodo: 'Período', desat: 'fonte indisponível na última atualização; exibindo o vintage anterior', legenda: 'Legenda' };
+const fmtData = (iso: string) => new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
+const nf = new Intl.NumberFormat(lang, { minimumFractionDigits: digitos, maximumFractionDigits: digitos });
+const cell = (v: string | number | null) => (v === null || v === '' ? '—' : typeof v === 'number' ? nf.format(v) : v);
+const payload = JSON.stringify({ series, digitos, lang, variantes: variantes.map((v) => ({ id: v.id, xs: v.svgs.map((s) => s.x), pontos: v.pontos })) });
+---
+<figure class="chart" id={id} data-chart={payload} aria-labelledby={`${id}-t`} aria-describedby={`${id}-d`}>
+  <div class="chart__head">
+    <H id={`${id}-t`} class="chart__title">{titulo}</H>
+    {subtitulo && <p class="chart__sub">{subtitulo}</p>}
+    <p class="chart__unit meta">{L.un}: {unidade}</p>
+  </div>
+
+  <div class="chart__controls no-print">
+    {series.length > 1 && (
+      <ul class="chart__legend" aria-label={L.legenda}>
+        {series.map((s, i) => <li><span class={`sw serie-${i + 1}`} aria-hidden="true"></span>{s}</li>)}
+      </ul>
+    )}
+    {variantes.length > 1 && (
+      <fieldset class="chart__periodos" hidden>
+        <legend class="visually-hidden">{L.periodo}</legend>
+        {variantes.map((v, i) => (
+          <label><input type="radio" name={`${id}-periodo`} value={v.id} checked={i === 0} /> {v.rotulo}</label>
+        ))}
+      </fieldset>
+    )}
+  </div>
+
+  <div class="chart__plot">
+    {variantes.map((v, i) => (
+      <div class="chart__variant" data-variant={v.id} hidden={i !== 0} aria-hidden={i !== 0 ? 'true' : undefined}>
+        {v.svgs.map((s, j) => <div class={j === 0 ? 'svg-larga' : 'svg-estreita'} data-w={s.w}><Fragment set:html={s.svg} /></div>)}
+      </div>
+    ))}
+    <div class="chart__tip" role="presentation" hidden></div>
+    <div class="chart__rule" hidden></div>
+  </div>
+
+  <p id={`${id}-d`} class="visually-hidden">{descricao}</p>
+
+  <figcaption class="chart__caption meta">
+    {fontes.map((f) => (
+      <span class="chart__src">
+        <strong>{L.fonte}:</strong> <a href={f.url}>{f.instituicao}</a>, <code>{f.codigo}</code>; {L.ext} <time datetime={f.extraido_em}>{fmtData(f.extraido_em)}</time>.
+        {f.desatualizado && <em class="stale"> ({L.desat})</em>}
+      </span>
+    ))}
+    {nota && <span>{nota}</span>}
+    <span>
+      <strong>{L.dados}:</strong> {csv.map((c, i) => <>{i > 0 && ' · '}<a href={c.href} download>{c.rotulo}</a></>)} · <a href={codigoUrl}>{L.codigo}</a>
+    </span>
+  </figcaption>
+
+  <details class="chart__table">
+    <summary>{L.tabela}</summary>
+    <div class="table-scroll" role="region" aria-label={`${L.tabela}: ${titulo}`} tabindex="0">
+      <table>
+        <caption class="visually-hidden">{titulo} ({unidade})</caption>
+        <thead><tr>{tabela.colunas.map((c, i) => <th scope="col" class={i > 0 ? 'num' : undefined}>{c}</th>)}</tr></thead>
+        <tbody>
+          {tabela.linhas.map((l) => <tr>{l.map((v, i) => i === 0 ? <th scope="row">{v}</th> : <td class="num">{cell(v)}</td>)}</tr>)}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</figure>
+
+<script>
+  type P = { t: number; rotulo: string; valores: (number | null)[] };
+  type X = { d0: number; d1: number; r0: number; r1: number; w: number };
+  type V = { id: string; xs: X[]; pontos: P[] };
+  for (const fig of document.querySelectorAll<HTMLElement>('figure.chart[data-chart]')) {
+    const cfg = JSON.parse(fig.dataset.chart!) as { series: string[]; digitos: number; lang: string; variantes: V[] };
+    const nf = new Intl.NumberFormat(cfg.lang, { minimumFractionDigits: cfg.digitos, maximumFractionDigits: cfg.digitos });
+    const plot = fig.querySelector<HTMLElement>('.chart__plot')!;
+    const tip = fig.querySelector<HTMLElement>('.chart__tip')!;
+    const rule = fig.querySelector<HTMLElement>('.chart__rule')!;
+    let atual = cfg.variantes[0]!;
+
+    const fs = fig.querySelector<HTMLFieldSetElement>('.chart__periodos');
+    if (fs) {
+      fs.hidden = false;
+      fs.addEventListener('change', (e) => {
+        const val = (e.target as HTMLInputElement).value;
+        atual = cfg.variantes.find((v) => v.id === val) ?? atual;
+        for (const d of fig.querySelectorAll<HTMLElement>('.chart__variant')) {
+          const on = d.dataset.variant === val;
+          d.hidden = !on;
+          on ? d.removeAttribute('aria-hidden') : d.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    const esconder = () => { tip.hidden = true; rule.hidden = true; };
+    plot.addEventListener('pointerleave', esconder);
+    plot.addEventListener('pointermove', (ev) => {
+      const svg = [...plot.querySelectorAll<SVGSVGElement>('.chart__variant:not([hidden]) svg')].find((s) => s.getBoundingClientRect().width > 0);
+      if (!svg || atual.pontos.length === 0) return;
+      const w = Number(svg.parentElement?.dataset.w);
+      const xmap = atual.xs.find((x) => x.w === w) ?? atual.xs[0]!;
+      const box = svg.getBoundingClientRect();
+      const k = box.width / xmap.w;
+      const px = (ev.clientX - box.left) / k;
+      const { d0, d1, r0, r1 } = xmap;
+      if (px < r0 - 8 || px > r1 + 8) return esconder();
+      const t = d0 + ((px - r0) / (r1 - r0)) * (d1 - d0);
+      let melhor = atual.pontos[0]!;
+      for (const p of atual.pontos) if (Math.abs(p.t - t) < Math.abs(melhor.t - t)) melhor = p;
+      const x = (r0 + ((melhor.t - d0) / (d1 - d0)) * (r1 - r0)) * k + (box.left - plot.getBoundingClientRect().left);
+      const linhas = cfg.series.map((s, i) => {
+        const v = melhor.valores[i];
+        return `<span class="tip-row"><span class="sw serie-${i + 1}"></span>${s}: <strong>${v === null || v === undefined ? '—' : nf.format(v)}</strong></span>`;
+      }).join('');
+      tip.innerHTML = `<span class="tip-date">${melhor.rotulo}</span>${linhas}`;
+      tip.hidden = false;
+      rule.hidden = false;
+      rule.style.left = `${x}px`;
+      rule.style.height = `${box.height - 30 * k}px`;
+      const tw = tip.offsetWidth;
+      const esquerda = x + 12 + tw > box.width ? x - 12 - tw : x + 12;
+      tip.style.left = `${Math.max(0, esquerda)}px`;
+    });
+  }
+</script>
+
+<style>
+  .chart { margin: 0; display: grid; gap: var(--s-2); max-width: 52rem; }
+  .chart__title { font-family: var(--font-serif); font-size: var(--step-2); }
+  .chart__sub { font-family: var(--font-serif); color: var(--text); max-width: var(--measure); margin-top: var(--s-1); }
+  .chart__unit { margin-top: var(--s-1); }
+  .chart__controls { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2) var(--s-4); font-size: var(--step--1); }
+  .chart__legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); color: var(--text); }
+  .chart__legend li { display: inline-flex; align-items: center; gap: 0.4em; }
+  .chart__periodos { border: 0; margin: 0; padding: 0; display: flex; gap: var(--s-3); color: var(--text-2); }
+  .chart__periodos[hidden] { display: none; }
+  .chart__periodos label { display: inline-flex; gap: 0.3em; align-items: center; cursor: pointer; }
+  .chart__periodos input { accent-color: var(--primary); margin: 0; }
+  .chart__plot { position: relative; color: var(--chart-axis); touch-action: pan-y; }
+  .chart__variant[hidden] { display: none; }
+  .svg-estreita { display: none; }
+  @media (max-width: 34rem) { .svg-larga { display: none; } .svg-estreita { display: block; } }
+  .chart__plot :global(svg) { display: block; width: 100%; height: auto; font-family: var(--font-sans); font-size: 12px; }
+  .chart__plot :global(.grid) { color: var(--chart-grid); }
+  .chart__plot :global(.zero) { color: var(--line-strong); }
+  .chart__plot :global(.chart-label) { color: var(--text); font-size: 12.5px; font-weight: 600; }
+  :global(.serie-1) { color: var(--c1); }
+  :global(.serie-2) { color: var(--c2); }
+  :global(.serie-3) { color: var(--c3); }
+  :global(.sw) { display: inline-block; width: 14px; height: 3px; border-radius: 2px; background: currentColor; flex: none; }
+  .chart__tip {
+    position: absolute; top: 4px; z-index: 2; pointer-events: none;
+    background: var(--bg); color: var(--text); border: 1px solid var(--line-strong); border-radius: var(--radius);
+    padding: var(--s-2) var(--s-3); font-size: var(--step--1); line-height: 1.4; display: grid; gap: 2px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08); white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .chart__tip[hidden], .chart__rule[hidden] { display: none; }
+  .chart__tip :global(.tip-date) { font-weight: 600; }
+  .chart__tip :global(.tip-row) { display: inline-flex; align-items: center; gap: 0.45em; }
+  .chart__rule { position: absolute; top: 16px; width: 1px; background: var(--line-strong); pointer-events: none; }
+  .chart__caption { display: grid; gap: var(--s-1); border-top: var(--hairline); padding-top: var(--s-2); }
+  .chart__caption code { font-family: var(--font-mono); font-size: 0.92em; }
+  .stale { color: var(--accent); font-style: normal; font-weight: 600; }
+  .chart__table summary { cursor: pointer; font-size: var(--step--1); color: var(--primary); width: fit-content; }
+  .chart__table .table-scroll { max-height: 22rem; overflow: auto; margin-top: var(--s-2); border-top: 1px solid var(--text); border-bottom: 1px solid var(--text); }
+  .chart__table table { border-collapse: collapse; width: 100%; font-size: var(--step--1); font-variant-numeric: tabular-nums; }
+  .chart__table th, .chart__table td { padding: var(--s-1) var(--s-3); text-align: left; white-space: nowrap; }
+  .chart__table thead th { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid var(--line-strong); }
+  .chart__table tbody tr + tr > * { border-top: var(--hairline); }
+  .chart__table tbody th { font-weight: 400; }
+  .chart__table .num { text-align: right; }
+  @media print { .chart__table[open] .table-scroll, .chart__table .table-scroll { max-height: none; } }
+</style>

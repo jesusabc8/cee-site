@@ -20,7 +20,7 @@ const cores = [
   ['--line', 'Hairline'], ['--line-strong', 'Borda de controle'], ['--primary', 'Primário (marinho)'],
   ['--accent', 'Acento (ocre)'], ['--accent-wash', 'Fundo de aviso'],
 ];
-const series = ['--c1', '--c2', '--c3', '--c4', '--c5'];
+const series = ['--c1', '--c2', '--c3'];
 const escala = ['--step-5', '--step-4', '--step-3', '--step-2', '--step-1', '--step-0', '--step--1', '--step--2'];
 ---
 <Base title="Guia de estilo" noindex hasTranslation={false}>
@@ -35,7 +35,7 @@ const escala = ['--step-5', '--step-4', '--step-3', '--step-2', '--step-1', '--s
           <li><span class="swatch" style={`background:var(${v})`}></span><code>{v}</code><span class="meta">{n}</span></li>
         ))}
       </ul>
-      <h3 style="margin-top:var(--s-5)">Séries de gráfico (máx. 5)</h3>
+      <h3 style="margin-top:var(--s-5)">Séries de gráfico (máx. 3)</h3>
       <ul class="swatches">
         {series.map((v) => (<li><span class="swatch" style={`background:var(${v})`}></span><code>{v}</code></li>))}
       </ul>

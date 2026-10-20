@@ -1,0 +1,14 @@
+{
+  "serie": "ipca",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 1737, variáveis 63 e 2265 (Brasil)",
+  "extraido_em": "2026-10-20T01:38:01.210Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/1737/periodos/201201-209912/variaveis/63%7C2265?localidades=N1%5Ball%5D",
+      "sha256": "d2ebbf27eef8a9c065127af95d8ed458c52a3b8257a7457e53190243fd0fd7a8",
+      "bytes": 6110
+    }
+  ]
+}

@@ -5,6 +5,8 @@
 import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { publicacaoSchema } from './schemas/publicacao';
+import { painelSchema } from './schemas/painel';
 
 const bi = z.object({ pt: z.string().min(1), en: z.string().min(1) });
 const biList = z.object({ pt: z.array(z.string()).min(1), en: z.array(z.string()).min(1) });
@@ -81,4 +83,15 @@ const parcerias = defineCollection({
   }).strict(),
 });
 
-export const collections = { areas, linhas, paginas, equipe, parcerias };
+/** Publicações em MDX: src/content/publicacoes/<slug>.mdx — o slug é a URL permanente. */
+const publicacoes = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/publicacoes' }),
+  schema: publicacaoSchema,
+});
+
+const paineis = defineCollection({
+  loader: file('src/data/paineis.yaml'),
+  schema: z.object({ id: z.string() }).and(painelSchema),
+});
+
+export const collections = { areas, linhas, paginas, equipe, parcerias, publicacoes, paineis };

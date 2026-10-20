@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../PageHeader.astro';
+import StatusTag from '../StatusTag.astro';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const paineis = (await getCollection('paineis')).sort((a, b) =>
+  Number(b.data.estado === 'publicado') - Number(a.data.estado === 'publicado') || a.data.ordem - b.data.ordem);
+const L = {
+  pt: { t: 'Observatório de Dados', lede: 'A infraestrutura que as três áreas compartilham: séries econômicas brasileiras em formato limpo e versionado, com dicionário de variáveis, script de extração e data de cada atualização. Cada edição é numerada e traz nota de mudanças.',
+    pub: 'Edição', inst: 'Em institucionalização', cons: 'Em construção', cat: 'Catálogo de dados e fontes', catTxt: 'Todas as séries usadas, com código, unidade, termos de uso e registro da verificação contra a fonte oficial.', ver: 'Abrir painel', linha: 'Linha' },
+  en: { t: 'Data Observatory', lede: 'The infrastructure shared by all three areas: clean, versioned Brazilian economic series with a data dictionary, extraction script and the date of every update. Each edition is numbered and carries a change log.',
+    pub: 'Edition', inst: 'Being institutionalised', cons: 'Under construction', cat: 'Data and source catalogue', catTxt: 'Every series used, with code, unit, terms of use and the record of its verification against the official source.', ver: 'Open dashboard', linha: 'Line' },
+}[k];
+---
+<Base title={L.t} description={L.lede} lang={lang}>
+  <div class="wrap">
+    <PageHeader eyebrow="L0" title={L.t} lede={L.lede} />
+    <ol class="paineis">
+      {paineis.map((p) => (
+        <li>
+          <p class="meta">{L.linha} {p.data.linha} · {p.data.estado === 'publicado' ? `${L.pub} ${p.data.versao}` : <StatusTag estado="construcao" lang={lang} />}</p>
+          <h2><a href={href(`/observatorio/${p.id}/`, lang)}>{p.data.titulo[k]}</a></h2>
+          <p class="prose">{p.data.resumo[k]}</p>
+          <p class="meta">{p.data.situacao[k]}</p>
+        </li>
+      ))}
+    </ol>
+    <section class="section split">
+      <h2 class="section__title"><a href={href('/observatorio/catalogo/', lang)}>{L.cat}</a></h2>
+      <p class="prose">{L.catTxt}</p>
+    </section>
+  </div>
+</Base>
+<style>
+  .paineis { list-style: none; padding: 0; margin: 0 0 var(--s-6); }
+  .paineis li { border-top: var(--hairline); padding-block: var(--s-5); display: grid; gap: var(--s-2); }
+  .paineis li:last-child { border-bottom: var(--hairline); }
+  .paineis h2 { font-size: var(--step-3); }
+  .paineis h2 a, .section__title a { color: var(--text); text-decoration: none; }
+  .paineis h2 a:hover, .section__title a:hover { color: var(--primary); text-decoration: underline; }
+</style>

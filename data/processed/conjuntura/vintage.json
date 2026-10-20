@@ -1,0 +1,142 @@
+{
+  "ipca": {
+    "nome": "IPCA — variação mensal e acumulada em 12 meses",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 1737, variáveis 63 e 2265 (Brasil)",
+    "unidade": "%",
+    "frequencia": "mensal",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/1737",
+    "extraido_em": "2026-10-20T01:38:01.210Z",
+    "vintage_dir": "data/raw/ibge-sidra/ipca/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "d2ebbf27eef8a9c065127af95d8ed458c52a3b8257a7457e53190243fd0fd7a8"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "selic_meta": {
+    "nome": "Taxa de juros — Meta Selic definida pelo Copom",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 432",
+    "unidade": "% a.a.",
+    "frequencia": "diária",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
+    "extraido_em": "2026-10-20T01:38:01.210Z",
+    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "f962a48602f367105aece2a7940406f57a5e83f59d26d923a9c41a68a95eeda4"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "8204deecd1d6648d276801a830910ccd91ab4ef125c1e78f7d3cd3798f4c64ea"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "8e27d047bc0725ba63875442ff2fce5f718a62d8cf58d0f0bbe4a75e5a07c448"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "37f98777e2f1abb2921f157736016b51d764e08f674c9631492bad230f23c478"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "98c1f0e452f8203eef103ed3a4a72c1e66bea14036fe412ab1e2e7c20241fb52"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "737e3582c37c625fe1081ede678d00244ae39cb3fdaecdd22d3df78892a97464"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "d6c6e41b5396fa4d8adcdb6c7cd59c47aed31959a825258a0a43bf23204ea8f9"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "20fd9a889c0efc70354c94dddffea1a1302eaa6a88bba131414dad298d453a8d"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "c27efd3cf15086ffd9f203728aefb1d61822c2e048be9468cc3c6df5ccd89b6e"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "29a09d2688f8ff66f82689e10f50fcd4b350766b2c3bdbaaaa837b3d7811b3b2"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "8f4f40019b737ab3f58d2f8e13d5487575d9bd625a0bf8700719c14abea9cc04"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "8bb8f1a3e6613ce242453129fb367235b994eccc5e58baec3708c0e80d8aa9fe"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "0392cbc190e3cef9b058260617b5ffeb6c7a7ec3b004bade33dc138062c448d5"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "9a5bf16530aa431bcb0f6bacf086cce487644607dea8ea14b5fcf59b9ba3eaac"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "cb79d871a36c3301ea6f8352440eabddd0549f8035b3a7b9a04805a0d44cab75"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "desocupacao": {
+    "nome": "Taxa de desocupação (PNAD Contínua), trimestre móvel",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 6381, variáveis 4099 e 4103 (Brasil)",
+    "unidade": "%",
+    "frequencia": "trimestre móvel (mensal)",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/6381",
+    "extraido_em": "2026-10-20T01:38:01.210Z",
+    "vintage_dir": "data/raw/ibge-sidra/desocupacao/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "d7e61c4b2306ad529982edf64dce310388c6d7a1f88898b97da9de3786af01c9"
+      }
+    ],
+    "linhas": 174,
+    "primeiro": "2012-03",
+    "ultimo": "2026-08",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_ipca": {
+    "nome": "Expectativas de mercado (Focus) — IPCA anual, mediana",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoAnuais, Indicador='IPCA', baseCalculo=0",
+    "unidade": "% (variação no ano de referência)",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-10-20T01:38:01.210Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_ipca/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "9424ea67524d2697bd5261bbcb2456ddf9d822ba3bace45f2d2f9e727a9f2a3d"
+      }
+    ],
+    "linhas": 3515,
+    "primeiro": "2024-01-02",
+    "ultimo": "2026-10-16",
+    "desatualizado": false,
+    "falha": null
+  }
+}

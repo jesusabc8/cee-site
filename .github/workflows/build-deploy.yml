@@ -3,6 +3,11 @@ name: build-deploy
 on:
   push:
     branches: [main]
+  # Commits feitos com GITHUB_TOKEN não disparam `push`; por isso o deploy também roda
+  # quando a atualização de dados termina com sucesso.
+  workflow_run:
+    workflows: [data-refresh]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,9 +21,12 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -27,6 +35,7 @@ jobs:
         uses: actions/configure-pages@v5
       - run: npm ci
       - run: npm run check
+      - run: npm test
       - run: npm run build
         env:
           # Ex.: https://usuario.github.io e /cee-site. Com domínio próprio, base_path fica vazio.

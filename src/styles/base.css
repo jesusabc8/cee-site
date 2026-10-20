@@ -178,3 +178,27 @@ abbr[title] {
     scroll-behavior: auto !important;
   }
 }
+
+/* Títulos de blocos de metadados (citação, fontes, autoria) */
+.block-title {
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--text);
+}
+
+/* Itens de grade não podem crescer além da coluna por causa de tabelas ou código largos
+   (min-width: auto é o padrão em grid e causava rolagem horizontal da página no celular). */
+:where(.split, .home-grid, .pagina, .pub__body, .pub__blocks, .chart, .stack, main, .wrap) > * {
+  min-width: 0;
+}
+
+/* Contêiner rolável para tabelas largas (focável por teclado; ver rehype-table-scroll) */
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}

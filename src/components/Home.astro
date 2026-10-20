@@ -5,6 +5,10 @@
  */
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Chart from './Chart.astro';
+import PubRow from './pub/PubRow.astro';
+import { graficosConjuntura } from '../lib/conjuntura';
+import { getPublicacoes } from '../lib/publicacoes';
 import { href } from '../i18n/routing';
 import { useTranslations, type Lang } from '../i18n/ui';
 
@@ -12,6 +16,10 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const k = lang === 'en' ? 'en' : 'pt';
+const pubs = await getPublicacoes();
+const ultima = pubs[0];
+const recentes = pubs.slice(1, 6);
+const grafico = graficosConjuntura(lang).jurosInflacao;
 const areas = (await getCollection('areas')).filter((a) => a.data.tipo === 'area').sort((a, b) => a.data.ordem - b.data.ordem);
 
 const T = {
@@ -23,7 +31,7 @@ const T = {
     obsVer: 'Ir para o Observatório',
     areas: 'Áreas de pesquisa', todas: 'Agenda completa',
     part: 'Participe', partTxt: 'A entrada é aberta a estudantes de Ciências Econômicas de qualquer campus e do EAD, sem seleção e sem pré-requisito. Cada pessoa começa com uma tarefa real e revisada.',
-    partLink: 'Como participar', metodo: 'Como trabalhamos',
+    partLink: 'Como participar', metodo: 'Como trabalhamos', recentes: 'Publicações recentes', todasPubs: 'Todas as publicações',
   },
   en: {
     missao: 'Rigorous, reproducible, open-access empirical economic analysis of Brazil — and training undergraduates to that standard.',
@@ -33,7 +41,7 @@ const T = {
     obsVer: 'Go to the Observatory',
     areas: 'Research areas', todas: 'Full agenda',
     part: 'Get involved', partTxt: 'Entry is open to Economics students from any campus and the distance-learning track, with no selection and no prerequisites. Everyone starts with a real, reviewed task.',
-    partLink: 'How to get involved', metodo: 'How we work',
+    partLink: 'How to get involved', metodo: 'How we work', recentes: 'Recent publications', todasPubs: 'All publications',
   },
 }[k];
 ---
@@ -47,7 +55,7 @@ const T = {
     <div class="home-grid">
       <section class="section" aria-labelledby="h-ultima">
         <div class="section__head"><h2 id="h-ultima" class="section__title">{T.ultima}</h2></div>
-        <slot name="ultima"><p class="meta">{T.ultimaVazia}</p></slot>
+        {ultima ? <PubRow pub={ultima} lang={lang} /> : <p class="meta">{T.ultimaVazia}</p>}
       </section>
 
       <section class="section" aria-labelledby="h-obs">
@@ -55,11 +63,20 @@ const T = {
           <h2 id="h-obs" class="section__title">{T.obs}</h2>
           <a class="meta" href={href('/observatorio/', lang)}>{T.obsVer}</a>
         </div>
-        <slot name="observatorio"><p class="meta">{T.obsTxt}</p></slot>
+        <p class="meta obs-txt">{T.obsTxt}</p>
+        <Chart {...grafico} lang={lang} />
       </section>
     </div>
 
-    <slot name="publicacoes" />
+    {recentes.length > 0 && (
+      <section class="section" aria-labelledby="h-recentes">
+        <div class="section__head">
+          <h2 id="h-recentes" class="section__title">{T.recentes}</h2>
+          <a class="meta" href={href('/publicacoes/', lang)}>{T.todasPubs}</a>
+        </div>
+        {recentes.map((p) => <PubRow pub={p} lang={lang} />)}
+      </section>
+    )}
 
     <section class="section" aria-labelledby="h-areas">
       <div class="section__head">
@@ -90,7 +107,8 @@ const T = {
   .intro__missao { font-family: var(--font-serif); font-size: var(--step-4); line-height: 1.25; font-weight: 500; text-wrap: balance; }
   .intro__regra { margin-top: var(--s-4); color: var(--text-2); font-size: var(--step-0); }
   .home-grid { display: grid; gap: 0 var(--s-7); }
-  @media (min-width: 60rem) { .home-grid { grid-template-columns: 1fr 1.6fr; } }
+  @media (min-width: 60rem) { .home-grid { grid-template-columns: 1fr 2fr; } }
+  .obs-txt { margin-bottom: var(--s-4); max-width: var(--measure); }
   .areas { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-5); }
   @media (min-width: 52rem) { .areas { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); } }
   .areas li { border-top: 2px solid var(--primary); padding-top: var(--s-3); }
