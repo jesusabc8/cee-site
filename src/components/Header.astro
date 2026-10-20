@@ -3,8 +3,8 @@ import { config } from '../config';
 import { useTranslations, type Lang } from '../i18n/ui';
 import { href, neutralPath, switchHref } from '../i18n/routing';
 
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+interface Props { lang: Lang; hasTranslation?: boolean }
+const { lang, hasTranslation = true } = Astro.props;
 const t = useTranslations(lang);
 const other: Lang = lang === 'pt-BR' ? 'en' : 'pt-BR';
 const current = neutralPath(Astro.url);
@@ -30,7 +30,7 @@ const isCurrent = (p: string) => current === p || current.startsWith(p);
     </a>
     <div class="site-header__tools">
       <a class="tool" href={href('/busca/', lang)}>{t('nav.busca')}</a>
-      <a class="tool lang-switch" href={switchHref(Astro.url, other)} hreflang={other} lang={other}
+      <a class="tool lang-switch" href={hasTranslation ? switchHref(Astro.url, other) : href('/', other)} hreflang={other} lang={other}
         aria-label={t('lang.switch.label')}>{t('lang.switch.short')}</a>
     </div>
   </div>

@@ -67,7 +67,8 @@ const jsonld = {
   isAccessibleForFree: true,
 };
 ---
-<Base title={titulo} description={k === 'en' && p.resumo_en ? p.resumo_en : p.resumo} lang={lang} noindex={noindex}>
+<Base title={titulo} description={k === 'en' && p.resumo_en ? p.resumo_en : p.resumo} lang={lang} noindex={noindex}
+  ogImage={p.demo ? '/og/default.png' : `/og/pub-${pub.id}.png`} ogType="article">
   <Fragment slot="head">
     <meta name="citation_title" content={`${p.titulo}: ${p.subtitulo}`} />
     {p.autoria.map((a) => <meta name="citation_author" content={a.nome} />)}
@@ -85,7 +86,7 @@ const jsonld = {
   </Fragment>
 
   <div class="wrap">
-    <article class="pub" data-pagefind-body={noindex ? undefined : ''}>
+    <article class="pub" data-pagefind-filter={`tipo:${TIPOS[p.tipo][k]}`}>
       <header class="pub__header">
         <p class="eyebrow">
           <a href={href(`/publicacoes/tipo/${p.tipo}/`, lang)}>{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</a>

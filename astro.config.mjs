@@ -28,7 +28,7 @@ export default defineConfig({
     mdx(),
     sitemap({
       i18n: { defaultLocale: 'pt-BR', locales: { 'pt-BR': 'pt-BR', en: 'en' } },
-      filter: (page) => !page.includes('/_estilo/'),
+      filter: (page) => !/\/(_estilo|busca|og|dados)\/|\/publicacoes\/demo-|\/404/.test(page),
     }),
   ],
 });

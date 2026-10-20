@@ -1,0 +1,48 @@
+---
+/** Busca estática com Pagefind (índice gerado no build; nenhum serviço externo). */
+import Base from '../layouts/Base.astro';
+import PageHeader from './PageHeader.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const L = lang === 'en'
+  ? { t: 'Search', lede: 'Search publications, dashboards and institutional pages. The index is built with the site and runs in your browser.', label: 'Search the site', semjs: 'Search requires JavaScript. You can browse the publications list instead.' }
+  : { t: 'Buscar', lede: 'Busque em publicações, painéis e páginas institucionais. O índice é gerado com o sítio e a busca roda no seu navegador.', label: 'Buscar no sítio', semjs: 'A busca exige JavaScript. Você pode navegar pela lista de publicações.' };
+---
+<Base title={L.t} description={L.lede} lang={lang} noindex>
+  <link slot="head" rel="stylesheet" href={`${base}/pagefind/pagefind-ui.css`} />
+  <div class="wrap">
+    <PageHeader title={L.t} lede={L.lede} />
+    <div id="busca" class="busca" data-base={base} data-lang={lang} data-label={L.label}></div>
+    <noscript><p class="meta">{L.semjs}</p></noscript>
+  </div>
+</Base>
+<script is:inline define:vars={{ base }}>
+  const s = document.createElement('script');
+  s.src = `${base}/pagefind/pagefind-ui.js`;
+  s.onload = () => {
+    const el = document.getElementById('busca');
+    // eslint-disable-next-line no-undef
+    new PagefindUI({ element: '#busca', showSubResults: true, showImages: false, resetStyles: false,
+      translations: { placeholder: el.dataset.label } });
+  };
+  document.head.appendChild(s);
+</script>
+<style>
+  .busca {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: var(--primary);
+    --pagefind-ui-text: var(--text);
+    --pagefind-ui-background: var(--bg);
+    --pagefind-ui-border: var(--line-strong);
+    --pagefind-ui-tag: var(--surface);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 2px;
+    --pagefind-ui-font: var(--font-sans);
+    max-width: 48rem;
+    border-top: var(--hairline);
+    padding-top: var(--s-5);
+  }
+</style>

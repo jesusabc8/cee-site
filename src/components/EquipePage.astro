@@ -32,7 +32,7 @@ const T = {
         <ul class="inst">
           {instancias.map((i) => <li><span>{i}</span> <StatusTag estado="construcao" lang={lang} /></li>)}
         </ul>
-        <p class="meta"><a href={`${href('/sobre/', lang)}#governança`}>{T.gov}</a></p>
+        <p class="meta"><a href={`${href('/sobre/', lang)}#${k === 'en' ? 'governance' : 'governança'}`}>{T.gov}</a></p>
       </div>
     </section>
     <section class="section split">

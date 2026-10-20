@@ -48,7 +48,7 @@ const jsonld = publicado ? {
   distribution: ['ipca', 'selic_meta', 'desocupacao', 'focus_ipca'].map((s) => ({ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: new URL(href(`/dados/conjuntura/${s}.csv`), Astro.site).href })),
 } : null;
 ---
-<Base title={p.titulo[k]} description={p.resumo[k]} lang={lang}>
+<Base title={p.titulo[k]} description={p.resumo[k]} lang={lang} ogImage={`/og/painel-${painel.id}.png`}>
   {jsonld && <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
   <div class="wrap">
     <PageHeader eyebrow={`${L.obs} · ${area?.data.codigo ?? ''} · ${L.linha} ${p.linha}`} title={p.titulo[k]} lede={p.resumo[k]}>

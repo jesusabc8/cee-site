@@ -1,6 +1,6 @@
 ---
-import PubIndex from '../../../components/pub/PubIndex.astro';
-import { TIPO_KEYS, type Tipo } from '../../../schemas/publicacao';
+import PubIndex from '../../../../components/pub/PubIndex.astro';
+import { TIPO_KEYS, type Tipo } from '../../../../schemas/publicacao';
 
 export function getStaticPaths() {
   return TIPO_KEYS.map((tipo) => ({ params: { tipo } }));

@@ -1,0 +1,10 @@
+{
+  "title": "Centro de Estudos Econômicos (CEE) — sítio e Observatório de Dados",
+  "description": "Código do sítio e do pipeline de dados do Centro de Estudos Econômicos (CEE), iniciativa estudantil de análise econômica empírica sobre a economia brasileira. Os dados processados e os vintages brutos de cada edição do Observatório estão em data/.",
+  "upload_type": "software",
+  "license": "MIT",
+  "language": "por",
+  "creators": [{ "name": "Centro de Estudos Econômicos (CEE)" }],
+  "keywords": ["economia brasileira", "observatório de dados", "reprodutibilidade", "IPCA", "PNAD Contínua", "Selic", "Focus"],
+  "notes": "A integração GitHub–Zenodo deve ser ativada após a transferência do repositório para a organização do CEE (docs/PENDIENTES.md). Textos e dados: CC BY 4.0 (LICENSE-CONTENT)."
+}

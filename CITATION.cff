@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: >-
+  Se usar o código deste repositório, cite-o como abaixo. Para citar publicações ou dados do
+  Observatório, use o bloco "Como citar" de cada página do sítio.
+title: "Centro de Estudos Econômicos (CEE) — sítio e Observatório de Dados"
+type: software
+authors:
+  - name: "Centro de Estudos Econômicos (CEE)"
+license: MIT
+repository-code: "https://github.com/jesusabc8/cee-site"
+keywords:
+  - economia brasileira
+  - observatório de dados
+  - reprodutibilidade
+  - IPCA
+  - PNAD Contínua
