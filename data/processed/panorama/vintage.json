@@ -337,5 +337,80 @@
     "ultimo": "USA",
     "desatualizado": false,
     "falha": null
+  },
+  "pib_usd": {
+    "nome": "PIB acumulado dos últimos 12 meses, em US$ milhões",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 4192",
+    "unidade": "US$ milhões (12 meses)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4192",
+    "extraido_em": "2026-10-20T13:40:32.044Z",
+    "vintage_dir": "data/raw/bcb-sgs/pib_usd/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2014.json",
+        "sha256": "b5e32c80f48d714fced5ee7378a924e8e44777112541db76ab943c3d3e87af0a"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "67dccf1adbc27ab53c2b71e98033e848bc9ee3776904ef636169f593461d9e95"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "b43c3930c2a71d7e4a05f68d27e4f22d0f874db98cf63e5cdea5e623823fb425"
+      }
+    ],
+    "linhas": 153,
+    "primeiro": "2014-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "comercio": {
+    "nome": "Exportações e importações brasileiras de bens, total mensal",
+    "instituicao": "MDIC/Secex — ComexStat",
+    "codigo": "ComexStat API /general: flow export e import, monthDetail, metricFOB",
+    "unidade": "US$ FOB",
+    "frequencia": "mensal",
+    "url_publica": "https://comexstat.mdic.gov.br/pt/geral",
+    "extraido_em": "2026-10-20T13:45:50.700Z",
+    "vintage_dir": "data/raw/mdic-comexstat/comercio/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "export.json",
+        "sha256": "213049cf6573f4788542c159cd0c0916befc51c5c5458dffda23473cbeae1728"
+      },
+      {
+        "arquivo": "import.json",
+        "sha256": "267278d267d13aee7d992d0989241f5a45e88a0bf5e738c674b2d24b425921b1"
+      }
+    ],
+    "linhas": 153,
+    "primeiro": "2014-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "pobreza": {
+    "nome": "Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18)",
+    "instituicao": "IBGE — Síntese de Indicadores Sociais",
+    "codigo": "SIS 2025, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia",
+    "unidade": "% da população",
+    "frequencia": "anual (2012–)",
+    "url_publica": "https://www.ibge.gov.br/estatisticas/sociais/populacao/9221-sintese-de-indicadores-sociais.html",
+    "extraido_em": "2026-10-20T13:40:32.044Z",
+    "vintage_dir": "data/raw/ibge-sis/pobreza/2026-10-20",
+    "arquivos": [
+      {
+        "arquivo": "2_Distribuicao_Renda_ods.zip",
+        "sha256": "4f277da335eeac7434168d2843ceba86eb78378e5d9cc2e5f9cbb89be6bfe8a0"
+      }
+    ],
+    "linhas": 13,
+    "primeiro": "2012",
+    "ultimo": "2024",
+    "desatualizado": false,
+    "falha": null
   }
 }

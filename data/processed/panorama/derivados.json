@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-10-20T04:21:33.879Z",
+  "gerado_em": "2026-10-20T13:49:22.788Z",
   "juro_real": {
     "entradas": [
       "selic_meta",
@@ -33,6 +33,13 @@
       "focus_anual"
     ],
     "data_focus": "2026-10-16"
+  },
+  "abertura": {
+    "entradas": [
+      "comercio",
+      "pib_usd"
+    ],
+    "formula": "(exportações + importações de bens, US$ FOB, soma de 12 meses) / PIB em US$ acumulado em 12 meses × 100"
   },
   "estabilizacao": {
     "entradas": [

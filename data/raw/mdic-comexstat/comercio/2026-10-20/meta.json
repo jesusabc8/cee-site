@@ -1,0 +1,48 @@
+{
+  "serie": "comercio",
+  "fonte": "mdic-comexstat",
+  "codigo": "ComexStat API /general: flow export e import, monthDetail, metricFOB",
+  "extraido_em": "2026-10-20T13:45:50.700Z",
+  "arquivos": [
+    {
+      "arquivo": "export.json",
+      "url": "https://api-comexstat.mdic.gov.br/general",
+      "metodo": "POST",
+      "corpo": {
+        "flow": "export",
+        "monthDetail": true,
+        "period": {
+          "from": "2014-01",
+          "to": "2026-12"
+        },
+        "filters": [],
+        "details": [],
+        "metrics": [
+          "metricFOB"
+        ]
+      },
+      "sha256": "213049cf6573f4788542c159cd0c0916befc51c5c5458dffda23473cbeae1728",
+      "bytes": 9419
+    },
+    {
+      "arquivo": "import.json",
+      "url": "https://api-comexstat.mdic.gov.br/general",
+      "metodo": "POST",
+      "corpo": {
+        "flow": "import",
+        "monthDetail": true,
+        "period": {
+          "from": "2014-01",
+          "to": "2026-12"
+        },
+        "filters": [],
+        "details": [],
+        "metrics": [
+          "metricFOB"
+        ]
+      },
+      "sha256": "267278d267d13aee7d992d0989241f5a45e88a0bf5e738c674b2d24b425921b1",
+      "bytes": 9419
+    }
+  ]
+}

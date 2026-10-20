@@ -20,6 +20,9 @@
 | Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-10-20 | 2026-10-20 | 2012-01-02 → 2026-10-16 |
 | Metas para a inflação e intervalos de tolerância | panorama | Página "Histórico: meta de inflação vs. inflação efetiva" (API de conteúdo do sítio do BCB) | % | anual (1999–2024); meta contínua desde 2025 | 2026-10-20 | 2026-10-20 | 2005 → 2025 |
 | Penn World Table, versão 11.0 | panorama | pwt110.xlsx (Dataverse, DOI 10.34894/FABVLR, arquivo 554105) | conforme a variável | anual (1950–2023) | 2026-10-20 | 2026-10-20 | ARG → USA |
+| PIB acumulado dos últimos 12 meses, em US$ milhões | panorama | SGS 4192 | US$ milhões (12 meses) | mensal | 2026-10-20 | 2026-10-20 | 2014-01 → 2026-09 |
+| Exportações e importações brasileiras de bens, total mensal | panorama | ComexStat API /general: flow export e import, monthDetail, metricFOB | US$ FOB | mensal | 2026-10-20 | 2026-10-20 | 2014-01 → 2026-09 |
+| Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18) | panorama | SIS 2025, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia | % da população | anual (2012–) | 2026-10-20 | 2026-10-20 | 2012 → 2024 |
 
 ## ipca — IPCA — variação mensal e acumulada em 12 meses
 
@@ -211,3 +214,41 @@
 - **Observações:** Fonte estática (versão 11.0). Cita-se: Feenstra, Inklaar e Timmer (2015), American Economic Review 105(10).
 - **Requisições da extração:**
   - `https://dataverse.nl/api/access/datafile/554105`
+
+## pib_usd — PIB acumulado dos últimos 12 meses, em US$ milhões
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 4192
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4192
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-10-20):** Webservice SOAP do SGS (FachadaWSSGS.getUltimoValorXML, código 4192); a série não consta do catálogo CKAN
+- **Nome oficial retornado pela fonte:** PIB acumulado dos últimos 12 meses - Em US$ milhões (periodicidade M, unidade US$ (milhões))
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2018`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2019&dataFinal=31/12/2023`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=20/10/2026`
+
+## comercio — Exportações e importações brasileiras de bens, total mensal
+
+- **Instituição:** MDIC/Secex — ComexStat
+- **Código:** ComexStat API /general: flow export e import, monthDetail, metricFOB
+- **Consulta pública:** https://comexstat.mdic.gov.br/pt/geral
+- **Termos de uso:** Dados abertos do MDIC (ComexStat); reutilização com citação da fonte
+- **Verificação (2026-10-20):** API do ComexStat (/general/filters e /general/dates/updated; consulta /general por fluxo, sem filtros)
+- **Nome oficial retornado pela fonte:** Dados Gerais de Exportação e Importação — métrica Valor US$ FOB
+- **Observações:** Comércio de bens (Siscomex). Importações também em US$ FOB, para somar com exportações na mesma base.
+- **Requisições da extração:**
+  - `https://api-comexstat.mdic.gov.br/general`
+  - `https://api-comexstat.mdic.gov.br/general`
+
+## pobreza — Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18)
+
+- **Instituição:** IBGE — Síntese de Indicadores Sociais
+- **Código:** SIS 2025, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia
+- **Consulta pública:** https://www.ibge.gov.br/estatisticas/sociais/populacao/9221-sintese-de-indicadores-sociais.html
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-10-20):** Arquivo oficial no FTP do IBGE; cabeçalhos e notas da Tabela 2.18 conferidos (2024: 23,1 % e 3,5 %, iguais aos divulgados pela Agência IBGE em 3/12/2025)
+- **Nome oficial retornado pela fonte:** Tabela 2.18 — Proporção de pessoas por classes de rendimento domiciliar per capita: menos de US$ 2,15, US$ 3,65 e US$ 6,85 PPC 2017
+- **Observações:** PNAD Contínua, acumulado de primeiras visitas. Conversão PPC para consumo privado (R$ 2,3273771 por US$ 1,00 PPC 2017), valores mensais inflacionados pelo IPCA. A tabela SIDRA 5877 (ODS 1.2.1) não foi usada: dá valores diferentes (26,5 % em 2024) e a linha não está documentada na API.
+- **Requisições da extração:**
+  - `https://ftp.ibge.gov.br/Indicadores_Sociais/Sintese_de_Indicadores_Sociais/Sintese_de_Indicadores_Sociais_2025/Tabelas/ods/2_Distribuicao_Renda_ods.zip`

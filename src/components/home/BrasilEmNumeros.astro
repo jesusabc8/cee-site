@@ -60,7 +60,7 @@ const dirTxt: Record<string, string> = en
   : { '▲': 'acima da observação anterior', '▼': 'abaixo da observação anterior', '■': 'igual à observação anterior' };
 const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
 const serieCurta = (s: string) => s.split(/[,(]/)[0]!.trim();
-const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f);
+const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f.split(' — ')[0]!);
 ---
 <section class="bn" id="brasil-em-numeros" aria-labelledby="bn-t">
   <div class="wrap">
