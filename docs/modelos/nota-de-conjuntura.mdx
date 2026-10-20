@@ -1,0 +1,48 @@
+---
+# MODELO — Nota de Conjuntura (Proposta, Anexo D.1). Copie para src/content/publicacoes/<slug>.mdx.
+# O nome do arquivo vira a URL permanente: /publicacoes/<slug>/ (minúsculas, hífens, sem acentos).
+# Campos com "TODO" precisam ser preenchidos; o build falha se faltar campo obrigatório.
+tipo: nota-de-conjuntura
+titulo: "TODO Título-afirmação, não tema (uma linha)"
+subtitulo: "TODO Bajada: o que a nota sustenta, em uma frase"
+data: 2026-01-31            # data de publicação (AAAA-MM-DD)
+versao: "1.0"
+area: a                     # a | b | c | instituicoes
+linha: A1
+autoria:                    # funções CRediT: conceituacao, curadoria, analise, investigacao, metodologia,
+  - nome: "TODO Nome Sobrenome"   # administracao, recursos, software, supervisao, validacao, visualizacao,
+    funcao_credit: [analise, redacao]   # redacao, revisao, financiamento
+  - nome: "TODO Quem fez a verificação numérica"
+    funcao_credit: [validacao]
+resumo: "TODO Resumo de uma a duas linhas para listas, RSS e buscadores."
+resumo_en: "TODO One- or two-line summary in English (optional but recommended)."
+tese: "TODO Tese em duas frases. Vai em negrito na abertura."
+incerteza_principal: "TODO A incerteza que mais afeta a leitura (≈ 100 palavras)."
+fontes:
+  - instituicao: IBGE
+    serie: "TODO Nome da série"
+    codigo: "TODO Código (ex.: SIDRA 1737, var. 2265)"
+    unidade: "%"
+    extraido_em: 2026-01-30
+    url: "https://sidra.ibge.gov.br/tabela/1737"
+dados:
+  - rotulo: "Planilha com a série histórica (CSV)"
+    url: "/dados/conjuntura/ipca.csv"
+codigo_url: "https://github.com/TODO/repositorio-da-nota"
+conflitos: "Os autores declaram não haver conflitos de interesse."
+uso_ia: "TODO Ferramenta e versão; finalidade; partes afetadas; como foi verificado; confirmação de que nenhum dado pessoal foi inserido. Se não houve uso: 'Não houve uso de ferramentas de IA.'"
+---
+import GraficoObservatorio from '../../components/GraficoObservatorio.astro';
+
+{/* Gráfico principal: um dos gráficos do Observatório (jurosInflacao, ipcaMensal, desocupacao, focus).
+    Para um gráfico novo, peça ao Mantenedor do Observatório (ver README, "Adicionar um painel"). */}
+<GraficoObservatorio grafico="jurosInflacao" />
+
+## O que os dados dizem
+
+TODO Fato e dado central, com a comparação relevante (período anterior, expectativa publicada). ≈ 250 palavras.
+Toda afirmação quantitativa indica fonte, série e data de extração.
+
+## Metodologia
+
+TODO Como se calculou, no corpo do texto, com a definição das variáveis. ≈ 100 palavras.

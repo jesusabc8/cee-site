@@ -1,0 +1,37 @@
+name: Nova publicação
+description: Registrar uma pergunta e planejar um produto (Data Insight, Nota, Nota Técnica, Working Paper, Replicação).
+title: "[Publicação] "
+labels: [publicacao]
+body:
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de produto
+      options: [Data Insight, Nota de Conjuntura, Nota Técnica, Working Paper, Replicação, Edição especial]
+    validations: { required: true }
+  - type: input
+    id: linha
+    attributes: { label: Área e linha, placeholder: "A1" }
+    validations: { required: true }
+  - type: textarea
+    id: pergunta
+    attributes: { label: Pergunta, description: Respondível com dado público disponível. }
+    validations: { required: true }
+  - type: textarea
+    id: dados
+    attributes: { label: Fontes e séries previstas, description: Instituição, código da série, termos de uso. }
+    validations: { required: true }
+  - type: input
+    id: responsaveis
+    attributes: { label: Autoria e verificação numérica, placeholder: "autor: @… · verificação: @…" }
+    validations: { required: true }
+  - type: input
+    id: prazo
+    attributes: { label: Data-alvo }
+  - type: checkboxes
+    id: etica
+    attributes:
+      label: Verificação ética
+      options:
+        - label: O produto NÃO usa coleta primária nem dados identificáveis (caso contrário, submeter ao CEP antes).
+          required: true

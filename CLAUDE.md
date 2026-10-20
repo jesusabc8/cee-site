@@ -31,5 +31,18 @@ Sítio do **Centro de Estudos Econômicos (CEE)**, iniciativa estudantil. Fonte 
 - Dados brutos em `data/raw/` são imutáveis; tudo derivado vem de script.
 - Commits pequenos, em português ou inglês, mensagem no imperativo.
 
+## Gráficos
+- No máximo 3 séries, um único eixo y (nunca eixo duplo), paleta validada (`--c1..--c3`, ADR-007).
+- Título descritivo; subtítulo com número só se gerado do dado (`src/lib/conjuntura.ts`). Sempre tabela alternativa e CSV.
+- Novas séries: verificar nos metadados oficiais e registrar `verificacao` em `scripts/data/series.ts`.
+
 ## Comandos
-- `npm ci` · `npm run dev` · `npm run build` · `npm run check`
+- `npm ci` · `npm run dev` · `npm run build` (inclui Pagefind) · `npm run check` · `npm run lint` · `npm test`
+- `npm run data` (extração + processamento + catálogo + testes; requer rede)
+- QA: `npm run qa:links`; `scripts/qa/axe.mjs`, `lighthouse.mjs`, `teclado.mjs`, `overflow.mjs` (com `npm run preview`)
+- Neste ambiente de nuvem: `CHROMIUM_PATH=/opt/pw-browsers/chromium` e `CHROME_PATH=/opt/pw-browsers/chromium` para os scripts de QA;
+  o `fetch` do Node precisa de `NODE_USE_ENV_PROXY=1` (já embutido em `npm run data:fetch`).
+
+## Documentos
+- `README.md` (como publicar), `CONTRIBUTING.md` (revisão em camadas), `docs/DECISIONES.md` (ADR), `docs/PENDIENTES.md`,
+  `docs/PLACEHOLDERS.md`, `docs/LANCAMENTO.md` (checklist de lançamento), `docs/qa/` (evidência de QA).

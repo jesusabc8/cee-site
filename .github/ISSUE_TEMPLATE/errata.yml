@@ -1,0 +1,17 @@
+name: Erro em publicação ou painel
+description: Relatar um erro. Erros confirmados geram errata pública em menos de 7 dias.
+title: "[Errata] "
+labels: [errata]
+body:
+  - type: input
+    id: url
+    attributes: { label: Página afetada (URL) }
+    validations: { required: true }
+  - type: textarea
+    id: erro
+    attributes: { label: O que está errado, description: Número, trecho ou gráfico; o que diverge e como você verificou. }
+    validations: { required: true }
+  - type: input
+    id: identificado
+    attributes: { label: Data em que o erro foi identificado, placeholder: AAAA-MM-DD }
+    validations: { required: true }

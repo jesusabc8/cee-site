@@ -1,0 +1,16 @@
+---
+/**
+ * Atalho para usar um gráfico do Observatório em uma publicação MDX:
+ *   import GraficoObservatorio from '../../components/GraficoObservatorio.astro';
+ *   <GraficoObservatorio grafico="jurosInflacao" />
+ * Gráficos disponíveis (painel Conjuntura): jurosInflacao, ipcaMensal, desocupacao, focus.
+ */
+import Chart from './Chart.astro';
+import { graficosConjuntura } from '../lib/conjuntura';
+import type { Lang } from '../i18n/ui';
+
+interface Props { grafico: 'jurosInflacao' | 'ipcaMensal' | 'desocupacao' | 'focus'; lang?: Lang }
+const { grafico, lang = 'pt-BR' } = Astro.props;
+const g = graficosConjuntura(lang)[grafico];
+---
+<Chart {...g} lang={lang} />

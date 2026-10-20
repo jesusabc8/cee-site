@@ -1,0 +1,25 @@
+name: Nova linha de pesquisa
+description: Propor a abertura de uma linha (decisão do Conselho Acadêmico; Proposta §4.7).
+title: "[Linha] "
+labels: [linha]
+body:
+  - type: input
+    id: area
+    attributes: { label: Área (A, B ou C) }
+    validations: { required: true }
+  - type: textarea
+    id: pergunta
+    attributes: { label: Pergunta-guia escrita }
+    validations: { required: true }
+  - type: textarea
+    id: dados
+    attributes: { label: Dados abertos verificados, description: Fontes, códigos e termos de uso já conferidos. }
+    validations: { required: true }
+  - type: textarea
+    id: equipe
+    attributes: { label: Equipe, description: Ao menos três integrantes e um docente de referência. }
+    validations: { required: true }
+  - type: textarea
+    id: produto
+    attributes: { label: Produto comprometido em até seis meses }
+    validations: { required: true }
