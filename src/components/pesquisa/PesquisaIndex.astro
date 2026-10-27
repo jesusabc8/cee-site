@@ -10,6 +10,10 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const areas = (await getCollection('areas')).sort((a, b) => a.data.ordem - b.data.ordem);
+// Linhas do ano 1 derivadas de linhas.yaml (nunca escritas à mão).
+const ano1 = (await getCollection('linhas', (l) => l.data.ano === 1)).map((l) => l.data.codigo).sort();
+const EXT = { pt: ['zero', 'uma', 'duas', 'três', 'quatro', 'cinco', 'seis', 'sete'], en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven'] };
+const lista = (xs: string[], e: string) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} ${e} ${xs.at(-1)}` : xs.join(''));
 const lente = areas.find((a) => a.data.tipo === 'lente');
 
 const T = {
@@ -18,13 +22,13 @@ const T = {
     lede: 'Um observatório de dados no centro, três áreas permanentes ao redor e uma lente transversal. As áreas foram derivadas das perguntas que a literatura e os documentos de conjuntura colocam, e não de uma taxonomia abstrata.',
     niveis: 'Área, linha e tema',
     niveisTxt: 'A área é um campo permanente de trabalho, com uma pergunta-guia, e só muda por reforma da Carta de Princípios. A linha é uma agenda de dois a três anos dentro de uma área. O tema é um projeto de um semestre que gera um ou mais produtos.',
-    obs: 'Observatório de Dados', obsTxt: 'Não é uma das áreas: é a infraestrutura que as três compartilham — séries econômicas brasileiras em formato limpo e versionado, com dicionário de variáveis, script de extração e data de cada atualização.', obsLink: 'Ver o Observatório',
+    obs: 'Observatório CEE — Economia Brasileira em Dados', obsTxt: 'Não é uma das áreas: é a infraestrutura que as três compartilham — séries econômicas brasileiras em formato limpo e versionado, com dicionário de variáveis, script de extração e data de cada atualização.', obsLink: 'Ver o Observatório',
     lenteTit: 'Lente transversal',
     regras: 'Regras de gestão das linhas',
     regrasList: [
       '<strong>Abertura</strong>: pergunta-guia escrita; dados abertos verificados; ao menos três integrantes e um docente de referência; um produto comprometido em até seis meses.',
       '<strong>Estado latente</strong>: dois semestres consecutivos sem produto publicado.',
-      '<strong>Capacidade primeiro</strong>: no primeiro ano, apenas três linhas (A1, B1 e C1).',
+      `<strong>Capacidade primeiro</strong>: no primeiro ano, apenas ${EXT.pt[ano1.length] ?? ano1.length} linhas (${lista(ano1, 'e')}).`,
       '<strong>Recorte mineiro</strong>: Minas Gerais entra quando agrega algo que as instituições estaduais já existentes não cobrem; não é obrigatório em cada produto.',
     ],
     estadoNota: 'Nenhuma linha está ativa ainda: as linhas previstas para o ano 1 serão abertas quando cumprirem os critérios acima.',
@@ -34,13 +38,13 @@ const T = {
     lede: 'A data observatory at the centre, three permanent areas around it and one cross-cutting lens. The areas were derived from the questions raised by the literature and by current macroeconomic reports, not from an abstract taxonomy.',
     niveis: 'Area, line and topic',
     niveisTxt: 'An area is a permanent field of work with a guiding question, changed only by amending the Charter. A line is a two-to-three-year agenda within an area. A topic is a one-semester project producing one or more outputs.',
-    obs: 'Data Observatory', obsTxt: 'Not an area but the infrastructure all three share — clean, versioned Brazilian economic series with a data dictionary, extraction script and the date of every update.', obsLink: 'Go to the Observatory',
+    obs: 'CEE Observatory — Brazilian Economy in Data', obsTxt: 'Not an area but the infrastructure all three share — clean, versioned Brazilian economic series with a data dictionary, extraction script and the date of every update.', obsLink: 'Go to the Observatory',
     lenteTit: 'Cross-cutting lens',
     regras: 'Rules for research lines',
     regrasList: [
       '<strong>Opening</strong>: a written guiding question; verified open data; at least three members and a faculty adviser; one product committed within six months.',
       '<strong>Dormancy</strong>: two consecutive semesters without a published product.',
-      '<strong>Capacity first</strong>: only three lines in year one (A1, B1 and C1).',
+      `<strong>Capacity first</strong>: only ${EXT.en[ano1.length] ?? ano1.length} lines in year one (${lista(ano1, 'and')}).`,
       '<strong>Minas Gerais focus</strong>: used only when it adds something existing state institutions do not cover.',
     ],
     estadoNota: 'No line is active yet: year-1 lines will open once they meet the criteria above.',

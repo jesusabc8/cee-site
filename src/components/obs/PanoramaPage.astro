@@ -1,6 +1,6 @@
 ---
 /**
- * /observatorio/panorama/: o painel "Panorama da economia brasileira" (o mesmo da página inicial),
+ * /observatorio/panorama/: o resumo semanal "Panorama da economia brasileira" (não é painel; ADR-016) (o mesmo da página inicial),
  * com cabeçalho, data de extração mais recente e acesso ao catálogo.
  */
 import Base from '../../layouts/Base.astro';
@@ -20,7 +20,7 @@ const lede = en
   : 'Atividade, preços e juros, produtividade e contas públicas em um só painel. Séries oficiais extraídas por script e atualizadas semanalmente, após a divulgação do Focus.';
 ---
 <Base title={t} description={lede} lang={lang}>
-  <PageHero lang={lang} eyebrow={en ? 'Data Observatory' : 'Observatório de Dados'} icon="layout-dashboard" title={t} lede={lede}>
+  <PageHero lang={lang} eyebrow={en ? 'CEE Observatory' : 'Observatório CEE'} icon="layout-dashboard" title={t} lede={lede}>
     <p class="mono pano-meta" slot="aside">{en ? 'Latest extraction' : 'Última extração'}: <time datetime={ext.slice(0, 10)}>{fmtDate(new Date(ext), lang)}</time><br />{en ? 'Licence' : 'Licença'}: CC BY 4.0</p>
   </PageHero>
   <Panorama lang={lang} titulo={false} />

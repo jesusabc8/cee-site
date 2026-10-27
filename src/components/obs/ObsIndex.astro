@@ -1,4 +1,9 @@
 ---
+/**
+ * Índice do Observatório CEE — Economia Brasileira em Dados: um observatório, três áreas (areas.yaml),
+ * painéis (paineis.yaml). Contagens e anos saem dos dados; painéis com estado `previsto` aparecem só como cartão
+ * ("Previsto · ano N"), sem página. As lentes transversais são camadas dos painéis, não painéis.
+ */
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../layout/PageHero.astro';
@@ -10,65 +15,122 @@ import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
-const paineis = (await getCollection('paineis')).sort((a, b) =>
-  Number(b.data.estado === 'publicado') - Number(a.data.estado === 'publicado') || a.data.ordem - b.data.ordem);
+const areas = (await getCollection('areas')).filter((a) => a.data.tipo === 'area').sort((a, b) => a.data.ordem - b.data.ordem);
+const paineis = (await getCollection('paineis')).sort((a, b) => a.data.linha.localeCompare(b.data.linha));
+// Contagens derivadas dos dados (nunca escritas à mão).
+const EXTENSO = { pt: ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez'], en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'] };
+const ext = (n: number) => EXTENSO[k][n] ?? String(n);
+const nAreas = ext(areas.length);
+const nPaineis = ext(paineis.length);
 const L = {
-  pt: { t: 'Observatório de Dados', lede: 'A infraestrutura que as três áreas compartilham: séries econômicas brasileiras em formato limpo e versionado, com dicionário de variáveis, script de extração e data de cada atualização. Cada edição é numerada e traz nota de mudanças.',
-    pub: 'Edição', inst: 'Em institucionalização', cons: 'Em construção', cat: 'Catálogo de dados e fontes', catTxt: 'Todas as séries usadas, com código, unidade, termos de uso e registro da verificação contra a fonte oficial.', ver: 'Abrir painel', linha: 'Linha' },
-  en: { t: 'Data Observatory', lede: 'The infrastructure shared by all three areas: clean, versioned Brazilian economic series with a data dictionary, extraction script and the date of every update. Each edition is numbered and carries a change log.',
-    pub: 'Edition', inst: 'Being institutionalised', cons: 'Under construction', cat: 'Data and source catalogue', catTxt: 'Every series used, with code, unit, terms of use and the record of its verification against the official source.', ver: 'Open dashboard', linha: 'Line' },
+  pt: {
+    t: 'Observatório CEE — Economia Brasileira em Dados',
+    lede: `Um único observatório, organizado em ${nAreas} áreas temáticas e ${nPaineis} painéis. Todas as séries estão documentadas no Catálogo de dados e fontes, com fonte, data de extração e vintage.`,
+    area: 'Área', pergunta: 'Pergunta-guia', pub: 'Edição', ver: 'Abrir painel', situacao: 'Ver situação',
+    lentes: 'Lentes transversais', lentesTxt: 'Instituições, Brasil comparado e Minas Gerais como recorte são camadas de análise presentes em cada painel, não painéis próprios.',
+    recursos: 'Também no Observatório', cat: 'Catálogo de dados e fontes', catTxt: 'Todas as séries usadas, com código, unidade, termos de uso e registro da verificação contra a fonte oficial.',
+    rastreio: 'Rastreabilidade', abrirCat: 'Abrir catálogo',
+  },
+  en: {
+    t: 'CEE Observatory — Brazilian Economy in Data',
+    lede: `A single observatory, organised in ${nAreas} thematic areas and ${nPaineis} panels. Every series is documented in the Data and source catalogue, with its source, extraction date and vintage.`,
+    area: 'Area', pergunta: 'Guiding question', pub: 'Edition', ver: 'Open dashboard', situacao: 'See status',
+    lentes: 'Cross-cutting lenses', lentesTxt: 'Institutions, Brazil in comparative perspective and Minas Gerais as a regional focus are analytical layers present in every panel, not separate panels.',
+    recursos: 'Also in the Observatory', cat: 'Data and source catalogue', catTxt: 'Every series used, with code, unit, terms of use and the record of its verification against the official source.',
+    rastreio: 'Traceability', abrirCat: 'Open catalogue',
+  },
 }[k];
 ---
 <Base title={L.t} description={L.lede} lang={lang}>
-  <PageHero lang={lang} eyebrow={k === 'en' ? 'Shared infrastructure' : 'Infraestrutura comum'} icon="database" title={L.t} lede={L.lede} />
-  <section class="section band-paper">
+  <PageHero lang={lang} eyebrow={k === 'en' ? 'Observatory' : 'Observatório'} icon="database" title={L.t} lede={L.lede} />
+
+  {areas.map((a, i) => (
+    <section class:list={['section', 'obs-area', i % 2 ? 'band-white' : 'band-paper']} aria-labelledby={`area-${a.id}`}>
+      <div class="wrap">
+        <header class="obs-area__head reveal">
+          <span class="obs-area__code" aria-hidden="true">{a.data.codigo}</span>
+          <div>
+            <h2 id={`area-${a.id}`}><span class="visually-hidden">{L.area} {a.data.codigo}: </span>{a.data.nome[k]}</h2>
+            <p class="obs-area__q"><span class="eyebrow">{L.pergunta}</span> {a.data.pergunta_guia[k]}</p>
+          </div>
+        </header>
+        <ul class:list={['cards', { 'cards--3': paineis.filter((p) => p.data.area === a.id).length === 3 }]} role="list">
+          {paineis.filter((p) => p.data.area === a.id).map((p) => {
+            const previsto = p.data.estado === 'previsto';
+            const publicado = p.data.estado === 'publicado';
+            const nome = `${p.data.linha}. ${p.data.titulo[k]}`;
+            return (
+              <li class:list={['card', 'reveal', { 'card--previsto': previsto }]}>
+                <p class="card__top">
+                  {publicado ? <span class="card__ed mono">{L.pub} {p.data.versao}</span> : <StatusTag estado={previsto ? 'previsto' : 'construcao'} ano={p.data.ano} lang={lang} />}
+                </p>
+                <h3>{previsto ? nome : <a href={href(`/observatorio/${p.id}/`, lang)}>{nome}</a>}</h3>
+                <p>{p.data.resumo[k]}</p>
+                {p.data.situacao && <p class="card__sit">{p.data.situacao[k]}</p>}
+                {!previsto && <span class="card__go">{publicado ? L.ver : L.situacao} <Icon name="arrow-right" size={15} /></span>}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="section band-paper obs-extra" aria-labelledby="obs-recursos">
     <div class="wrap">
+      <aside class="lentes reveal" aria-labelledby="obs-lentes">
+        <Icon name="layers" size={20} />
+        <p><strong id="obs-lentes">{L.lentes}.</strong> {L.lentesTxt}</p>
+      </aside>
+      <h2 id="obs-recursos" class="obs-extra__t">{L.recursos}</h2>
       <ul class="cards" role="list">
-        <li class="card card--feature reveal">
-          <p class="card__top"><Icon name="layout-dashboard" size={18} /> {k === 'en' ? 'Dashboard · weekly update' : 'Painel · atualização semanal'}</p>
-          <h2><a href={href('/observatorio/panorama/', lang)}>{k === 'en' ? 'Overview of the Brazilian economy' : 'Panorama da economia brasileira'}</a></h2>
+        <li class="card card--cat reveal">
+          <p class="card__top"><Icon name="list-checks" size={18} /> {L.rastreio}</p>
+          <h3><a href={href('/observatorio/catalogo/', lang)}>{L.cat}</a></h3>
+          <p>{L.catTxt}</p>
+          <span class="card__go">{L.abrirCat} <Icon name="arrow-right" size={15} /></span>
+        </li>
+        <li class="card card--resumo reveal">
+          <p class="card__top"><Icon name="layout-dashboard" size={18} /> {k === 'en' ? 'Weekly update' : 'Atualização semanal'}</p>
+          <h3><a href={href('/observatorio/panorama/', lang)}>{k === 'en' ? 'Overview of the Brazilian economy' : 'Panorama da economia brasileira'}</a></h3>
           <p>{k === 'en'
             ? 'Nine charts and a debt-stabilisation calculation: GDP, income per person, inflation against the target and Focus, Selic and real rate, exchange rate, productivity, proximity to the frontier and public debt.'
             : 'Nove gráficos e um cálculo de estabilização da dívida: PIB, renda por habitante, inflação diante da meta e do Focus, Selic e juro real, câmbio, produtividade, proximidade à fronteira e dívida pública.'}</p>
-          <span class="card__go">{L.ver} <Icon name="arrow-right" size={15} /></span>
-        </li>
-        {paineis.map((p) => (
-          <li class="card reveal">
-            <p class="card__top"><span class="mono">{L.linha} {p.data.linha}</span>{p.data.estado === 'publicado' ? <span class="card__ed mono">{L.pub} {p.data.versao}</span> : <StatusTag estado="construcao" lang={lang} />}</p>
-            <h2><a href={href(`/observatorio/${p.id}/`, lang)}>{p.data.titulo[k]}</a></h2>
-            <p>{p.data.resumo[k]}</p>
-            <p class="card__sit">{p.data.situacao[k]}</p>
-            <span class="card__go">{p.data.estado === 'publicado' ? L.ver : (k === 'en' ? 'See status' : 'Ver situação')} <Icon name="arrow-right" size={15} /></span>
-          </li>
-        ))}
-        <li class="card card--cat reveal">
-          <p class="card__top"><Icon name="list-checks" size={18} /> {k === 'en' ? 'Traceability' : 'Rastreabilidade'}</p>
-          <h2><a href={href('/observatorio/catalogo/', lang)}>{L.cat}</a></h2>
-          <p>{L.catTxt}</p>
-          <span class="card__go">{k === 'en' ? 'Open catalogue' : 'Abrir catálogo'} <Icon name="arrow-right" size={15} /></span>
+          <span class="card__go">{k === 'en' ? 'See the charts' : 'Ver os gráficos'} <Icon name="arrow-right" size={15} /></span>
         </li>
       </ul>
     </div>
   </section>
 </Base>
 <style>
+  .obs-area { padding-block: clamp(48px, 5vw, 72px); }
+  .obs-area__head { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+  .obs-area__code { display: grid; place-items: center; flex: none; width: 52px; height: 52px; background: var(--navy); color: var(--white); font: 600 1.5rem / 1 var(--sans); border-radius: var(--radius); }
+  .obs-area__head h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+  .obs-area__q { margin: 10px 0 0; font: italic 400 1.0625rem / 1.55 var(--serif); color: #2e3b4b; max-width: 70ch; }
+  .obs-area__q .eyebrow { display: block; font-style: normal; margin-bottom: 4px; }
+  .obs-extra { padding-top: clamp(40px, 4vw, 56px); }
+  .obs-extra__t { font-size: 1.375rem; margin: 40px 0 20px; }
+  .lentes { display: flex; gap: 14px; align-items: flex-start; padding: 16px 20px; border-left: 3px solid var(--petrol); background: var(--white); color: var(--muted); }
+  .lentes :global(svg) { color: var(--petrol); flex: none; margin-top: 2px; }
+  .lentes p { margin: 0; font-size: 0.9375rem; line-height: 1.55; }
+  .lentes strong { color: var(--navy); }
   .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
   .card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 30px 30px 26px; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--navy); transition: box-shadow 0.25s, transform 0.25s; min-width: 0; }
   .card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
-  .card--feature { grid-column: 1 / -1; background: linear-gradient(135deg, var(--navy), #18467a); color: #cfdce8; border-top-color: var(--sky); }
-  .card--feature .card__top, .card--feature .card__go { color: var(--sky); }
+  .card--previsto { background: transparent; border-style: dashed; border-top: 3px solid var(--slate); }
+  .card--previsto:hover { box-shadow: none; transform: none; }
+  .card--previsto h3 { color: var(--muted); }
   .card__top { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--petrol); font: 600 11.5px / 1.2 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
   .card__top .mono { letter-spacing: 0.04em; }
-  .card__ed { margin-left: auto; color: var(--navy); }
-  .card h2 { font-size: 1.375rem; line-height: 1.2; }
-  .card h2 a { color: var(--navy); text-decoration: none; }
-  .card--feature h2 a { color: var(--white); }
-  .card h2 a::after { content: ''; position: absolute; inset: 0; }
-  .card h2 a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
-  .card--feature h2 a:focus-visible { outline-color: var(--sky); }
+  .card__ed { color: var(--navy); }
+  .card h3 { font-size: 1.375rem; line-height: 1.2; }
+  .card h3 a { color: var(--navy); text-decoration: none; }
+  .card h3 a::after { content: ''; position: absolute; inset: 0; }
+  .card h3 a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
   .card p { margin: 0; font-size: 0.96875rem; line-height: 1.55; }
   .card__sit { font-size: 0.875rem !important; color: var(--muted); }
-  .card--feature p { max-width: 70ch; }
   .card__go { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 8px; font: 600 12px / 1 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); }
+  @media (min-width: 64rem) { .cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 52rem) { .cards { grid-template-columns: minmax(0, 1fr); } .card { padding: 24px 20px; } }
 </style>

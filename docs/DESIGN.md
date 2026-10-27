@@ -52,6 +52,7 @@ colunas (`.split`) com ritmo mais curto e régua entre blocos. Cabeçalho fixo d
 | Formatos | `home/Formatos.astro` | Banda marinha 3×2; estado honesto por tipo de publicação |
 | Método | `home/Metodo.astro` | Abas verticais (↑↓ ←→ Home End); sem JS, etapas em sequência |
 | Participe | `home/Participe.astro` | Banda petróleo, três fatos da Proposta §7 |
+| Estado | `StatusTag.astro` | Rótulos com ano ("Prevista (ano N)", "Previsto · ano N") recebem `ano` do dado; nunca escrever o ano à mão |
 | Ícones | `ui/Icon.astro` | Lucide (traço 1,6, `currentColor`); tamanho numérico em px |
 
 ## Gráficos

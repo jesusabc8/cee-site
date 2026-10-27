@@ -8,42 +8,67 @@
   estado: prevista
   ano: 1
   nome:
-    pt: Atividade, inflação e política monetária
-    en: Activity, inflation and monetary policy
+    pt: Ciclo e Equilíbrios Macroeconômicos
+    en: Cycle and Macroeconomic Balances
+  # Arquitetura de 2026-10 (ADR-015): a antiga linha A1 "Atividade, inflação e política monetária" foi dividida.
+  # Ficam aqui as perguntas e métodos sobre o ciclo; inflação e política monetária passam à A2.
   pergunta_guia:
-    pt: A desaceleração é cíclica ou estrutural, e como evoluem a inflação e as expectativas em relação à meta?
-    en: Is the slowdown cyclical or structural, and how are inflation and expectations evolving relative to the target?
+    pt: Onde está a economia no ciclo e quão sustentáveis são seus equilíbrios internos e externos?
+    en: Where is the economy in the cycle, and how sustainable are its internal and external balances?
   perguntas:
     pt:
       - A desaceleração é cíclica ou estrutural?
+    en:
+      - Is the slowdown cyclical or structural?
+  metodos:
+    pt:
+      - Séries com ajuste sazonal e decomposição por setores
+      - Comparação com as projeções publicadas (Focus, BCB, FMI), sem projeção própria
+      - Medidas alternativas de hiato do produto e sua dispersão
+    en:
+      - Seasonally adjusted series and sectoral decomposition
+      - Comparison with published forecasts (Focus, BCB, IMF), without in-house forecasts
+      - Alternative output-gap measures and their dispersion
+  fontes: IBGE (Contas Nacionais Trimestrais, PIM, PMS, PMC, PNAD Contínua); BCB (SGS, Focus); FGV; MTE (Novo Caged)
+- id: a2
+  codigo: A2
+  area: a
+  estado: prevista
+  ano: 1
+  nome:
+    pt: Política Monetária
+    en: Monetary Policy
+  # Perguntas e métodos vindos da antiga linha A1 (inflação, expectativas, juro real). Painel: /observatorio/conjuntura/ (Edição 1.0).
+  # TODO (docs/PENDIENTES.md): a página mostra a desocupação (PNAD), mas as fontes desta linha não listam PNAD nem Novo Caged.
+  pergunta_guia:
+    pt: Como evoluem a inflação e as expectativas em relação à meta?
+    en: How are inflation and expectations evolving relative to the target?
+  perguntas:
+    pt:
       - De onde vieram as surpresas de inflação (administrados, alimentos, serviços)?
       - Como evoluem as expectativas em relação à meta?
       - Qual a trajetória da taxa de juros real ex-ante?
     en:
-      - Is the slowdown cyclical or structural?
       - Where did inflation surprises come from (administered prices, food, services)?
       - How are expectations evolving relative to the target?
       - What is the path of the ex-ante real interest rate?
   metodos:
     pt:
-      - Séries com ajuste sazonal e decomposição por setores
       - Decomposição do IPCA por grupos
       - Comparação com as projeções publicadas (Focus, BCB, FMI), sem projeção própria
-      - Medidas alternativas de hiato do produto e sua dispersão
     en:
-      - Seasonally adjusted series and sectoral decomposition
       - Decomposition of the IPCA by groups
       - Comparison with published forecasts (Focus, BCB, IMF), without in-house forecasts
-      - Alternative output-gap measures and their dispersion
-  fontes: IBGE (Contas Nacionais Trimestrais, PIM, PMS, PMC, IPCA, PNAD Contínua); BCB (SGS, Focus, Relatório de Política Monetária); FGV; MTE (Novo Caged)
-- id: a2
-  codigo: A2
+  fontes: IBGE (IPCA); BCB (SGS, Focus, Relatório de Política Monetária)
+- id: a3
+  codigo: A3
   area: a
   estado: planejada
   ano: 2
   nome:
-    pt: Política fiscal e dívida pública
-    en: Fiscal policy and public debt
+    pt: Política Fiscal
+    en: Fiscal Policy
+  # Antiga linha A2 "Política fiscal e dívida pública" (conteúdo sem alteração).
   pergunta_guia:
     pt: Qual o espaço fiscal sob juros reais elevados?
     en: How much fiscal space is there under high real interest rates?
@@ -68,8 +93,8 @@
   estado: prevista
   ano: 1
   nome:
-    pt: Produtividade agregada e setorial
-    en: Aggregate and sectoral productivity
+    pt: Crescimento e Produtividade
+    en: Growth and Productivity
   pergunta_guia:
     pt: Quanto do crescimento é acumulação de fatores e quanto é eficiência?
     en: How much of growth is factor accumulation and how much is efficiency?
@@ -98,8 +123,8 @@
   estado: planejada
   ano: 2
   nome:
-    pt: Tecnologia, IA e capacidade de absorção
-    en: Technology, AI and absorptive capacity
+    pt: Tecnologia e Capacidade de Absorção
+    en: Technology and Absorptive Capacity
   pergunta_guia:
     pt: Que barreiras limitam o uso produtivo de novas tecnologias?
     en: What barriers limit the productive use of new technologies?
@@ -127,8 +152,8 @@
   estado: prevista
   ano: 1
   nome:
-    pt: Pobreza e distribuição de renda (Observatório da Pobreza)
-    en: Poverty and income distribution (Poverty Observatory)
+    pt: Pobreza, Renda e Desigualdade
+    en: Poverty, Income and Inequality
   pergunta_guia:
     pt: Como evoluíram a pobreza e a desigualdade, e quanto da variação vem de crescimento e quanto de redistribuição?
     en: How have poverty and inequality evolved, and how much of the change comes from growth versus redistribution?
@@ -157,8 +182,8 @@
   estado: planejada
   ano: 2
   nome:
-    pt: Informalidade e mercado de trabalho
-    en: Informality and the labour market
+    pt: Trabalho e Informalidade
+    en: Work and Informality
   pergunta_guia:
     pt: Por que o rendimento informal recua com a desocupação no mínimo histórico?
     en: Why are informal earnings falling while unemployment is at a historic low?

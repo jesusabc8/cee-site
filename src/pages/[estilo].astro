@@ -77,7 +77,8 @@ const escala = ['--step-5', '--step-4', '--step-3', '--step-2', '--step-1', '--s
         <Box variant="limits"><ul><li>Primeiro limite declarado.</li><li>Segundo limite declarado.</li></ul></Box>
         <Box variant="note"><p>Observação metodológica curta.</p></Box>
         <Box variant="placeholder"><p>Texto provisório, sempre visível como tal.</p></Box>
-        <p><StatusTag estado="prevista" /> <StatusTag estado="planejada" /> <StatusTag estado="ativa" /> <StatusTag estado="latente" /> <StatusTag estado="construcao" /></p>
+        <p><StatusTag estado="prevista" ano={1} /> <StatusTag estado="planejada" ano={2} /> <StatusTag estado="ativa" /> <StatusTag estado="latente" /> <StatusTag estado="construcao" /> <StatusTag estado="previsto" ano={2} /></p>
+        <p class="meta">Rótulos com ano ("Prevista (ano N)", "Previsto · ano N") recebem `ano` do dado (linhas.yaml, paineis.yaml); nunca escrever o ano à mão.</p>
       </div>
     </section>
 

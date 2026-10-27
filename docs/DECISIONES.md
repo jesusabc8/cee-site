@@ -84,3 +84,44 @@ O texto vem de `src/site.config.ts` (`institutionalLine`, `useUniversityName`).
 **Consequências.**
 - Os chips passam a "Trabalho e renda" (desocupação e pobreza).
 - A API do ComexStat limita a frequência de consultas (HTTP 429): o extrator espera 11 s entre requisições e em cada nova tentativa. Se a cota não se recuperar, mantém-se o vintage anterior.
+
+## ADR-014 — Arquitetura do Observatório: um observatório, três áreas, seis painéis (2026-10-27) — revisada pela ADR-015
+**Contexto.** A coordenação aprovou a nova arquitetura e os novos nomes do Observatório.
+**Decisão.**
+- Título: "Observatório CEE — Economia Brasileira em Dados" (EN "CEE Observatory — Brazilian Economy in Data").
+- A página é organizada por área (A, B, C), com nome, pergunta-guia e os cartões dos painéis.
+- Painéis do ano 1: A1 Conjuntura e Política Monetária (Edição 1.0); B1 Crescimento e Produtividade e C1 Pobreza, Renda e Desigualdade, ambos em construção.
+- Painéis do ano 2: A2 Finanças Públicas e Dívida, B2 Tecnologia e Capacidade de Absorção e C2 Trabalho e Informalidade. Têm estado `previsto-ano2` e aparecem só como cartão, sem página, sem rota e sem imagem OG.
+- Os nomes e as perguntas-guia das áreas foram atualizados em `areas.yaml`, que também alimenta Pesquisa, a portada e o rodapé.
+- Os slugs (`conjuntura`, `crescimento`, `pobreza`) não mudaram, portanto não há redirecionamentos.
+- O cartão "Panorama da economia brasileira" (resumo semanal) saiu do topo da grade, onde se lia como um painel a mais. Agora fica em "Também no Observatório", junto do Catálogo, sem o rótulo "Painel". Os gráficos e cálculos não mudaram.
+**Consequências.** Os nomes das linhas de pesquisa (`linhas.yaml`) continuam diferentes dos nomes dos painéis com o mesmo código, por exemplo a linha A1 "Atividade, inflação e política monetária" e o painel A1 "Conjuntura e Política Monetária". A coordenação precisa decidir se unifica os nomes (ver `docs/PENDIENTES.md`).
+
+## ADR-015 — Área A com três painéis; linhas e painéis com o mesmo nome (2026-10-27) — atribuição da Edição 1.0 revista pela ADR-016
+**Contexto.** A coordenação dividiu a área A em três painéis e decidiu que linha e painel com o mesmo código têm o mesmo nome.
+**Decisão.**
+- Área A: A1 Ciclo e Equilíbrios Macroeconômicos (ano 1), A2 Política Monetária e A3 Política Fiscal (previstos · ano 2).
+- O antigo painel A2 "Finanças Públicas e Dívida" passa a ser A3 "Política Fiscal".
+- O setor externo fica dentro de A1. A antiga linha candidata "A3 setor externo e câmbio" não é publicada.
+- No total são 3 áreas e 7 painéis.
+- Em `linhas.yaml`, a antiga linha A1 "Atividade, inflação e política monetária" foi dividida, sem texto novo:
+  - as perguntas e métodos sobre o ciclo ficam em A1;
+  - os sobre inflação, expectativas e juro real passam a A2;
+  - a antiga linha A2 "Política fiscal e dívida pública" passa, sem alteração de conteúdo, a A3.
+- As demais linhas adotam o nome do painel: B1 Crescimento e Produtividade, B2 Tecnologia e Capacidade de Absorção, C1 Pobreza, Renda e Desigualdade, C2 Trabalho e Informalidade.
+**Consequências.** A página `/observatorio/conjuntura/` (Edição 1.0, mesmo slug e conteúdo) fica provisoriamente sob A1, com o título "A1. Ciclo e Equilíbrios Macroeconômicos". O conteúdo dela é de política monetária. A coordenação decide se passa à A2 antes de publicar (`docs/PENDIENTES.md`).
+
+## ADR-016 — Edição 1.0 passa a A2; anos derivados dos dados; Panorama mantido (2026-10-27)
+**Decisão.**
+- **Edição 1.0 em A2.** A edição 1.0 de `/observatorio/conjuntura/` passa ao painel **A2 Política Monetária**: três de seus quatro gráficos são de inflação, política monetária e expectativas.
+  - O slug `conjuntura`, os gráficos, as séries, a metodologia e os arquivos arquivados não mudam.
+  - Título, citação, metadados e imagem OG leem "A2. Política Monetária".
+  - A2 e sua linha passam ao ano 1.
+- **A1 sem edição.** A1 Ciclo e Equilíbrios Macroeconômicos fica "previsto · ano 1", sem página.
+- **Distribuição por ano.** Ano 1: A1, A2, B1, C1. Ano 2: A3, B2, C2.
+- **Anos e contagens derivados.** `paineis.yaml` e `linhas.yaml` têm o campo `ano`. `StatusTag` monta "Previsto · ano N" / "Prevista (ano N)" a partir dele. As contagens do sítio também saem dos dados: áreas e painéis na página do Observatório, linhas do ano 1 em Pesquisa.
+- **Pergunta-guia da linha A1:** "Onde está a economia no ciclo e quão sustentáveis são seus equilíbrios internos e externos?". Sem métodos nem fontes sobre o setor externo até que os indicadores sejam definidos.
+- **Panorama.** O nome definitivo do resumo semanal é "Panorama da economia brasileira". Fica em "Também no Observatório", com a etiqueta "Atualização semanal". Continua distinto de "Brasil em números" (portada).
+**Consequências.**
+- A regra "Capacidade primeiro" em Pesquisa passa a listar as quatro linhas do ano 1 (antes, três na Proposta).
+- Os gráficos do Panorama poderão ser redistribuídos entre A1, A2 e A3 à medida que esses painéis forem publicados.

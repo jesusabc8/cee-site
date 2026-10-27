@@ -1,5 +1,5 @@
 /**
- * Gráficos do painel de Conjuntura (A1), no mesmo renderizador e na mesma ficha do Panorama
+ * Gráficos do painel A2 Política Monetária (página /observatorio/conjuntura/), no mesmo renderizador e na mesma ficha do Panorama
  * (src/lib/viz/render.ts, ChartCard). Todo texto com número é gerado a partir do dado
  * processado — nunca escrito à mão.
  */
