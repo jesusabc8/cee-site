@@ -45,7 +45,7 @@ const eyebrow = area.data.tipo === 'lente' ? T.lente : `${T.area} ${area.data.co
         <div>
           {linhas.map((l) => (
             <article class="linha" id={l.data.codigo.toLowerCase()}>
-              <h3><span class="code">{l.data.codigo}</span> {l.data.nome[k]} <StatusTag estado={l.data.estado} lang={lang} /></h3>
+              <h3><span class="code">{l.data.codigo}</span> {l.data.nome[k]} <StatusTag estado={l.data.estado} ano={l.data.ano} lang={lang} /></h3>
               <p class="linha__q">{l.data.pergunta_guia[k]}</p>
               <div class="linha__grid">
                 <div><h4 class="eyebrow">{T.perguntas}</h4><ul>{l.data.perguntas[k].map((p) => <li>{p}</li>)}</ul></div>

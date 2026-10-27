@@ -19,9 +19,14 @@ Sítio do **Centro de Estudos Econômicos (CEE)**, iniciativa estudantil. Fonte 
 5. **Privacidade (LGPD).** Sem cookies, sem analytics de terceiros, sem CDNs. Fontes autoalojadas. Sem formulários próprios.
 
 ## Decisões de conteúdo já tomadas
-- Linhas A1, B1, C1: estado `prevista` (não `ativa`) até cumprirem §4.7. A2, B2, C2: `planejada`.
-- Painéis reais: Conjuntura (A1) e "Panorama da economia brasileira" (página inicial e `/observatorio/panorama/`).
-  Pobreza (C1) e Crescimento (B1) aparecem "em institucionalização", sem cifras.
+- Linhas do ano 1 (A1, A2, B1, C1): estado `prevista` (não `ativa`) até cumprirem §4.7. Ano 2 (A3, B2, C2): `planejada`.
+  O ano vem do campo `ano` de `linhas.yaml`/`paineis.yaml`; rótulos ("Previsto · ano N") e contagens são derivados, nunca escritos à mão.
+- Observatório CEE — Economia Brasileira em Dados: três áreas (`src/data/areas.yaml`), painéis em `src/data/paineis.yaml`,
+  cada um com a linha de mesmo código e mesmo nome (`src/data/linhas.yaml`). A2 Política Monetária = página
+  `/observatorio/conjuntura/` (Edição 1.0; slug mantido). A1 Ciclo e Equilíbrios Macroeconômicos "previsto · ano 1" (sem
+  página); B1 e C1 "em construção", sem cifras; A3 Política Fiscal, B2 e C2 "previsto · ano 2" (sem página). As lentes
+  transversais são camadas dos painéis, não painéis. "Brasil em números" (portada) e "Panorama da economia brasileira"
+  (resumo semanal, `/observatorio/panorama/`, em "Também no Observatório") são blocos distintos e não são painéis (ADR-016).
 - `config.launched = false` (sem `CEE_LANCADO=1`) → noindex + robots Disallow.
 - `config.showEvents = false` (critérios §5.4).
 

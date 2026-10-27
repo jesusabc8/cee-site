@@ -6,7 +6,7 @@ import { getPublicacoes } from '../../lib/publicacoes';
 
 export async function getStaticPaths() {
   const pubs = await getPublicacoes();
-  const paineis = await getCollection('paineis');
+  const paineis = await getCollection('paineis', (p) => p.data.estado !== 'previsto');
   const lic = 'Iniciativa estudantil · Acesso aberto · CC BY 4.0';
   return [
     { params: { slug: 'default' }, props: { rotulo: 'Análise econômica empírica sobre o Brasil', titulo: 'Rigorosa, reprodutível e de acesso aberto', meta: lic } },
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     })),
     ...paineis.map((p) => ({
       params: { slug: `painel-${p.id}` },
-      props: { rotulo: 'Observatório de Dados', titulo: p.data.titulo.pt, meta: p.data.versao ? `Edição ${p.data.versao} · ${lic}` : lic },
+      props: { rotulo: 'Observatório CEE', titulo: `${p.data.linha}. ${p.data.titulo.pt}`, meta: p.data.versao ? `Edição ${p.data.versao} · ${lic}` : lic },
     })),
   ];
 }

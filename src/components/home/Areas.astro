@@ -39,7 +39,7 @@ const ICONE: Record<string, string> = { a: 'trending-up', b: 'chart-column-incre
           <p class="area__q">{a.data.pergunta_guia[k]}</p>
           <ul class="area__linhas">
             {linhas.filter((l) => l.data.area === a.id).map((l) => (
-              <li><b>{l.data.codigo}</b><span>{l.data.nome[k]}</span><StatusTag estado={l.data.estado} lang={lang} /></li>
+              <li><b>{l.data.codigo}</b><span>{l.data.nome[k]}</span><StatusTag estado={l.data.estado} ano={l.data.ano} lang={lang} /></li>
             ))}
           </ul>
           <a class="area__go" href={href(`/pesquisa/${a.id}/`, lang)}>{en ? 'See the area' : 'Ver a área'}<span class="visually-hidden"> {a.data.nome[k]}</span> <Icon name="arrow-right" size={15} /></a>

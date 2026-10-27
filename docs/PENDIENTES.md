@@ -30,6 +30,14 @@ Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publ
   mudam para PPC 2021 (US$ 3,00 e US$ 8,30). Nesse caso, ajustar o rótulo e o processador e registrar a quebra de série.
 - **SIDRA 5877 / 5817 (ODS 1.2.1 e 1.1.1)**: valores diferentes dos da SIS (26,5 % e 4,7 % em 2024) e linha não documentada. Não usadas (ADR-013).
 
+## Observatório (arquitetura de 2026-10)
+- **TODO — slug de A2.** Renomear `/observatorio/conjuntura/` para `/observatorio/politica-monetaria/` numa edição futura, com
+  redirecionamento 301 (e `/en/`). O slug foi mantido por causa dos vintages arquivados (data e hash) e de eventuais citações externas.
+- **TODO — desocupação (SIDRA 6381)** continua na página de A2. É indicador de ciclo e provavelmente migrará para A1 quando A1 for publicado.
+- **TODO — fontes da linha A2.** A linha A2 não lista PNAD nem Novo Caged, mas a página mostra a desocupação (PNAD). Resolver junto com o item anterior.
+- **A1 e setor externo:** os indicadores ainda não foram definidos. Por isso não há métodos nem fontes sobre o setor externo na linha A1.
+- **Panorama da economia brasileira:** os gráficos poderão ser redistribuídos entre A1, A2 e A3 à medida que esses painéis forem publicados (ADR-016).
+
 ## Conteúdo
 - **Autorização escrita para o nome da Universidade** na faixa superior (ADR-012; Proposta §8.5).
 - Endereço de e-mail do Centro (ver `docs/PLACEHOLDERS.md`).

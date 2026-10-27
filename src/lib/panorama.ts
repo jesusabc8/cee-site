@@ -1,5 +1,5 @@
 /**
- * Painel "Panorama da economia brasileira" (página inicial e Observatório).
+ * Resumo semanal "Panorama da economia brasileira" (página inicial e /observatorio/panorama/; não é painel, ADR-016).
  * Lê data/processed no build e devolve, para cada gráfico, a especificação do renderizador
  * (src/lib/viz/render.ts) e os metadados da ficha: título, subtítulo gerado do dado, unidade,
  * descrição textual, fontes com data de extração, CSV, nota e tabela alternativa.

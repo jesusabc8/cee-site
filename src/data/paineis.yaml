@@ -1,4 +1,8 @@
-# Painéis do Observatório de Dados — Proposta v3.0, Quadro 11.
+# Painéis do Observatório CEE — Economia Brasileira em Dados (Proposta v3.0, Quadro 11; arquitetura aprovada em 2026-10).
+# Três áreas (areas.yaml); cada painel corresponde a uma linha de pesquisa com o mesmo código e nome (linhas.yaml).
+# `ano` define o ano do plano; contagens e rótulos "Previsto · ano N" do sítio são derivados daqui (ADR-016).
+# O painel A2 (Política Monetária) usa a página /observatorio/conjuntura/ (Edição 1.0); o slug `conjuntura` é mantido
+# por causa dos vintages arquivados e de eventuais citações (TODO em docs/PENDIENTES.md: renomear com 301).
 # Um painel só passa a "publicado" com dados verificados no catálogo (data/CATALOGO.md),
 # edição numerada, metodologia e changelog. Até lá, nenhuma cifra aparece no sítio.
 - id: pobreza
@@ -6,12 +10,13 @@
   area: c
   linha: C1
   estado: em-institucionalizacao
+  ano: 1
   titulo:
-    pt: Pobreza, renda e desigualdade
-    en: Poverty, income and inequality
+    pt: Pobreza, Renda e Desigualdade
+    en: Poverty, Income and Inequality
   resumo:
-    pt: Pobreza monetária, distribuição de renda e desigualdade no Brasil, a partir da Síntese de Indicadores Sociais do IBGE, com comparação internacional.
-    en: Monetary poverty, income distribution and inequality in Brazil, based on IBGE's Summary of Social Indicators, with international comparison.
+    pt: Evolução da pobreza, da renda e da desigualdade no Brasil.
+    en: Trends in poverty, income and inequality in Brazil.
   situacao:
     pt: Existe uma versão construída individualmente pelo proponente do CEE. Antes de ser publicada aqui como edição 1, precisa passar pela verificação numérica independente, receber número de edição, nota de mudanças e DOI.
     en: A version built individually by CEE's proposer exists. Before being published here as edition 1, it must pass independent numerical verification and receive an edition number, change log and DOI.
@@ -21,12 +26,13 @@
   area: b
   linha: B1
   estado: em-institucionalizacao
+  ano: 1
   titulo:
-    pt: Crescimento e produtividade do Brasil, 1950–2023
-    en: Growth and productivity in Brazil, 1950–2023
+    pt: Crescimento e Produtividade
+    en: Growth and Productivity
   resumo:
-    pt: Contabilidade do crescimento com dados da Penn World Table 11.0, com comparações internacionais selecionadas.
-    en: Growth accounting with Penn World Table 11.0 data, with selected international comparisons.
+    pt: Fontes do crescimento de longo prazo e da produtividade da economia brasileira.
+    en: Sources of long-run growth and productivity in the Brazilian economy.
   situacao:
     pt: Painel construído individualmente pelo proponente; falta institucionalizá-lo com versão, DOI e nota de mudanças. Há uma discrepância não reconciliada na decomposição (a soma dos componentes difere do crescimento médio do PIB do mesmo painel), que precisa ser resolvida antes de qualquer publicação.
     en: Panel built individually by the proposer; it still needs a version number, DOI and change log. An unreconciled discrepancy in the decomposition (the components do not add up to the panel's average GDP growth) must be resolved before publication.
@@ -34,16 +40,17 @@
 - id: conjuntura
   ordem: 3
   area: a
-  linha: A1
+  linha: A2
   estado: publicado
+  ano: 1
   versao: "1.0"
   dados_dir: data/processed/conjuntura
   titulo:
-    pt: Conjuntura — inflação, juros, expectativas e desocupação
-    en: Business cycle — inflation, interest rates, expectations and unemployment
+    pt: Política Monetária
+    en: Monetary Policy
   resumo:
-    pt: Séries de conjuntura extraídas diretamente das APIs oficiais do IBGE e do Banco Central do Brasil, com data de extração, vintages arquivados e verificação automática a cada atualização.
-    en: Business-cycle series extracted directly from the official APIs of IBGE and the Central Bank of Brazil, with extraction dates, archived vintages and automated checks at every update.
+    pt: Condução da política monetária e seus efeitos sobre a economia.
+    en: The conduct of monetary policy and its effects on the economy.
   situacao:
     pt: Edição 1.0. Atualização automática semanal; cada extração é arquivada com data e hash.
     en: Edition 1.0. Weekly automated update; every extraction is archived with its date and hash.
@@ -76,3 +83,51 @@
     - versao: "1.0"
       data: 2026-10-20
       nota: Primeira edição. Séries IPCA (SIDRA 1737), meta Selic (SGS 432), desocupação (SIDRA 6381) e expectativas Focus para o IPCA.
+- id: ciclo
+  ordem: 4
+  area: a
+  linha: A1
+  estado: previsto
+  ano: 1
+  titulo:
+    pt: Ciclo e Equilíbrios Macroeconômicos
+    en: Cycle and Macroeconomic Balances
+  resumo:
+    pt: Leitura do ciclo econômico e dos equilíbrios macroeconômicos do Brasil.
+    en: Reading Brazil's business cycle and macroeconomic balances.
+- id: politica-fiscal
+  ordem: 5
+  area: a
+  linha: A3
+  estado: previsto
+  ano: 2
+  titulo:
+    pt: Política Fiscal
+    en: Fiscal Policy
+  resumo:
+    pt: Política fiscal e sustentabilidade da dívida pública.
+    en: Fiscal policy and public debt sustainability.
+- id: tecnologia
+  ordem: 6
+  area: b
+  linha: B2
+  estado: previsto
+  ano: 2
+  titulo:
+    pt: Tecnologia e Capacidade de Absorção
+    en: Technology and Absorptive Capacity
+  resumo:
+    pt: Difusão de tecnologia e capacidade da economia de absorvê-la.
+    en: Technology diffusion and the economy's capacity to absorb it.
+- id: trabalho-informalidade
+  ordem: 7
+  area: c
+  linha: C2
+  estado: previsto
+  ano: 2
+  titulo:
+    pt: Trabalho e Informalidade
+    en: Work and Informality
+  resumo:
+    pt: Mercado de trabalho e persistência da informalidade.
+    en: The labour market and the persistence of informality.

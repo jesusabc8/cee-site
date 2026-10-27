@@ -1,11 +1,14 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
-export type Estado = 'prevista' | 'ativa' | 'latente' | 'planejada' | 'construcao';
-interface Props { estado: Estado; lang?: Lang }
-const { estado, lang = 'pt-BR' } = Astro.props;
+export type Estado = 'prevista' | 'ativa' | 'latente' | 'planejada' | 'construcao' | 'previsto';
+/** `ano` vem do dado (linhas.yaml ou paineis.yaml) e substitui {ano} no rótulo ("Previsto · ano N"). */
+interface Props { estado: Estado; ano?: number; lang?: Lang }
+const { estado, ano, lang = 'pt-BR' } = Astro.props;
 const t = useTranslations(lang);
+const rotulo = t(`status.${estado}`);
+if (rotulo.includes('{ano}') && ano === undefined) throw new Error(`StatusTag: estado "${estado}" exige \`ano\`.`);
 ---
-<span class={`status status--${estado}`}>{t(`status.${estado}`)}</span>
+<span class={`status status--${estado}`}>{rotulo.replace('{ano}', String(ano))}</span>
 <style>
   .status {
     display: inline-block;
