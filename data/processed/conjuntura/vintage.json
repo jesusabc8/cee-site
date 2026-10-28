@@ -17,8 +17,8 @@
     "linhas": 177,
     "primeiro": "2012-01",
     "ultimo": "2026-09",
-    "desatualizado": false,
-    "falha": null
+    "desatualizado": true,
+    "falha": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/1737/periodos/201201-209912/variaveis/63%7C2265?localidades=N1%5Ball%5D: TypeError: fetch failed"
   },
   "selic_meta": {
     "nome": "Taxa de juros — Meta Selic definida pelo Copom",
@@ -27,8 +27,8 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
-    "extraido_em": "2026-10-20T01:38:01.210Z",
-    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-10-20",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-10-28",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -88,7 +88,7 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "cb79d871a36c3301ea6f8352440eabddd0549f8035b3a7b9a04805a0d44cab75"
+        "sha256": "eae07e710f4abf9fec997aa81602895a4a6b5bfcbd7ae646ccf3c882d90f0940"
       }
     ],
     "linhas": 178,
@@ -115,8 +115,8 @@
     "linhas": 174,
     "primeiro": "2012-03",
     "ultimo": "2026-08",
-    "desatualizado": false,
-    "falha": null
+    "desatualizado": true,
+    "falha": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/6381/periodos/201203-209912/variaveis/4099%7C4103?localidades=N1%5Ball%5D: TypeError: fetch failed"
   },
   "focus_ipca": {
     "nome": "Expectativas de mercado (Focus) — IPCA anual, mediana",
@@ -125,17 +125,17 @@
     "unidade": "% (variação no ano de referência)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-10-20T01:38:01.210Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_ipca/2026-10-20",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_ipca/2026-10-28",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "9424ea67524d2697bd5261bbcb2456ddf9d822ba3bace45f2d2f9e727a9f2a3d"
+        "sha256": "79db1669a0ef095fbbe47822a01c2eac0b1074932f9a120f1fcb790c5ae77548"
       }
     ],
-    "linhas": 3515,
+    "linhas": 3540,
     "primeiro": "2024-01-02",
-    "ultimo": "2026-10-16",
+    "ultimo": "2026-10-23",
     "desatualizado": false,
     "falha": null
   }

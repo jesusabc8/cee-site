@@ -1,0 +1,26 @@
+{
+  "serie": "conta_corrente",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 23079",
+  "extraido_em": "2026-10-28T13:44:36.334Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "4e8af2ba4bf5cfbd987b7e1b75c80de5b7d47e0c8d71d24116860523d6b5c9fe",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "990a63dbde1bfcf6c5f78f88e232342ca8a63db5997f6e4f98e65b0f4d1ac834",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=28/10/2026",
+      "sha256": "c667f4c3db150ca69963fcb77ca67bc1ee3e87d2e3218dcef6bae0c2b00cb11d",
+      "bytes": 2167
+    }
+  ]
+}

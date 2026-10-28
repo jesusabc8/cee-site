@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "serie": "ipca",
+    "data": "2026-10-28T13:50:33.297Z",
+    "erro": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/1737/periodos/201201-209912/variaveis/63%7C2265?localidades=N1%5Ball%5D: TypeError: fetch failed"
+  },
+  {
+    "serie": "desocupacao",
+    "data": "2026-10-28T13:50:33.297Z",
+    "erro": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/6381/periodos/201203-209912/variaveis/4099%7C4103?localidades=N1%5Ball%5D: TypeError: fetch failed"
+  },
+  {
+    "serie": "pib",
+    "data": "2026-10-28T13:50:33.297Z",
+    "erro": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/5932/periodos/all/variaveis/6561%7C6564?localidades=N1%5Ball%5D&classificacao=11255%5B90707%5D: TypeError: fetch failed"
+  },
+  {
+    "serie": "comercio",
+    "data": "2026-10-28T13:50:33.297Z",
+    "erro": "Error: Falha ao baixar https://api-comexstat.mdic.gov.br/general: Error: HTTP 503"
+  }
+]

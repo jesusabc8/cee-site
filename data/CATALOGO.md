@@ -5,23 +5,23 @@
 
 | Série | Painel | Código | Unidade | Frequência | Verificada em | Última extração | Cobertura |
 |---|---|---|---|---|---|---|---|
-| IPCA — variação mensal e acumulada em 12 meses | conjuntura | SIDRA 1737, variáveis 63 e 2265 (Brasil) | % | mensal | 2026-10-20 | 2026-10-20 | 2012-01 → 2026-09 |
-| Taxa de juros — Meta Selic definida pelo Copom | conjuntura | SGS 432 | % a.a. | diária | 2026-10-20 | 2026-10-20 | 2012-01 → 2026-10 |
-| Taxa de desocupação (PNAD Contínua), trimestre móvel | conjuntura | SIDRA 6381, variáveis 4099 e 4103 (Brasil) | % | trimestre móvel (mensal) | 2026-10-20 | 2026-10-20 | 2012-03 → 2026-08 |
-| Expectativas de mercado (Focus) — IPCA anual, mediana | conjuntura | Olinda Expectativas v1, ExpectativasMercadoAnuais, Indicador='IPCA', baseCalculo=0 | % (variação no ano de referência) | diária (dias úteis) | 2026-10-20 | 2026-10-20 | 2024-01-02 → 2026-10-16 |
-| PIB a preços de mercado — taxa interanual e taxa contra o trimestre anterior (dessazonalizada) | panorama | SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil) | % | trimestral | 2026-10-20 | 2026-10-20 | 1996-T1 → 2026-T2 |
-| Taxa de câmbio — livre — dólar americano (venda), PTAX | panorama | SGS 1 | R$/US$ | diária | 2026-10-20 | 2026-10-20 | 2012-01 → 2026-10 |
-| Transações correntes acumuladas em 12 meses em relação ao PIB | panorama | SGS 23079 | % do PIB | mensal | 2026-10-20 | 2026-10-20 | 2012-01 → 2026-08 |
+| IPCA — variação mensal e acumulada em 12 meses | conjuntura | SIDRA 1737, variáveis 63 e 2265 (Brasil) | % | mensal | 2026-10-20 | 2026-10-20 ⚠ falhou | 2012-01 → 2026-09 |
+| Taxa de juros — Meta Selic definida pelo Copom | conjuntura | SGS 432 | % a.a. | diária | 2026-10-20 | 2026-10-28 | 2012-01 → 2026-10 |
+| Taxa de desocupação (PNAD Contínua), trimestre móvel | conjuntura | SIDRA 6381, variáveis 4099 e 4103 (Brasil) | % | trimestre móvel (mensal) | 2026-10-20 | 2026-10-20 ⚠ falhou | 2012-03 → 2026-08 |
+| Expectativas de mercado (Focus) — IPCA anual, mediana | conjuntura | Olinda Expectativas v1, ExpectativasMercadoAnuais, Indicador='IPCA', baseCalculo=0 | % (variação no ano de referência) | diária (dias úteis) | 2026-10-20 | 2026-10-28 | 2024-01-02 → 2026-10-23 |
+| PIB a preços de mercado — taxa interanual e taxa contra o trimestre anterior (dessazonalizada) | panorama | SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil) | % | trimestral | 2026-10-20 | 2026-10-20 ⚠ falhou | 1996-T1 → 2026-T2 |
+| Taxa de câmbio — livre — dólar americano (venda), PTAX | panorama | SGS 1 | R$/US$ | diária | 2026-10-20 | 2026-10-28 | 2012-01 → 2026-10 |
+| Transações correntes acumuladas em 12 meses em relação ao PIB | panorama | SGS 23079 | % do PIB | mensal | 2026-10-20 | 2026-10-28 | 2012-01 → 2026-09 |
 | NFSP — resultado primário do setor público consolidado, acumulado em 12 meses | panorama | SGS 5793 | % do PIB (NFSP: positivo = déficit) | mensal | 2026-10-20 | 2026-10-20 | 2012-01 → 2026-08 |
 | Dívida bruta do governo geral (DBGG) | panorama | SGS 13762 | % do PIB | mensal | 2026-10-20 | 2026-10-20 | 2012-01 → 2026-08 |
 | Dívida líquida do setor público (DLSP) | panorama | SGS 4513 | % do PIB | mensal | 2026-10-20 | 2026-10-20 | 2012-01 → 2026-08 |
-| Expectativas de mercado (Focus) — indicadores anuais, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0; Indicador ∈ {IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário} | conforme o indicador (% ; R$/US$ ; % do PIB) | diária (dias úteis) | 2026-10-20 | 2026-10-20 | 2026-06-22 → 2026-10-16 |
-| Expectativas de mercado (Focus) — IPCA mensal, mediana | panorama | Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 | % (variação no mês de referência) | diária (dias úteis) | 2026-10-20 | 2026-10-20 | 2026-09-08 → 2026-10-16 |
-| Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-10-20 | 2026-10-20 | 2012-01-02 → 2026-10-16 |
+| Expectativas de mercado (Focus) — indicadores anuais, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0; Indicador ∈ {IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário} | conforme o indicador (% ; R$/US$ ; % do PIB) | diária (dias úteis) | 2026-10-20 | 2026-10-28 | 2026-06-30 → 2026-10-23 |
+| Expectativas de mercado (Focus) — IPCA mensal, mediana | panorama | Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 | % (variação no mês de referência) | diária (dias úteis) | 2026-10-20 | 2026-10-28 | 2026-09-14 → 2026-10-23 |
+| Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-10-20 | 2026-10-28 | 2012-01-02 → 2026-10-23 |
 | Metas para a inflação e intervalos de tolerância | panorama | Página "Histórico: meta de inflação vs. inflação efetiva" (API de conteúdo do sítio do BCB) | % | anual (1999–2024); meta contínua desde 2025 | 2026-10-20 | 2026-10-20 | 2005 → 2025 |
 | Penn World Table, versão 11.0 | panorama | pwt110.xlsx (Dataverse, DOI 10.34894/FABVLR, arquivo 554105) | conforme a variável | anual (1950–2023) | 2026-10-20 | 2026-10-20 | ARG → USA |
 | PIB acumulado dos últimos 12 meses, em US$ milhões | panorama | SGS 4192 | US$ milhões (12 meses) | mensal | 2026-10-20 | 2026-10-20 | 2014-01 → 2026-09 |
-| Exportações e importações brasileiras de bens, total mensal | panorama | ComexStat API /general: flow export e import, monthDetail, metricFOB | US$ FOB | mensal | 2026-10-20 | 2026-10-20 | 2014-01 → 2026-09 |
+| Exportações e importações brasileiras de bens, total mensal | panorama | ComexStat API /general: flow export e import, monthDetail, metricFOB | US$ FOB | mensal | 2026-10-20 | 2026-10-20 ⚠ falhou | 2014-01 → 2026-09 |
 | Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18) | panorama | SIS 2025, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia | % da população | anual (2012–) | 2026-10-20 | 2026-10-20 | 2012 → 2024 |
 
 ## ipca — IPCA — variação mensal e acumulada em 12 meses
@@ -112,7 +112,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=20/10/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=28/10/2026`
 
 ## primario — NFSP — resultado primário do setor público consolidado, acumulado em 12 meses
 
@@ -126,7 +126,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=20/10/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=28/10/2026`
 
 ## dbgg — Dívida bruta do governo geral (DBGG)
 
@@ -139,7 +139,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=20/10/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=28/10/2026`
 
 ## dlsp — Dívida líquida do setor público (DLSP)
 
@@ -152,7 +152,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=20/10/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=28/10/2026`
 
 ## focus_anual — Expectativas de mercado (Focus) — indicadores anuais, mediana
 
@@ -164,9 +164,9 @@
 - **Nome oficial retornado pela fonte:** IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário
 - **Observações:** IPCA anual vem da série focus_ipca (painel Conjuntura).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-06-22'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-06-22'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-06-22'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-06-30'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-06-30'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-06-30'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
   - … (6 requisições, uma por ano)
 
 ## focus_mensal_ipca — Expectativas de mercado (Focus) — IPCA mensal, mediana
@@ -179,7 +179,7 @@
 - **Nome oficial retornado pela fonte:** ExpectativaMercadoMensais: Indicador, Data, DataReferencia (MM/AAAA), Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
 - **Observações:** Horizonte observado em 16/10/2026: até 10/2028. Usado para compor a trajetória do IPCA em 12 meses (cálculo do CEE).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-09-05'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-09-13'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
 
 ## focus_12m_ipca — Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana
 
@@ -226,7 +226,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2018`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2019&dataFinal=31/12/2023`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=20/10/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=28/10/2026`
 
 ## comercio — Exportações e importações brasileiras de bens, total mensal
 

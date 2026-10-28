@@ -17,8 +17,8 @@
     "linhas": 122,
     "primeiro": "1996-T1",
     "ultimo": "2026-T2",
-    "desatualizado": false,
-    "falha": null
+    "desatualizado": true,
+    "falha": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/5932/periodos/all/variaveis/6561%7C6564?localidades=N1%5Ball%5D&classificacao=11255%5B90707%5D: TypeError: fetch failed"
   },
   "ptax": {
     "nome": "Taxa de câmbio — livre — dólar americano (venda), PTAX",
@@ -27,8 +27,8 @@
     "unidade": "R$/US$",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
-    "vintage_dir": "data/raw/bcb-sgs/ptax/2026-10-20",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "vintage_dir": "data/raw/bcb-sgs/ptax/2026-10-28",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -88,7 +88,7 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "de7e04cc2cb71de7c13075274d99b645200a72f2ff20f45f415cd2b3160154c9"
+        "sha256": "808fb60b9f97318fbdbffcc046bb42ef95d65b77c8bcb88a5c4b69f9c778dc0c"
       }
     ],
     "linhas": 178,
@@ -104,8 +104,8 @@
     "unidade": "% do PIB",
     "frequencia": "mensal",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=23079",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
-    "vintage_dir": "data/raw/bcb-sgs/conta_corrente/2026-10-20",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "vintage_dir": "data/raw/bcb-sgs/conta_corrente/2026-10-28",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -117,12 +117,12 @@
       },
       {
         "arquivo": "2022.json",
-        "sha256": "c85d07b7e10de439e54c46b9c8712391167caf8f4f9f964368399654b014664a"
+        "sha256": "c667f4c3db150ca69963fcb77ca67bc1ee3e87d2e3218dcef6bae0c2b00cb11d"
       }
     ],
-    "linhas": 176,
+    "linhas": 177,
     "primeiro": "2012-01",
-    "ultimo": "2026-08",
+    "ultimo": "2026-09",
     "desatualizado": false,
     "falha": null
   },
@@ -220,37 +220,37 @@
     "unidade": "conforme o indicador (% ; R$/US$ ; % do PIB)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-10-20T04:21:27.322Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_anual/2026-10-20",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_anual/2026-10-28",
     "arquivos": [
       {
         "arquivo": "indicador-1.json",
-        "sha256": "1af9d2752017282d49e727ed3d68477de917b92bc6f1d45fcae1b371a3a36d62"
+        "sha256": "50838d30274d1ae82c3f76e7658b78623ca2b2eb008fd80c677db527f00c549a"
       },
       {
         "arquivo": "indicador-2.json",
-        "sha256": "3658d08e8e0edec7f02874ab4b8386a6a7e632f7be23698581359671e6c49aad"
+        "sha256": "64c0af733dda7d4b8c80280af6ccfd02173bc0d84c4b6a7eec6aa8ca57e11c35"
       },
       {
         "arquivo": "indicador-3.json",
-        "sha256": "b285a80db5c4a9745db862e8031fefa90ce073e50cff3acc8766ff8d3e93129e"
+        "sha256": "23a2ae22396826541d2aa827fac8ed58110769910c7b3934b13cf2f434b237ae"
       },
       {
         "arquivo": "indicador-4.json",
-        "sha256": "f68536830540cf074f2d067851544e6b82e44bc17c2490780f72d9fdfcea8e0d"
+        "sha256": "8028231e4a80b26a9a01f66b48df2dc2554678713a8538df1de974012aabce74"
       },
       {
         "arquivo": "indicador-5.json",
-        "sha256": "0326c2dfcae56c1f27557645179708a7d4c78f878d02dac4ea2c193f072b70ef"
+        "sha256": "93d742c615e5ef4692ae71ac5a5fa1bfb11623986dafc46c385159b743e6dfe5"
       },
       {
         "arquivo": "indicador-6.json",
-        "sha256": "7e93fd1a605bbbf6a33ef0eb533b9353b509521fa214cd1f5a9bd63ac5d81fa8"
+        "sha256": "d00f44067fa0e30bcb732b278cdfe40f605c96185e14da66dc3d6644f55f6d93"
       }
     ],
-    "linhas": 3735,
-    "primeiro": "2026-06-22",
-    "ultimo": "2026-10-16",
+    "linhas": 3690,
+    "primeiro": "2026-06-30",
+    "ultimo": "2026-10-23",
     "desatualizado": false,
     "falha": null
   },
@@ -261,17 +261,17 @@
     "unidade": "% (variação no mês de referência)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_mensal_ipca/2026-10-20",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_mensal_ipca/2026-10-28",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "a3b1b76b50871048244d0b87c1e6a1441f82ec93ed6045fed4f3645f93e6499c"
+        "sha256": "c3a860c6abe8fb502f7df4c19b16836408cbeaa57c7b124d0ba7cc71e235d26c"
       }
     ],
-    "linhas": 700,
-    "primeiro": "2026-09-08",
-    "ultimo": "2026-10-16",
+    "linhas": 725,
+    "primeiro": "2026-09-14",
+    "ultimo": "2026-10-23",
     "desatualizado": false,
     "falha": null
   },
@@ -282,17 +282,17 @@
     "unidade": "% (próximos 12 meses)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_12m_ipca/2026-10-20",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_12m_ipca/2026-10-28",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "9cc0e1c3c3a6a69cb1fcb36b615bcfec01c5e9d1fb57de8d3e3d6e65b15d8279"
+        "sha256": "70e08630ae8b87d388b9a0d9571078faefdbb48665f336fe2511580d06d83dd4"
       }
     ],
-    "linhas": 3715,
+    "linhas": 3720,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-10-16",
+    "ultimo": "2026-10-23",
     "desatualizado": false,
     "falha": null
   },
@@ -389,8 +389,8 @@
     "linhas": 153,
     "primeiro": "2014-01",
     "ultimo": "2026-09",
-    "desatualizado": false,
-    "falha": null
+    "desatualizado": true,
+    "falha": "Error: Falha ao baixar https://api-comexstat.mdic.gov.br/general: Error: HTTP 503"
   },
   "pobreza": {
     "nome": "Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18)",

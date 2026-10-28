@@ -3,22 +3,22 @@
   "d": 82.87,
   "d_periodo": "2026-08",
   "d_fonte": "BCB, SGS 13762 (DBGG, % do PIB)",
-  "r": 6.72,
+  "r": 6.47,
   "g": 1.71,
-  "s_estrela": 4.08,
+  "s_estrela": 3.88,
   "horizonte": [
     {
       "ano": 2027,
-      "selic": 12,
-      "ipca": 4.3206,
-      "juro_real": 7.36,
-      "pib": 1.3246
+      "selic": 11.75,
+      "ipca": 4.3368,
+      "juro_real": 7.11,
+      "pib": 1.3145
     },
     {
       "ano": 2028,
-      "selic": 10.5,
+      "selic": 10,
       "ipca": 3.75,
-      "juro_real": 6.51,
+      "juro_real": 6.02,
       "pib": 1.81
     },
     {
@@ -29,7 +29,7 @@
       "pib": 2
     }
   ],
-  "data_focus": "2026-10-16",
+  "data_focus": "2026-10-23",
   "primario_atual": -0.62,
   "primario_periodo": "2026-08",
   "primario_fonte": "BCB, SGS 5793 (NFSP primária 12 meses, sinal invertido)",

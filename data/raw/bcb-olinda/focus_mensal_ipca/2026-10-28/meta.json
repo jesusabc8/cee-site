@@ -1,0 +1,14 @@
+{
+  "serie": "focus_mensal_ipca",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0",
+  "extraido_em": "2026-10-28T13:44:36.334Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-09-13'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "c3a860c6abe8fb502f7df4c19b16836408cbeaa57c7b124d0ba7cc71e235d26c",
+      "bytes": 66066
+    }
+  ]
+}

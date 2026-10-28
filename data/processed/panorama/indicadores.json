@@ -57,7 +57,7 @@
     "serie": "SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil)",
     "extraido_em": "2026-10-20T04:18:16.854Z",
     "url": "https://sidra.ibge.gov.br/tabela/5932",
-    "desatualizado": false
+    "desatualizado": true
   },
   {
     "id": "ipca",
@@ -197,7 +197,7 @@
     "serie": "SIDRA 1737, variáveis 63 e 2265 (Brasil)",
     "extraido_em": "2026-10-20T04:21:27.322Z",
     "url": "https://sidra.ibge.gov.br/tabela/1737",
-    "desatualizado": false
+    "desatualizado": true
   },
   {
     "id": "selic",
@@ -207,7 +207,7 @@
     "valor": 13.75,
     "unidade": "% a.a.",
     "descricao": "Definida pelo Copom",
-    "referencia": "2026-10-20",
+    "referencia": "2026-10-28",
     "tipo_ref": "dia",
     "variacao": "■",
     "spark": [
@@ -335,7 +335,7 @@
     "ancora": "grafico-juros",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 432",
-    "extraido_em": "2026-10-20T01:38:01.210Z",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
     "desatualizado": false
   },
@@ -344,12 +344,12 @@
     "grupo": "externo",
     "icone": "arrow-left-right",
     "titulo": "Câmbio",
-    "valor": 5.0564,
+    "valor": 5.3346,
     "unidade": "R$/US$",
     "descricao": "PTAX venda, última cotação",
-    "referencia": "2026-10-19",
+    "referencia": "2026-10-27",
     "tipo_ref": "dia",
-    "variacao": "▼",
+    "variacao": "▲",
     "spark": [
       3.342,
       3.3523,
@@ -470,12 +470,12 @@
       5.1139,
       5.1532,
       5.1447,
-      5.0522
+      5.0878
     ],
     "ancora": "grafico-cambio",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 1",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
     "desatualizado": false
   },
@@ -484,14 +484,13 @@
     "grupo": "externo",
     "icone": "globe",
     "titulo": "Conta corrente",
-    "valor": -2.47,
+    "valor": -2.33,
     "unidade": "% PIB",
     "descricao": "Transações correntes, acumulado em 12 meses",
-    "referencia": "2026-08",
+    "referencia": "2026-09",
     "tipo_ref": "mes",
-    "variacao": "▼",
+    "variacao": "▲",
     "spark": [
-      -1.75,
       -1.63,
       -1.44,
       -1.7,
@@ -609,13 +608,14 @@
       -2.47,
       -2.46,
       -2.37,
-      -2.44,
-      -2.47
+      -2.45,
+      -2.5,
+      -2.33
     ],
     "ancora": null,
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 23079",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "extraido_em": "2026-10-28T13:44:36.334Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=23079",
     "desatualizado": false
   },
@@ -758,7 +758,7 @@
     "serie": "ComexStat · SGS 4192",
     "extraido_em": "2026-10-20T13:45:50.700Z",
     "url": "https://comexstat.mdic.gov.br/pt/geral",
-    "desatualizado": false
+    "desatualizado": true
   },
   {
     "id": "primario",
@@ -1178,7 +1178,7 @@
     "serie": "SIDRA 6381, variáveis 4099 e 4103 (Brasil)",
     "extraido_em": "2026-10-20T01:38:01.210Z",
     "url": "https://sidra.ibge.gov.br/tabela/6381",
-    "desatualizado": false
+    "desatualizado": true
   },
   {
     "id": "pobreza",
