@@ -27,8 +27,8 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
-    "extraido_em": "2026-10-28T13:44:36.334Z",
-    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-10-28",
+    "extraido_em": "2026-11-02T13:39:29.235Z",
+    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-11-02",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -88,12 +88,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "eae07e710f4abf9fec997aa81602895a4a6b5bfcbd7ae646ccf3c882d90f0940"
+        "sha256": "1954333d1044acbad1d4279c3422223831df1a854372a973cf8f463f20dc032b"
       }
     ],
-    "linhas": 178,
+    "linhas": 179,
     "primeiro": "2012-01",
-    "ultimo": "2026-10",
+    "ultimo": "2026-11",
     "desatualizado": false,
     "falha": null
   },

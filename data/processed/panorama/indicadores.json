@@ -207,11 +207,10 @@
     "valor": 13.75,
     "unidade": "% a.a.",
     "descricao": "Definida pelo Copom",
-    "referencia": "2026-10-28",
+    "referencia": "2026-11-02",
     "tipo_ref": "dia",
     "variacao": "■",
     "spark": [
-      14,
       13.75,
       13,
       12.25,
@@ -330,12 +329,13 @@
       14.25,
       14,
       13.75,
+      13.75,
       13.75
     ],
     "ancora": "grafico-juros",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 432",
-    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "extraido_em": "2026-11-02T13:39:29.235Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
     "desatualizado": false
   },
@@ -344,10 +344,10 @@
     "grupo": "externo",
     "icone": "arrow-left-right",
     "titulo": "Câmbio",
-    "valor": 5.3346,
+    "valor": 5.4212,
     "unidade": "R$/US$",
     "descricao": "PTAX venda, última cotação",
-    "referencia": "2026-10-27",
+    "referencia": "2026-10-30",
     "tipo_ref": "dia",
     "variacao": "▲",
     "spark": [
@@ -470,12 +470,12 @@
       5.1139,
       5.1532,
       5.1447,
-      5.0878
+      5.1294
     ],
     "ancora": "grafico-cambio",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 1",
-    "extraido_em": "2026-10-28T13:44:36.334Z",
+    "extraido_em": "2026-11-02T13:39:29.235Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
     "desatualizado": false
   },
@@ -758,21 +758,20 @@
     "serie": "ComexStat · SGS 4192",
     "extraido_em": "2026-10-20T13:45:50.700Z",
     "url": "https://comexstat.mdic.gov.br/pt/geral",
-    "desatualizado": true
+    "desatualizado": false
   },
   {
     "id": "primario",
     "grupo": "fiscal",
     "icone": "wallet",
     "titulo": "Resultado primário",
-    "valor": -0.62,
+    "valor": -0.52,
     "unidade": "% PIB",
     "descricao": "Setor público consolidado, 12 meses (+ superávit, − déficit)",
-    "referencia": "2026-08",
+    "referencia": "2026-09",
     "tipo_ref": "mes",
     "variacao": "▲",
     "spark": [
-      -3.04,
       -2.21,
       -2.51,
       -2.48,
@@ -891,12 +890,13 @@
       -1.14,
       -1.19,
       -0.67,
-      -0.62
+      -0.62,
+      -0.52
     ],
     "ancora": "grafico-estabilizacao",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 5793",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "extraido_em": "2026-11-02T13:39:29.235Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=5793",
     "desatualizado": false
   },
@@ -905,14 +905,13 @@
     "grupo": "fiscal",
     "icone": "building-2",
     "titulo": "Dívida bruta",
-    "valor": 82.87,
+    "valor": 82.93,
     "unidade": "% PIB",
     "descricao": "Governo geral (DBGG)",
-    "referencia": "2026-08",
+    "referencia": "2026-09",
     "tipo_ref": "mes",
     "variacao": "▲",
     "spark": [
-      69.98,
       69.78,
       70.84,
       69.84,
@@ -1031,12 +1030,13 @@
       81.04,
       81.95,
       82.55,
-      82.87
+      82.87,
+      82.93
     ],
     "ancora": "grafico-divida",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 13762",
-    "extraido_em": "2026-10-20T04:17:12.993Z",
+    "extraido_em": "2026-11-02T13:39:29.235Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=13762",
     "desatualizado": false
   },
