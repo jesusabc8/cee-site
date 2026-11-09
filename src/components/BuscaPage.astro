@@ -20,17 +20,21 @@ const L = lang === 'en'
     <noscript><p class="meta">{L.semjs}</p></noscript>
   </div>
 </Base>
-<script is:inline define:vars={{ base }}>
-  const s = document.createElement('script');
-  s.src = `${base}/pagefind/pagefind-ui.js`;
-  s.onload = () => {
-    const el = document.getElementById('busca');
-    new PagefindUI({ element: '#busca', showSubResults: true, showImages: false, resetStyles: false,
-      translations: { placeholder: el.dataset.label } });
-    const input = el.querySelector('input');
-    if (input) { input.id = 'busca-campo'; input.setAttribute('aria-labelledby', 'busca-label'); }
-  };
-  document.head.appendChild(s);
+<script>
+  // Script processado pelo Astro (arquivo externo): sem script inline, por causa da CSP.
+  declare const PagefindUI: new (opts: Record<string, unknown>) => unknown;
+  const el = document.getElementById('busca');
+  if (el) {
+    const s = document.createElement('script');
+    s.src = `${el.dataset.base ?? ''}/pagefind/pagefind-ui.js`;
+    s.addEventListener('load', () => {
+      new PagefindUI({ element: '#busca', showSubResults: true, showImages: false, resetStyles: false,
+        translations: { placeholder: el.dataset.label } });
+      const input = el.querySelector('input');
+      if (input) { input.id = 'busca-campo'; input.setAttribute('aria-labelledby', 'busca-label'); }
+    });
+    document.head.appendChild(s);
+  }
 </script>
 <style>
   .busca {

@@ -33,12 +33,12 @@ const escala = ['--step-5', '--step-4', '--step-3', '--step-2', '--step-1', '--s
       <h2 class="section__title">Cor</h2>
       <ul class="swatches">
         {cores.map(([v, n]) => (
-          <li><span class="swatch" style={`background:var(${v})`}></span><code>{v}</code><span class="meta">{n}</span></li>
+          <li><span class="swatch" data-v={v}></span><code>{v}</code><span class="meta">{n}</span></li>
         ))}
       </ul>
-      <h3 style="margin-top:var(--s-5)">Séries de gráfico (até 3 por gráfico; c4–c5 só para comparação)</h3>
+      <h3 class="mt5">Séries de gráfico (até 3 por gráfico; c4–c5 só para comparação)</h3>
       <ul class="swatches">
-        {series.map((v) => (<li><span class="swatch" style={`background:var(${v})`}></span><code>{v}</code></li>))}
+        {series.map((v) => (<li><span class="swatch" data-v={v}></span><code>{v}</code></li>))}
       </ul>
     </section>
 
@@ -46,11 +46,11 @@ const escala = ['--step-5', '--step-4', '--step-3', '--step-2', '--step-1', '--s
       <h2 class="section__title">Tipografia</h2>
       <div class="stack">
         {escala.map((s) => (
-          <p style={`font-family:var(--serif);font-size:var(${s});line-height:1.25`}>
+          <p class="amostra" data-s={s}>
             <code class="meta">{s}</code> Crescimento sem ganho de produtividade
           </p>
         ))}
-        <p class="tabular" style="font-size:var(--step-2)">Algarismos tabulares: 1.234,56 · 10,0 · 99,9</p>
+        <p class="tabular amostra-tab">Algarismos tabulares: 1.234,56 · 10,0 · 99,9</p>
         <p class="eyebrow">Rótulo (eyebrow)</p>
         <p class="meta">Metadados · 20 out. 2026 · Área A</p>
       </div>
@@ -106,6 +106,34 @@ const escala = ['--step-5', '--step-4', '--step-3', '--step-2', '--step-1', '--s
   </div>
 </Base>
 <style>
+  .mt5 { margin-top: var(--s-5); }
+  .amostra { font-family: var(--serif); line-height: 1.25; }
+  .amostra-tab { font-size: var(--step-2); }
+  .swatch[data-v='--navy'] { background: var(--navy); }
+  .swatch[data-v='--petrol'] { background: var(--petrol); }
+  .swatch[data-v='--steel'] { background: var(--steel); }
+  .swatch[data-v='--slate'] { background: var(--slate); }
+  .swatch[data-v='--sky'] { background: var(--sky); }
+  .swatch[data-v='--mist'] { background: var(--mist); }
+  .swatch[data-v='--paper'] { background: var(--paper); }
+  .swatch[data-v='--line'] { background: var(--line); }
+  .swatch[data-v='--line-strong'] { background: var(--line-strong); }
+  .swatch[data-v='--ink'] { background: var(--ink); }
+  .swatch[data-v='--muted'] { background: var(--muted); }
+  .swatch[data-v='--topbar'] { background: var(--topbar); }
+  .swatch[data-v='--c1'] { background: var(--c1); }
+  .swatch[data-v='--c2'] { background: var(--c2); }
+  .swatch[data-v='--c3'] { background: var(--c3); }
+  .swatch[data-v='--c4'] { background: var(--c4); }
+  .swatch[data-v='--c5'] { background: var(--c5); }
+  .amostra[data-s='--step-5'] { font-size: var(--step-5); }
+  .amostra[data-s='--step-4'] { font-size: var(--step-4); }
+  .amostra[data-s='--step-3'] { font-size: var(--step-3); }
+  .amostra[data-s='--step-2'] { font-size: var(--step-2); }
+  .amostra[data-s='--step-1'] { font-size: var(--step-1); }
+  .amostra[data-s='--step-0'] { font-size: var(--step-0); }
+  .amostra[data-s='--step--1'] { font-size: var(--step--1); }
+  .amostra[data-s='--step--2'] { font-size: var(--step--2); }
   .swatches { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: var(--s-3); }
   .swatches li { display: grid; grid-template-columns: 2.5rem 1fr; column-gap: var(--s-3); align-items: center; font-size: var(--step--1); }
   .swatches .meta { grid-column: 2; }

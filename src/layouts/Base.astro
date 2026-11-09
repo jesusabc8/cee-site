@@ -63,12 +63,12 @@ const alt = hasTranslation
     <link rel="alternate" type="application/rss+xml" title={`${config.sigla} · ${lang === 'en' ? 'Publications' : 'Publicações'}`} href={`${base}/rss.xml`} />
     {isHome && <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org', '@type': 'Organization', name: `${t('site.name')} (${config.sigla})`,
-      url: new URL(import.meta.env.BASE_URL, Astro.site).href, description: t('site.tagline'), sameAs: [config.repoUrl],
+      url: new URL(import.meta.env.BASE_URL, Astro.site).href, description: t('site.tagline'),
       logo: new URL(`${base}/brand/cee-lockup.svg`, Astro.site).href,
     })} />}
     <link rel="icon" href={`${base}/brand/cee-favicon.svg`} type="image/svg+xml" />
-    <!-- Marca o documento como com JavaScript (ativa revelações ao rolar); sem JS, tudo aparece. -->
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <!-- Marca o documento como com JavaScript (ativa revelações ao rolar); sem JS, tudo aparece. Externo por causa da CSP. -->
+    <script is:inline src={`${base}/js/js-flag.js`}></script>
     <slot name="head" />
   </head>
   <body>

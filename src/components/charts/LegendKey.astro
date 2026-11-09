@@ -1,0 +1,22 @@
+---
+/**
+ * Amostra de legenda em SVG: a cor vai em atributos (stroke/fill), sem estilo inline, para cumprir a CSP
+ * (style-src 'self'). Estilos: line, dash, step, bar, band, marker.
+ */
+interface Props { style: string; cor: string }
+const { style, cor } = Astro.props;
+---
+{style === 'bar' ? (
+  <svg class="key" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><rect width="12" height="12" fill={cor} /></svg>
+) : style === 'band' ? (
+  <svg class="key" width="18" height="12" viewBox="0 0 18 12" aria-hidden="true" focusable="false"><rect x="0.6" y="0.6" width="16.8" height="10.8" fill="rgb(138 164 179 / 18%)" stroke={cor} stroke-width="1.2" stroke-dasharray="3 2" /></svg>
+) : style === 'step' ? (
+  <svg class="key" width="18" height="8" viewBox="0 0 18 8" aria-hidden="true" focusable="false"><path d="M0 1 H17 V8" fill="none" stroke={cor} stroke-width="2" /></svg>
+) : style === 'marker' ? (
+  <svg class="key" width="22" height="12" viewBox="0 0 22 12" aria-hidden="true" focusable="false"><line x1="0" x2="22" y1="6" y2="6" stroke={cor} stroke-width="2" stroke-dasharray="4 3" /><rect x="7.5" y="2.5" width="7" height="7" fill={cor} transform="rotate(45 11 6)" /></svg>
+) : (
+  <svg class="key" width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" focusable="false"><line x1="0" x2="22" y1="3" y2="3" stroke={cor} stroke-width="2.4" stroke-dasharray={style === 'dash' ? '5 3' : undefined} /></svg>
+)}
+<style>
+  .key { display: inline-block; flex: none; vertical-align: middle; }
+</style>

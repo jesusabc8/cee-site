@@ -179,12 +179,16 @@ const jsonld = {
           <li><a href="#dados"><Icon name="database" size={16} /> {L.dados}</a></li>
           <li><a href="#citar"><Icon name="quote" size={16} /> {k === 'en' ? 'How to cite' : 'Como citar'}</a></li>
           <li><a href="#versoes"><Icon name="history" size={16} /> {k === 'en' ? 'Versions and errata' : 'Versões e erratas'}</a></li>
-          <li><button type="button" class="link-btn" onclick="window.print()"><Icon name="printer" size={16} /> {L.imprimir}</button></li>
+          <li><button type="button" class="link-btn" data-print><Icon name="printer" size={16} /> {L.imprimir}</button></li>
         </ul>
       </div>
     </aside>
   </div>
 </Base>
+<script>
+  // Sem atributo onclick (a CSP não admite manipuladores inline).
+  document.querySelectorAll('[data-print]').forEach((b) => b.addEventListener('click', () => window.print()));
+</script>
 <style>
   .pub__eyebrow { margin: 0 0 4px; font: 600 var(--fs-label) / 1.4 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--sky); }
   .pub__eyebrow a { color: inherit; text-decoration: none; }

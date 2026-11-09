@@ -287,7 +287,7 @@ export function renderSvg(spec: ChartSpec, width: number, xFrom?: number): strin
   });
 
   // Camada de interação (cursor), preenchida no navegador
-  out.push(`<g class="viz-hover" style="display:none"><line class="viz-cursor" y1="${L.top}" y2="${H - L.bottom}"/></g>`);
+  out.push(`<g class="viz-hover is-off"><line class="viz-cursor" y1="${L.top}" y2="${H - L.bottom}"/></g>`);
   out.push('</svg>');
   return out.join('');
 }

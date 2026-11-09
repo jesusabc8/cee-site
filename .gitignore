@@ -21,3 +21,7 @@ docs/fuentes/normas/*.tex
 docs/fuentes/normas/*.sty
 # Lista de nomes proibidos usada por scripts/qa/seguranca.mjs (nunca versionada).
 docs/seguranca/nomes-proibidos.txt
+
+# Cloudflare Wrangler (estado local de wrangler dev)
+.wrangler/
+.dev.vars

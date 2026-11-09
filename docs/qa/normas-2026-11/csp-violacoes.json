@@ -1,0 +1,27 @@
+{
+ "/ tooltip": false,
+ "/": [],
+ "/en/ tooltip": false,
+ "/en/": [],
+ "/pesquisa/": [],
+ "/observatorio/": [],
+ "/observatorio/conjuntura/ tooltip": false,
+ "/observatorio/conjuntura/": [],
+ "/en/observatorio/conjuntura/ tooltip": false,
+ "/en/observatorio/conjuntura/": [],
+ "/observatorio/panorama/ tooltip": false,
+ "/observatorio/panorama/": [],
+ "/publicacoes/": [],
+ "/publicacoes/demo-nota-tecnica/": [],
+ "/sobre/": [],
+ "/metodologia/": [],
+ "/_estilo/": [],
+ "/nao-existe/": [],
+ "/busca/ resultados": 5,
+ "/busca/": [],
+ "modal resultados": 5,
+ "/ (modal)": [],
+ "html.js": true
+}
+console: []
+{"/observatorio/conjuntura/ tooltip (com rolagem até o gráfico)": true}

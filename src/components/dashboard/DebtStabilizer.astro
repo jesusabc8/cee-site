@@ -17,15 +17,16 @@ const gap = e.s_estrela - e.primario_atual;
 const vals = e.matriz.valores.flat();
 const vmin = Math.min(...vals);
 const vmax = Math.max(...vals);
-// Sombreado sequencial em um único tom (marinho), da menor à maior exigência.
-const fundo = (v: number) => `rgb(10 34 89 / ${(0.06 + 0.7 * ((v - vmin) / (vmax - vmin || 1))).toFixed(3)})`;
-const claro = (v: number) => (v - vmin) / (vmax - vmin || 1) > 0.55;
+// Sombreado sequencial em um único tom (marinho), da menor à maior exigência, em 11 classes (h0…h10):
+// sem estilo inline, por causa da CSP (style-src 'self').
+const nivel = (v: number) => (v - vmin) / (vmax - vmin || 1);
+const classe = (v: number) => `h${Math.round(nivel(v) * 10)}${nivel(v) > 0.55 ? ' on-dark' : ''}`;
 const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
 const fm = (p: string) => new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${p}-01`));
 const anos = e.horizonte.map((h) => h.ano);
 // Escala da barra comparativa
 const maxBar = Math.max(e.s_estrela, Math.abs(e.primario_atual), 1) * 1.1;
-const pct = (v: number) => `${(Math.abs(v) / maxBar) * 100}%`;
+const pct = (v: number) => `${((Math.abs(v) / maxBar) * 100).toFixed(2)}%`;
 ---
 <figure class="debt" id="grafico-estabilizacao" aria-labelledby="debt-t" aria-describedby="debt-d">
   <header>
@@ -42,8 +43,8 @@ const pct = (v: number) => `${(Math.abs(v) / maxBar) * 100}%`;
   </div>
 
   <div class="debt__compare" aria-hidden="true">
-    <div class="bar-row"><span>{en ? 'Required (s*)' : 'Necessário (s*)'}</span><span class="bar"><i style={`width:${pct(e.s_estrela)};background:var(--navy)`}></i></span><b class="num">{sinal(e.s_estrela)}</b></div>
-    <div class="bar-row"><span>{en ? 'Current, 12 months' : 'Atual, 12 meses'}</span><span class="bar"><i class={e.primario_atual < 0 ? 'neg' : ''} style={`width:${pct(e.primario_atual)};background:var(--slate)`}></i></span><b class="num">{sinal(e.primario_atual)}</b></div>
+    <div class="bar-row"><span>{en ? 'Required (s*)' : 'Necessário (s*)'}</span><svg class="bar" focusable="false"><rect class="bar__s" width={pct(e.s_estrela)} height="100%" /></svg><b class="num">{sinal(e.s_estrela)}</b></div>
+    <div class="bar-row"><span>{en ? 'Current, 12 months' : 'Atual, 12 meses'}</span><svg class="bar" focusable="false"><defs><pattern id="debt-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(135)"><rect width="3" height="6" class="bar__hatch" /><rect x="3" width="3" height="6" class="bar__hatch2" /></pattern></defs><rect class:list={['bar__a', { 'bar__a--neg': e.primario_atual < 0 }]} width={pct(e.primario_atual)} height="100%" /></svg><b class="num">{sinal(e.primario_atual)}</b></div>
   </div>
   <p id="debt-d" class="debt__line">
     {en
@@ -59,7 +60,7 @@ const pct = (v: number) => `${(Math.abs(v) / maxBar) * 100}%`;
         <thead><tr><th scope="col"><span class="mono">r \ g</span></th>{e.matriz.g.map((g) => <th scope="col" class="num">{nf(g)}%</th>)}</tr></thead>
         <tbody>
           {e.matriz.r.map((r, i) => (
-            <tr><th scope="row" class="num">{nf(r, 0)}%</th>{e.matriz.valores[i]!.map((v) => <td class="num" style={`background:${fundo(v)};color:${claro(v) ? '#fff' : 'var(--ink)'}`}>{nf(v)}</td>)}</tr>
+            <tr><th scope="row" class="num">{nf(r, 0)}%</th>{e.matriz.valores[i]!.map((v) => <td class={`num ${classe(v)}`}>{nf(v)}</td>)}</tr>
           ))}
         </tbody>
       </table>
@@ -110,16 +111,31 @@ const pct = (v: number) => `${(Math.abs(v) / maxBar) * 100}%`;
   .debt__params { margin-top: 8px; color: var(--ink); }
   .debt__compare { display: grid; gap: 8px; }
   .bar-row { display: grid; grid-template-columns: 9.5rem 1fr 3.4rem; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); }
-  .bar { position: relative; height: 10px; background: var(--paper); border-left: 1px solid var(--slate); }
-  .bar i { position: absolute; left: 0; top: 0; bottom: 0; }
-  .bar i.neg { background: repeating-linear-gradient(135deg, var(--slate) 0 3px, #dbe5ec 3px 6px) !important; }
+  .bar { display: block; width: 100%; height: 10px; background: var(--paper); border-left: 1px solid var(--slate); }
+  .bar__s { fill: var(--navy); }
+  .bar__a { fill: var(--slate); }
+  .bar__a--neg { fill: url('#debt-hatch'); }
+  .bar__hatch { fill: var(--slate); }
+  .bar__hatch2 { fill: #dbe5ec; }
+  .debt__matrix td.h0 { background: rgb(10 34 89 / 0.060); }
+  .debt__matrix td.h1 { background: rgb(10 34 89 / 0.130); }
+  .debt__matrix td.h2 { background: rgb(10 34 89 / 0.200); }
+  .debt__matrix td.h3 { background: rgb(10 34 89 / 0.270); }
+  .debt__matrix td.h4 { background: rgb(10 34 89 / 0.340); }
+  .debt__matrix td.h5 { background: rgb(10 34 89 / 0.410); }
+  .debt__matrix td.h6 { background: rgb(10 34 89 / 0.480); }
+  .debt__matrix td.h7 { background: rgb(10 34 89 / 0.550); }
+  .debt__matrix td.h8 { background: rgb(10 34 89 / 0.620); }
+  .debt__matrix td.h9 { background: rgb(10 34 89 / 0.690); }
+  .debt__matrix td.h10 { background: rgb(10 34 89 / 0.760); }
+  .debt__matrix td.on-dark { color: #fff; }
   .bar-row b { text-align: right; color: var(--ink); font-weight: 600; }
   .debt__line { font-size: 0.9375rem; color: var(--muted); line-height: 1.55; }
   .mini-title { font: 600 13px / 1.3 var(--sans); color: var(--navy); margin-bottom: 8px; }
   .debt__matrix table { border-collapse: separate; border-spacing: 2px; width: 100%; font: 12.5px var(--sans); font-variant-numeric: tabular-nums; }
   .debt__matrix th { font-weight: 600; color: var(--muted); padding: 4px 6px; text-align: center; }
   .debt__matrix tbody th { text-align: right; }
-  .debt__matrix td { text-align: center; padding: 7px 4px; font-weight: 500; }
+  .debt__matrix td { text-align: center; padding: 7px 4px; font-weight: 500; color: var(--ink); }
   .debt__more { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
   .debt__more summary { cursor: pointer; color: var(--navy); font: 600 11.5px / 2 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; }
   .debt__more p, .debt__more ul { margin: 8px 0; line-height: 1.55; }

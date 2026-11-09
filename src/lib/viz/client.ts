@@ -72,7 +72,7 @@ function iniciar(fig: HTMLElement) {
     const cx = L.sx(melhor);
     const hover = svg.querySelector<SVGGElement>('.viz-hover');
     if (!hover) return;
-    hover.style.display = '';
+    hover.classList.remove('is-off');
     const cur = hover.querySelector('line')!;
     cur.setAttribute('x1', String(cx)); cur.setAttribute('x2', String(cx));
     hover.querySelectorAll('circle').forEach((c) => c.remove());
@@ -84,10 +84,12 @@ function iniciar(fig: HTMLElement) {
       c.setAttribute('cx', String(cx)); c.setAttribute('cy', String(L.sy(p.y)));
       c.setAttribute('r', '4.5'); c.setAttribute('fill', s.color); c.setAttribute('stroke', '#fff'); c.setAttribute('stroke-width', '2');
       hover.appendChild(c);
-      linhas.push(`<span class="viz-tip__row"><i style="background:${s.color}"></i>${s.label}<b>${fmtNum(p.y, spec.yDigits, spec.lang, spec.yThousands)}${spec.yTickSuffix && !spec.yThousands ? spec.yTickSuffix : ''}</b></span>`);
+      linhas.push(`<span class="viz-tip__row"><i data-cor="${s.color}"></i>${s.label}<b>${fmtNum(p.y, spec.yDigits, spec.lang, spec.yThousands)}${spec.yTickSuffix && !spec.yThousands ? spec.yTickSuffix : ''}</b></span>`);
     }
     if (!linhas.length) return esconder();
     tip.innerHTML = `<span class="viz-tip__x">${fmtX(melhor, spec.xFormat, spec.lang)}</span>${linhas.join('')}`;
+    // Cor via CSSOM (permitido pela CSP), não por atributo style.
+    tip.querySelectorAll<HTMLElement>('i[data-cor]').forEach((i) => { i.style.background = i.dataset.cor ?? ''; });
     tip.hidden = false;
     const k = box.width / largura;
     const w = tip.offsetWidth;
@@ -99,7 +101,7 @@ function iniciar(fig: HTMLElement) {
   const esconder = () => {
     tip.hidden = true;
     const hover = plot.querySelector<SVGGElement>('.viz-hover');
-    if (hover) hover.style.display = 'none';
+    if (hover) hover.classList.add('is-off');
   };
   plot.addEventListener('pointermove', (e) => mover(e.clientX, e.clientY));
   plot.addEventListener('pointerleave', esconder);
