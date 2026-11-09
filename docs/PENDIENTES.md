@@ -34,12 +34,31 @@ Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publ
 - **TODO — slug de A2.** Renomear `/observatorio/conjuntura/` para `/observatorio/politica-monetaria/` numa edição futura, com
   redirecionamento 301 (e `/en/`). O slug foi mantido por causa dos vintages arquivados (data e hash) e de eventuais citações externas.
 - **TODO — desocupação (SIDRA 6381)** continua na página de A2. É indicador de ciclo e provavelmente migrará para A1 quando A1 for publicado.
-- **TODO — fontes da linha A2.** A linha A2 não lista PNAD nem Novo Caged, mas a página mostra a desocupação (PNAD). Resolver junto com o item anterior.
-- **A1 e setor externo:** os indicadores ainda não foram definidos. Por isso não há métodos nem fontes sobre o setor externo na linha A1.
+- **A1 e setor externo:** os indicadores ainda não foram definidos. O setor externo como programa é o D (em formação); o Manual não atribui indicadores a A1.
+- **Perguntas por painel:** o Manual não associa perguntas a painéis; as linhas mostram só código e nome. Se a coordenação quiser essa associação, ela precisa constar do plano anual (Regimento, art. 44).
 - **Panorama da economia brasileira:** os gráficos poderão ser redistribuídos entre A1, A2 e A3 à medida que esses painéis forem publicados (ADR-016).
 
 ## Conteúdo
 - **Autorização específica para o nome da Universidade** na faixa superior (ADR-012; Estatuto, art. 62).
 - Endereço de e-mail do Centro (ver `docs/PLACEHOLDERS.md`).
 - Aviso de privacidade completo (finalidade, base legal, prazo de conservação, responsáveis e canal), exigido antes da abertura de
-  cadastros (Regimento, art. 60). Hoje citado como "a definir" em Privacidade.
+  cadastros (Regimento, art. 60). A página Privacidade anuncia que será publicado antes da primeira convocatória.
+- **Frase de horizonte** ("Ser referência em pesquisa econômica aplicada feita por estudantes…") em `/sobre/`: fornecida pela
+  coordenação nas instruções de 2026-11; não consta dos atos normativos. Incluir no Estatuto ou no plano anual, ou retirar.
+- **Anexos E a H do Manual** (Relatório de Progresso, Plano e Relatório de Diálogo, Registro de proposta, Lista de verificação):
+  não são publicações; ficam com o Comitê Editorial. Só o Anexo H está resumido em `/metodologia/`.
+
+## Divergências entre os atos normativos (minutas)
+O sítio segue a ordem de precedência Estatuto > Regimento > Manual, salvo instrução expressa da coordenação. Reconciliar nas minutas:
+- **Onde cabem recomendações.** Estatuto, art. 50, parágrafo único: só Notas Técnicas e projetos de Pesquisa em Destaque.
+  Regimento, art. 45, §1º: NT, TD, Relatórios de Projeto de Pesquisa em Destaque e respectivos Policy Briefs. Manual, Parte II:
+  NT, TD, RP e PB derivados. O sítio aplica a regra do Manual (NT, TD, RP e PB), por instrução da coordenação; o Estatuto, mais
+  restritivo, precisa ser alinhado.
+- **Edições especiais.** O Estatuto, art. 49, II, lista "edições especiais" entre os produtos; o Regimento e o Manual não. O tipo
+  foi retirado do sítio (ADR-017). Retirar do Estatuto ou definir no Manual.
+- **Prazo do Comitê Editorial.** Regimento, art. 24: decisão em até dez dias úteis por submissão. Manual, Quadro 3: prazos de
+  revisão de 5 a 30 dias úteis conforme o produto. O sítio mostra o Quadro 3 como prazos de referência; esclarecer se são etapas distintas.
+- **Texto do aviso.** Regimento, art. 59: "não representam necessariamente a posição da PUC Minas". Manual, Parte II: "não
+  representam a posição da Pontifícia Universidade Católica de Minas Gerais". O sítio usa o texto do Manual, como pedido.
+- **Relatório de Projeto.** O Regimento restringe recomendações aos RP de Pesquisa em Destaque; o esquema do sítio não distingue
+  RP de Pesquisa em Destaque de RP de projetos conjuntos.

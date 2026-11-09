@@ -1,7 +1,7 @@
 # Linhas (= painéis do Observatório com o mesmo código e nome; ADR-015 e ADR-017).
 # Fonte: Manual de Programas e Produtos, Parte I, Quadro 1 (subprogramas de A2, A3 e A4 conforme a coordenação).
 # As perguntas são as do programa (programas.yaml); o Manual não as atribui a painéis, e as listas de perguntas e
-# métodos por linha herdadas da Proposta v3.0 foram retiradas.
+# métodos por linha herdadas do documento anterior (superado) foram retiradas.
 # Estado: "prevista" = prevista para o ano indicado em `ano`, ainda sem cumprir os requisitos de abertura de painel
 # (Regimento, art. 23); "planejada" = posterior. `ano` ausente = sem ano definido nos documentos.
 # Programas em formação (D, E, F) não têm linha nem painel (Manual, Parte I, §1.2).

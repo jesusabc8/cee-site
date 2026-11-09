@@ -1,4 +1,4 @@
-# Painéis do Observatório CEE — Economia Brasileira em Dados (Proposta v3.0, Quadro 11; arquitetura aprovada em 2026-10).
+# Painéis do Observatório CEE — Economia Brasileira em Dados (Estatuto, art. 35; Regimento Interno, art. 23).
 # Painéis do Observatório por programa (Manual, Parte I, Quadro 1; programas.yaml); cada painel corresponde a uma linha
 # com o mesmo código e nome (linhas.yaml). Programas em formação (D, E, F) não têm painel (ADR-017).
 # Nenhum painel muda de estado sem evidência no repositório; nenhum slug público muda sem 301.

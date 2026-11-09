@@ -1,0 +1,132 @@
+---
+/**
+ * Organograma do CEE (Estatuto, art. 21 e Anexo II). SVG acessível + versão em lista equivalente.
+ * Não nomeia pessoas: só órgãos e relações. O SVG é decorativo para leitores de tela (aria-hidden), que leem a lista.
+ */
+import type { Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+
+const T = en ? {
+  ag: 'General Assembly', ce: 'Editorial Committee', cc: 'Advisory Council', ccSub: 'faculty tutors',
+  dc: 'Collegiate Board', pres: 'President', vp: 'Vice-President', dir: 'Directors (up to 7)',
+  chefias: 'Area Heads', ec: ['Chief Economist', '(Research)'], dt: ['Data and', 'Technology'], fa: ['Academic', 'Training'],
+  cm: ['Communication', 'and Marketing'], ev: ['Events'], ri: ['Institutional and', 'International Relations'], pa: ['People and', 'Administration'],
+  prog: 'Programmes A to F and Cross-cutting', progSub: 'Programme Coordinators, Panel Leads and analysts · research career, Levels 1 to 5',
+  referenda: 'endorses', elege: 'elects, after a public hearing', pareceres: 'opinions and appeals', designa: 'appoints, by call and panel',
+  nota: 'An Area Head post does not carry a seat on the Collegiate Board. The Editorial Committee and the Advisory Council are not subordinate to the Collegiate Board.',
+  lista: 'Organisational chart as a list', scroll: 'Organisational chart (scrolls sideways on small screens)', fonte: 'Source: CEE Statute, art. 21 and Annex II (draft).',
+} : {
+  ag: 'Assembleia Geral', ce: 'Comitê Editorial', cc: 'Conselho Consultivo', ccSub: 'docentes tutores',
+  dc: 'Diretoria Colegiada', pres: 'Presidente', vp: 'Vice-Presidente', dir: 'Diretores (até 7)',
+  chefias: 'Chefias de Área', ec: ['Economista-Chefe', '(Pesquisa)'], dt: ['Dados e', 'Tecnologia'], fa: ['Formação', 'Acadêmica'],
+  cm: ['Comunicação', 'e Marketing'], ev: ['Eventos'], ri: ['Relações Institucionais', 'e Internacionais'], pa: ['Pessoas e', 'Administração'],
+  prog: 'Programas A a F e Transversal', progSub: 'Coordenadores de Programa, Líderes de Painel e analistas · carreira de pesquisa, Níveis 1 a 5',
+  referenda: 'referenda', elege: 'elege, após sabatina', pareceres: 'pareceres e recursos', designa: 'designa, por convocatória e banca',
+  nota: 'A Chefia de Área não confere assento na Diretoria Colegiada. O Comitê Editorial e o Conselho Consultivo não se subordinam à Diretoria Colegiada.',
+  lista: 'Organograma em lista', scroll: 'Organograma (role para os lados em telas pequenas)', fonte: 'Fonte: Estatuto do CEE, art. 21 e Anexo II (minuta).',
+};
+
+type Box = { x: number; y: number; w: number; h: number; l: string[]; sub?: string; k?: 'top' | 'main' };
+const W = 196;
+const chefRow1: Box[] = [
+  { x: 60, y: 335, w: W, h: 52, l: T.ec, k: 'main' },
+  { x: 270, y: 335, w: W, h: 52, l: T.dt },
+  { x: 480, y: 335, w: W, h: 52, l: T.fa },
+  { x: 690, y: 335, w: W, h: 52, l: T.cm },
+];
+const chefRow2: Box[] = [
+  { x: 270, y: 403, w: W, h: 52, l: T.ev },
+  { x: 480, y: 403, w: W, h: 52, l: T.ri },
+  { x: 690, y: 403, w: W, h: 52, l: T.pa },
+];
+const boxes: Box[] = [
+  { x: 40, y: 20, w: 220, h: 56, l: [T.ce], k: 'top' },
+  { x: 370, y: 20, w: 220, h: 56, l: [T.ag], k: 'top' },
+  { x: 700, y: 20, w: 220, h: 56, l: [T.cc], sub: T.ccSub, k: 'top' },
+  { x: 180, y: 168, w: 180, h: 48, l: [T.pres] },
+  { x: 390, y: 168, w: 180, h: 48, l: [T.vp] },
+  { x: 600, y: 168, w: 180, h: 48, l: [T.dir] },
+  ...chefRow1, ...chefRow2,
+];
+const linhaY = (b: Box, i: number, n: number) => b.y + b.h / 2 + (i - (n - 1) / 2) * 16 + (b.sub ? -7 : 0) + 4.5;
+---
+<figure class="org">
+  <div class="org__scroll" role="region" tabindex="0" aria-label={T.scroll}>
+  <svg viewBox="0 0 960 610" class="org__svg" aria-hidden="true" focusable="false">
+    <defs>
+      <marker id="org-seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" class="org__seta" />
+      </marker>
+    </defs>
+    <!-- grupos -->
+    <rect x="150" y="128" width="660" height="108" class="org__grp" />
+    <text x="164" y="150" class="org__grpt">{T.dc}</text>
+    <rect x="40" y="298" width="880" height="176" class="org__grp" />
+    <text x="54" y="320" class="org__grpt">{T.chefias}</text>
+    <!-- relações -->
+    <line x1="260" y1="48" x2="370" y2="48" class="org__ln" />
+    <text x="315" y="40" text-anchor="middle" class="org__lbl">{T.referenda}</text>
+    <line x1="480" y1="76" x2="480" y2="126" class="org__ln" marker-end="url(#org-seta)" />
+    <text x="490" y="106" class="org__lbl">{T.elege}</text>
+    <line x1="810" y1="76" x2="810" y2="126" class="org__ln org__ln--dash" marker-end="url(#org-seta)" />
+    <text x="800" y="106" text-anchor="end" class="org__lbl">{T.pareceres}</text>
+    <line x1="480" y1="236" x2="480" y2="296" class="org__ln" marker-end="url(#org-seta)" />
+    <text x="490" y="270" class="org__lbl">{T.designa}</text>
+    <line x1="120" y1="387" x2="120" y2="518" class="org__ln" marker-end="url(#org-seta)" />
+    <!-- caixas -->
+    {boxes.map((b) => (
+      <g>
+        <rect x={b.x} y={b.y} width={b.w} height={b.h} class:list={['org__box', b.k && `org__box--${b.k}`]} />
+        {b.l.map((t, i) => <text x={b.x + b.w / 2} y={linhaY(b, i, b.l.length)} text-anchor="middle" class:list={['org__t', b.k && `org__t--${b.k}`]}>{t}</text>)}
+        {b.sub && <text x={b.x + b.w / 2} y={b.y + b.h / 2 + 15} text-anchor="middle" class:list={['org__sub', b.k && `org__sub--${b.k}`]}>{b.sub}</text>}
+      </g>
+    ))}
+    <rect x="40" y="520" width="880" height="70" class="org__box org__box--prog" />
+    <text x="480" y="550" text-anchor="middle" class="org__t">{T.prog}</text>
+    <text x="480" y="572" text-anchor="middle" class="org__sub">{T.progSub}</text>
+  </svg>
+  </div>
+  <figcaption class="org__cap">{T.nota} {T.fonte}</figcaption>
+  <details class="org__lista">
+    <summary>{T.lista}</summary>
+    <ul>
+      <li><strong>{T.ag}</strong>: {en ? 'highest decision-making body; elects the Collegiate Board after a public hearing and endorses the Editorial Committee.' : 'instância máxima de deliberação; elege a Diretoria Colegiada após sabatina e referenda o Comitê Editorial.'}</li>
+      <li><strong>{T.ce}</strong>: {en ? 'independent body that approves every publication.' : 'órgão independente que aprova todas as publicações.'}</li>
+      <li><strong>{T.cc}</strong> ({T.ccSub}): {en ? 'issues opinions, judges appeals and nominates the Editorial Committee.' : 'emite pareceres, julga recursos e indica o Comitê Editorial.'}</li>
+      <li><strong>{T.dc}</strong>: {T.pres}, {T.vp}, {T.dir}.
+        <ul>
+          <li><strong>{T.chefias}</strong> ({T.designa}): {[T.ec, T.dt, T.fa, T.cm, T.ev, T.ri, T.pa].map((x) => x.join(' ')).join('; ')}.
+            <ul><li><strong>{T.prog}</strong>: {T.progSub}.</li></ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </details>
+</figure>
+<style>
+  .org { margin: var(--s-5) 0; }
+  .org__scroll { overflow-x: auto; }
+  .org__scroll:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
+  .org__svg { display: block; width: 100%; min-width: 720px; height: auto; font-family: var(--sans); }
+  .org__box { fill: var(--white); stroke: var(--navy); stroke-width: 1.2; }
+  .org__box--top { fill: var(--navy); }
+  .org__box--main { fill: var(--mist); }
+  .org__box--prog { fill: var(--paper); stroke: var(--petrol); }
+  .org__t { font-size: 14px; font-weight: 600; fill: var(--navy); }
+  .org__t--top { fill: var(--white); }
+  .org__sub { font-size: 12px; fill: var(--muted); }
+  .org__sub--top { fill: #cfdce8; }
+  .org__grp { fill: none; stroke: var(--slate); stroke-width: 1; stroke-dasharray: 5 4; }
+  .org__grpt { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; fill: var(--petrol); }
+  .org__ln { stroke: var(--navy); stroke-width: 1.2; }
+  .org__ln--dash { stroke-dasharray: 5 4; }
+  .org__seta { fill: var(--navy); }
+  .org__lbl { font-size: 12px; font-style: italic; fill: var(--muted); }
+  .org__cap { margin-top: var(--s-3); font-size: var(--step--1); color: var(--muted); max-width: 72ch; }
+  .org__lista { margin-top: var(--s-3); font-size: 0.9375rem; }
+  .org__lista summary { cursor: pointer; font-weight: 600; color: var(--navy); }
+  .org__lista ul { margin: var(--s-2) 0 0; padding-left: 1.2em; display: grid; gap: 6px; }
+</style>

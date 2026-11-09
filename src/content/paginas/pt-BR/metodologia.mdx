@@ -1,133 +1,113 @@
 ---
 titulo: Metodologia e reprodutibilidade
-descricao: Ciclo de produção em seis etapas, três camadas de revisão, estrutura fixa de repositório, vintages, errata, autoria CRediT, conflitos de interesse e uso de inteligência artificial.
+descricao: Fluxo editorial, revisão mínima e prazos por produto, normas comuns a todas as publicações, vintages, erratas, autoria CRediT, conflitos de interesse e uso de inteligência artificial.
 eyebrow: Institucional
-bajada: Nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado. Esta é a regra que não se negocia.
-fonte_normas: "§5.1 e §5.3 (produtos e regras), §6 (qualidade e reprodutibilidade), Anexos E e F"
-atualizado: 2026-10-20
+bajada: Todo número publicado deve ser reexecutável a partir dos dados de origem e é conferido por pessoa distinta dos autores. Nenhum autor revisa ou decide sobre a publicação do próprio trabalho.
+fonte_normas: "Estatuto, arts. 37 e 55 a 59; Regimento Interno, arts. 24 e 44 a 48; Manual de Programas e Produtos, Parte II (normas comuns, Quadros 2 e 3) e Anexos G e H"
+atualizado: 2026-11-09
 ---
 import Box from '../../../components/Box.astro';
 
-## Ciclo de produção
+## Fluxo editorial
 
-Seis etapas, sempre nesta ordem, para todo produto quantitativo.
+Todo produto segue, nesta ordem, o fluxo do Regimento Interno (art. 46):
 
-| Etapa | O que ocorre | Saída ou critério |
+1. **Registro da proposta** junto ao Coordenador de Programa, com pergunta, fontes, período e método (formulário do Anexo G do Manual), indicando o programa e a pergunta do Manual a que responde.
+2. **Elaboração** com dados e código em repositório do CEE, com histórico de versões.
+3. **Verificação numérica** por pessoa distinta dos autores, que reexecuta o código e confere cada número, tabela e gráfico, com relatório de conferência.
+4. **Revisão editorial.**
+5. **Parecer docente de conteúdo e parecer externo**, quando exigidos.
+6. **Submissão ao Comitê Editorial** com todos os registros de revisão e a lista de verificação do Anexo H do Manual.
+7. **Publicação** com identificação de versão, data, autores segundo a taxonomia CRediT, fontes, licença e aviso de responsabilidade.
+8. **Divulgação** pela Chefia de Comunicação e Marketing.
+
+O Comitê Editorial decide cada submissão com uma das seguintes decisões fundamentadas: aprovar; aprovar com ajustes menores; devolver para revisão; ou rejeitar. A Diretoria Colegiada não pode revogar decisão editorial nem dispensar revisão. Enquanto não houver composição independente do Comitê, a publicação aguarda.
+
+## Revisão mínima por produto
+
+| Produto | Autoria principal | Revisão mínima |
 |---|---|---|
-| 1. Escolha da pergunta | A linha propõe uma pergunta respondível com dado público disponível. Pergunta que exige base inacessível ou método fora do alcance da equipe é registrada para o futuro, e não iniciada. | Pergunta registrada na agenda da linha, com responsável e prazo |
-| 2. Ficha de desenho analítico | Antes de examinar qualquer resultado, o autor registra unidade de observação, período, fonte, especificação principal, testes de robustez previstos e o que constituiria evidência contrária. | Ficha arquivada com data; reduz a margem para escolher a especificação depois de ver o resultado |
-| 3. Construção do dado e do código | Dados brutos imutáveis; toda transformação em script numerado e versionado; dicionário de variáveis escrito junto com o dado. | Repositório reexecutável do zero, com ambiente registrado |
-| 4. Verificação numérica independente | Um integrante que não é autor clona o repositório, reexecuta em máquina distinta e compara cada tabela e figura com o que o código gera. | 100 % das tabelas e figuras reproduzidas |
-| 5. Parecer docente de conteúdo | O docente de referência avalia a adequação do método, a leitura dos resultados e a declaração de limites. | Sem esta etapa, o produto não leva filiação institucional |
-| 6. Publicação, licença e errata | Publicação com autoria por função (CRediT), licença aberta e pacote de replicação. Erro identificado depois gera errata pública e datada. | Correção silenciosa é falta grave |
+| Edição de painel do Observatório | N3 (Líder de Painel) | Verificação numérica |
+| Data Insight | N2 | Numérica e editorial |
+| Nota de Conjuntura | N3 | Numérica e editorial |
+| Avaliação de Conjuntura | Diretoria Colegiada | Factual e numérica |
+| Relatório Semestral de Conjuntura | Economista-Chefe, com os Coordenadores de Programa | Numérica, editorial e parecer docente |
+| Nota Técnica | N4 | Numérica, editorial e parecer docente |
+| Texto para Discussão | N4, com docente orientador | Numérica, editorial, parecer docente e parecer externo |
+| Relatório de Projeto | Equipe do projeto | Numérica, editorial e parecer docente |
+| Policy Brief | Autores do produto de origem | Editorial e parecer docente sobre a fidelidade à origem |
+| Blog CEE | N2 | Editorial; numérica quando houver dados próprios |
 
-## Três camadas de revisão
+A extensão e a finalidade de cada produto estão no [catálogo de produtos](../publicacoes/).
 
-| Camada | Quem executa | O que verifica | Critério de aprovação |
-|---|---|---|---|
-| 1. Verificação numérica | Integrante que não é autor | Reexecuta o repositório do zero, em máquina distinta | Toda tabela e figura é reproduzida |
-| 2. Revisão de conteúdo | Docente de referência | Adequação do método, leitura dos resultados, limitações | Parecer escrito de aprovação |
-| 3. Revisão editorial | Comitê Editorial | Clareza, citação, unidades, rótulos, licença | Lista de verificação integralmente assinalada |
+## Prazos de referência do Comitê Editorial
 
-O número de camadas depende da pretensão do produto, **nunca do prazo disponível**. Quando o prazo aperta, reduz-se o escopo — não a revisão.
-
-| Produto | Camadas exigidas | Extensão de referência |
+| Produto | Prazo de revisão | Rodadas máximas |
 |---|---|---|
-| Data Insight | 1 | Um gráfico e cerca de 150 palavras |
-| Nota de Conjuntura | 1 e 3 | Cerca de 700 palavras |
-| Nota Técnica | 1, 2 e 3 | 4 a 8 páginas |
-| Working Paper | 1, 2 e 3, mais parecer externo ao Centro | 25 a 40 páginas |
-| Replicação | Reexecução independente | Relatório curto |
-| Edição especial | 1, 2 e 3; rubrica publicada antes da aplicação | Variável |
-| Painel do Observatório | Reexecução independente; auditoria da cadeia de dados a cada atualização | Contínua, por edição numerada |
+| Edição de painel, Data Insight, Blog | 5 dias úteis | 2 |
+| Nota de Conjuntura, Policy Brief | 10 dias úteis | 2 |
+| Nota Técnica, Relatório de Projeto | 20 dias úteis | 3 |
+| Texto para Discussão | 30 dias úteis, mais o parecer externo | 3 |
 
-## Estrutura fixa de repositório
+O produto que não atende às exigências após o número máximo de rodadas é devolvido ao Coordenador de Programa com parecer, e pode ser reapresentado como produto de outra série, se cumprir os requisitos dela.
 
-Todo produto é um repositório com a mesma estrutura, de modo que qualquer integrante consiga reexecutar o trabalho de outro sem instruções adicionais.
+## Normas comuns a todos os produtos
 
-```text
-projeto/
-  00_dados_brutos/     # imutável; jamais editado à mão
-  01_scripts/          # numerados na ordem de execução
-  02_dados_tratados/   # gerado inteiramente por código
-  03_saidas/           # tabelas e figuras, regeneráveis
-  README.md            # pergunta, fontes, como reexecutar
-  DICIONARIO.md        # cada variável, unidade e origem
-  ambiente.lock        # versões de linguagem e pacotes
-```
-
-- **Nenhuma transformação manual de dado.** Toda mudança passa por código versionado.
-- **Sementes fixadas** onde há aleatoriedade; registro de sessão arquivado com a saída.
-- **Ferramental aberto** (R ou Python), para que a reprodução não dependa de licença paga. Stata e EViews podem complementar, nunca como única via de reprodução.
-- **Licença padrão:** texto e dados em CC BY 4.0; código em MIT, salvo restrição da base de origem.
-- **Rastreabilidade:** toda afirmação quantitativa indica fonte, série e data de extração.
+- **Identificação.** Cada produto recebe série, número sequencial no ano e versão, no formato `CEE-NT 2027/03 v1.0`, e identifica programa, pergunta, fontes, período, método, limitações, responsáveis e versão.
+- **Dados, código e verificação.** Todo número publicado é reexecutável a partir dos dados de origem; dados, código e registro de conferência ficam no repositório do CEE. Quando o código de replicação não é público, a publicação informa: “Código disponível mediante solicitação ao CEE”.
+- **Gráficos e tabelas.** Número, título informativo em frase completa, unidade de medida, nota quando necessária e fonte com período. Sem gráficos tridimensionais, sem eixos truncados sem aviso e sem cor como único meio de distinguir séries. Neste sítio, cada gráfico traz também tabela alternativa e arquivo CSV.
+- **Citações e referências.** Sistema autor-data (ABNT NBR 10520:2023), com lista de referências conforme a ABNT NBR 6023:2018; produtos em inglês podem seguir o estilo APA.
+- **Linguagem.** Português claro, frases curtas, uma ideia por parágrafo, termos técnicos definidos na primeira ocorrência; sem adjetivos sem base em evidência nem linguagem partidária. Fatos, interpretações e cenários são distinguidos.
+- **Recomendações.** Só em Notas Técnicas, Textos para Discussão, Relatórios de Projeto e nos Policy Briefs deles derivados, em seção própria, separada da evidência e acompanhada de seus limites. Os demais produtos descrevem e analisam; não recomendam.
+- **Aviso de responsabilidade e licença.** “As opiniões expressas são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.” A Avaliação de Conjuntura acrescenta que expressa o juízo colegiado da Diretoria. Licença Creative Commons Atribuição 4.0 (CC BY 4.0), salvo restrição de terceiros.
 
 ## Versões, vintages e citação
 
 - **Edições numeradas.** Cada edição de um painel do Observatório é numerada e acompanhada de nota de mudanças, incluindo qualquer alteração metodológica e a regra de recálculo da série.
 - **Vintages de dados.** As séries oficiais são revisadas pelas fontes; por isso cada extração é arquivada com sua data, de modo que um resultado publicado possa ser reproduzido com os dados daquele momento. Neste sítio, os dados brutos ficam em `data/raw/` com a data de extração e um hash de verificação, e nunca são editados.
-- **Identificador persistente.** Cada edição recebe DOI por meio de repositório aberto de pesquisa, quando disponível, e traz sugestão de citação.
-- **Repositório institucional.** O repositório deve pertencer a uma organização com ao menos três administradores, e não a uma conta pessoal.
+- **Identificador persistente.** Notas Técnicas, Textos para Discussão e Relatórios de Projeto recebem DOI em repositório aberto; cada publicação traz sugestão de citação.
+- **Ativos institucionais.** Contas e repositórios devem ter pelo menos três administradores, entre eles um docente tutor ou pessoa indicada pela Universidade; é vedado manter ativo do CEE em conta pessoal exclusiva (Regimento Interno, art. 61).
 
 <Box variant="note" title="Pendência declarada">
-  <p>Nesta fase, o repositório do sítio está em conta pessoal, provisoriamente. A transferência para uma organização com três administradores é condição do lançamento.</p>
+  <p>Nesta fase, o repositório do sítio está, provisoriamente, em conta pessoal. A transferência para uma conta institucional com três administradores é condição do lançamento.</p>
 </Box>
 
-## Política de errata
+## Erratas, notas de preocupação e retratações
 
-Erro identificado após a publicação gera **errata pública e datada**, anexada ao produto original, que descreve o erro, seu efeito sobre as conclusões e a correção aplicada. O arquivo original permanece acessível. Correção silenciosa é falta grave. A meta de erratas não é zero — meta zero cria incentivo a esconder erro. O que se monitora é o intervalo entre a identificação e a publicação da errata, que deve ser **inferior a sete dias**. Todas as erratas ficam no [registro público de erratas](../erratas/).
+Constatado erro material em produto publicado, o Comitê Editorial publica **aviso vinculado ao produto em até sete dias corridos** e errata com data, versão e efeitos sobre resultados e conclusões tão logo concluída a correção. A **nota de preocupação** é emitida quando há dúvida relevante pendente de apuração; a **retratação**, quando a confiabilidade, a autoria ou a regularidade estão substancialmente comprometidas. Antes de uma ou outra, os autores têm cinco dias úteis para se manifestar. A retratação registra razões, alcance e histórico, sem presumir culpa pessoal. O arquivo original permanece acessível; correção silenciosa não é admitida. Todas as erratas ficam no [registro público de erratas](../erratas/).
 
 ## Autoria por função (CRediT)
 
-A contribuição de cada pessoa é declarada por função, segundo a taxonomia CRediT (*Contributor Roles Taxonomy*): quem construiu o dado (curadoria de dados), quem analisou (análise formal), quem escreveu (redação), quem revisou (revisão e edição), quem verificou (validação), entre outras. Ferramentas de inteligência artificial não constam como autoras.
-
-| Nível | Pode assinar |
-|---|---|
-| Participante | Coautoria de Data Insights |
-| Assistente de Pesquisa | Coautoria de Notas de Conjuntura |
-| Analista | Autoria principal de Notas de Conjuntura; coautoria de Notas Técnicas |
-| Pesquisador Associado | Autoria principal de Nota Técnica; Working Paper, com docente |
+A autoria segue a taxonomia CRediT (*Contributor Roles Taxonomy*). É autor quem contribuiu de forma substancial para a concepção, a análise ou a redação e aprova a versão final. Revisores, verificadores e orientadores constam dos agradecimentos, salvo se cumprirem os critérios de autoria. A ordem dos autores reflete a contribuição, e o autor principal responde pelo produto perante o Comitê Editorial. Cargo, orientação genérica, condição de fundador ou financiamento não asseguram coautoria; é vedada a autoria honorária. O nível exigido para cada autoria está na [carreira de pesquisa](../participe/#carreira-de-pesquisa).
 
 ## Independência e conflito de interesse
 
-- Integrantes declaram, ao ingressar e a cada semestre, vínculos partidários, empregos e estágios relevantes.
-- Quem tem vínculo com organização diretamente avaliada em um produto não participa de sua elaboração nem de sua revisão.
-- Todo instrumento de notação (rubrica) é publicado antes da aplicação, com concordância entre avaliadores reportada.
-- O Comitê Editorial não responde às linhas de pesquisa.
+- Conflitos de interesse são declarados no ingresso, a cada semestre e sempre que surgir situação nova.
+- O vínculo com organização diretamente avaliada impede a elaboração, a revisão ou a decisão editorial sobre o produto.
+- Nenhum autor revisa ou decide sobre a publicação do próprio trabalho; nenhum membro do Comitê Editorial examina trabalho de que seja autor ou em relação ao qual tenha conflito.
 
 ## Uso de inteligência artificial
 
-O uso de ferramentas de inteligência artificial é permitido e deve ser declarado em cada produto, indicando ferramenta, finalidade e partes afetadas. Regras:
+O uso de ferramentas de inteligência artificial na coleta de dados, na programação ou na redação é declarado em nota em cada produto, com a ferramenta e a finalidade. A responsabilidade pelo conteúdo é sempre dos autores, que verificam cada número, citação e referência. Não se atribui autoria a ferramentas, e dados pessoais ou restritos não são inseridos em ferramenta externa sem base legal e autorização institucional.
 
-- **Verificação humana de todo julgamento analítico.** Código gerado por IA passa pela mesma reexecução independente, e quem reexecuta é sempre um integrante.
-- **Sem dados pessoais em ferramentas externas.**
-- **Autoria e responsabilidade humanas.**
+## Lista de verificação antes da submissão
 
-## Checklist de replicação
+Resumo do Anexo H do Manual, aplicado a todo produto antes de ir ao Comitê Editorial:
 
-### Verificação numérica (camada 1)
+- Série, número, versão, data, programa e pergunta identificados.
+- Extensão dentro do limite da série.
+- Conclusão principal no início do texto.
+- Cada número, tabela e gráfico conferido pelo verificador, com relatório no repositório.
+- Gráficos e tabelas com título, unidade, nota e fonte com período.
+- Dados e código no repositório, reexecutáveis a partir da fonte.
+- Fatos, interpretações e cenários claramente distinguidos.
+- Recomendações, se houver, apenas em série que as admite e em seção própria.
+- Referências completas no sistema autor-data.
+- Autoria conforme CRediT; agradecimentos a revisores e verificadores.
+- Declaração de uso de ferramentas de inteligência artificial.
+- Pareceres exigidos anexados.
+- Aviso de responsabilidade e licença.
 
-- O repositório foi clonado em máquina distinta, a partir do zero.
-- O ambiente registrado (versões de linguagem e pacotes) foi reconstruído.
-- Todo o código executou sem intervenção manual e sem erro.
-- Cada tabela e cada figura do texto foi comparada com a saída do código.
-- Os dados brutos não foram editados à mão; todas as transformações estão em scripts numerados.
-- As sementes de aleatoriedade estão fixadas, quando aplicável.
-- Divergências foram registradas por escrito e devolvidas ao autor.
-
-### Revisão editorial (camada 3)
-
-- A tese está clara na abertura e é sustentada pelos dados.
-- Unidades, rótulos de eixos e fontes estão corretos em todas as figuras e tabelas.
-- Toda afirmação quantitativa indica fonte, série e data de extração.
-- A metodologia está descrita no corpo do texto.
-- A incerteza principal e os limites estão declarados; a Nota Técnica traz a seção sobre o que a evidência não permite concluir.
-- A autoria está declarada por função (CRediT), com o descargo e a declaração de uso de IA.
-- A licença está indicada e o pacote de replicação está disponível.
-- Citações e referências estão completas.
-- Não há dados pessoais não autorizados nem posicionamento partidário.
-- O parecer docente está arquivado, quando exigido.
-
-## Ficha de desenho analítico
-
-Preenchida antes do exame de qualquer resultado, em uma página, e arquivada com data: (1) pergunta; (2) hipótese; (3) unidade de observação; (4) período; (5) fontes e licença; (6) especificação principal; (7) testes de robustez previstos; (8) o que constituiria evidência contrária; (9) verificação ética — se houver coleta primária ou dados identificáveis, submissão prévia ao Comitê de Ética em Pesquisa; (10) responsáveis e prazo; (11) data de arquivamento.
+<Box variant="note" title="O que o sítio verifica automaticamente">
+  <p>Ao gerar o sítio, cada publicação é validada contra o catálogo: identificador coerente com tipo, ano e versão; recomendações apenas nas séries que as admitem; resumo, palavras-chave e códigos JEL no Texto para Discussão; origem existente no Policy Brief; modalidade no Blog; e prazo do aviso de errata. A extensão fora da faixa do Manual gera alerta. Os demais itens dependem dos revisores.</p>
+</Box>

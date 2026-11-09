@@ -9,7 +9,7 @@ export const defaultLang: Lang = 'pt-BR';
 
 const pt = {
   'site.name': 'Centro de Estudos Econômicos',
-  'site.tagline': 'Iniciativa estudantil de análise econômica empírica sobre a economia brasileira',
+  'site.tagline': 'Liga acadêmica estudantil de pesquisa econômica empírica sobre a economia brasileira',
   'skip': 'Pular para o conteúdo',
   'site.descritor': 'Análise empírica da economia brasileira',
   'nav.menu': 'Menu',
@@ -25,7 +25,7 @@ const pt = {
   'redes.embreve': 'Em breve',
   'footer.pesquisa': 'Pesquisa',
   'footer.transparencia': 'Transparência',
-  'footer.descricao': 'Centro de Estudos Econômicos. Iniciativa estudantil de análise econômica empírica sobre a economia brasileira.',
+  'footer.descricao': 'Centro de Estudos Econômicos. Liga acadêmica estudantil dedicada à pesquisa econômica empírica sobre a economia brasileira.',
   'breadcrumb': 'Você está em',
   'nav.label': 'Navegação principal',
   'nav.inicio': 'Início',
@@ -43,7 +43,7 @@ const pt = {
   'lang.switch.label': 'Read this page in English',
   'preview': 'Versão preliminar. Conteúdo em discussão, ainda não lançado; páginas não indexadas por buscadores.',
   'disclaimer.short':
-    'O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.',
+    'O CEE é uma liga acadêmica estudantil. As opiniões expressas em suas publicações são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.',
   'footer.licenses': 'Textos e dados sob CC BY 4.0; código sob licença MIT, ressalvadas as restrições das fontes.',
   'footer.institucional': 'Institucional',
   'footer.politicas': 'Políticas',
@@ -80,7 +80,7 @@ type Dict = Record<UIKey, string>;
 
 const en: Dict = {
   'site.name': 'Centro de Estudos Econômicos',
-  'site.tagline': 'A student-run initiative for empirical economic analysis of the Brazilian economy',
+  'site.tagline': 'A student academic society for empirical economic research on the Brazilian economy',
   'skip': 'Skip to content',
   'site.descritor': 'Empirical analysis of the Brazilian economy',
   'nav.menu': 'Menu',
@@ -96,7 +96,7 @@ const en: Dict = {
   'redes.embreve': 'Coming soon',
   'footer.pesquisa': 'Research',
   'footer.transparencia': 'Transparency',
-  'footer.descricao': 'Centro de Estudos Econômicos. A student-run initiative for empirical economic analysis of the Brazilian economy.',
+  'footer.descricao': 'Centro de Estudos Econômicos. A student academic society devoted to empirical economic research on the Brazilian economy.',
   'breadcrumb': 'You are here',
   'nav.label': 'Main navigation',
   'nav.inicio': 'Home',
@@ -114,7 +114,7 @@ const en: Dict = {
   'lang.switch.label': 'Ler esta página em português',
   'preview': 'Preliminary version. Content under discussion and not yet launched; pages are not indexed by search engines.',
   'disclaimer.short':
-    'CEE is a student initiative. Its publications do not represent the position of PUC Minas or any other institution.',
+    'CEE is a student academic society. The views expressed in its publications are those of the authors and do not represent the position of the Pontifical Catholic University of Minas Gerais.',
   'footer.licenses': 'Text and data under CC BY 4.0; code under the MIT licence, subject to the terms of the original sources.',
   'footer.institucional': 'About',
   'footer.politicas': 'Policies',

@@ -11,14 +11,15 @@ const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const pessoas = await getEquipePublica();
 const instancias = {
-  pt: ['Docente de referência', 'Conselho Acadêmico', 'Comitê Editorial', 'Coordenação Executiva', 'Coordenadores de Área', 'Diretoria de Formação', 'Mantenedor do Observatório'],
-  en: ['Faculty adviser', 'Academic Council', 'Editorial Committee', 'Executive Coordination', 'Area Coordinators', 'Training Directorate', 'Observatory maintainer'],
+  // Órgãos do Estatuto, art. 21 (sem nomes; pessoas só com consentimento).
+  pt: ['Diretoria Colegiada (Presidente, Vice-Presidente e Diretores)', 'Chefias de Área', 'Coordenações de Programa e Lideranças de Painel', 'Comitê Editorial', 'Conselho Consultivo (docentes tutores)', 'Comissões permanentes'],
+  en: ['Collegiate Board (President, Vice-President and Directors)', 'Area Heads', 'Programme Coordinators and Panel Leads', 'Editorial Committee', 'Advisory Council (faculty tutors)', 'Standing committees'],
 }[k];
 const T = {
-  pt: { title: 'Equipe', lede: 'A equipe do CEE está em formação. Nomes só são publicados com consentimento registrado de cada pessoa.',
+  pt: { title: 'Equipe', lede: 'A equipe do CEE está em formação: os órgãos serão compostos após a Assembleia Constitutiva. O Conselho Consultivo terá docentes tutores — um docente confirmado e dois convites em andamento. Nomes só são publicados com consentimento registrado de cada pessoa.',
     inst: 'Instâncias', pessoas: 'Integrantes', vazio: 'Nenhum integrante com consentimento de publicação registrado até o momento.',
     gov: 'Composição e atribuições de cada instância', part: 'Quer participar?' },
-  en: { title: 'Team', lede: 'The CEE team is being formed. Names are only published with each person\'s recorded consent.',
+  en: { title: 'Team', lede: 'The CEE team is being formed: its bodies will be filled after the Founding Assembly. The Advisory Council will include faculty tutors — one faculty member confirmed and two invitations in progress. Names are only published with each person\'s recorded consent.',
     inst: 'Bodies', pessoas: 'Members', vazio: 'No member has recorded consent to publication so far.',
     gov: 'Composition and remit of each body', part: 'Want to get involved?' },
 }[k];

@@ -11,8 +11,8 @@ export interface Social {
 
 /**
  * Nome da Universidade na faixa institucional superior.
- * ATENÇÃO: a Proposta (§8.5) prevê que, antes de autorização escrita da Universidade, nada sugira
- * chancela institucional. A coordenação decidiu exibir o nome por extenso nesta faixa (ADR-012),
+ * ATENÇÃO: o uso do nome e da filiação à Universidade exige autorização específica (Estatuto, art. 62);
+ * até lá, nada deve sugerir chancela institucional. A coordenação decidiu exibir o nome por extenso nesta faixa (ADR-012),
  * sem escudo, logotipo ou cores da Universidade. Para retirar, basta `useUniversityName: false`.
  */
 const useUniversityName = true;
@@ -24,7 +24,7 @@ export const config = {
   descritor: 'Análise empírica da economia brasileira',
   useUniversityName,
   /** Texto da faixa institucional (esquerda). */
-  institutionalLine: useUniversityName ? UNIVERSIDADE : 'Iniciativa estudantil · Ciências Econômicas',
+  institutionalLine: useUniversityName ? UNIVERSIDADE : 'Liga acadêmica estudantil · Ciências Econômicas',
   /** Redes do CEE (ainda não criadas). */
   socials: [
     { name: 'LinkedIn', url: null },
@@ -32,7 +32,7 @@ export const config = {
     { name: 'X', url: null },
     { name: 'YouTube', url: null },
   ] as Social[],
-  /** Eventos só aparecem após os critérios de consolidação (Proposta §5.4). */
+  /** Seção de eventos desativada até haver eventos realizados (nada inventado). */
   showEvents: false,
   /**
    * false = versão preliminar: meta noindex e robots.txt com Disallow (sem faixa de aviso visível).
@@ -40,7 +40,7 @@ export const config = {
    * Para lançar de fato, mude para true (ver docs/LANCAMENTO.md).
    */
   launched: process.env.CEE_LANCADO === '1' ? true : false,
-  /** [PLACEHOLDER] — conta em nome do Centro, não de pessoa (Proposta §8.5). */
+  /** [PLACEHOLDER] — conta em nome do Centro, não de pessoa (Regimento Interno, art. 61). */
   contato: 'contato@[PLACEHOLDER]',
   repoUrl: 'https://github.com/jesusabc8/cee-site',
 };

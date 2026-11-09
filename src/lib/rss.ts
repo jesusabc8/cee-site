@@ -8,7 +8,7 @@ export async function feed(site: URL, tipo?: Tipo) {
   const pubs = (await getPublicacoes()).filter((p) => !tipo || p.data.tipo === tipo);
   return rss({
     title: tipo ? `CEE · ${TIPOS[tipo].plural.pt}` : 'CEE · Publicações',
-    description: 'Centro de Estudos Econômicos — iniciativa estudantil de análise econômica empírica sobre a economia brasileira.',
+    description: 'Centro de Estudos Econômicos — liga acadêmica estudantil de pesquisa econômica empírica sobre a economia brasileira.',
     site: new URL(href('/'), site).href,
     customData: '<language>pt-BR</language>',
     items: pubs.map((p) => ({
