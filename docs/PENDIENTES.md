@@ -3,16 +3,16 @@
 Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publicado como dado no sítio.
 
 ## Infraestrutura
-- **Repositório em conta pessoal** (desvio da Proposta §6.4, que exige organização com ≥ 3 administradores).
-  Transferir para uma organização antes do lançamento. Ver `docs/DECISIONES.md` (ADR-002).
-- **GitHub Pages não ativado** no repositório: em Settings → Pages → Source, escolher "GitHub Actions".
-- **DOI**: a integração GitHub–Zenodo depende da transferência para a organização; `.zenodo.json` já está preparado.
+- **Repositório em conta pessoal** (desvio do Estatuto, art. 63, §1º, e do Regimento, art. 61, que exigem ao menos três
+  administradores, um deles docente tutor ou indicado pela Universidade). Transferir para uma organização do CEE (ADR-002).
+- **DOI**: com o repositório privado, a integração GitHub–Zenodo deixa de funcionar. Os DOI virão por **depósito direto no
+  Zenodo** (`CITATION.cff` e `.zenodo.json` mantidos como metadados de referência).
 
 ## Painéis do Observatório
 - **Pobreza, renda e desigualdade (C1)** — trabalho individual do proponente, fora deste repositório. Falta: importar código e dados,
   verificação numérica independente, edição numerada, nota de mudanças. Até lá, nenhuma cifra no sítio.
 - **Crescimento e produtividade (B1)** — idem; além disso, reconciliar a decomposição (os componentes somam 4,24 p.p. e o
-  PIB do mesmo painel cresce 4,1 % a.a.; Proposta, Anexo H, ponto 6).
+  PIB do mesmo painel cresce 4,1 % a.a.). Nenhuma cifra de B1 vai ao sítio.
 
 ## Séries consideradas e não publicadas
 - **IPCA via SGS (433, 13522)**: não localizadas no catálogo de dados abertos do BCB; substituídas pelo SIDRA (ADR-006).
@@ -39,6 +39,7 @@ Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publ
 - **Panorama da economia brasileira:** os gráficos poderão ser redistribuídos entre A1, A2 e A3 à medida que esses painéis forem publicados (ADR-016).
 
 ## Conteúdo
-- **Autorização escrita para o nome da Universidade** na faixa superior (ADR-012; Proposta §8.5).
+- **Autorização específica para o nome da Universidade** na faixa superior (ADR-012; Estatuto, art. 62).
 - Endereço de e-mail do Centro (ver `docs/PLACEHOLDERS.md`).
-- Controlador dos dados pessoais e prazo de guarda (Proposta §9.4; Anexo H, ponto 13), citados como "a definir" em Privacidade.
+- Aviso de privacidade completo (finalidade, base legal, prazo de conservação, responsáveis e canal), exigido antes da abertura de
+  cadastros (Regimento, art. 60). Hoje citado como "a definir" em Privacidade.

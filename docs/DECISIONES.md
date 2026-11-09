@@ -125,3 +125,25 @@ O texto vem de `src/site.config.ts` (`institutionalLine`, `useUniversityName`).
 **Consequências.**
 - A regra "Capacidade primeiro" em Pesquisa passa a listar as quatro linhas do ano 1 (antes, três na Proposta).
 - Os gráficos do Panorama poderão ser redistribuídos entre A1, A2 e A3 à medida que esses painéis forem publicados.
+
+## ADR-017 — Substituição da Proposta v3.0 pelo Estatuto, Regimento e Manual; seis programas; Observatório como produto (2026-11-09)
+**Contexto.** A coordenação substituiu a Proposta v3.0 por três atos normativos em minuta: o Estatuto do CEE, o Regimento Interno e o Manual de Programas e Produtos.
+**Decisão.**
+- **Fonte de verdade**, nesta ordem: Estatuto > Regimento > Manual. As fontes ficam em `docs/fuentes/normas/` e fora do git até o repositório ser privado. Divergência sítio × documentos: prevalecem os documentos. Lacuna: registrar em `PENDIENTES`, sem inventar.
+- **Arquitetura** (Manual, Parte I):
+  - seis programas (A–F), mais o Transversal (T), em `src/data/programas.yaml`, que substitui `areas.yaml`;
+  - A, B, C e T estão ativos; D, E e F, em formação, e o rótulo deriva de `situacao`;
+  - lentes: Minas Gerais e Desenvolvimento Regional; Brasil Comparado;
+  - "Instituições e Capacidade do Estado" deixa de ser lente e vira o programa E.
+- **Observatório.** É um produto; seus painéis seguem os programas (Quadro 1):
+  - A1–A4, B1–B2 e C1–C3;
+  - D1, D2, E1 e F1 não são criados enquanto o programa estiver em formação;
+  - A2 continua sendo `/observatorio/conjuntura/` (Edição 1.0).
+- **Catálogo de produtos** (Manual, Parte II):
+  - DI, NC, AC, RS, NT, TD, RP, PB, BL e Relatório Anual, com identificador `CEE-XX AAAA/NN vN.N`;
+  - Working Paper passa a Texto para Discussão, com 301 de `/publicacoes/tipo/working-paper/`;
+  - Replicação e Edição especial saem do catálogo, porque não havia publicação real desses tipos.
+- **Carta de Princípios.** Retirada, com 301 para `/sobre/`, por estar superada pelo Estatuto (art. 7º).
+**Consequências.**
+- O esquema de publicações aceita `area` a–f e `transversal`, `linha` A–F e o campo `pergunta` (código do Manual).
+- As páginas Sobre, Governança, Participe, Metodologia, Contato e Privacidade foram reescritas a partir dos `.tex`.
