@@ -1,14 +1,14 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
-export type Estado = 'prevista' | 'ativa' | 'latente' | 'planejada' | 'construcao' | 'previsto';
+export type Estado = 'prevista' | 'ativa' | 'latente' | 'planejada' | 'construcao' | 'previsto' | 'ativo' | 'em-formacao';
 /** `ano` vem do dado (linhas.yaml ou paineis.yaml) e substitui {ano} no rótulo ("Previsto · ano N"). */
-interface Props { estado: Estado; ano?: number; lang?: Lang }
+interface Props { estado: Estado; ano?: number | undefined; lang?: Lang }
 const { estado, ano, lang = 'pt-BR' } = Astro.props;
 const t = useTranslations(lang);
-const rotulo = t(`status.${estado}`);
-if (rotulo.includes('{ano}') && ano === undefined) throw new Error(`StatusTag: estado "${estado}" exige \`ano\`.`);
+// Sem `ano` definido nos documentos, o rótulo omite o ano ("Previsto", "Planejada").
+const rotulo = ano === undefined ? t(`status.${estado}`).replace(/ ?(·|\() ?(ano|year|for year) \{ano\}\)?/, '') : t(`status.${estado}`).replace('{ano}', String(ano));
 ---
-<span class={`status status--${estado}`}>{rotulo.replace('{ano}', String(ano))}</span>
+<span class={`status status--${estado}`}>{rotulo}</span>
 <style>
   .status {
     display: inline-block;
@@ -24,5 +24,6 @@ if (rotulo.includes('{ano}') && ano === undefined) throw new Error(`StatusTag: e
   }
   .status--ativa { border-color: var(--petrol); color: var(--petrol); }
   .status--prevista { border-color: var(--navy); color: var(--navy); }
+  .status--ativo { border-color: var(--petrol); color: var(--petrol); }
   :where(.band-navy, .band-petrol) .status { border-color: rgb(255 255 255 / 35%); color: var(--muted-on-dark); }
 </style>

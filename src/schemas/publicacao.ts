@@ -36,8 +36,12 @@ export const publicacaoSchema = z.object({
   subtitulo: z.string().min(1),
   data: dataISO,
   versao: z.string().regex(/^\d+\.\d+$/, 'versão no formato N.N'),
-  area: z.enum(['a', 'b', 'c', 'instituicoes']),
-  linha: z.string().regex(/^[ABC]\d$/).optional(),
+  /** Programa (Manual, Parte I): o produto pertence ao programa cuja pergunta principal responde. */
+  area: z.enum(['a', 'b', 'c', 'd', 'e', 'f', 'transversal']),
+  /** Painel/linha do Observatório (A1…F1). */
+  linha: z.string().regex(/^[A-F]\d$/).optional(),
+  /** Pergunta de pesquisa do Manual a que o produto responde (ex.: A.1.2, B.3). */
+  pergunta: z.string().regex(/^[A-FT](\.\d)+$/).optional(),
   autoria: z.array(z.object({
     nome: z.string().min(1),
     funcao_credit: z.array(z.enum(CREDIT_ROLES)).min(1),

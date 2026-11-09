@@ -1,4 +1,5 @@
-# Equipe — só aparece no sítio quem tiver `consentimento: true` registrado (Proposta §9.2, LGPD;
-# Regimento, Art. 26). Campos: id, nome, funcao {pt, en}, instancia, consentimento, data_consentimento.
+# Equipe — só aparece no sítio quem tiver `consentimento: true`, `data_consentimento` e `revogado: false`
+# (Estatuto, art. 60; LGPD). Campos: id, nome, funcao {pt, en}, instancia, consentimento, data_consentimento, revogado.
+# O sítio mostra só nome, função e instância — sem e-mail, telefone, foto ou matrícula.
 # Nenhuma pessoa registrada até o momento.
 []

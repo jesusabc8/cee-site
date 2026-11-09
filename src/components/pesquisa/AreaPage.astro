@@ -1,4 +1,9 @@
 ---
+/**
+ * Página de programa de pesquisa (/pesquisa/<id>/). Conteúdo de src/data/programas.yaml (Manual, Parte I).
+ * Programa em formação: objeto e perguntas, com o rótulo "Em formação" e os painéis previstos para quando o programa
+ * for ativado; sem painel, Coordenador, equipe nem produtos inexistentes (Manual, Parte I, §1.2).
+ */
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
@@ -9,79 +14,122 @@ import { getPublicacoes } from '../../lib/publicacoes';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
-interface Props { area: CollectionEntry<'areas'>; lang: Lang }
-const { area, lang } = Astro.props;
+interface Props { area: CollectionEntry<'programas'>; lang: Lang }
+const { area: prog, lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
-const linhas = (await getCollection('linhas', (l) => l.data.area === area.id)).sort((a, b) =>
-  a.data.codigo.localeCompare(b.data.codigo));
-const relacionadas = (await getPublicacoes()).filter((p) => p.data.area === area.id);
+const d = prog.data;
+const emFormacao = d.situacao === 'em-formacao';
+const paineis = emFormacao ? [] : (await getCollection('paineis', (p) => p.data.area === prog.id)).sort((a, b) => a.data.linha.localeCompare(b.data.linha));
+const relacionadas = emFormacao ? [] : (await getPublicacoes()).filter((p) => p.data.area === prog.id);
 const T = {
-  pt: { area: 'Área', lente: 'Lente transversal', pergunta: 'Pergunta-guia', fund: 'Fundamentação', linhas: 'Linhas de pesquisa',
-    perguntas: 'Perguntas típicas', metodos: 'Métodos', fontes: 'Fontes', produtos: 'Produtos típicos', pubs: 'Publicações relacionadas',
-    semPubs: 'Nenhuma publicação nesta área até o momento.', voltar: 'Todas as áreas', ano: 'Ano' },
-  en: { area: 'Area', lente: 'Cross-cutting lens', pergunta: 'Guiding question', fund: 'Rationale', linhas: 'Research lines',
-    perguntas: 'Typical questions', metodos: 'Methods', fontes: 'Sources', produtos: 'Typical outputs', pubs: 'Related publications',
-    semPubs: 'No publications in this area yet.', voltar: 'All areas', ano: 'Year' },
+  pt: { programa: 'Programa', transversal: 'Programa transversal', objeto: 'Objeto', abrange: 'Abrange', nao: 'Não abrange', perguntas: 'Perguntas de pesquisa',
+    sub: 'Subprograma', paineis: 'Painéis do Observatório', previstos: 'Painéis previstos quando o programa for ativado', dados: 'Dados principais', refs: 'Referências de partida',
+    pubs: 'Publicações relacionadas', semPubs: 'Nenhuma publicação neste programa até o momento.', voltar: 'Todos os programas', abrir: 'Abrir painel',
+    formacao: 'Programa em formação: suas perguntas integram a agenda e podem originar Data Insights, Notas de Conjuntura e Blogs, sob supervisão do Economista-Chefe, mas ele não abre painel nem tem Coordenador até ser ativado pela Diretoria Colegiada.' },
+  en: { programa: 'Programme', transversal: 'Cross-cutting programme', objeto: 'Scope', abrange: 'Covers', nao: 'Does not cover', perguntas: 'Research questions',
+    sub: 'Sub-programme', paineis: 'Observatory panels', previstos: 'Panels planned for when the programme is activated', dados: 'Main data', refs: 'Starting references',
+    pubs: 'Related publications', semPubs: 'No publications in this programme yet.', voltar: 'All programmes', abrir: 'Open dashboard',
+    formacao: 'Programme in formation: its questions are part of the agenda and may give rise to Data Insights, Business-Cycle Notes and Blog posts under the Chief Economist\'s supervision, but it opens no panel and has no Coordinator until the Board activates it.' },
 }[k];
-const eyebrow = area.data.tipo === 'lente' ? T.lente : `${T.area} ${area.data.codigo}`;
+const eyebrow = d.tipo === 'transversal' ? T.transversal : `${T.programa} ${d.codigo}`;
+const perguntas = d.perguntas ?? [];
 ---
-<Base title={area.data.nome[k]} description={area.data.pergunta_guia[k]} lang={lang}>
-  <PageHero lang={lang} eyebrow={eyebrow} title={area.data.nome[k]}>
-    <blockquote class="guia">
-      <p class="eyebrow">{T.pergunta}</p>
-      <p>{area.data.pergunta_guia[k]}</p>
-    </blockquote>
+<Base title={`${d.codigo !== 'T' ? `${d.codigo} — ` : ''}${d.nome[k]}`} description={d.objeto[k]} lang={lang}>
+  <PageHero lang={lang} eyebrow={eyebrow} title={d.nome[k]} lede={d.objeto[k]}>
+    {d.situacao && <p><StatusTag estado={d.situacao} lang={lang} /></p>}
   </PageHero>
   <div class="wrap">
 
-    <section class="section split">
-      <h2 class="section__title">{T.fund}</h2>
-      <p class="prose">{area.data.descricao[k]}</p>
-    </section>
+    {emFormacao && <p class="formacao">{T.formacao}</p>}
 
-    {linhas.length > 0 && (
+    {d.nota && (
       <section class="section split">
-        <h2 class="section__title">{T.linhas}</h2>
-        <div>
-          {linhas.map((l) => (
-            <article class="linha" id={l.data.codigo.toLowerCase()}>
-              <h3><span class="code">{l.data.codigo}</span> {l.data.nome[k]} <StatusTag estado={l.data.estado} ano={l.data.ano} lang={lang} /></h3>
-              <p class="linha__q">{l.data.pergunta_guia[k]}</p>
-              <div class="linha__grid">
-                <div><h4 class="eyebrow">{T.perguntas}</h4><ul>{l.data.perguntas[k].map((p) => <li>{p}</li>)}</ul></div>
-                <div><h4 class="eyebrow">{T.metodos}</h4><ul>{l.data.metodos[k].map((m) => <li>{m}</li>)}</ul></div>
-              </div>
-              <p class="meta"><strong>{T.fontes}:</strong> {l.data.fontes}</p>
-              {l.data.nota && <p class="meta">{l.data.nota[k]}</p>}
-            </article>
-          ))}
+        <h2 class="section__title">{T.objeto}</h2>
+        <p class="prose">{d.nota[k]}</p>
+      </section>
+    )}
+
+    {(d.abrange || d.nao_abrange) && (
+      <section class="section split">
+        <h2 class="section__title">{T.abrange}</h2>
+        <div class="prose">
+          {d.abrange && <p>{d.abrange[k]}</p>}
+          {d.nao_abrange && <p><strong>{T.nao}:</strong> {d.nao_abrange[k]}</p>}
         </div>
       </section>
     )}
 
-    <section class="section split">
-      <h2 class="section__title">{T.produtos}</h2>
-      <p class="prose">{area.data.produtos[k]}</p>
+    <section class="section split" id="perguntas">
+      <h2 class="section__title">{T.perguntas}</h2>
+      <div class="perguntas">
+        {d.subprogramas?.map((s) => (
+          <div class="sub">
+            <h3><span class="code">{s.codigo}</span> {s.nome[k]}</h3>
+            <ol>{s.perguntas.map((q) => <li><span class="code">{q.codigo}</span> {q[k]}</li>)}</ol>
+          </div>
+        ))}
+        {perguntas.length > 0 && <ol>{perguntas.map((q) => <li><span class="code">{q.codigo}</span> {q[k]}</li>)}</ol>}
+      </div>
     </section>
 
-    <section class="section split">
-      <h2 class="section__title">{T.pubs}</h2>
-      <div>{relacionadas.length === 0 ? <p class="meta">{T.semPubs}</p> : relacionadas.map((p) => <PubRow pub={p} lang={lang} />)}</div>
-    </section>
+    {paineis.length > 0 && (
+      <section class="section split">
+        <h2 class="section__title">{T.paineis}</h2>
+        <ul class="paineis">
+          {paineis.map((p) => (
+            <li>
+              <span class="code">{p.data.linha}</span>
+              {p.data.estado === 'publicado' || p.data.estado === 'em-institucionalizacao'
+                ? <a href={href(`/observatorio/${p.id}/`, lang)}>{p.data.titulo[k]}</a>
+                : <span>{p.data.titulo[k]}</span>}
+              {p.data.estado === 'publicado'
+                ? <span class="ed mono">{k === 'en' ? 'Edition' : 'Edição'} {p.data.versao}</span>
+                : <StatusTag estado={p.data.estado === 'previsto' ? 'previsto' : 'construcao'} ano={p.data.ano} lang={lang} />}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {d.paineis_previstos && (
+      <section class="section split">
+        <h2 class="section__title">{T.previstos}</h2>
+        <ul class="paineis">{d.paineis_previstos.map((p) => <li><span class="code">{p.codigo}</span><span>{p[k]}</span></li>)}</ul>
+      </section>
+    )}
+
+    {d.dados && (
+      <section class="section split">
+        <h2 class="section__title">{T.dados}</h2>
+        <p class="prose">{d.dados}</p>
+      </section>
+    )}
+
+    {d.referencias && (
+      <section class="section split">
+        <h2 class="section__title">{T.refs}</h2>
+        <p class="prose">{d.referencias}</p>
+      </section>
+    )}
+
+    {!emFormacao && (
+      <section class="section split">
+        <h2 class="section__title">{T.pubs}</h2>
+        <div>{relacionadas.length === 0 ? <p class="meta">{T.semPubs}</p> : relacionadas.map((p) => <PubRow pub={p} lang={lang} />)}</div>
+      </section>
+    )}
 
     <p class="meta"><a href={href('/pesquisa/', lang)}>← {T.voltar}</a></p>
   </div>
 </Base>
 <style>
-  .guia { margin: var(--s-3) 0 0; padding-left: var(--s-4); border-left: 3px solid var(--petrol); max-width: var(--measure); }
-  .guia p:last-child { font-family: var(--serif); font-size: var(--step-3); line-height: 1.3; }
-  .linha { padding-block: var(--s-5); border-top: var(--hairline); }
-  .linha:first-child { border-top: 0; padding-top: 0; }
-  .linha h3 { font-size: var(--step-2); }
-  .code { color: var(--petrol); }
-  .linha__q { font-family: var(--serif); font-size: var(--step-1); margin-top: var(--s-2); max-width: var(--measure); }
-  .linha__grid { display: grid; gap: var(--s-4); margin-block: var(--s-4); font-size: var(--step--1); }
-  @media (min-width: 46rem) { .linha__grid { grid-template-columns: 1fr 1fr; } }
-  .linha__grid h4 { font-size: var(--step--2); margin-bottom: var(--s-2); }
-  .linha__grid ul { margin: 0; padding-left: 1.1em; display: grid; gap: var(--s-1); }
+  .formacao { margin: clamp(40px, 5vw, 56px) 0 0; padding: 16px 20px; border-left: 3px solid var(--slate); background: var(--paper); color: var(--ink); max-width: 72ch; }
+  .code { font: 600 0.8125rem / 1.6 var(--mono); color: var(--petrol); margin-right: 6px; }
+  .perguntas { display: grid; gap: var(--s-5); }
+  .perguntas h3 { font-size: 1.125rem; margin-bottom: var(--s-2); }
+  .perguntas ol { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+  .perguntas li { font: 400 1.0625rem / 1.55 var(--serif); color: var(--ink); max-width: 70ch; }
+  .paineis { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+  .paineis li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+  .ed { color: var(--navy); }
 </style>

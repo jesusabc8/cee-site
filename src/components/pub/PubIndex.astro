@@ -18,17 +18,17 @@ const { lang, tipo } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const todas = await getPublicacoes();
 const pubs = tipo ? todas.filter((p) => p.data.tipo === tipo) : todas;
-const areas = (await getCollection('areas')).sort((a, b) => a.data.ordem - b.data.ordem);
+const areas = (await getCollection('programas', (a) => a.data.tipo !== 'lente')).sort((a, b) => a.data.ordem - b.data.ordem);
 const anos = [...new Set(todas.map((p) => p.data.data.getUTCFullYear()))].sort((a, b) => b - a);
 const autores = [...new Set(todas.flatMap((p) => p.data.autoria.map((a) => a.nome)))].sort();
 
 const L = {
   pt: { t: 'Publicações', lede: 'Notas de Conjuntura, Data Insights, Notas Técnicas, Working Papers numerados, Replicações e Edições especiais. Cada uma com dados, código, bloco de citação e histórico de versões.',
-    tipo: 'Tipo', area: 'Área', ano: 'Ano', autoria: 'Autoria', todos: 'Todos', todas: 'Todas', ordem: 'Ordenar', recentes: 'Mais recentes', antigas: 'Mais antigas',
+    tipo: 'Tipo', area: 'Programa', ano: 'Ano', autoria: 'Autoria', todos: 'Todos', todas: 'Todas', ordem: 'Ordenar', recentes: 'Mais recentes', antigas: 'Mais antigas',
     vazio: 'Nenhuma publicação até o momento. A primeira Nota de Conjuntura e os primeiros Data Insights estão em preparação; cada publicação passará pela verificação numérica independente antes de sair.',
     nenhumFiltro: 'Nenhuma publicação corresponde aos filtros.', porTipo: 'Por tipo', rss: 'Assinar (RSS)', resultado: 'publicações' },
   en: { t: 'Publications', lede: 'Business-Cycle Notes, Data Insights, Technical Notes, numbered Working Papers, Replications and Special editions — each with data, code, a citation block and version history. Full texts are in Portuguese; summaries are in English.',
-    tipo: 'Type', area: 'Area', ano: 'Year', autoria: 'Author', todos: 'All', todas: 'All', ordem: 'Sort', recentes: 'Newest first', antigas: 'Oldest first',
+    tipo: 'Type', area: 'Programme', ano: 'Year', autoria: 'Author', todos: 'All', todas: 'All', ordem: 'Sort', recentes: 'Newest first', antigas: 'Oldest first',
     vazio: 'No publications yet. The first Business-Cycle Note and Data Insights are in preparation; each will undergo independent numerical verification before release.',
     nenhumFiltro: 'No publications match the filters.', porTipo: 'By type', rss: 'Subscribe (RSS)', resultado: 'publications' },
 }[k];

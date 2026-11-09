@@ -27,7 +27,7 @@ const { pub, lang } = Astro.props;
 const p = pub.data;
 const k = lang === 'en' ? 'en' : 'pt';
 const { Content } = await render(pub);
-const area = await getEntry('areas', p.area);
+const area = await getEntry('programas', p.area);
 const url = new URL(href(`/publicacoes/${pub.id}/`, 'pt-BR'), Astro.site).href;
 const noindex = p.demo || p.noindex;
 
@@ -166,7 +166,7 @@ const jsonld = {
           <div><dt>{L.por}</dt><dd>{autores}</dd></div>
           <div><dt>{L.publicado}</dt><dd><time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></dd></div>
           <div><dt>{L.versao}</dt><dd><a href="#versoes">{p.versao}</a></dd></div>
-          {area && <div><dt>{k === 'en' ? 'Area' : 'Área'}</dt><dd><a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} · {area.data.nome[k]}</a>{p.linha && ` · ${p.linha}`}</dd></div>}
+          {area && <div><dt>{k === 'en' ? 'Programme' : 'Programa'}</dt><dd><a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} · {area.data.nome[k]}</a>{p.linha && ` · ${p.linha}`}</dd></div>}
           {p.doi && <div><dt>DOI</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
           <div><dt>{L.licenca}</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd></div>
         </dl>

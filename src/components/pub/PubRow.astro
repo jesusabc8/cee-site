@@ -12,7 +12,7 @@ interface Props { pub: Pub; lang: Lang; headingLevel?: 'h2' | 'h3' }
 const { pub, lang, headingLevel = 'h3' } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const p = pub.data;
-const area = await getEntry('areas', p.area);
+const area = await getEntry('programas', p.area);
 const H = headingLevel;
 const titulo = k === 'en' && p.titulo_en ? p.titulo_en : p.titulo;
 const resumo = k === 'en' && p.resumo_en ? p.resumo_en : p.resumo;

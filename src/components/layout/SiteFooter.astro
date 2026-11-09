@@ -4,17 +4,18 @@ import { useTranslations, type Lang } from '../../i18n/ui';
 import { href } from '../../i18n/routing';
 import Disclaimer from '../Disclaimer.astro';
 import SocialIcons from '../ui/SocialIcons.astro';
+import { getCollection } from 'astro:content';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const en = lang === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const programas = await getCollection('programas', (p) => p.data.tipo === 'programa');
+const nProg = (en ? ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'] : ['Zero', 'Um', 'Dois', 'Três', 'Quatro', 'Cinco', 'Seis', 'Sete', 'Oito'])[programas.length] ?? String(programas.length);
 const cols = [
   { title: t('footer.pesquisa'), links: [
-    { href: href('/pesquisa/a/', lang), label: en ? 'Macroeconomic fundamentals and policy' : 'Macrofundamentos e política econômica' },
-    { href: href('/pesquisa/b/', lang), label: en ? 'Growth and productivity' : 'Crescimento e produtividade' },
-    { href: href('/pesquisa/c/', lang), label: en ? 'Inclusion: labor, poverty and inequality' : 'Inclusão: trabalho, pobreza e desigualdade' },
+    { href: href('/pesquisa/', lang), label: en ? `${nProg} research programmes` : `${nProg} programas de pesquisa` },
     { href: href('/observatorio/', lang), label: t('nav.observatorio') },
     { href: href('/publicacoes/', lang), label: t('nav.publicacoes') },
   ] },

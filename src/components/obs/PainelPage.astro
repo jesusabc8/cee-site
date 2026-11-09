@@ -20,7 +20,7 @@ interface Props { painel: CollectionEntry<'paineis'>; lang: Lang }
 const { painel, lang } = Astro.props;
 const p = painel.data;
 const k = lang === 'en' ? 'en' : 'pt';
-const area = await getEntry('areas', p.area);
+const area = await getEntry('programas', p.area);
 const publicado = p.estado === 'publicado';
 const nome = `${p.linha}. ${p.titulo[k]}`;
 const g = publicado && painel.id === 'conjuntura' ? graficosConjuntura(lang) : null;
@@ -32,11 +32,11 @@ const url = new URL(href(`/observatorio/${painel.id}/`), Astro.site).href;
 const ano = vintage ? vintage.slice(0, 4) : '';
 
 const L = {
-  pt: { obs: 'Observatório CEE', area: 'Área', edicao: 'Edição', vintage: 'Dados extraídos em', linha: 'Linha', licenca: 'Licença', situacao: 'Situação',
+  pt: { obs: 'Observatório CEE', area: 'Programa', edicao: 'Edição', vintage: 'Dados extraídos em', linha: 'Linha', licenca: 'Licença', situacao: 'Situação',
     fontes: 'Fontes previstas', series: 'Mostrar séries', metodo: 'Nota metodológica', dic: 'Dicionário de dados', arquivo: 'Arquivo', variavel: 'Variável', descricao: 'Descrição', unidade: 'Unidade', origem: 'Origem',
     mudancas: 'Histórico de mudanças', citar: 'Como citar este painel', downloads: 'Downloads', vint: 'Registro de vintage (JSON)', doi: 'DOI', doiPend: 'DOI ainda não atribuído; será solicitado via Zenodo após a transferência do repositório para a organização do CEE.',
     catalogo: 'Catálogo de dados e fontes', stale: 'Atenção: a última atualização automática falhou para', staleTxt: 'Os gráficos exibem o vintage anterior, com a data indicada.', codigo: 'Código de extração e processamento' },
-  en: { obs: 'CEE Observatory', area: 'Area', edicao: 'Edition', vintage: 'Data extracted on', linha: 'Line', licenca: 'Licence', situacao: 'Status',
+  en: { obs: 'CEE Observatory', area: 'Programme', edicao: 'Edition', vintage: 'Data extracted on', linha: 'Line', licenca: 'Licence', situacao: 'Status',
     fontes: 'Planned sources', series: 'Show series', metodo: 'Methodological note', dic: 'Data dictionary', arquivo: 'File', variavel: 'Variable', descricao: 'Description', unidade: 'Unit', origem: 'Origin',
     mudancas: 'Change log', citar: 'How to cite this dashboard', downloads: 'Downloads', vint: 'Vintage record (JSON)', doi: 'DOI', doiPend: 'No DOI yet; it will be requested via Zenodo once the repository is transferred to the CEE organisation.',
     catalogo: 'Data and source catalogue', stale: 'Warning: the last automated update failed for', staleTxt: 'Charts show the previous vintage, with its date.', codigo: 'Extraction and processing code' },
