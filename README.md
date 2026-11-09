@@ -2,9 +2,11 @@
 
 *[English version below](#english)*
 
-Sítio público do **Centro de Estudos Econômicos (CEE)**, iniciativa estudantil de análise econômica empírica sobre a economia brasileira, de estudantes de Ciências Econômicas da PUC Minas.
+Sítio público do **Centro de Estudos Econômicos (CEE)**, liga acadêmica estudantil do Curso de Ciências Econômicas dedicada à pesquisa econômica empírica sobre a economia brasileira. Fonte de verdade: Estatuto, Regimento Interno e Manual de Programas e Produtos (minutas; ADR-017).
 
-> O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.
+> As opiniões expressas são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.
+
+**Repositório privado (ADR-018).** Tudo o que o sítio serve é público; nada interno vai para `dist/` (`npm run qa:seguranca`).
 
 O sítio é estático (Astro), sem cookies nem recursos de terceiros. Os dados do Observatório são baixados das APIs oficiais (IBGE e Banco Central), arquivados com data e hash e verificados por testes automáticos. As regras de integridade estão em [`CLAUDE.md`](CLAUDE.md) e valem para qualquer pessoa — ou ferramenta — que edite este repositório.
 
@@ -18,15 +20,16 @@ O sítio é estático (Astro), sem cookies nem recursos de terceiros. Os dados d
 6. [Editar páginas institucionais](#6-editar-páginas-institucionais)
 7. [Verificações de qualidade](#7-verificações-de-qualidade)
 8. [Estrutura do repositório](#8-estrutura-do-repositório)
+9. [Publicação na Cloudflare e segurança](#9-publicação-na-cloudflare-e-segurança)
 
 ## 1. Rodar no seu computador
 
 Requisitos: [Node.js 22](https://nodejs.org/) e Git.
 
 ```bash
-git clone https://github.com/jesusabc8/cee-site.git
+git clone <url-do-repositorio> cee-site   # repositório privado: peça acesso ao responsável
 cd cee-site
-npm ci            # instala as dependências exatamente como no package-lock.json
+npm ci --ignore-scripts   # dependências exatas do package-lock.json, sem scripts de instalação
 npm run dev       # abre em http://localhost:4321 e recarrega a cada alteração
 npm run build     # gera o sítio final em dist/ (inclui o índice de busca)
 npm run preview   # serve dist/ para conferir o resultado final
@@ -88,7 +91,7 @@ Prazo: menos de **7 dias** entre a identificação do erro e a publicação da e
 
 ## 4. Atualizar os dados
 
-A atualização é **automática**: o workflow [`data-refresh`](.github/workflows/data-refresh.yml) roda toda terça-feira, baixa as séries, valida e publica. Para rodar à mão:
+A atualização é **automática**: o workflow [`data-refresh`](.github/workflows/data-refresh.yml) roda toda segunda-feira às 12h30 UTC, baixa as séries, valida e publica. Para rodar à mão:
 
 ```bash
 npm run data      # baixa (data:fetch), processa (data:process), regenera data/CATALOGO.md e roda os testes
@@ -120,6 +123,8 @@ npm run check     # tipos (astro check)
 npm run lint      # ESLint + Stylelint
 npm test          # dados e regras editoriais
 npm run qa:links  # links internos e âncoras, depois de npm run build
+npm run qa:seguranca  # nada interno ou pessoal em dist/, depois de npm run build
+npm audit --audit-level=high
 ```
 
 Acessibilidade (axe) e Lighthouse rodam no CI ([`quality.yml`](.github/workflows/quality.yml)); para rodar localmente, veja `scripts/qa/`. Registro da última rodada: [`docs/qa/README.md`](docs/qa/README.md).
@@ -127,9 +132,11 @@ Acessibilidade (axe) e Lighthouse rodam no CI ([`quality.yml`](.github/workflows
 ## 8. Estrutura do repositório
 
 ```
-.github/workflows/   build-deploy.yml · data-refresh.yml · quality.yml
+.github/workflows/   build-deploy.yml (Cloudflare) · data-refresh.yml · quality.yml · dependabot.yml
+public/_headers      CSP e cabeçalhos de segurança · public/_redirects (301)
+wrangler.jsonc       Cloudflare Workers com arquivos estáticos
 src/content/         publicacoes/ (MDX) · paginas/pt-BR e en/ (MDX)
-src/data/            areas, linhas, paineis, equipe, parcerias (YAML validado por esquema)
+src/data/            programas, linhas, paineis, equipe, parcerias (YAML validado por esquema)
 src/components/      Chart, DataTable, CiteBox, Disclaimer, ...
 src/lib/             dados, gráficos, citação, RSS, OG
 src/schemas/         esquemas Zod de publicações e painéis
@@ -140,7 +147,34 @@ data/                raw/ (imutável) · processed/ · CATALOGO.md
 docs/                DECISIONES · PENDIENTES · PLACEHOLDERS · LANCAMENTO · modelos/ · qa/
 ```
 
-Licenças: código sob [MIT](LICENSE); textos e dados sob [CC BY 4.0](LICENSE-CONTENT), ressalvadas as restrições das fontes. Como citar o código: [`CITATION.cff`](CITATION.cff).
+Licenças: código sob [MIT](LICENSE); textos e dados sob [CC BY 4.0](LICENSE-CONTENT), ressalvadas as restrições das fontes. Metadados de citação: [`CITATION.cff`](CITATION.cff) (DOI por depósito direto no Zenodo).
+
+## 9. Publicação na Cloudflare e segurança
+
+O sítio é publicado na **Cloudflare** (Workers com arquivos estáticos; [`wrangler.jsonc`](wrangler.jsonc)) pelo workflow
+[`build-deploy.yml`](.github/workflows/build-deploy.yml) a cada push em `main` e após cada atualização de dados.
+O workflow instala sem scripts, roda tipos e testes, gera o build com `SITE_URL` (variável do repositório) e `BASE_PATH=/`,
+roda `npm run qa:seguranca` e só então publica com `wrangler deploy`.
+
+Configuração (uma vez, pelo responsável; ver [`docs/LANCAMENTO.md`](docs/LANCAMENTO.md)):
+
+1. Na Cloudflare, criar um token de API com permissão mínima *Workers Scripts: Edit*, restrito à conta.
+2. No GitHub, criar o environment `cloudflare` (restrito ao branch `main`) com os segredos `CLOUDFLARE_API_TOKEN` e
+   `CLOUDFLARE_ACCOUNT_ID`, e a variável de repositório `SITE_URL`.
+3. Rodar `build-deploy` (Actions → build-deploy → Run workflow) e conferir a URL `*.workers.dev`.
+
+Testar localmente os cabeçalhos e redirecionamentos, com o mesmo runtime da Cloudflare:
+
+```bash
+npm run build
+npx wrangler dev          # http://localhost:8787
+curl -I http://localhost:8787/          # CSP, HSTS, nosniff, Referrer-Policy, Permissions-Policy, COOP, X-Frame-Options
+curl -I http://localhost:8787/publicacoes/tipo/working-paper/   # 301
+```
+
+Regras: Actions fixadas por SHA; `permissions: contents: read` por padrão (só `data-refresh` escreve, e não lê os segredos
+da Cloudflare); Dependabot semanal; `npm audit --audit-level=high` e gitleaks no CI. Gancho local opcional de gitleaks:
+ver [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
 
@@ -148,15 +182,16 @@ Licenças: código sob [MIT](LICENSE); textos e dados sob [CC BY 4.0](LICENSE-CO
 
 ## English
 
-Public website of the **Centro de Estudos Econômicos (CEE)**, a student-run initiative for empirical economic analysis of the Brazilian economy, by Economics students at PUC Minas. *CEE is a student initiative; its publications do not represent the position of PUC Minas or any other institution.*
+Public website of the **Centro de Estudos Econômicos (CEE)**, a student academic society of the Economics programme devoted to empirical research on the Brazilian economy. Source of truth: the Statute, Internal Rules and Programmes and Outputs Manual (drafts). *The views expressed are those of the authors and do not represent the position of the Pontifical Catholic University of Minas Gerais.* The repository is private; everything the site serves is public.
 
 The site is static (Astro), with no cookies and no third-party resources. Observatory data are downloaded from official APIs (IBGE and the Central Bank of Brazil), archived with date and hash, and checked by automated tests. Integrity rules are in [`CLAUDE.md`](CLAUDE.md).
 
-- **Run locally:** Node.js 22, then `npm ci`, `npm run dev` (http://localhost:4321), `npm run build`, `npm run preview`.
+- **Run locally:** Node.js 22, then `npm ci --ignore-scripts`, `npm run dev` (http://localhost:4321), `npm run build`, `npm run preview`.
 - **Publish a note:** create a branch; copy a template from [`docs/modelos/`](docs/modelos/) to `src/content/publicacoes/<slug>.mdx` (the file name is the permanent URL); fill in every `TODO` in the front matter — an assertive title, CRediT roles, every source series with code, unit and extraction date, AI-use and conflict declarations; write the body in Markdown (insert an Observatory chart with `<GraficoObservatorio grafico="jurosInflacao" />`); check it with `npm run dev`; open a pull request and complete its checklist. The build fails with a clear message if a required field is missing.
-- **Errata:** never correct silently. Bump `versao`, add an entry to `versoes` and to `erratas` (published less than 7 days after the error is identified — the build enforces this). Errata appear on the publication and in the public register at `/erratas/`.
-- **Data updates:** automatic every Tuesday ([`data-refresh`](.github/workflows/data-refresh.yml)); manually, `npm run data`. Never edit `data/raw/` by hand. If an API fails, the previous vintage is kept and the dashboard shows a warning.
+- **Errata:** never correct silently. Bump `versao`, add an entry to `versoes` and to `erratas` (a notice within seven calendar days of becoming aware of the error — the build enforces this). Errata appear on the publication and in the public register at `/erratas/`.
+- **Data updates:** automatic every Monday ([`data-refresh`](.github/workflows/data-refresh.yml)); manually, `npm run data`. Never edit `data/raw/` by hand. If an API fails, the previous vintage is kept and the dashboard shows a warning.
 - **New series or dashboard:** verify the code against the official metadata first, add it to [`scripts/data/series.ts`](scripts/data/series.ts) with its `verificacao` block, write the processor and the plausible ranges in the tests, and run `npm run data`. At most three series per chart, one y-axis.
-- **Quality:** `npm run check`, `npm run lint`, `npm test`, `npm run qa:links`; axe and Lighthouse run in CI.
+- **Quality:** `npm run check`, `npm run lint`, `npm test`, `npm run qa:links`, `npm run qa:seguranca`, `npm audit --audit-level=high`; gitleaks, axe and Lighthouse run in CI.
+- **Deployment:** Cloudflare Workers static assets via [`build-deploy`](.github/workflows/build-deploy.yml); security headers in `public/_headers`, 301s in `public/_redirects`; test locally with `npx wrangler dev`. Setup steps: [`docs/LANCAMENTO.md`](docs/LANCAMENTO.md).
 
 Licences: code under [MIT](LICENSE); text and data under [CC BY 4.0](LICENSE-CONTENT).
