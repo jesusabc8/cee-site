@@ -1,30 +1,48 @@
 ---
-# MODELO — Data Insight (Proposta, Anexo D.2): um gráfico, um achado, ≈ 150 palavras. Revisão: camada 1.
+# MODELO — Anexo A — Data Insight. 400–700 palavras; um gráfico principal e no máximo um secundário. Autoria N2. Revisão: numérica e editorial.
+# Copie para src/content/publicacoes/<slug>.mdx. O nome do arquivo vira a URL permanente /publicacoes/<slug>/
+# (minúsculas, hífens, sem acentos). Campos com "TODO" precisam ser preenchidos; o build falha se faltar campo
+# obrigatório (src/schemas/publicacao.ts) e avisa se a extensão sair da faixa do Manual.
 tipo: data-insight
-titulo: "TODO Título-afirmação"
-subtitulo: "TODO Bajada"
-data: 2026-01-31
+titulo: "TODO"
+subtitulo: "TODO"
+data: 2027-01-31            # data de publicação (AAAA-MM-DD)
 versao: "1.0"
-area: c
+identificador: "CEE-DI 2027/NN v1.0"   # série, número no ano (2 dígitos) e versão; ano = ano de `data`
+area: c                     # a | b | c | d | e | f | transversal
 linha: C1
-autoria:
-  - nome: "TODO Nome Sobrenome"
-    funcao_credit: [visualizacao, redacao]
-  - nome: "TODO Verificação"
-    funcao_credit: [validacao]
-resumo: "TODO Resumo de uma linha."
+pergunta: "C.2"            # pergunta do Manual, Parte I (ex.: A.1.2, B.3)
+autoria:                    # funções CRediT: conceituacao, curadoria, analise, investigacao, metodologia,
+  - nome: "TODO Nome Sobrenome"   # administracao, recursos, software, supervisao, validacao, visualizacao,
+    funcao_credit: [analise, redacao]   # redacao, revisao, financiamento
+resumo: "TODO Resumo de uma a duas linhas para listas, RSS e buscadores."
 fontes:
-  - instituicao: IBGE
+  - instituicao: "TODO"
     serie: "TODO"
     codigo: "TODO"
     unidade: "TODO"
-    extraido_em: 2026-01-30
-    url: "https://sidra.ibge.gov.br/"
+    extraido_em: 2027-01-30
+    url: "https://example.org/TODO"
 dados:
   - rotulo: "Dados (CSV)"
-    url: "/dados/conjuntura/desocupacao.csv"
+    url: "/dados/TODO.csv"
+# codigo_url: "https://…"   # código público de replicação; sem ele, a página informa
+#                           # "Código disponível mediante solicitação ao CEE".
 conflitos: "Os autores declaram não haver conflitos de interesse."
-uso_ia: "Não houve uso de ferramentas de IA."
+declaracao_ia: "TODO Ferramenta, finalidade, partes afetadas e verificação humana. Se não houve uso: 'Não houve uso de ferramentas de inteligência artificial.'"
+# licenca: CC-BY-4.0        # padrão; alterar só por restrição de terceiros
 ---
 
-TODO ≈ 150 palavras: o achado e o que ele significa.
+## O fato
+
+TODO Dois a três parágrafos: o que os dados mostram, em números, com período e fonte. O título enuncia o fato, não o tema.
+
+{/* Gráfico 1: título informativo, nota, fonte (instituição, base, período), elaboração: CEE. */}
+
+## Por que importa
+
+TODO Um a dois parágrafos que ligam o fato a uma pergunta do Manual e ao debate em curso.
+
+## O que os dados não dizem
+
+TODO Limitações de medida, de comparabilidade e ausência de causalidade. Sem recomendação de política.

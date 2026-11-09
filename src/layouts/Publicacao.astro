@@ -16,11 +16,10 @@ import CiteBox from '../components/pub/CiteBox.astro';
 import CreditList from '../components/pub/CreditList.astro';
 import SourceBlock from '../components/pub/SourceBlock.astro';
 import VersionHistory from '../components/pub/VersionHistory.astro';
-import { config } from '../config';
 import { href } from '../i18n/routing';
 import type { Lang } from '../i18n/ui';
 import { TIPOS } from '../schemas/publicacao';
-import { fmtDate, isoDate, type Pub } from '../lib/publicacoes';
+import { fmtDate, getTodasPublicacoes, isoDate, type Pub } from '../lib/publicacoes';
 
 interface Props { pub: Pub; lang: Lang }
 const { pub, lang } = Astro.props;
@@ -30,21 +29,23 @@ const { Content } = await render(pub);
 const area = await getEntry('programas', p.area);
 const url = new URL(href(`/publicacoes/${pub.id}/`, 'pt-BR'), Astro.site).href;
 const noindex = p.demo || p.noindex;
+const origem = p.origem ? (await getTodasPublicacoes()).find((x) => x.data.identificador === p.origem) : undefined;
+const MODALIDADE = { pesquisa: { pt: 'baseado em pesquisa', en: 'research-based' }, dados: { pt: 'baseado em dados', en: 'data-based' }, relato: { pt: 'relato de pesquisa', en: 'research account' } } as const;
 
 const L = {
   pt: {
-    tese: 'Tese', incerteza: 'Incerteza principal', recom: 'Recomendações', recomNota: 'Seção normativa, separada da evidência. Recomendações só aparecem em Notas Técnicas.',
-    dados: 'Dados e código', codigo: 'Código e pacote de replicação', semCodigo: 'Pacote de replicação ainda não publicado.',
+    tese: 'Tese', incerteza: 'Incerteza principal', recom: 'Recomendações', recomNota: 'Seção normativa, separada da evidência. Recomendações só aparecem em Notas Técnicas, Textos para Discussão, Relatórios de Projeto e Policy Briefs.',
+    dados: 'Dados e código', codigo: 'Código de replicação', semCodigo: 'Código disponível mediante solicitação ao CEE.',
     decl: 'Declarações', conflitos: 'Conflitos de interesse', ia: 'Uso de inteligência artificial', licenca: 'Licença',
-    licTxt: 'Texto e dados sob CC BY 4.0; código sob licença MIT, ressalvadas as restrições das fontes.',
+    licTxt: 'Creative Commons Atribuição 4.0 (CC BY 4.0), salvo restrição de terceiros.',
     versao: 'Versão', publicado: 'Publicado em', por: 'Autoria', imprimir: 'Imprimir ou salvar em PDF', linha: 'Linha',
     demo: 'Publicação de demonstração. Todo o conteúdo desta página é fictício e serve apenas para validar o modelo; não é indexada nem listada.',
   },
   en: {
     tese: 'Thesis', incerteza: 'Main uncertainty', recom: 'Recommendations', recomNota: '',
-    dados: 'Data and code', codigo: 'Code and replication package', semCodigo: 'Replication package not yet published.',
+    dados: 'Data and code', codigo: 'Replication code', semCodigo: 'Code available from CEE on request.',
     decl: 'Declarations', conflitos: 'Conflicts of interest', ia: 'Use of artificial intelligence', licenca: 'Licence',
-    licTxt: 'Text and data under CC BY 4.0; code under the MIT licence, subject to the terms of the original sources.',
+    licTxt: 'Creative Commons Attribution 4.0 (CC BY 4.0), unless restricted by third parties.',
     versao: 'Version', publicado: 'Published', por: 'Authors', imprimir: 'Print or save as PDF', linha: 'Line',
     demo: 'Demonstration publication. All content on this page is fictitious and only validates the template; it is neither indexed nor listed.',
   },
@@ -78,7 +79,7 @@ const jsonld = {
     <meta name="citation_online_date" content={ymd} />
     <meta name="citation_publisher" content="Centro de Estudos Econômicos (CEE)" />
     <meta name="citation_technical_report_institution" content="Centro de Estudos Econômicos (CEE)" />
-    {p.numero && <meta name="citation_technical_report_number" content={p.numero} />}
+    {p.identificador && <meta name="citation_technical_report_number" content={p.identificador} />}
     <meta name="citation_language" content={p.idioma} />
     <meta name="citation_abstract_html_url" content={url} />
     {p.doi && <meta name="citation_doi" content={p.doi} />}
@@ -90,11 +91,11 @@ const jsonld = {
   <PageHero lang={lang} title={titulo} lede={k === 'en' && p.titulo_en ? p.titulo : p.subtitulo}
     crumbs={[{ label: k === 'en' ? 'Publications' : 'Publicações', path: '/publicacoes/' }, { label: TIPOS[p.tipo].plural[k], path: `/publicacoes/tipo/${p.tipo}/` }, { label: titulo }]}>
     <p class="pub__eyebrow" slot="eyebrow">
-      <a href={href(`/publicacoes/tipo/${p.tipo}/`, lang)}>{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</a>
+      <a href={href(`/publicacoes/tipo/${p.tipo}/`, lang)}>{TIPOS[p.tipo][k]}</a>
       {area && <> · <a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} {area.data.nome[k]}</a></>}
       {p.linha && <> · {L.linha} {p.linha}</>}
     </p>
-    <p class="pub__byline">{autores} · <time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></p>
+    <p class="pub__byline">{p.identificador && <>{p.identificador} · </>}{autores} · <time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></p>
   </PageHero>
 
   <div class="wrap pub-wrap">
@@ -148,13 +149,13 @@ const jsonld = {
           <h2 id="decl-title" class="block-title">{L.decl}</h2>
           <dl class="decl">
             <dt>{L.conflitos}</dt><dd>{p.conflitos}</dd>
-            <dt>{L.ia}</dt><dd>{p.uso_ia}</dd>
-            <dt>{L.licenca}</dt><dd>{L.licTxt}</dd>
+            <dt>{L.ia}</dt><dd>{p.declaracao_ia}</dd>
+            <dt>{L.licenca}</dt><dd>{p.licenca === 'CC-BY-4.0' ? L.licTxt : p.licenca}</dd>
           </dl>
         </section>
 
         <VersionHistory p={p} lang={lang} />
-        <Disclaimer lang={lang} variant="full" dataUrl={p.codigo_url ?? config.repoUrl} />
+        <Disclaimer lang={lang} variant="full" tipo={p.tipo} />
       </div>
     </article>
 
@@ -162,13 +163,17 @@ const jsonld = {
       <div class="side-card">
         <p class="side-card__t">{k === 'en' ? 'Details' : 'Ficha'}</p>
         <dl>
-          <div><dt>{k === 'en' ? 'Type' : 'Tipo'}</dt><dd>{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</dd></div>
+          <div><dt>{k === 'en' ? 'Type' : 'Tipo'}</dt><dd>{TIPOS[p.tipo][k]}{p.modalidade && ` · ${MODALIDADE[p.modalidade][k]}`}</dd></div>
+          {p.identificador && <div><dt>{k === 'en' ? 'Identifier' : 'Identificador'}</dt><dd class="mono">{p.identificador}</dd></div>}
           <div><dt>{L.por}</dt><dd>{autores}</dd></div>
           <div><dt>{L.publicado}</dt><dd><time datetime={isoDate(p.data)}>{fmtDate(p.data, lang)}</time></dd></div>
           <div><dt>{L.versao}</dt><dd><a href="#versoes">{p.versao}</a></dd></div>
-          {area && <div><dt>{k === 'en' ? 'Programme' : 'Programa'}</dt><dd><a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} · {area.data.nome[k]}</a>{p.linha && ` · ${p.linha}`}</dd></div>}
+          {area && <div><dt>{k === 'en' ? 'Programme' : 'Programa'}</dt><dd><a href={href(`/pesquisa/${p.area}/`, lang)}>{area.data.codigo} · {area.data.nome[k]}</a>{p.linha && ` · ${p.linha}`}{p.pergunta && ` · ${k === 'en' ? 'question' : 'pergunta'} ${p.pergunta}`}</dd></div>}
+          {p.origem && <div><dt>{k === 'en' ? 'Source study' : 'Estudo de origem'}</dt><dd>{origem ? <a href={href(`/publicacoes/${origem.id}/`, lang)}>{p.origem}</a> : p.origem}</dd></div>}
+          {p.palavras_chave && <div><dt>{k === 'en' ? 'Keywords' : 'Palavras-chave'}</dt><dd>{p.palavras_chave.join('; ')}</dd></div>}
+          {p.jel && <div><dt>JEL</dt><dd>{p.jel.join(', ')}</dd></div>}
           {p.doi && <div><dt>DOI</dt><dd><a href={`https://doi.org/${p.doi}`}>{p.doi}</a></dd></div>}
-          <div><dt>{L.licenca}</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd></div>
+          <div><dt>{L.licenca}</dt><dd>{p.licenca === 'CC-BY-4.0' ? <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> : p.licenca}</dd></div>
         </dl>
         <ul class="side-card__links no-print">
           <li><a href="#dados"><Icon name="database" size={16} /> {L.dados}</a></li>

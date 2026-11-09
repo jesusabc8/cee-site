@@ -9,7 +9,7 @@ import PageHero from '../layout/PageHero.astro';
 import Icon from '../ui/Icon.astro';
 import PubRow from './PubRow.astro';
 import { getPublicacoes } from '../../lib/publicacoes';
-import { TIPOS, TIPO_KEYS, type Tipo } from '../../schemas/publicacao';
+import { BLOCOS, TIPOS, TIPO_KEYS, type Bloco, type Tipo } from '../../schemas/publicacao';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
@@ -23,20 +23,27 @@ const anos = [...new Set(todas.map((p) => p.data.data.getUTCFullYear()))].sort((
 const autores = [...new Set(todas.flatMap((p) => p.data.autoria.map((a) => a.nome)))].sort();
 
 const L = {
-  pt: { t: 'Publicações', lede: 'Notas de Conjuntura, Data Insights, Notas Técnicas, Working Papers numerados, Replicações e Edições especiais. Cada uma com dados, código, bloco de citação e histórico de versões.',
+  pt: { t: 'Publicações', lede: 'Os produtos do CEE seguem o catálogo do Manual de Programas e Produtos: dados e conjuntura, pesquisa, comunicação de evidência e relatórios institucionais. Cada publicação traz identificador, dados, bloco de citação e histórico de versões.',
     tipo: 'Tipo', area: 'Programa', ano: 'Ano', autoria: 'Autoria', todos: 'Todos', todas: 'Todas', ordem: 'Ordenar', recentes: 'Mais recentes', antigas: 'Mais antigas',
     vazio: 'Nenhuma publicação até o momento. A primeira Nota de Conjuntura e os primeiros Data Insights estão em preparação; cada publicação passará pela verificação numérica independente antes de sair.',
     nenhumFiltro: 'Nenhuma publicação corresponde aos filtros.', porTipo: 'Por tipo', rss: 'Assinar (RSS)', resultado: 'publicações' },
-  en: { t: 'Publications', lede: 'Business-Cycle Notes, Data Insights, Technical Notes, numbered Working Papers, Replications and Special editions — each with data, code, a citation block and version history. Full texts are in Portuguese; summaries are in English.',
+  en: { t: 'Publications', lede: "CEE's outputs follow the catalogue in the Programmes and Outputs Manual: data and current conditions, research, communicating evidence and institutional reports. Each publication has an identifier, data, a citation block and version history. Full texts are in Portuguese; summaries are in English.",
     tipo: 'Type', area: 'Programme', ano: 'Year', autoria: 'Author', todos: 'All', todas: 'All', ordem: 'Sort', recentes: 'Newest first', antigas: 'Oldest first',
     vazio: 'No publications yet. The first Business-Cycle Note and Data Insights are in preparation; each will undergo independent numerical verification before release.',
     nenhumFiltro: 'No publications match the filters.', porTipo: 'By type', rss: 'Subscribe (RSS)', resultado: 'publications' },
 }[k];
 const titulo = tipo ? TIPOS[tipo].plural[k] : L.t;
+const blocos = (Object.keys(BLOCOS) as Bloco[]).map((b) => ({ b, tipos: TIPO_KEYS.filter((t) => TIPOS[t].bloco === b) }));
+const conta = (t: Tipo) => todas.filter((p) => p.data.tipo === t).length;
+const C = k === 'en'
+  ? { cat: 'Catalogue of outputs', fonte: 'Source: CEE Programmes and Outputs Manual, Part II (draft).', produto: 'Output', serie: 'Series', fin: 'Purpose', ext: 'Length', rev: 'Minimum review', est: 'Status', nenhum: 'No issue yet', publ: (n: number) => `${n} published`, recom: 'Policy recommendations appear only in Technical Notes, Discussion Papers, Project Reports and the Policy Briefs derived from them, in a separate section.' }
+  : { cat: 'Catálogo de produtos', fonte: 'Fonte: Manual de Programas e Produtos do CEE, Parte II (minuta).', produto: 'Produto', serie: 'Série', fin: 'Finalidade', ext: 'Extensão', rev: 'Revisão mínima', est: 'Situação', nenhum: 'Nenhuma edição ainda', publ: (n: number) => `${n} publicad${n > 1 ? 'os' : 'o'}`, recom: 'Recomendações de política pública só constam de Notas Técnicas, Textos para Discussão, Relatórios de Projeto e dos Policy Briefs deles derivados, em seção própria.' };
+const def = tipo ? TIPOS[tipo] : undefined;
+const ledeTipo = def ? `${def.finalidade[k]}. ${C.ext}: ${def.extensao[k].toLowerCase()}. ${C.rev}: ${def.revisao[k].toLowerCase()}.` : undefined;
 const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
 ---
 <Base title={titulo} description={L.lede} lang={lang}>
-  <PageHero lang={lang} eyebrow={tipo ? L.t : undefined} title={titulo} lede={tipo ? undefined : L.lede}>
+  <PageHero lang={lang} eyebrow={tipo ? L.t : undefined} title={titulo} lede={ledeTipo ?? L.lede}>
     <p class="meta"><a href={href(feed)}>{L.rss}</a></p>
   </PageHero>
   <div class="wrap pubs">
@@ -44,10 +51,17 @@ const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
     <nav class="tipos" aria-label={L.porTipo}>
       <ul>
         <li><a href={href('/publicacoes/', lang)} aria-current={!tipo ? 'page' : undefined}>{L.todas}</a></li>
-        {TIPO_KEYS.map((t) => (
-          <li><a href={href(`/publicacoes/tipo/${t}/`, lang)} aria-current={tipo === t ? 'page' : undefined}>{TIPOS[t].plural[k]}</a></li>
-        ))}
       </ul>
+      {blocos.map(({ b, tipos }) => (
+        <div class="tipos__bloco">
+          <p class="tipos__t">{BLOCOS[b][k]}</p>
+          <ul>
+            {tipos.map((t) => (
+              <li><a href={href(`/publicacoes/tipo/${t}/`, lang)} aria-current={tipo === t ? 'page' : undefined}>{TIPOS[t].plural[k]}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </nav>
 
     {pubs.length === 0 ? (
@@ -73,6 +87,34 @@ const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
         </div>
         <p class="meta" data-vazio hidden>{L.nenhumFiltro}</p>
       </>
+    )}
+
+    {!tipo && (
+      <section class="catalogo" aria-labelledby="cat-t">
+        <h2 id="cat-t" class="catalogo__t">{C.cat}</h2>
+        <div class="table-scroll" role="region" tabindex="0" aria-labelledby="cat-t">
+          <table class="cat">
+            <thead><tr><th scope="col">{C.produto}</th><th scope="col">{C.serie}</th><th scope="col">{C.fin}</th><th scope="col">{C.ext}</th><th scope="col">{C.rev}</th><th scope="col">{C.est}</th></tr></thead>
+            {blocos.map(({ b, tipos }) => (
+              <tbody>
+                <tr class="cat__bloco"><th scope="colgroup" colspan="6">{BLOCOS[b][k]}</th></tr>
+                {tipos.map((t) => (
+                  <tr>
+                    <th scope="row"><a href={href(`/publicacoes/tipo/${t}/`, lang)}>{TIPOS[t][k]}</a></th>
+                    <td class="mono">{TIPOS[t].sigla ?? '—'}</td>
+                    <td>{TIPOS[t].finalidade[k]}</td>
+                    <td>{TIPOS[t].extensao[k]}</td>
+                    <td>{TIPOS[t].revisao[k]}</td>
+                    <td>{conta(t) > 0 ? C.publ(conta(t)) : <span class="muted">{C.nenhum}</span>}</td>
+                  </tr>
+                ))}
+              </tbody>
+            ))}
+          </table>
+        </div>
+        <p class="meta">{C.recom}</p>
+        <p class="meta">{C.fonte}</p>
+      </section>
     )}
   </div>
 </Base>
@@ -104,7 +146,20 @@ const feed = tipo ? `/publicacoes/tipo/${tipo}/rss.xml` : '/rss.xml';
 </script>
 <style>
   .pubs { padding-block: clamp(40px, 5vw, 64px) var(--section-y); }
-  .tipos ul { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tipos { display: grid; gap: 14px; margin-bottom: 32px; }
+  .tipos ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tipos__bloco { display: grid; grid-template-columns: 13rem 1fr; gap: 8px 16px; align-items: center; }
+  .tipos__t { margin: 0; font: 600 11px / 1.3 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  @media (max-width: 48rem) { .tipos__bloco { grid-template-columns: minmax(0, 1fr); } }
+  .catalogo { margin-top: clamp(48px, 6vw, 80px); }
+  .catalogo__t { font-size: 1.375rem; margin-bottom: 16px; }
+  .cat { width: 100%; border-collapse: collapse; font-size: 0.9375rem; border-top: 2px solid var(--navy); }
+  .cat th, .cat td { text-align: left; vertical-align: top; padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); }
+  .cat thead th { font: 600 11px / 1.3 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
+  .cat tbody th { font-weight: 600; }
+  .cat tbody th a { color: var(--navy); }
+  .cat .cat__bloco th { padding-top: 20px; font: 600 12px / 1.3 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--petrol); }
+  .muted { color: var(--muted); }
   .tipos a { display: inline-block; font: 600 12px / 1 var(--sans); letter-spacing: 0.04em; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: 30px; color: var(--navy); text-decoration: none; transition: background-color 0.2s, color 0.2s; }
   .tipos a:hover { background: var(--mist); }
   .tipos a[aria-current='page'] { background: var(--navy); border-color: var(--navy); color: var(--white); }

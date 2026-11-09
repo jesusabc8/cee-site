@@ -18,9 +18,14 @@ const abntData = (d: Date) => `${d.getUTCDate()} ${MESES_ABNT[d.getUTCMonth()]} 
 
 export interface CiteInput { p: Publicacao; url: string; slug: string; acesso?: Date }
 
+/** Série e número sem a versão: `CEE-NT 2027/03`. */
+export const serieNumero = (p: Publicacao) => p.identificador?.replace(/ v\d+\.\d+$/, '');
+const RELATORIO = new Set(['nota-tecnica', 'texto-para-discussao', 'relatorio-de-projeto']);
+
 function serie(p: Publicacao) {
   const tipo = TIPOS[p.tipo].pt;
-  return p.numero ? `${tipo}, n. ${p.numero}` : tipo;
+  const n = serieNumero(p);
+  return n ? `${tipo}, ${n}` : tipo;
 }
 
 export function abnt({ p, url, acesso = new Date() }: CiteInput): string {
@@ -33,13 +38,13 @@ export function abnt({ p, url, acesso = new Date() }: CiteInput): string {
 
 export function bibtex({ p, url, slug }: CiteInput): string {
   const key = `cee${p.data.getUTCFullYear()}${slug.replace(/[^a-z0-9]/gi, '').slice(0, 24)}`;
-  const tipo = p.tipo === 'working-paper' ? 'techreport' : 'misc';
+  const tipo = RELATORIO.has(p.tipo) ? 'techreport' : 'misc';
   const campos: [string, string | undefined][] = [
     ['author', p.autoria.map((a) => bibNome(a.nome)).join(' and ')],
     ['title', `{${p.titulo}: ${p.subtitulo}}`],
     [tipo === 'techreport' ? 'institution' : 'publisher', 'Centro de Estudos Econômicos (CEE)'],
     ['type', TIPOS[p.tipo].pt],
-    ['number', p.numero],
+    ['number', serieNumero(p)],
     ['year', String(p.data.getUTCFullYear())],
     ['month', String(p.data.getUTCMonth() + 1)],
     ['version', p.versao],
@@ -55,7 +60,7 @@ export function ris({ p, url }: CiteInput): string {
   const d = p.data;
   const pad = (n: number) => String(n).padStart(2, '0');
   const linhas = [
-    ['TY', p.tipo === 'working-paper' ? 'RPRT' : 'GEN'],
+    ['TY', RELATORIO.has(p.tipo) ? 'RPRT' : 'GEN'],
     ...p.autoria.map((a) => ['AU', bibNome(a.nome)]),
     ['TI', `${p.titulo}: ${p.subtitulo}`],
     ['PY', String(d.getUTCFullYear())],
@@ -63,7 +68,7 @@ export function ris({ p, url }: CiteInput): string {
     ['PB', 'Centro de Estudos Econômicos (CEE)'],
     ['CY', 'Belo Horizonte'],
     ['M3', TIPOS[p.tipo].pt],
-    ...(p.numero ? [['IS', p.numero]] : []),
+    ...(serieNumero(p) ? [['IS', serieNumero(p)!]] : []),
     ['ET', p.versao],
     ...(p.doi ? [['DO', p.doi]] : []),
     ['UR', url],

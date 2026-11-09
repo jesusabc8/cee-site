@@ -1,40 +1,63 @@
 ---
-# MODELO — Nota Técnica (Proposta §5.2): problema, evidência, opções e limites. Revisão: camadas 1, 2 e 3.
-# `limites` é obrigatório; `recomendacoes` só é admitido neste tipo e aparece em seção separada.
+# MODELO — Anexo C — Nota Técnica. 4.000–8.000 palavras; resumo de até 150 palavras. Autoria N4 com orientação docente. Revisão: numérica, editorial e parecer docente.
+# Copie para src/content/publicacoes/<slug>.mdx. O nome do arquivo vira a URL permanente /publicacoes/<slug>/
+# (minúsculas, hífens, sem acentos). Campos com "TODO" precisam ser preenchidos; o build falha se faltar campo
+# obrigatório (src/schemas/publicacao.ts) e avisa se a extensão sair da faixa do Manual.
 tipo: nota-tecnica
-titulo: "TODO Título-afirmação"
-subtitulo: "TODO Bajada"
-data: 2026-01-31
+titulo: "TODO"
+subtitulo: "TODO"
+data: 2027-01-31            # data de publicação (AAAA-MM-DD)
 versao: "1.0"
-area: b
+identificador: "CEE-NT 2027/NN v1.0"   # série, número no ano (2 dígitos) e versão; ano = ano de `data`
+area: b                     # a | b | c | d | e | f | transversal
 linha: B1
-autoria:
-  - nome: "TODO Pesquisador(a) Associado(a)"
-    funcao_credit: [conceituacao, analise, redacao]
-  - nome: "TODO Verificação"
-    funcao_credit: [validacao]
-resumo: "TODO"
+pergunta: "B.1"            # pergunta do Manual, Parte I (ex.: A.1.2, B.3)
+autoria:                    # funções CRediT: conceituacao, curadoria, analise, investigacao, metodologia,
+  - nome: "TODO Nome Sobrenome"   # administracao, recursos, software, supervisao, validacao, visualizacao,
+    funcao_credit: [analise, redacao]   # redacao, revisao, financiamento
+resumo: "TODO Até 150 palavras: pergunta, dados, método, resultado principal."
 limites:
-  - "TODO O que a evidência disponível não permite concluir."
-recomendacoes:
-  - "TODO (opcional) Recomendação, separada da evidência."
+  - "TODO Robustez e limitações: o que a evidência não permite concluir."
+recomendacoes:          # opcional; seção própria, separada dos resultados
+  - "TODO Opção, com custos, beneficiários, riscos e grau de confiança."
+# doi: "10.5281/zenodo.TODO"
 fontes:
   - instituicao: "TODO"
     serie: "TODO"
     codigo: "TODO"
     unidade: "TODO"
-    extraido_em: 2026-01-30
-    url: "https://example.org"
+    extraido_em: 2027-01-30
+    url: "https://example.org/TODO"
 dados:
   - rotulo: "Dados (CSV)"
-    url: "/dados/conjuntura/ipca.csv"
-codigo_url: "https://github.com/TODO"
-conflitos: "TODO"
-uso_ia: "TODO"
+    url: "/dados/TODO.csv"
+# codigo_url: "https://…"   # código público de replicação; sem ele, a página informa
+#                           # "Código disponível mediante solicitação ao CEE".
+conflitos: "Os autores declaram não haver conflitos de interesse."
+declaracao_ia: "TODO Ferramenta, finalidade, partes afetadas e verificação humana. Se não houve uso: 'Não houve uso de ferramentas de inteligência artificial.'"
+# licenca: CC-BY-4.0        # padrão; alterar só por restrição de terceiros
 ---
 
-## Problema
+## 1. Introdução
 
-## Evidência
+TODO Pergunta, motivação, estratégia, resultado principal e contribuição.
 
-## Opções
+## 2. Contexto e literatura
+
+## 3. Dados
+
+TODO Fontes, períodos, transformações, estatísticas descritivas.
+
+## 4. Método
+
+## 5. Resultados
+
+## 6. Robustez e limitações
+
+## 7. Implicações para a política
+
+TODO Seção própria: opções, custos, beneficiários, riscos e grau de confiança.
+
+## Referências
+
+TODO Sistema autor-data (ABNT NBR 10520:2023 e NBR 6023:2018).
