@@ -207,7 +207,7 @@
     "valor": 13.75,
     "unidade": "% a.a.",
     "descricao": "Definida pelo Copom",
-    "referencia": "2026-11-02",
+    "referencia": "2026-11-09",
     "tipo_ref": "dia",
     "variacao": "■",
     "spark": [
@@ -335,7 +335,7 @@
     "ancora": "grafico-juros",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 432",
-    "extraido_em": "2026-11-02T13:39:29.235Z",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
     "desatualizado": false
   },
@@ -344,14 +344,13 @@
     "grupo": "externo",
     "icone": "arrow-left-right",
     "titulo": "Câmbio",
-    "valor": 5.4212,
+    "valor": 5.5013,
     "unidade": "R$/US$",
     "descricao": "PTAX venda, última cotação",
-    "referencia": "2026-10-30",
+    "referencia": "2026-11-06",
     "tipo_ref": "dia",
     "variacao": "▲",
     "spark": [
-      3.342,
       3.3523,
       3.1966,
       3.1042,
@@ -470,12 +469,13 @@
       5.1139,
       5.1532,
       5.1447,
-      5.1294
+      5.1294,
+      5.4837
     ],
     "ancora": "grafico-cambio",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 1",
-    "extraido_em": "2026-11-02T13:39:29.235Z",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
     "desatualizado": false
   },
@@ -624,7 +624,7 @@
     "grupo": "externo",
     "icone": "ship",
     "titulo": "Abertura comercial",
-    "valor": 25.87,
+    "valor": 25.85,
     "unidade": "% PIB",
     "descricao": "(Exportações + importações de bens) ÷ PIB, 12 meses",
     "referencia": "2026-09",
@@ -749,14 +749,14 @@
       26.13,
       26.19,
       26.02,
-      25.96,
-      25.87
+      25.95,
+      25.85
     ],
     "ancora": null,
     "calculado": true,
     "fonte": "MDIC, BCB",
     "serie": "ComexStat · SGS 4192",
-    "extraido_em": "2026-10-20T13:45:50.700Z",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
     "url": "https://comexstat.mdic.gov.br/pt/geral",
     "desatualizado": false
   },

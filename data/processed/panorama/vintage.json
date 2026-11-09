@@ -27,8 +27,8 @@
     "unidade": "R$/US$",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
-    "extraido_em": "2026-11-02T13:39:29.235Z",
-    "vintage_dir": "data/raw/bcb-sgs/ptax/2026-11-02",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
+    "vintage_dir": "data/raw/bcb-sgs/ptax/2026-11-09",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -88,12 +88,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "7e11a4d9c433c0d42c24eda012eff10dbc2eca45fe14c0df0ce8279492f49897"
+        "sha256": "98cd748d7dd7009a2e9bbbf02a785a084652baeda054f9b2130981052a1c3eea"
       }
     ],
-    "linhas": 178,
+    "linhas": 179,
     "primeiro": "2012-01",
-    "ultimo": "2026-10",
+    "ultimo": "2026-11",
     "desatualizado": false,
     "falha": null
   },
@@ -220,37 +220,37 @@
     "unidade": "conforme o indicador (% ; R$/US$ ; % do PIB)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-02T13:39:29.235Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_anual/2026-11-02",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_anual/2026-11-09",
     "arquivos": [
       {
         "arquivo": "indicador-1.json",
-        "sha256": "06a98fd82fee2141547dbf0cefb1e0dd94201c06f7e3c94fe84fdc427f8b03a7"
+        "sha256": "4699ae21b528de9873a247485387b7e5597447e59a77c13d144c781e1678c184"
       },
       {
         "arquivo": "indicador-2.json",
-        "sha256": "92c385e6cca8e8ee4cbc8d6d940b7e301e8a0479943ed2dd9e421912b1bf05a0"
+        "sha256": "b10d48df2ed54537a66522a44021dacd3e16caef5bd0ec85c71ad79eb4809f9e"
       },
       {
         "arquivo": "indicador-3.json",
-        "sha256": "5380fbd844ffe44eb5ceec7187f1989e34e1e5151c2c80325e6f1c71ec3b9af8"
+        "sha256": "487ef5df585b9854452481d2bf74087675f7bd6564146afb12127c74c90b73ee"
       },
       {
         "arquivo": "indicador-4.json",
-        "sha256": "f13b0f5701899149e0cb7846891e4fc1650cca8aa8333b04d75bffe8040ea3e5"
+        "sha256": "71561997a23c37a52cf20deec6111a8e998b296a0fb241e308bb69d3f88331aa"
       },
       {
         "arquivo": "indicador-5.json",
-        "sha256": "e15cdb6cd5731fb6c127f4428778719db0f4817cdc6cb102ba770df58ed96f64"
+        "sha256": "996953d3745784f36d700b7876c5ea94f8632f8cae9f558dded8e439f3df21d6"
       },
       {
         "arquivo": "indicador-6.json",
-        "sha256": "2e202c758af4405a3c8547e846abb733ee5c735a7ca6fe14f1e6f22af71927cc"
+        "sha256": "c70abd430f1c36c522024f22b683a23fde5de541b1b45cfa6afbbb3090171cb6"
       }
     ],
-    "linhas": 3510,
-    "primeiro": "2026-07-06",
-    "ultimo": "2026-10-23",
+    "linhas": 3690,
+    "primeiro": "2026-07-13",
+    "ultimo": "2026-11-06",
     "desatualizado": false,
     "falha": null
   },
@@ -261,17 +261,17 @@
     "unidade": "% (variação no mês de referência)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-02T13:39:29.235Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_mensal_ipca/2026-11-02",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_mensal_ipca/2026-11-09",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "976288b330848969f5867cd99cc88bdf744b0b7b3944a783a6294fe7538bed77"
+        "sha256": "40538a8a23830a2866462de149e14156ab959c056a2d4f0775cebadc319c9d5f"
       }
     ],
-    "linhas": 625,
-    "primeiro": "2026-09-18",
-    "ultimo": "2026-10-23",
+    "linhas": 725,
+    "primeiro": "2026-09-25",
+    "ultimo": "2026-11-06",
     "desatualizado": false,
     "falha": null
   },
@@ -282,17 +282,17 @@
     "unidade": "% (próximos 12 meses)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-10-28T13:44:36.334Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_12m_ipca/2026-10-28",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_12m_ipca/2026-11-09",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "70e08630ae8b87d388b9a0d9571078faefdbb48665f336fe2511580d06d83dd4"
+        "sha256": "ec972859c1cdea11bfc0387d764569933e83abca95d5b5aa8f6bf4e904500a59"
       }
     ],
-    "linhas": 3720,
+    "linhas": 3729,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-10-23",
+    "ultimo": "2026-11-06",
     "desatualizado": false,
     "falha": null
   },
@@ -374,21 +374,21 @@
     "unidade": "US$ FOB",
     "frequencia": "mensal",
     "url_publica": "https://comexstat.mdic.gov.br/pt/geral",
-    "extraido_em": "2026-10-20T13:45:50.700Z",
-    "vintage_dir": "data/raw/mdic-comexstat/comercio/2026-10-20",
+    "extraido_em": "2026-11-09T13:43:44.278Z",
+    "vintage_dir": "data/raw/mdic-comexstat/comercio/2026-11-09",
     "arquivos": [
       {
         "arquivo": "export.json",
-        "sha256": "213049cf6573f4788542c159cd0c0916befc51c5c5458dffda23473cbeae1728"
+        "sha256": "6957d9f75b985052f75f3ad84964979bcd9248107267acc1f8daa279f65c0009"
       },
       {
         "arquivo": "import.json",
-        "sha256": "267278d267d13aee7d992d0989241f5a45e88a0bf5e738c674b2d24b425921b1"
+        "sha256": "b54e0212228d325000ff2f4c4fe8738758c9dcbf8f00f7cb0099d8ddea308b56"
       }
     ],
-    "linhas": 153,
+    "linhas": 154,
     "primeiro": "2014-01",
-    "ultimo": "2026-09",
+    "ultimo": "2026-10",
     "desatualizado": false,
     "falha": null
   },
