@@ -147,3 +147,33 @@ O texto vem de `src/site.config.ts` (`institutionalLine`, `useUniversityName`).
 **Consequências.**
 - O esquema de publicações aceita `area` a–f e `transversal`, `linha` A–F e o campo `pergunta` (código do Manual).
 - As páginas Sobre, Governança, Participe, Metodologia, Contato e Privacidade foram reescritas a partir dos `.tex`.
+
+## ADR-018 — Repositório privado, publicação na Cloudflare e endurecimento de segurança (2026-11-10)
+
+**Contexto.** O repositório (com histórico, minutas e dados pessoais em metadados de commit) estava público e o sítio no
+GitHub Pages, sem controle de cabeçalhos. O sítio continua público; o repositório passará a privado.
+
+**Decisão.**
+- Publicação em **Cloudflare Workers com arquivos estáticos** (`wrangler.jsonc`, `assets.directory ./dist`,
+  `not_found_handling 404-page`), pelo workflow `build-deploy` com `cloudflare/wrangler-action`. As ações do GitHub Pages
+  foram retiradas, mas o Pages **não** foi desativado: o responsável o desativa depois de testar a URL `*.workers.dev` e
+  tornar o repositório privado (`docs/LANCAMENTO.md`).
+- **Cabeçalhos** em `public/_headers` (CSP, HSTS, nosniff, Referrer-Policy, Permissions-Policy, COOP, X-Frame-Options) e
+  **301** em `public/_redirects`. A CSP não tem `'unsafe-inline'` nem hashes: o build não gera nenhum script, estilo ou
+  manipulador inline (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`; cores de legenda e barras em atributos SVG;
+  cores dinâmicas do tooltip via CSSOM). O `security.csp` nativo do Astro 7 existe, mas entrega a política em `<meta>` com
+  hashes; somado à política do cabeçalho, exigiria manter as duas em sincronia — por isso a opção por externalizar tudo.
+  `'wasm-unsafe-eval'` fica por causa do Pagefind. Verificação: `docs/qa/normas-2026-11/` (zero violações).
+- **Nada interno em `dist/`:** `npm run qa:seguranca` (e-mails, telefone, CPF, chaves, arquivos proibidos, nomes da lista
+  fora do git ou do segredo `CEE_NOMES_PROIBIDOS`, link para o repositório, GIEF/FIEMG/FGV), no CI e antes do deploy.
+  Links para o repositório retirados; código de replicação por `codigo_url` ou "disponível mediante solicitação ao CEE".
+- **Cadeia de dependências:** Actions fixadas por SHA; `permissions: contents: read` (só `data-refresh` escreve e não lê
+  os segredos da Cloudflare, que ficam no environment `cloudflare`); Dependabot semanal; `npm ci --ignore-scripts`;
+  `npm audit --audit-level=high` e gitleaks (binário oficial com SHA-256 fixado, sem serviço de licença) no CI.
+  Para zerar os achados altos: vitest 4.1.12, lighthouse 13.6.0 (13 dias de publicado; mantido pelo Google e só usado no
+  QA), `undici` 7.30.1 por `overrides` (dependência do wrangler) e retirada do `wait-on`. A instalação do vitest 4 exigiu o
+  npm 11.21.1 (o npm 10.9.4 falha com `edgesOut` no resolvedor de peers); o lockfile v3 resultante funciona com o npm 10 do CI.
+
+**Consequências.** O deploy falha até o responsável criar o token e os segredos da Cloudflare e a variável `SITE_URL`.
+A URL `*.github.io/cee-site/` continua servindo a última versão do Pages até ser desativada. DOI por depósito direto no
+Zenodo (a integração GitHub–Zenodo exige repositório público).

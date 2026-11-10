@@ -1,0 +1,27 @@
+name: Novo painel do Observatório
+description: Propor a abertura de um painel (deliberação da Diretoria Colegiada; Regimento Interno, art. 23).
+title: "[Painel] "
+labels: [painel]
+body:
+  - type: dropdown
+    id: programa
+    attributes:
+      label: Programa (só programas ativos abrem painel)
+      options: [A — Macroeconomia e Política Macroeconômica, B — Competitividade, Produtividade e Transformação Estrutural, "C — Desenvolvimento e Inclusão: Trabalho, Capital Humano, Pobreza e Desigualdade"]
+    validations: { required: true }
+  - type: textarea
+    id: pergunta
+    attributes: { label: Pergunta-guia definida, description: E perguntas do Manual (Parte I) a que o painel serve. }
+    validations: { required: true }
+  - type: textarea
+    id: dados
+    attributes: { label: Fontes de dados abertas e verificadas, description: Instituição, código da série, termos de uso já conferidos. }
+    validations: { required: true }
+  - type: textarea
+    id: equipe
+    attributes: { label: Integrantes comprometidos, description: Pelo menos três. }
+    validations: { required: true }
+  - type: textarea
+    id: produto
+    attributes: { label: Produto viável em até seis meses }
+    validations: { required: true }

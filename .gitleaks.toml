@@ -1,0 +1,8 @@
+# Configuração do gitleaks (ADR-018): regras padrão, mais exceções só para os falsos positivos intencionais
+# do teste do scanner de dist/ (tests/seguranca.test.ts monta segredos fictícios para verificar a detecção).
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Fixtures sintéticos do teste de qa:seguranca"
+paths = ['''tests/seguranca\.test\.ts''']

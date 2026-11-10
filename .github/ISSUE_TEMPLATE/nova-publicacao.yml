@@ -1,37 +1,52 @@
-name: Nova publicação
-description: Registrar uma pergunta e planejar um produto (Data Insight, Nota, Nota Técnica, Working Paper, Replicação).
-title: "[Publicação] "
+name: Registro de proposta de produto
+description: Registrar a proposta junto ao Coordenador de Programa (Manual, Anexo G; Regimento Interno, art. 46).
+title: "[Proposta] "
 labels: [publicacao]
 body:
   - type: dropdown
     id: tipo
     attributes:
-      label: Tipo de produto
-      options: [Data Insight, Nota de Conjuntura, Nota Técnica, Working Paper, Replicação, Edição especial]
+      label: Série pretendida
+      options: [DI — Data Insight, NC — Nota de Conjuntura, NT — Nota Técnica, TD — Texto para Discussão, RP — Relatório de Projeto, PB — Policy Brief, BL — Blog CEE]
     validations: { required: true }
   - type: input
-    id: linha
-    attributes: { label: Área e linha, placeholder: "A1" }
+    id: pergunta-manual
+    attributes: { label: Programa e pergunta do Manual, placeholder: "B.1" }
+    validations: { required: true }
+  - type: input
+    id: titulo
+    attributes: { label: Título provisório }
+    validations: { required: true }
+  - type: input
+    id: autores
+    attributes: { label: Autores e níveis; orientador (quando exigido) }
     validations: { required: true }
   - type: textarea
     id: pergunta
-    attributes: { label: Pergunta, description: Respondível com dado público disponível. }
+    attributes: { label: Pergunta específica, description: O recorte respondível desta proposta. }
     validations: { required: true }
   - type: textarea
     id: dados
-    attributes: { label: Fontes e séries previstas, description: Instituição, código da série, termos de uso. }
+    attributes: { label: Fontes de dados e período }
     validations: { required: true }
-  - type: input
-    id: responsaveis
-    attributes: { label: Autoria e verificação numérica, placeholder: "autor: @… · verificação: @…" }
+  - type: textarea
+    id: metodo
+    attributes: { label: Método }
     validations: { required: true }
+  - type: textarea
+    id: resultado
+    attributes: { label: Resultado esperado e por que importa }
   - type: input
-    id: prazo
-    attributes: { label: Data-alvo }
+    id: cronograma
+    attributes: { label: "Cronograma: rascunho, verificação, submissão" }
+  - type: input
+    id: verificador
+    attributes: { label: Verificador proposto (pessoa distinta dos autores) }
+    validations: { required: true }
   - type: checkboxes
     id: etica
     attributes:
       label: Verificação ética
       options:
-        - label: O produto NÃO usa coleta primária nem dados identificáveis (caso contrário, submeter ao CEP antes).
+        - label: O produto NÃO usa coleta primária nem dados identificáveis (caso contrário, submeter ao Comitê de Ética em Pesquisa antes).
           required: true
