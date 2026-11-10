@@ -1,0 +1,17 @@
+# Varredura de ausência em dist/ (build final, 2026-11-10; 241 arquivos de texto, incluindo o índice do Pagefind descomprimido)
+OK   'Proposta v3.0': 0
+OK   'Proposta §': 0
+OK   'Macrofundamentos': 0
+OK   'github.com/jesusabc8': 0
+OK   'FGV': 0
+OK   'FIEMG': 0
+OK   'GIEF': 0
+ACHADO 'Carta de Princípios': 1 -> ['dist/_redirects']
+OK   'três áreas': 0
+OK   'working paper': 0
+ACHADO 'Working Paper': 1 -> ['dist/_redirects']
+OK   'Inclusão: Trabalho, Pobreza e Desigualdade': 0
+OK   'docente de referência': 0
+
+Nota: as duas ocorrências estão em comentários de dist/_redirects, arquivo de configuração lido pela Cloudflare e não servido
+(GET /_redirects e GET /_headers respondem 404 no wrangler dev). Nenhuma ocorrência em conteúdo servido.

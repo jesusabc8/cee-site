@@ -1,3 +1,5 @@
+# Cabeçalhos e redirecionamentos — npx wrangler dev (wrangler 4.152.0), build final de 2026-11-10
+
 == GET /
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -7,6 +9,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /en/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -16,6 +19,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /busca/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -25,6 +29,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /en/busca/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -34,6 +39,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /observatorio/conjuntura/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -43,6 +49,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /en/observatorio/conjuntura/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -52,6 +59,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /observatorio/panorama/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -61,6 +69,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /publicacoes/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -70,6 +79,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /en/publicacoes/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -79,6 +89,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /publicacoes/demo-nota-tecnica/
 HTTP/1.1 200 OK
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -88,6 +99,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /nao-existe/
 HTTP/1.1 404 Not Found
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -97,6 +109,7 @@ permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
+
 == GET /en/nao-existe/
 HTTP/1.1 404 Not Found
 Strict-Transport-Security: max-age=31536000; includeSubDomains
@@ -107,20 +120,14 @@ referrer-policy: strict-origin-when-cross-origin
 x-content-type-options: nosniff
 x-frame-options: DENY
 
-#### Redirecionamentos
-/documentos/carta-de-principios.md -> 301 http://127.0.0.1:8787/sobre/
-/pesquisa/instituicoes/ -> 301 http://127.0.0.1:8787/pesquisa/e/
-/en/pesquisa/instituicoes/ -> 301 http://127.0.0.1:8787/en/pesquisa/e/
-/publicacoes/tipo/working-paper/ -> 301 http://127.0.0.1:8787/publicacoes/tipo/texto-para-discussao/
-/publicacoes/tipo/working-paper/rss.xml -> 301 http://127.0.0.1:8787/publicacoes/tipo/texto-para-discussao/rss.xml
-/en/publicacoes/tipo/working-paper/ -> 301 http://127.0.0.1:8787/en/publicacoes/tipo/texto-para-discussao/
-/publicacoes/tipo/replicacao/ -> 301 http://127.0.0.1:8787/publicacoes/
-/publicacoes/tipo/edicao-especial/ -> 301 http://127.0.0.1:8787/publicacoes/
-/en/publicacoes/tipo/edicao-especial/ -> 301 http://127.0.0.1:8787/en/publicacoes/
-
-#### Destinos
-/sobre/ 200
-/pesquisa/e/ 200
-/publicacoes/tipo/texto-para-discussao/ 200
-/publicacoes/tipo/texto-para-discussao/rss.xml 200
-/_astro/ 404
+## Redirecionamentos 301
+/documentos/carta-de-principios.md -> 301 /sobre/
+/pesquisa/instituicoes/ -> 301 /pesquisa/e/
+/en/pesquisa/instituicoes/ -> 301 /en/pesquisa/e/
+/publicacoes/tipo/working-paper/ -> 301 /publicacoes/tipo/texto-para-discussao/
+/publicacoes/tipo/working-paper/rss.xml -> 301 /publicacoes/tipo/texto-para-discussao/rss.xml
+/en/publicacoes/tipo/working-paper/ -> 301 /en/publicacoes/tipo/texto-para-discussao/
+/publicacoes/tipo/replicacao/ -> 301 /publicacoes/
+/en/publicacoes/tipo/replicacao/ -> 301 /en/publicacoes/
+/publicacoes/tipo/edicao-especial/ -> 301 /publicacoes/
+/en/publicacoes/tipo/edicao-especial/ -> 301 /en/publicacoes/
