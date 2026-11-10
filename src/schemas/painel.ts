@@ -26,6 +26,9 @@ export const painelSchema = z.object({
   metodologia: bi.optional(),
   changelog: z.array(z.object({ versao: z.string(), data: z.coerce.date(), nota: z.string() }).strict()).default([]),
   doi: z.string().regex(/^10\.\d{4,9}\/\S+$/).optional(),
+  /** Depósito público de replicação (Zenodo ou repositório público só com dados e código). Sem ele, o sítio informa
+   *  "Código disponível mediante solicitação ao CEE" (o repositório do sítio é privado; ADR-018). */
+  codigo_url: z.url().optional(),
 }).strict().superRefine((p, ctx) => {
   if (p.estado !== 'previsto' && p.ano === undefined) ctx.addIssue({ code: 'custom', path: ['ano'], message: 'Painel ativo ou em construção exige `ano`.' });
   if (p.estado !== 'previsto') {

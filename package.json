@@ -20,7 +20,8 @@
     "qa:links": "node scripts/qa/links.mjs dist",
     "qa:busca": "node scripts/qa/busca.mjs",
     "lint": "eslint . && stylelint \"src/**/*.{css,astro}\"",
-    "data:derive": "node scripts/data/derive.ts"
+    "data:derive": "node scripts/data/derive.ts",
+    "qa:seguranca": "node scripts/qa/seguranca.mjs"
   },
   "license": "MIT",
   "dependencies": {

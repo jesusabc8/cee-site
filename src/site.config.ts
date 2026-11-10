@@ -42,5 +42,4 @@ export const config = {
   launched: process.env.CEE_LANCADO === '1' ? true : false,
   /** [PLACEHOLDER] — conta em nome do Centro, não de pessoa (Regimento Interno, art. 61). */
   contato: 'contato@[PLACEHOLDER]',
-  repoUrl: 'https://github.com/jesusabc8/cee-site',
 };

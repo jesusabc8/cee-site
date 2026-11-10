@@ -57,7 +57,7 @@ const BLOCOS: { id: Grafico['bloco']; icone: string; pt: string; en: string; ptd
 
     <p class="panorama__foot">
       <Icon name="database" size={16} />
-      <span>{en ? 'Full catalogue of series, codes and vintages:' : 'Catálogo completo de séries, códigos e vintages:'} <a href={href('/observatorio/catalogo/', lang)}>{en ? 'series catalogue' : 'catálogo de séries'}</a> · <a href={p.repo}>{en ? 'code and data on GitHub' : 'código e dados no GitHub'}</a></span>
+      <span>{en ? 'Full catalogue of series, codes and vintages:' : 'Catálogo completo de séries, códigos e vintages:'} <a href={href('/observatorio/catalogo/', lang)}>{en ? 'series catalogue' : 'catálogo de séries'}</a> · {en ? 'data in CSV on each chart; code available from CEE on request' : 'dados em CSV em cada gráfico; código disponível mediante solicitação ao CEE'}</span>
     </p>
   </div>
 </section>

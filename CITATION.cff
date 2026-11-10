@@ -7,7 +7,7 @@ type: software
 authors:
   - name: "Centro de Estudos Econômicos (CEE)"
 license: MIT
-repository-code: "https://github.com/jesusabc8/cee-site"
+# repository-code: omitido — repositório privado (ADR-018); DOI por depósito direto no Zenodo.
 keywords:
   - economia brasileira
   - observatório de dados
