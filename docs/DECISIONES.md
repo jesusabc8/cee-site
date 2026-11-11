@@ -72,7 +72,7 @@ Paleta de dados: marinho `#0A2259`, azul `#3C8DCB`, aço `#4A7C96`, ardósia `#8
 O texto vem de `src/site.config.ts` (`institutionalLine`, `useUniversityName`).
 **Consequências.** Antes do lançamento, obter a autorização escrita (`docs/LANCAMENTO.md`). Se ela for negada, basta `useUniversityName: false` para retirar o nome.
 
-## ADR-013 — Pobreza pela SIS e abertura comercial de bens no "Brasil em números" (2026-10-20)
+## ADR-013 — Pobreza pela SIS e abertura comercial de bens no "Brasil em números" (2026-10-20) — abertura substituída pela ADR-019
 **Contexto.** A coordenação pediu trocar as fichas "Juro real ex ante" e "Focus · IPCA" por pobreza (IBGE) e grau de abertura comercial (com a API do ComexStat). Os dois indicadores retirados continuam no gráfico "Selic meta e juro real ex ante" e no gráfico do IPCA.
 **Pobreza.** Os indicadores ODS do SIDRA (tabelas 5817 e 5877) dão valores diferentes dos divulgados pelo IBGE: por exemplo, 26,5 % em 2024 contra 23,1 % na SIS. Além disso, a linha usada não está documentada na API. Por isso usa-se a **Síntese de Indicadores Sociais**, Tabela 2.18 (arquivo ODS oficial no FTP do IBGE), cujo cabeçalho declara a linha:
 - **pobreza** = menos de US$ 6,85 PPC 2017 por dia; **extrema pobreza** = menos de US$ 2,15;
@@ -177,3 +177,36 @@ GitHub Pages, sem controle de cabeçalhos. O sítio continua público; o reposit
 **Consequências.** O deploy falha até o responsável criar o token e os segredos da Cloudflare e a variável `SITE_URL`.
 A URL `*.github.io/cee-site/` continua servindo a última versão do Pages até ser desativada. DOI por depósito direto no
 Zenodo (a integração GitHub–Zenodo exige repositório público).
+
+## ADR-019 — Abertura comercial pela Penn World Table 11.0 (2026-11-11)
+
+**Contexto.** A coordenação pediu que a ficha "Abertura comercial" do "Brasil em números" passe a ser calculada com a
+PWT 11.0. O cálculo anterior (ADR-013) **não estava errado**, mas media outro conceito: só **bens** (ComexStat, US$ FOB) sobre
+o PIB em US$, mensal em 12 meses (2023: 26,5 %). O indicador usual de abertura (por exemplo, NE.TRD.GNFS.ZS do Banco Mundial)
+inclui **bens e serviços** das contas nacionais.
+
+**O que a PWT mede.** Na Legend, `csh_x` e `csh_m` aparecem como "Share of merchandise exports/imports at current PPPs", em
+proporção do `cgdpo`, com `csh_m` negativo por convenção. O guia do usuário informa, porém, que exportações e importações vêm
+das contas nacionais. A conferência numérica confirma: a razão recuperada para o Brasil em 2023 (33,7 %) é igual à das Contas
+Nacionais Trimestrais do IBGE (SIDRA 1846: (1.966.445 + 1.717.767) / 10.943.344 = 33,67 %). Logo, a cobertura é de bens e
+serviços, e o rótulo "merchandise" não descreve a cobertura.
+
+**Decisão.**
+- **Ficha:** abertura a preços correntes recuperada da PWT por identidade:
+  `(csh_x × pl_x − csh_m × pl_m) / pl_gdpo × 100`, porque `csh_x = (X/PIB) × (pl_gdpo / pl_x)`.
+  - Os níveis de preço se cancelam, de modo que o resultado não depende da extrapolação de `pl_x` e `pl_m` (`i_xm`
+    "Extrapolated" desde 2016).
+  - Série anual de 1950 a 2023; a ficha mostra 2023 e o minigráfico, 2014–2023.
+- **Versão em PPC** (`csh_x − csh_m`; 2023: 28,2 %): vai só no CSV, como coluna `abertura_ppc`. Não é o indicador
+  convencional.
+  - Ela avalia o comércio pelos preços relativos de exportação e importação e o PIB pela PPC do produto. Por isso, mistura
+    volume de comércio com nível de preços relativo do país.
+  - Para a ideia de "abertura real", ver Alcalá e Ciccone (2004), *Quarterly Journal of Economics* 119(2).
+- **Série anterior:** a série de bens do ComexStat continua derivada em `abertura_bens.csv`, sem exibição. As extrações não
+  foram apagadas.
+
+**Consequências.**
+- A ficha perde atualidade: o último ano é 2023, ante set/2026 na série mensal de bens. A próxima atualização depende de
+  uma nova versão da PWT.
+- O nível sobe de cerca de 26 % para 34 %, porque passam a entrar os serviços e a fonte passa a ser
+  as contas nacionais.

@@ -210,8 +210,8 @@
 - **Consulta pública:** https://doi.org/10.34894/FABVLR
 - **Termos de uso:** CC BY 4.0 (Penn World Table)
 - **Verificação (2026-10-20):** API do Dataverse (lista de arquivos do DOI 10.34894/FABVLR com checksum SHA-1); o arquivo enviado pela coordenação é idêntico (mesmo SHA-1)
-- **Nome oficial retornado pela fonte:** rgdpna "Real GDP at constant 2021 national prices (in mil. 2021US$)"; pop "Population (in millions)"; emp "Number of persons engaged (in millions)"; cgdpo "Output-side real GDP at current PPPs (in mil. 2021US$)"; pl_gdpo "Price level of CGDPo (PPP/XR), price level of USA GDPo in 2021=1"
-- **Observações:** Fonte estática (versão 11.0). Cita-se: Feenstra, Inklaar e Timmer (2015), American Economic Review 105(10).
+- **Nome oficial retornado pela fonte:** rgdpna "Real GDP at constant 2021 national prices (in mil. 2021US$)"; pop "Population (in millions)"; emp "Number of persons engaged (in millions)"; cgdpo "Output-side real GDP at current PPPs (in mil. 2021US$)"; pl_gdpo "Price level of CGDPo (PPP/XR), price level of USA GDPo in 2021=1"; csh_x "Share of merchandise exports at current PPPs"; csh_m "Share of merchandise imports at current PPPs"; pl_x "Price level of exports, price level of USA GDPo in 2021=1"; pl_m "Price level of imports, price level of USA GDPo in 2021=1"
+- **Observações:** Fonte estática (versão 11.0). Cita-se: Feenstra, Inklaar e Timmer (2015), American Economic Review 105(10). Apesar do rótulo "merchandise" na Legend, o guia do usuário (PWT 11.0, User guide to data files) informa que exportações e importações vêm das contas nacionais; conferido em 2026-11-11: (csh_x·pl_x − csh_m·pl_m)/pl_gdpo do Brasil em 2023 = 33,7 %, igual à razão (exportação + importação de bens e serviços)/PIB das Contas Nacionais Trimestrais do IBGE (SIDRA 1846, 2023: 33,67 %). Logo, cobre bens e serviços.
 - **Requisições da extração:**
   - `https://dataverse.nl/api/access/datafile/554105`
 

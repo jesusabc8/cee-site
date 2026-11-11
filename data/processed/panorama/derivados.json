@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-10-28T13:55:29.628Z",
+  "gerado_em": "2026-11-11T05:08:43.145Z",
   "juro_real": {
     "entradas": [
       "selic_meta",
@@ -36,10 +36,18 @@
   },
   "abertura": {
     "entradas": [
+      "pwt"
+    ],
+    "formula": "(csh_x × pl_x − csh_m × pl_m) / pl_gdpo × 100 = (exportações + importações de bens e serviços) / PIB, a preços correntes (Brasil, PWT 11.0)",
+    "formula_ppc": "(csh_x − csh_m) × 100, participação em PPC correntes (só no CSV)",
+    "conferencia": "Em 2023 reproduz as Contas Nacionais Trimestrais do IBGE (SIDRA 1846): (1.966.445 + 1.717.767) / 10.943.344 = 33,67 %"
+  },
+  "abertura_bens": {
+    "entradas": [
       "comercio",
       "pib_usd"
     ],
-    "formula": "(exportações + importações de bens, US$ FOB, soma de 12 meses) / PIB em US$ acumulado em 12 meses × 100"
+    "formula": "(exportações + importações de bens, US$ FOB, soma de 12 meses) / PIB em US$ acumulado em 12 meses × 100 (não exibida; ADR-013)"
   },
   "estabilizacao": {
     "entradas": [

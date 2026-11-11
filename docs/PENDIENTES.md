@@ -26,6 +26,9 @@ Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publ
   recomendam `rgdpe`/`rgdpo` para comparar níveis entre países. Avaliar trocar ou acrescentar nota mais longa.
 
 ## Brasil em números
+- **Abertura comercial (ADR-019)** usa a PWT 11.0 e termina em 2023. Decidir se a extração mensal do ComexStat e do SGS 4192
+  (hoje só para `abertura_bens.csv`, sem exibição) continua no `data-refresh` ou é retirada. Na próxima versão da PWT, conferir de
+  novo a razão contra as Contas Nacionais do IBGE.
 - **SIS 2026**: quando sair, atualizar `SIS_EDICAO` em `scripts/data/series.ts`. Conferir se a Tabela 2.18 mantém o nome e se as linhas
   mudam para PPC 2021 (US$ 3,00 e US$ 8,30). Nesse caso, ajustar o rótulo e o processador e registrar a quebra de série.
 - **SIDRA 5877 / 5817 (ODS 1.2.1 e 1.1.1)**: valores diferentes dos da SIS (26,5 % e 4,7 % em 2024) e linha não documentada. Não usadas (ADR-013).

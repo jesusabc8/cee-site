@@ -82,7 +82,7 @@ function odsLinhas(folha: string): string[][] {
 }
 
 const PWT_PAISES = ['BRA', 'USA', 'KOR', 'CHN', 'CHL', 'MEX', 'ARG', 'PER'];
-const PWT_VARS = ['rgdpna', 'pop', 'emp', 'cgdpo', 'pl_gdpo'] as const;
+const PWT_VARS = ['rgdpna', 'pop', 'emp', 'cgdpo', 'pl_gdpo', 'csh_x', 'csh_m', 'pl_x', 'pl_m'] as const;
 
 const processadores: Record<string, (c: Record<string, Buffer>, extraido: Date) => Linha[] | Promise<Linha[]>> = {
   ipca: (c) => {
