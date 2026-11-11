@@ -241,10 +241,9 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
   }
   .bn__grid[hidden], .bn__detail[hidden], .bn__note[hidden] { display: none; }
   .tile__open { display: none; }
-  :global(.js) .tile__open { display: block; position: static; padding: 0; border: 0; background: none; width: 0; height: 0; }
-  .tile__open::after { content: ''; position: absolute; inset: 0; cursor: pointer; }
-  .tile__open:focus-visible { outline: none; }
-  .tile__open:focus-visible::after { outline: 2px solid var(--petrol); outline-offset: -4px; }
+  /* O botão cobre a ficha inteira (área de clique) e carrega o próprio anel de foco. */
+  :global(.js) .tile__open { display: block; position: absolute; inset: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
+  .tile__open:focus-visible { outline: 2px solid var(--petrol); outline-offset: -4px; }
   :global(.js) .tile:hover .tile__val { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
   .bn__detail { padding: 22px 28px 24px; outline: none; animation: bn-in 0.25s ease-out; }
   @keyframes bn-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
