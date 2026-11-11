@@ -1,0 +1,17 @@
+---
+/** Declaração de destaque (missão, visão, natureza): texto amplo em serifa, com rótulo e régua lateral. */
+import Icon from '../ui/Icon.astro';
+interface Props { rotulo?: string; icone?: string }
+const { rotulo, icone } = Astro.props;
+---
+<div class="destaque">
+  {rotulo && <p class="destaque__rot">{icone && <Icon name={icone} size={15} />} {rotulo}</p>}
+  <div class="destaque__txt"><slot /></div>
+</div>
+<style>
+  .destaque { position: relative; margin-top: 1.6em; padding: 28px 32px 28px 36px; background: linear-gradient(135deg, var(--paper), var(--mist)); border-left: 4px solid var(--navy); }
+  .destaque__rot { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; font: 600 11.5px / 1.2 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--petrol); }
+  .destaque__txt :global(p) { margin: 0; max-width: none; font: 400 1.3125rem / 1.55 var(--serif); color: var(--navy-ink); }
+  .destaque__txt :global(p + p) { margin-top: 0.8em; }
+  @media (max-width: 40rem) { .destaque { padding: 22px 20px 22px 22px; } .destaque__txt :global(p) { font-size: 1.125rem; } }
+</style>

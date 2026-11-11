@@ -3,76 +3,107 @@ titulo: About CEE
 descricao: Nature, mission, motto, vision, principles, limits, governance and transparency of the Centro de Estudos Econômicos.
 eyebrow: About
 bajada: A student academic society devoted to empirical economic research, to training its members and to sharing economic knowledge.
-fonte_normas: "Statute, arts. 1, 4–8, 21, 26, 34–38, 50, 55–65 and Annex II; Programmes and Outputs Manual, Part II (summary; the Portuguese page is authoritative)"
-atualizado: 2026-11-09
+fonte_normas: "Statute, arts. 1, 4–8, 19, 21, 26, 34–38, 50, 55–65 and Annex II; Programmes and Outputs Manual, Part II (summary; the Portuguese page is authoritative)"
+atualizado: 2026-11-11
 ---
 import Box from '../../../components/Box.astro';
 import Organograma from '../../../components/Organograma.astro';
+import Destaque from '../../../components/inst/Destaque.astro';
+import Lema from '../../../components/inst/Lema.astro';
+import Numeros from '../../../components/inst/Numeros.astro';
+import Cards from '../../../components/inst/Cards.astro';
+import Card from '../../../components/inst/Card.astro';
+import Etapas from '../../../components/inst/Etapas.astro';
+import Etapa from '../../../components/inst/Etapa.astro';
 
 ## Nature
 
 The Centro de Estudos Econômicos (CEE) is a student academic society (*liga acadêmica*) of the Economics programme. It is non-profit, non-partisan and of indefinite duration, and is devoted to empirical economic research, to the academic training of its members and to sharing economic knowledge.
 
-<Box variant="note" title="Current status">
+<Numeros itens={[
+  { valor: '6', rotulo: 'research programmes', nota: 'plus the Cross-cutting Programme' },
+  { valor: '5', rotulo: 'levels in the research career', nota: 'from Participant to Senior' },
+  { valor: '10', rotulo: 'guiding principles', nota: 'Statute, art. 7' },
+  { valor: '4', rotulo: 'steps in work on public policy', nota: 'Statute, art. 50' },
+]} />
+
+<Box variant="note" title="Current status" lang="en">
   <p>The Statute, the Internal Rules and the Programmes and Outputs Manual are drafts, to be adopted by the Founding Assembly and approved by the programme coordination and the Office for Student Affairs. The Advisory Council will be made up of faculty tutors: one faculty member has confirmed and two invitations are in progress. Use of the University's name and affiliation requires specific authorisation (Statute, art. 62); CEE does not speak for the University.</p>
 </Box>
 
 ## Mission
 
+<Destaque rotulo="Mission" icone="target">
+
 To push forward the frontiers of knowledge and research on economic growth and development policy, to work with policymakers on the design of effective action, and to share its knowledge through teaching, analytical tools and publications, with the aim of contributing to inclusive prosperity in Brazil.
 
-## Motto
+</Destaque>
 
-> Research and methods to drive economic growth and prosperity across Brazil.
+<Lema fonte="Institutional motto · Statute, art. 4, §1">
+
+Research and methods to drive economic growth and prosperity across Brazil.
+
+</Lema>
 
 ## Vision
 
+<Destaque rotulo="Vision" icone="eye">
+
 A merit-based, collaborative and interconnected community of Economics students, able to push forward research on economic growth and development policy, to work with policymakers on the design of effective interventions, and to share knowledge through research, teaching, analytical tools and publications.
+
+</Destaque>
 
 **Horizon.** To be a reference in applied economic research done by students: rigorous, open and useful to Brazil's prosperity.
 
 ## Objectives
 
-- Produce rigorous, reproducible and open-access empirical research on the Brazilian economy, with attention to Minas Gerais and to relevant international comparisons.
-- Maintain the [CEE Observatory — Brazilian Economy in Data](../observatorio/), with documented, versioned and citable series, databases and panels.
-- Study the drivers of growth, productivity, structural transformation, work, poverty and inequality, and the design and effects of macroeconomic and development policies.
-- Work with policymakers through evidence, technical dialogue and public monitoring of commitments and results.
-- Train students in applied research, quantitative methods, programming, data handling, technical writing and the critical assessment of evidence, and encourage undergraduate research and graduate study.
-- Preserve the knowledge, processes and assets needed for the Centre to continue across successive generations of students.
+<Cards cols={3}>
+  <Card titulo="Open research" icone="search"><p>Produce rigorous, reproducible and open-access empirical research on the Brazilian economy, with attention to Minas Gerais and to relevant international comparisons.</p></Card>
+  <Card titulo="Observatory" icone="database"><p>Maintain the <a href="../observatorio/">CEE Observatory — Brazilian Economy in Data</a>, with documented, versioned and citable series, databases and panels.</p></Card>
+  <Card titulo="Growth and inclusion" icone="line-chart"><p>Study the drivers of growth, productivity, structural transformation, work, poverty and inequality, and the design and effects of macroeconomic and development policies.</p></Card>
+  <Card titulo="Dialogue on public policy" icone="messages-square"><p>Work with policymakers through evidence, technical dialogue and public monitoring of commitments and results.</p></Card>
+  <Card titulo="Training" icone="graduation-cap"><p>Train students in applied research, quantitative methods, programming, data handling, technical writing and the critical assessment of evidence, and encourage undergraduate research and graduate study.</p></Card>
+  <Card titulo="Continuity" icone="layers"><p>Preserve the knowledge, processes and assets needed for the Centre to continue across successive generations of students.</p></Card>
+</Cards>
 
 ## Principles
 
-1. Methodological rigour, reproducibility and transparency.
-2. Intellectual honesty and academic integrity.
-3. Academic independence and non-partisanship.
-4. Theoretical pluralism and respect for reasoned disagreement.
-5. Merit, understood as selection and recognition based on public, prior and verifiable criteria.
-6. Collaboration, respect for people and non-discrimination.
-7. Commitment to individual liberty and to the welfare of society.
-8. Open access to the knowledge produced, respecting third-party rights.
-9. Student training as a permanent purpose.
-10. Accountability and publicity of management decisions.
+<Cards cols={2} numerados>
+  <Card num={1} titulo="Methodological rigour"><p>Reproducibility and transparency.</p></Card>
+  <Card num={2} titulo="Intellectual honesty"><p>Academic integrity at every stage.</p></Card>
+  <Card num={3} titulo="Academic independence"><p>Non-partisanship.</p></Card>
+  <Card num={4} titulo="Theoretical pluralism"><p>Respect for reasoned disagreement.</p></Card>
+  <Card num={5} titulo="Merit"><p>Selection and recognition based on public, prior and verifiable criteria.</p></Card>
+  <Card num={6} titulo="Collaboration"><p>Respect for people and non-discrimination.</p></Card>
+  <Card num={7} titulo="Liberty and welfare"><p>Commitment to individual liberty and to the welfare of society.</p></Card>
+  <Card num={8} titulo="Open access"><p>To the knowledge produced, respecting third-party rights.</p></Card>
+  <Card num={9} titulo="Student training"><p>As a permanent purpose.</p></Card>
+  <Card num={10} titulo="Accountability"><p>Publicity of management decisions.</p></Card>
+</Cards>
 
 Founder status, office, seniority or personal relationships confer no privilege of authorship, editorial approval, candidacy or continuity in office.
 
 ## How CEE contributes to public policy
 
-CEE's work on public policy follows four steps:
+CEE's work on public policy follows four steps (Statute, art. 50):
 
-1. **Diagnose**, with reproducible data and methods.
-2. **Propose**, with recommendations kept separate from the evidence and accompanied by their limits.
-3. **Engage**, with those responsible for decisions.
-4. **Monitor**, publishing what was and was not implemented.
+<Etapas orientacao="h" rotulo="Steps of the work on public policy">
+  <Etapa titulo="Diagnose"><p>With reproducible data and methods.</p></Etapa>
+  <Etapa titulo="Propose"><p>With recommendations kept separate from the evidence and accompanied by their limits.</p></Etapa>
+  <Etapa titulo="Engage"><p>With those responsible for decisions.</p></Etapa>
+  <Etapa titulo="Monitor"><p>Publishing what was and was not implemented.</p></Etapa>
+</Etapas>
 
 Public monitoring is limited to public targets that are measurable and verifiable with open data. Recommendations appear only in the outputs that allow them, in a separate section; all other outputs describe and analyse without recommending (see [Publications](../publicacoes/)).
 
 ## What CEE does not do
 
-- **It does not design or implement public policy.** It contributes only through evidence, analysis, technical dialogue, training and public monitoring.
-- **It does not promote parties, candidates or campaigns**, while respecting the individual freedom of opinion of its members.
-- **It does not attribute unlawful conduct to specific people.** Institutions and state capacity are studied with evidence and explicit methods.
-- **It does not pay for office or charge for participation.** Joining, taking part and accessing its outputs are free.
-- **It does not set up units of its own outside the University.**
+<Cards cols={2}>
+  <Card titulo="It does not design or implement public policy" icone="ban"><p>It contributes only through evidence, analysis, technical dialogue, training and public monitoring.</p></Card>
+  <Card titulo="It does not promote parties, candidates or campaigns" icone="flag"><p>While respecting the individual freedom of opinion of its members.</p></Card>
+  <Card titulo="It does not attribute unlawful conduct to specific people" icone="scale"><p>Institutions and state capacity are studied with evidence and explicit methods.</p></Card>
+  <Card titulo="It does not pay for office or charge for participation" icone="handshake"><p>Joining, taking part and accessing its outputs are free. CEE does not set up units of its own outside the University.</p></Card>
+</Cards>
 
 ## Governance
 
@@ -80,27 +111,28 @@ CEE's bodies are the General Assembly, the Collegiate Board, the President and V
 
 <Organograma lang="en" />
 
-- **General Assembly.** Made up of active full members, it is the highest decision-making body. It meets in February to approve the annual plan and in November for accountability and elections.
-- **Collegiate Board.** President, Vice-President and up to seven Directors, elected by the General Assembly after a public hearing. It issues the Economic Assessment, a collegiate statement on the Brazilian economy.
-- **Area Heads.** Research (under the Chief Economist), Data and Technology, Academic Training, Communication and Marketing, Events, Institutional and International Relations, and People and Administration, appointed by call and selection panel.
-- **Programme Coordinators and Panel Leads.** Each active programme has a Coordinator and each active panel a Lead, appointed by call and selection panel (see [Research](../pesquisa/)).
-- **Editorial Committee.** An independent body that approves every publication. The Collegiate Board cannot overturn an editorial decision or waive review; no author reviews or decides on their own work.
-- **Advisory Council.** Made up of the faculty tutors (at least one, at most three), it follows the activities, issues opinions, judges appeals and nominates the members of the Editorial Committee.
+<Cards cols={3}>
+  <Card titulo="General Assembly" icone="users"><p>Made up of active full members, it is the highest decision-making body. It meets in February to approve the annual plan and in November for accountability and elections.</p></Card>
+  <Card titulo="Collegiate Board" icone="landmark"><p>President, Vice-President and up to seven Directors, elected by the General Assembly after a public hearing. It issues the Economic Assessment, a collegiate statement on the Brazilian economy.</p></Card>
+  <Card titulo="Area Heads" icone="layers"><p>Research (under the Chief Economist), Data and Technology, Academic Training, Communication and Marketing, Events, Institutional and International Relations, and People and Administration, appointed by call and selection panel.</p></Card>
+  <Card titulo="Programmes and panels" icone="compass"><p>Each active programme has a Coordinator and each active panel a Lead, appointed by call and selection panel (see <a href="../pesquisa/">Research</a>).</p></Card>
+  <Card titulo="Editorial Committee" icone="shield-check" destaque><p>An independent body that approves every publication. The Collegiate Board cannot overturn an editorial decision or waive review; no author reviews or decides on their own work.</p></Card>
+  <Card titulo="Advisory Council" icone="book-open" destaque><p>Made up of the faculty tutors (at least one, at most three), it follows the activities, issues opinions, judges appeals and nominates the members of the Editorial Committee.</p></Card>
+</Cards>
 
 Every selection for office follows a call published before applications open, with verifiable criteria; popularity, seniority and founder status are not criteria. Names of members are published only with their consent.
 
 ## Transparency and integrity
 
-**Resources.** Setting up CEE does not presuppose raising or handling funds of its own. Any support, donation, grant or sponsorship requires approval by the General Assembly and the University's institutional procedures, with a record of purpose, origin, use and those responsible.
-
-**Conflicts of interest.** Declared on joining, every semester and whenever a new situation arises. A link to an organisation directly assessed in an output bars the person from preparing, reviewing or deciding on it.
-
-**Artificial intelligence.** The use of AI tools is disclosed in each output, with the tool and purpose, while authorship, verification and responsibility remain human. Personal or restricted data are not entered into external tools without a legal basis and institutional authorisation.
-
-**Errata.** A material error in a published output triggers a notice linked to it within seven calendar days of becoming aware of it, and an erratum with date, version and effects on the results (see [Errata](../erratas/)).
-
-**Annual Report.** CEE publishes an Annual Report every year, with its accounts and results.
+<Cards cols={2}>
+  <Card titulo="Resources" icone="scale"><p>Setting up CEE does not presuppose raising or handling funds of its own. Any support, donation, grant or sponsorship requires approval by the General Assembly and the University's institutional procedures, with a record of purpose, origin, use and those responsible.</p></Card>
+  <Card titulo="Conflicts of interest" icone="fingerprint"><p>Declared on joining, every semester and whenever a new situation arises. A link to an organisation directly assessed in an output bars the person from preparing, reviewing or deciding on it.</p></Card>
+  <Card titulo="Artificial intelligence" icone="bot"><p>The use of AI tools is disclosed in each output, with the tool and purpose, while authorship, verification and responsibility remain human. Personal or restricted data are not entered into external tools without a legal basis and institutional authorisation.</p></Card>
+  <Card titulo="Errata and Annual Report" icone="rotate-ccw"><p>A material error triggers a notice linked to the output within seven calendar days and an erratum with date, version and effects (see <a href="../erratas/">Errata</a>). CEE publishes an Annual Report every year, with its accounts and results.</p></Card>
+</Cards>
 
 ## Disclaimer
 
-The views expressed in CEE publications are those of the authors and do not represent the position of the Pontifical Catholic University of Minas Gerais.
+<Box variant="note" title="Standard text in every publication (Manual, Part II)" lang="en">
+  <p>The views expressed in CEE publications are those of the authors and do not represent the position of the Pontifical Catholic University of Minas Gerais.</p>
+</Box>

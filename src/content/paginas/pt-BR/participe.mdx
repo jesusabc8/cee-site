@@ -4,15 +4,28 @@ descricao: Como entrar no CEE — convocatória semestral aberta, trilha formati
 eyebrow: Participação
 bajada: O ingresso é aberto, sem prova e sem exigência de nota. O mérito vale para progredir na carreira e para chegar aos cargos, nunca para entrar.
 fonte_normas: "Estatuto, arts. 9º a 19, 52 a 54 e 64; Regimento Interno, arts. 3º a 10, 53 a 55 e 60"
-atualizado: 2026-11-09
+atualizado: 2026-11-11
 ---
 import Box from '../../../components/Box.astro';
+import Numeros from '../../../components/inst/Numeros.astro';
+import Cards from '../../../components/inst/Cards.astro';
+import Card from '../../../components/inst/Card.astro';
+import Etapas from '../../../components/inst/Etapas.astro';
+import Etapa from '../../../components/inst/Etapa.astro';
+
+<Numeros itens={[
+  { valor: 'fev. · ago.', rotulo: 'convocatórias de ingresso', nota: 'Regimento, art. 3º' },
+  { valor: '2–6 h', rotulo: 'dedicação semanal indicativa', nota: 'Estatuto, art. 53' },
+  { valor: '5', rotulo: 'níveis na carreira de pesquisa', nota: 'Regimento, art. 8º' },
+  { valor: '15 %', rotulo: 'limite de egressos e externos', nota: 'Estatuto, art. 10' },
+]} />
 
 ## Quem pode participar
 
-**Membros efetivos** são estudantes regularmente matriculados na Universidade, do Curso de Ciências Econômicas ou de outros cursos cuja contribuição seja pertinente às atividades do Centro, com os mesmos direitos (ressalvados os requisitos de curso para alguns cargos). O ingresso não exige prova, média de notas nem conhecimento prévio de programação ou de econometria.
-
-Também podem colaborar, sem integrar a gestão: **colaboradores credenciados** (egressos e estudantes ou pesquisadores de outras instituições, em projeto determinado), **docentes colaboradores** e **convidados**, para contribuições pontuais.
+<Cards cols={2}>
+  <Card titulo="Membros efetivos" icone="graduation-cap" destaque><p>Estudantes regularmente matriculados na Universidade, do Curso de Ciências Econômicas ou de outros cursos cuja contribuição seja pertinente às atividades do Centro, com os mesmos direitos (ressalvados os requisitos de curso para alguns cargos). O ingresso não exige prova, média de notas nem conhecimento prévio de programação ou de econometria.</p></Card>
+  <Card titulo="Colaboração sem integrar a gestão" icone="handshake"><p><strong>Colaboradores credenciados</strong> (egressos e estudantes ou pesquisadores de outras instituições, em projeto determinado), <strong>docentes colaboradores</strong> e <strong>convidados</strong>, para contribuições pontuais.</p></Card>
+</Cards>
 
 ## Convocatória de ingresso
 
@@ -30,11 +43,13 @@ Também podem colaborar, sem integrar a gestão: **colaboradores credenciados** 
 
 Todo ingressante cumpre, no primeiro semestre, a trilha formativa, com um membro de referência de Nível 2 ou superior que o acompanha nas primeiras tarefas:
 
-1. Missão, Estatuto, protocolos de pesquisa e integridade acadêmica.
-2. Fontes de dados da economia brasileira (IBGE, Banco Central do Brasil, Tesouro Nacional, Ipea e bases internacionais).
-3. Ferramentas: programação em R ou Python, controle de versões e organização de repositórios.
-4. Redação técnica, visualização de dados e citação.
-5. Reprodutibilidade, verificação numérica e revisão por pares.
+<Etapas rotulo="Módulos da trilha formativa">
+  <Etapa titulo="Missão, Estatuto e integridade"><p>Protocolos de pesquisa e integridade acadêmica.</p></Etapa>
+  <Etapa titulo="Fontes de dados da economia brasileira"><p>IBGE, Banco Central do Brasil, Tesouro Nacional, Ipea e bases internacionais.</p></Etapa>
+  <Etapa titulo="Ferramentas"><p>Programação em R ou Python, controle de versões e organização de repositórios.</p></Etapa>
+  <Etapa titulo="Redação técnica"><p>Visualização de dados e citação.</p></Etapa>
+  <Etapa titulo="Reprodutibilidade"><p>Verificação numérica e revisão por pares.</p></Etapa>
+</Etapas>
 
 A conclusão da trilha é requisito para o Nível 2.
 

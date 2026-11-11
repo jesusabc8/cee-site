@@ -3,15 +3,29 @@ titulo: Sobre o CEE
 descricao: Natureza, missão, lema, visão, princípios, limites de atuação, governança e transparência do Centro de Estudos Econômicos.
 eyebrow: Institucional
 bajada: Uma liga acadêmica estudantil dedicada à pesquisa econômica empírica, à formação de seus membros e à difusão do conhecimento econômico.
-fonte_normas: "Estatuto, arts. 1º, 4º a 8º, 21, 26, 34 a 38, 50, 55 a 65 e Anexo II; Manual de Programas e Produtos, Parte II"
-atualizado: 2026-11-09
+fonte_normas: "Estatuto, arts. 1º, 4º a 8º, 19, 21, 26, 34 a 38, 50, 55 a 65 e Anexo II; Manual de Programas e Produtos, Parte II"
+atualizado: 2026-11-11
 ---
 import Box from '../../../components/Box.astro';
 import Organograma from '../../../components/Organograma.astro';
+import Destaque from '../../../components/inst/Destaque.astro';
+import Lema from '../../../components/inst/Lema.astro';
+import Numeros from '../../../components/inst/Numeros.astro';
+import Cards from '../../../components/inst/Cards.astro';
+import Card from '../../../components/inst/Card.astro';
+import Etapas from '../../../components/inst/Etapas.astro';
+import Etapa from '../../../components/inst/Etapa.astro';
 
 ## Natureza
 
 O Centro de Estudos Econômicos (CEE) é uma liga acadêmica do Curso de Ciências Econômicas, de natureza estudantil, sem fins lucrativos, apartidária e de duração indeterminada, dedicada à pesquisa econômica empírica, à formação acadêmica de seus membros e à difusão do conhecimento econômico.
+
+<Numeros itens={[
+  { valor: '6', rotulo: 'programas de pesquisa', nota: 'mais o Programa Transversal' },
+  { valor: '5', rotulo: 'níveis na carreira de pesquisa', nota: 'de Participante a Sênior' },
+  { valor: '10', rotulo: 'princípios de atuação', nota: 'Estatuto, art. 7º' },
+  { valor: '4', rotulo: 'etapas junto às políticas públicas', nota: 'Estatuto, art. 50' },
+]} />
 
 <Box variant="note" title="Situação atual">
   <p>O Estatuto, o Regimento Interno e o Manual de Programas e Produtos são minutas, a serem deliberadas pela Assembleia Constitutiva e aprovadas pela Coordenação do Curso e pela Assessoria para Assuntos Estudantis. O Conselho Consultivo será formado por docentes tutores: há um docente confirmado e dois convites em andamento. O uso do nome e da filiação à Universidade depende de autorização específica (Estatuto, art. 62); o CEE não fala em nome da Universidade.</p>
@@ -19,60 +33,77 @@ O Centro de Estudos Econômicos (CEE) é uma liga acadêmica do Curso de Ciênci
 
 ## Missão
 
-O CEE tem por missão ampliar as fronteiras do conhecimento e da pesquisa em crescimento econômico e em políticas de desenvolvimento, colaborar com os formuladores de políticas públicas no desenho de ações eficazes e compartilhar seu conhecimento por meio do ensino, de ferramentas analíticas e de publicações, com o propósito de contribuir para uma prosperidade inclusiva no Brasil.
+<Destaque rotulo="Missão" icone="target">
 
-## Lema
+Ampliar as fronteiras do conhecimento e da pesquisa em crescimento econômico e em políticas de desenvolvimento, colaborar com os formuladores de políticas públicas no desenho de ações eficazes e compartilhar seu conhecimento por meio do ensino, de ferramentas analíticas e de publicações, com o propósito de contribuir para uma prosperidade inclusiva no Brasil.
 
-> Pesquisa e métodos para impulsionar o crescimento econômico e a prosperidade em todo o Brasil.
+</Destaque>
+
+<Lema fonte="Lema institucional · Estatuto, art. 4º, §1º">
+
+Pesquisa e métodos para impulsionar o crescimento econômico e a prosperidade em todo o Brasil.
+
+</Lema>
 
 ## Visão
 
+<Destaque rotulo="Visão" icone="eye">
+
 Constituir uma comunidade meritocrática, colaborativa e interconectada de estudantes de Economia, capaz de ampliar as fronteiras da pesquisa em crescimento econômico e políticas de desenvolvimento, de colaborar com os formuladores de políticas públicas no desenho de intervenções eficazes e de difundir conhecimento por meio da pesquisa, do ensino, das ferramentas de análise econômica e das publicações.
+
+</Destaque>
 
 **Horizonte.** Ser referência em pesquisa econômica aplicada feita por estudantes: rigorosa, aberta e útil à prosperidade do Brasil.
 
 ## Objetivos
 
-- Produzir pesquisa econômica empírica rigorosa, reprodutível e de acesso aberto sobre a economia brasileira, com atenção a Minas Gerais e às comparações internacionais pertinentes.
-- Manter o [Observatório CEE — Economia Brasileira em Dados](../observatorio/), com séries, bases e painéis documentados, versionados e citáveis.
-- Investigar os determinantes do crescimento, da produtividade, da transformação estrutural, do trabalho, da pobreza e da desigualdade, e o desenho e os efeitos das políticas macroeconômicas e de desenvolvimento.
-- Colaborar com formuladores e gestores de políticas públicas por meio de evidência, diálogo técnico e acompanhamento público de compromissos e resultados.
-- Formar estudantes em pesquisa aplicada, métodos quantitativos, programação, tratamento de dados, redação técnica e avaliação crítica de evidências, e estimular a iniciação científica e a pós-graduação.
-- Preservar o conhecimento, os processos e os ativos necessários à continuidade do Centro entre sucessivas gerações de estudantes.
+<Cards cols={3}>
+  <Card titulo="Pesquisa aberta" icone="search"><p>Produzir pesquisa econômica empírica rigorosa, reprodutível e de acesso aberto sobre a economia brasileira, com atenção a Minas Gerais e às comparações internacionais pertinentes.</p></Card>
+  <Card titulo="Observatório" icone="database"><p>Manter o <a href="../observatorio/">Observatório CEE — Economia Brasileira em Dados</a>, com séries, bases e painéis documentados, versionados e citáveis.</p></Card>
+  <Card titulo="Crescimento e inclusão" icone="line-chart"><p>Investigar os determinantes do crescimento, da produtividade, da transformação estrutural, do trabalho, da pobreza e da desigualdade, e o desenho e os efeitos das políticas macroeconômicas e de desenvolvimento.</p></Card>
+  <Card titulo="Diálogo com políticas públicas" icone="messages-square"><p>Colaborar com formuladores e gestores de políticas públicas por meio de evidência, diálogo técnico e acompanhamento público de compromissos e resultados.</p></Card>
+  <Card titulo="Formação" icone="graduation-cap"><p>Formar estudantes em pesquisa aplicada, métodos quantitativos, programação, tratamento de dados, redação técnica e avaliação crítica de evidências, e estimular a iniciação científica e a pós-graduação.</p></Card>
+  <Card titulo="Continuidade" icone="layers"><p>Preservar o conhecimento, os processos e os ativos necessários à continuidade do Centro entre sucessivas gerações de estudantes.</p></Card>
+</Cards>
 
 ## Princípios
 
-1. Rigor metodológico, reprodutibilidade e transparência.
-2. Honestidade intelectual e integridade acadêmica.
-3. Independência acadêmica e apartidarismo.
-4. Pluralidade teórica e respeito à divergência fundamentada.
-5. Meritocracia, entendida como seleção e reconhecimento com base em critérios públicos, prévios e verificáveis.
-6. Colaboração, respeito às pessoas e não discriminação.
-7. Compromisso com a liberdade individual e com o bem-estar da sociedade.
-8. Acesso aberto ao conhecimento produzido, respeitados os direitos de terceiros.
-9. Formação discente como finalidade permanente.
-10. Prestação de contas e publicidade dos atos de gestão.
+<Cards cols={2} numerados>
+  <Card num={1} titulo="Rigor metodológico"><p>Reprodutibilidade e transparência.</p></Card>
+  <Card num={2} titulo="Honestidade intelectual"><p>Integridade acadêmica em todas as etapas.</p></Card>
+  <Card num={3} titulo="Independência acadêmica"><p>Apartidarismo.</p></Card>
+  <Card num={4} titulo="Pluralidade teórica"><p>Respeito à divergência fundamentada.</p></Card>
+  <Card num={5} titulo="Meritocracia"><p>Seleção e reconhecimento com base em critérios públicos, prévios e verificáveis.</p></Card>
+  <Card num={6} titulo="Colaboração"><p>Respeito às pessoas e não discriminação.</p></Card>
+  <Card num={7} titulo="Liberdade e bem-estar"><p>Compromisso com a liberdade individual e com o bem-estar da sociedade.</p></Card>
+  <Card num={8} titulo="Acesso aberto"><p>Ao conhecimento produzido, respeitados os direitos de terceiros.</p></Card>
+  <Card num={9} titulo="Formação discente"><p>Como finalidade permanente.</p></Card>
+  <Card num={10} titulo="Prestação de contas"><p>Publicidade dos atos de gestão.</p></Card>
+</Cards>
 
 Condição de fundador, cargo, antiguidade ou relação pessoal não conferem privilégio de autoria, de aprovação editorial, de candidatura ou de permanência na gestão.
 
 ## Como o CEE contribui para as políticas públicas
 
-O trabalho do CEE junto às políticas públicas segue quatro etapas:
+O trabalho do CEE junto às políticas públicas segue quatro etapas (Estatuto, art. 50):
 
-1. **Diagnosticar**, com dados e métodos reprodutíveis.
-2. **Propor**, com recomendações separadas da evidência e acompanhadas de seus limites.
-3. **Dialogar**, com os responsáveis pelas decisões.
-4. **Acompanhar**, publicando o que foi e o que não foi executado.
+<Etapas orientacao="h" rotulo="Etapas do trabalho junto às políticas públicas">
+  <Etapa titulo="Diagnosticar"><p>Com dados e métodos reprodutíveis.</p></Etapa>
+  <Etapa titulo="Propor"><p>Com recomendações separadas da evidência e acompanhadas de seus limites.</p></Etapa>
+  <Etapa titulo="Dialogar"><p>Com os responsáveis pelas decisões.</p></Etapa>
+  <Etapa titulo="Acompanhar"><p>Publicando o que foi e o que não foi executado.</p></Etapa>
+</Etapas>
 
 O acompanhamento público limita-se a metas públicas, mensuráveis e verificáveis com dados abertos. Recomendações só aparecem nos produtos que as admitem, em seção própria; os demais produtos descrevem e analisam, sem recomendar (ver [Publicações](../publicacoes/)).
 
 ## O que o CEE não faz
 
-- **Não formula nem executa políticas públicas.** Contribui exclusivamente por meio de evidência, análise, diálogo técnico, formação e acompanhamento público.
-- **Não promove partidos, candidaturas ou campanhas**, preservada a liberdade de opinião individual de seus integrantes.
-- **Não atribui condutas ilícitas a pessoas determinadas.** O estudo das instituições e da capacidade do Estado é feito com evidência e métodos explícitos.
-- **Não remunera cargos nem cobra participação.** O ingresso, a participação regular e o acesso aos produtos são gratuitos.
-- **Não constitui unidades próprias fora da Universidade.**
+<Cards cols={2}>
+  <Card titulo="Não formula nem executa políticas públicas" icone="ban"><p>Contribui exclusivamente por meio de evidência, análise, diálogo técnico, formação e acompanhamento público.</p></Card>
+  <Card titulo="Não promove partidos, candidaturas ou campanhas" icone="flag"><p>Preservada a liberdade de opinião individual de seus integrantes.</p></Card>
+  <Card titulo="Não atribui condutas ilícitas a pessoas determinadas" icone="scale"><p>O estudo das instituições e da capacidade do Estado é feito com evidência e métodos explícitos.</p></Card>
+  <Card titulo="Não remunera cargos nem cobra participação" icone="handshake"><p>O ingresso, a participação regular e o acesso aos produtos são gratuitos. O CEE não constitui unidades próprias fora da Universidade.</p></Card>
+</Cards>
 
 ## Governança
 
@@ -80,27 +111,28 @@ São órgãos do CEE a Assembleia Geral, a Diretoria Colegiada, a Presidência e
 
 <Organograma lang="pt-BR" />
 
-- **Assembleia Geral.** Integrada pelos membros efetivos ativos, é a instância máxima de deliberação. Reúne-se em fevereiro, para aprovar o plano anual, e em novembro, para a prestação de contas e as eleições.
-- **Diretoria Colegiada.** Presidente, Vice-Presidente e até sete Diretores, eleitos pela Assembleia Geral após sabatina pública. Emite a Avaliação de Conjuntura, declaração colegiada sobre a economia brasileira.
-- **Chefias de Área.** Pesquisa (sob o Economista-Chefe), Dados e Tecnologia, Formação Acadêmica, Comunicação e Marketing, Eventos, Relações Institucionais e Internacionais, e Pessoas e Administração, designadas por convocatória e banca.
-- **Coordenações de Programa e Lideranças de Painel.** Cada programa ativo tem um Coordenador e cada painel ativo, um Líder, designados por convocatória e banca (ver [Pesquisa](../pesquisa/)).
-- **Comitê Editorial.** Órgão independente que aprova todas as publicações. A Diretoria Colegiada não pode revogar decisão editorial nem dispensar revisão; nenhum autor revisa ou decide sobre o próprio trabalho.
-- **Conselho Consultivo.** Formado pelos docentes tutores (no mínimo um e no máximo três), acompanha as atividades, emite pareceres, julga recursos e indica os membros do Comitê Editorial.
+<Cards cols={3}>
+  <Card titulo="Assembleia Geral" icone="users"><p>Integrada pelos membros efetivos ativos, é a instância máxima de deliberação. Reúne-se em fevereiro, para aprovar o plano anual, e em novembro, para a prestação de contas e as eleições.</p></Card>
+  <Card titulo="Diretoria Colegiada" icone="landmark"><p>Presidente, Vice-Presidente e até sete Diretores, eleitos pela Assembleia Geral após sabatina pública. Emite a Avaliação de Conjuntura, declaração colegiada sobre a economia brasileira.</p></Card>
+  <Card titulo="Chefias de Área" icone="layers"><p>Pesquisa (sob o Economista-Chefe), Dados e Tecnologia, Formação Acadêmica, Comunicação e Marketing, Eventos, Relações Institucionais e Internacionais, e Pessoas e Administração, designadas por convocatória e banca.</p></Card>
+  <Card titulo="Programas e painéis" icone="compass"><p>Cada programa ativo tem um Coordenador e cada painel ativo, um Líder, designados por convocatória e banca (ver <a href="../pesquisa/">Pesquisa</a>).</p></Card>
+  <Card titulo="Comitê Editorial" icone="shield-check" destaque><p>Órgão independente que aprova todas as publicações. A Diretoria Colegiada não pode revogar decisão editorial nem dispensar revisão; nenhum autor revisa ou decide sobre o próprio trabalho.</p></Card>
+  <Card titulo="Conselho Consultivo" icone="book-open" destaque><p>Formado pelos docentes tutores (no mínimo um e no máximo três), acompanha as atividades, emite pareceres, julga recursos e indica os membros do Comitê Editorial.</p></Card>
+</Cards>
 
 Toda seleção para cargo segue edital publicado antes das inscrições, com critérios verificáveis; popularidade, antiguidade e condição de fundador não são critério. Nomes de integrantes só são publicados com consentimento.
 
 ## Transparência e integridade
 
-**Recursos.** A implantação do CEE não pressupõe captação nem movimentação de recursos próprios. Apoios, doações, bolsas ou patrocínios dependem de aprovação da Assembleia Geral e dos mecanismos institucionais da Universidade, com registro de finalidade, origem, aplicação e responsáveis.
-
-**Conflitos de interesse.** São declarados no ingresso, a cada semestre e sempre que surgir situação nova. O vínculo com organização diretamente avaliada impede a elaboração, a revisão ou a decisão editorial sobre o produto.
-
-**Inteligência artificial.** O uso de ferramentas de IA é informado em cada produto, com a ferramenta e a finalidade, preservadas a autoria, a verificação e a responsabilidade humanas. Dados pessoais ou restritos não são inseridos em ferramenta externa sem base legal e autorização institucional.
-
-**Erratas.** Erro material em produto publicado gera aviso vinculado ao produto em até sete dias corridos de sua ciência e errata com data, versão e efeitos sobre os resultados (ver [Erratas](../erratas/)).
-
-**Relatório Anual.** O CEE publica anualmente um Relatório Anual, com a prestação de contas e os resultados do ano.
+<Cards cols={2}>
+  <Card titulo="Recursos" icone="scale"><p>A implantação do CEE não pressupõe captação nem movimentação de recursos próprios. Apoios, doações, bolsas ou patrocínios dependem de aprovação da Assembleia Geral e dos mecanismos institucionais da Universidade, com registro de finalidade, origem, aplicação e responsáveis.</p></Card>
+  <Card titulo="Conflitos de interesse" icone="fingerprint"><p>Declarados no ingresso, a cada semestre e sempre que surgir situação nova. O vínculo com organização diretamente avaliada impede a elaboração, a revisão ou a decisão editorial sobre o produto.</p></Card>
+  <Card titulo="Inteligência artificial" icone="bot"><p>O uso de ferramentas de IA é informado em cada produto, com a ferramenta e a finalidade, preservadas a autoria, a verificação e a responsabilidade humanas. Dados pessoais ou restritos não são inseridos em ferramenta externa sem base legal e autorização institucional.</p></Card>
+  <Card titulo="Erratas e Relatório Anual" icone="rotate-ccw"><p>Erro material gera aviso vinculado ao produto em até sete dias corridos e errata com data, versão e efeitos (ver <a href="../erratas/">Erratas</a>). O CEE publica anualmente um Relatório Anual, com a prestação de contas e os resultados do ano.</p></Card>
+</Cards>
 
 ## Aviso de responsabilidade
 
-As opiniões expressas nas publicações do CEE são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.
+<Box variant="note" title="Texto padrão em todas as publicações (Manual, Parte II)">
+  <p>As opiniões expressas nas publicações do CEE são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.</p>
+</Box>

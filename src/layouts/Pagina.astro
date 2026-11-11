@@ -1,8 +1,12 @@
 ---
-/** Página institucional em MDX, com índice lateral das seções. */
+/**
+ * Página institucional em MDX: cabeçalho com ficha (atualização e base normativa), índice lateral numerado com a
+ * seção ativa destacada, corpo com seções numeradas e componentes editoriais (src/components/inst/).
+ */
 import { render } from 'astro:content';
 import Base from './Base.astro';
 import PageHero from '../components/layout/PageHero.astro';
+import Icon from '../components/ui/Icon.astro';
 import { getPagina } from '../lib/paginas';
 import type { Lang } from '../i18n/ui';
 
@@ -14,42 +18,90 @@ const toc = headings.filter((h) => h.depth === 2);
 const d = entry.data;
 const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const L = lang === 'en'
-  ? { toc: 'On this page', upd: 'Last updated', src: 'Source: CEE normative acts (draft)' }
-  : { toc: 'Nesta página', upd: 'Atualizado em', src: 'Fonte: atos normativos do CEE (minutas)' };
+  ? { toc: 'On this page', upd: 'Last updated', src: 'Normative basis', srcNote: 'CEE normative acts (drafts)', topo: 'Back to top', secoes: 'sections' }
+  : { toc: 'Nesta página', upd: 'Atualizado em', src: 'Base normativa', srcNote: 'Atos normativos do CEE (minutas)', topo: 'Voltar ao topo', secoes: 'seções' };
+const dd = (i: number) => String(i + 1).padStart(2, '0');
 ---
 <Base title={d.titulo} description={d.descricao} lang={lang}>
   <PageHero lang={lang} eyebrow={d.eyebrow} title={d.titulo} lede={d.bajada}>
-    <p class="meta">{L.upd} <time datetime={d.atualizado.toISOString().slice(0, 10)}>{fmt.format(d.atualizado)}</time> · {L.src}, {d.fonte_normas}</p>
+    <dl class="ficha" slot="aside">
+      <div><dt><Icon name="calendar" size={14} /> {L.upd}</dt><dd><time datetime={d.atualizado.toISOString().slice(0, 10)}>{fmt.format(d.atualizado)}</time></dd></div>
+      <div><dt><Icon name="scroll-text" size={14} /> {L.src}</dt><dd>{d.fonte_normas}<span class="ficha__nota">{L.srcNote}</span></dd></div>
+      {toc.length > 2 && <div><dt><Icon name="list-checks" size={14} /> {L.toc}</dt><dd>{toc.length} {L.secoes}</dd></div>}
+    </dl>
   </PageHero>
-  <div class="wrap">
-    <div class="pagina">
-      {toc.length > 2 && (
-        <nav class="toc no-print" aria-labelledby="toc-title">
-          <h2 id="toc-title" class="eyebrow">{L.toc}</h2>
-          <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
-        </nav>
-      )}
-      <article class="prose">
-        <Content />
-      </article>
+  <div class="pagina-wrap">
+    <div class="wrap">
+      <div class:list={['pagina', { 'pagina--toc': toc.length > 2 }]}>
+        {toc.length > 2 && (
+          <nav class="toc no-print" aria-labelledby="toc-title" data-toc>
+            <details class="toc__det" open data-toc-det>
+              <summary class="toc__sum"><h2 id="toc-title" class="toc__tit">{L.toc}</h2><span class="toc__qtd">{toc.length} {L.secoes}</span></summary>
+              <ol>{toc.map((h, i) => <li><a href={`#${h.slug}`} data-toc-link={h.slug}><span class="toc__n" aria-hidden="true">{dd(i)}</span><span>{h.text}</span></a></li>)}</ol>
+            </details>
+            <a class="toc__topo" href="#conteudo"><Icon name="arrow-up" size={14} /> {L.topo}</a>
+          </nav>
+        )}
+        <article class="prose prose--inst">
+          <Content />
+        </article>
+      </div>
     </div>
   </div>
 </Base>
+<script>
+  // Índice: no celular começa recolhido (sem JS, fica aberto); destaca a seção visível (aria-current="location").
+  const det = document.querySelector<HTMLDetailsElement>('[data-toc-det]');
+  if (det && window.matchMedia('(max-width: 63.99rem)').matches) det.open = false;
+  const nav = document.querySelector<HTMLElement>('[data-toc]');
+  if (nav && 'IntersectionObserver' in window) {
+    const links = new Map([...nav.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')].map((a) => [a.dataset.tocLink!, a]));
+    const secoes = [...links.keys()].map((id) => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
+    const marcar = (id: string) => links.forEach((a, k) => { if (k === id) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+    const visiveis = new Set<string>();
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach((e) => { if (e.isIntersecting) visiveis.add(e.target.id); else visiveis.delete(e.target.id); });
+      const atual = secoes.find((s) => visiveis.has(s.id)) ?? secoes.filter((s) => s.getBoundingClientRect().top < 140).at(-1);
+      if (atual) marcar(atual.id);
+    }, { rootMargin: '-120px 0px -60% 0px' });
+    secoes.forEach((s) => io.observe(s));
+  }
+</script>
 <style>
-  .pagina {
-    display: grid;
-    gap: var(--s-6);
-    border-top: var(--hairline);
-    padding-top: var(--s-6);
+  .ficha { display: grid; gap: 0; margin: 0; border-top: 1px solid rgb(255 255 255 / 22%); }
+  .ficha > div { padding: 12px 0; border-bottom: 1px solid rgb(255 255 255 / 14%); }
+  .ficha dt { display: flex; align-items: center; gap: 8px; font: 600 11px / 1.3 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky); }
+  .ficha dd { margin: 6px 0 0; font-size: 0.875rem; line-height: 1.5; color: #e3ecf5; }
+  .ficha__nota { display: block; margin-top: 2px; font: 500 11.5px / 1.4 var(--mono); color: var(--muted-on-dark); }
+
+  .pagina-wrap { padding-block: clamp(48px, 5vw, 72px) var(--section-y); background: linear-gradient(180deg, var(--paper) 0, var(--white) 320px); }
+  .pagina { display: grid; gap: var(--s-6); }
+  @media (min-width: 64rem) {
+    .pagina--toc { grid-template-columns: 15.5rem minmax(0, 1fr); gap: clamp(40px, 5vw, 72px); }
+    .toc { position: sticky; top: calc(var(--header-h) + 24px); align-self: start; max-height: calc(100vh - var(--header-h) - 48px); overflow: auto; }
   }
-  @media (min-width: 60rem) {
-    .pagina { grid-template-columns: 14rem minmax(0, 1fr); gap: var(--s-7); }
-    .toc { position: sticky; top: 7rem; align-self: start; max-height: calc(100vh - 8rem); overflow: auto; }
+  .toc { padding: 20px 0 8px; border-top: 3px solid var(--navy); }
+  .toc__sum { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; list-style: none; cursor: default; }
+  .toc__sum::-webkit-details-marker { display: none; }
+  .toc__qtd { display: none; font: 500 11.5px / 1 var(--mono); color: var(--muted); }
+  .toc__tit { margin: 0 0 10px; padding: 0; border: 0; font: 600 11px / 1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--petrol); }
+  .toc ol { list-style: none; margin: 0; padding: 0; }
+  .toc li + li { border-top: 1px solid var(--line); }
+  .toc a { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 6px; padding: 10px 8px 10px 0; color: var(--ink); text-decoration: none; font-size: 0.875rem; line-height: 1.35; border-left: 2px solid transparent; transition: color 0.2s, border-color 0.2s, background-color 0.2s; }
+  .toc__n { font: 500 11.5px / 1.6 var(--mono); color: var(--muted); padding-left: 8px; }
+  .toc a:hover { color: var(--petrol); background: var(--mist); }
+  .toc a[aria-current='location'] { color: var(--navy); font-weight: 600; border-left-color: var(--petrol); background: var(--mist); }
+  .toc a[aria-current='location'] .toc__n { color: var(--petrol); }
+  .toc__topo { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font: 600 11.5px / 1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--petrol); text-decoration: none; }
+  .toc__topo:hover { text-decoration: underline; }
+  @media (max-width: 63.99rem) {
+    .toc .toc__topo { display: none; }
+    .toc { padding: 0; border: 1px solid var(--line); border-top: 3px solid var(--navy); background: var(--white); }
+    .toc__sum { padding: 14px 16px; cursor: pointer; }
+    .toc__sum::after { content: '+'; font: 600 1.125rem / 1 var(--sans); color: var(--navy); }
+    .toc__det[open] .toc__sum::after { content: '−'; }
+    .toc__qtd { display: inline; margin-left: auto; }
+    .toc__tit { margin: 0; }
+    .toc ol { padding: 0 16px 8px; }
   }
-  .toc h2 { font-size: var(--step--2); margin-bottom: var(--s-2); }
-  .toc ol { list-style: none; margin: 0; padding: 0; font-size: var(--step--1); }
-  .toc li { border-top: var(--hairline); }
-  .toc a { display: block; padding: var(--s-2) 0; color: var(--ink); text-decoration: none; line-height: 1.3; }
-  .toc a:hover { color: var(--petrol); text-decoration: underline; }
-  .prose :global(h2) { scroll-margin-top: 7.5rem; }
 </style>

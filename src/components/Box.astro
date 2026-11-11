@@ -23,13 +23,17 @@ const id = `box-${Math.random().toString(36).slice(2, 8)}`;
 </section>
 <style>
   .box {
-    border-left: 3px solid var(--line-strong);
+    position: relative;
+    margin-top: 1.6em;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--line-strong);
     background: var(--paper);
-    padding: var(--s-4) var(--s-5);
+    padding: 20px 24px 20px 26px;
     max-width: var(--measure);
     font-family: var(--sans);
     font-size: var(--step-0);
   }
+  .box--note { border-left-color: var(--navy); background: linear-gradient(135deg, var(--paper), var(--mist)); }
   .box--limits { border-left-color: var(--petrol); }
   .box--placeholder {
     border: 1px dashed var(--petrol);
@@ -37,14 +41,19 @@ const id = `box-${Math.random().toString(36).slice(2, 8)}`;
     background: var(--mist);
   }
   .box__title {
+    /* Anula o estilo de h2 do texto corrido (.prose h2 e .prose--inst > h2). */
+    margin: 0 0 var(--s-2);
+    padding: 0;
+    border: 0;
     font-family: var(--sans);
     font-size: var(--step--1);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: var(--s-2);
+    color: var(--navy);
   }
+  .box__title::before, .box__title::after { content: none; }
+  .box__body :global(p) { max-width: 70ch; line-height: 1.6; }
   .box__body > :global(* + *) { margin-top: var(--s-2); }
   .box__body :global(ul) { padding-left: 1.2em; margin: 0; }
 </style>
