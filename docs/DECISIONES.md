@@ -174,8 +174,12 @@ GitHub Pages, sem controle de cabeçalhos. O sítio continua público; o reposit
   QA), `undici` 7.30.1 por `overrides` (dependência do wrangler) e retirada do `wait-on`. A instalação do vitest 4 exigiu o
   npm 11.21.1 (o npm 10.9.4 falha com `edgesOut` no resolvedor de peers); o lockfile v3 resultante funciona com o npm 10 do CI.
 
-**Consequências.** O deploy falha até o responsável criar o token e os segredos da Cloudflare e a variável `SITE_URL`.
-A URL `*.github.io/cee-site/` continua servindo a última versão do Pages até ser desativada. DOI por depósito direto no
+**Transição (2026-11-11).** Até a Cloudflare estar configurada, o `build-deploy` mantém um job `pages` (GitHub Pages, Actions
+fixadas por SHA) para que o sítio no ar continue sendo atualizado; o job `cloudflare` só roda quando a variável `SITE_URL`
+existir. Com `PAGES_ATIVO=false`, o job `pages` deixa de rodar. No Pages não há CSP nem 301 por cabeçalho (`_headers` e
+`_redirects` são ignorados).
+
+**Consequências.** A Cloudflare só publica depois que o responsável criar o token, os segredos e a variável `SITE_URL`. DOI por depósito direto no
 Zenodo (a integração GitHub–Zenodo exige repositório público).
 
 ## ADR-019 — Abertura comercial pela Penn World Table 11.0 (2026-11-11)

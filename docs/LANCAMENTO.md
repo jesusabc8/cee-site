@@ -23,8 +23,9 @@ Manual de Programas e Produtos (ADR-017).
        (`curl -I` na portada, busca, painel, publicações e 404; ver `docs/qa/normas-2026-11/`).
 5. [ ] **Histórico (opcional):** decidir sobre reescrever o histórico para retirar o e-mail pessoal dos commits
        (`docs/qa/normas-2026-11/gitleaks.md`). Se autorizado: `git filter-repo --mailmap`, um único push forçado, antes de tornar o repositório privado.
-6. [ ] **Repositório:** conferir forks; tornar o repositório **privado**; só então **desativar o GitHub Pages**
-       (Settings → Pages). A URL antiga (`*.github.io/cee-site/`) deixa de responder.
+6. [ ] **Repositório:** conferir forks; tornar o repositório **privado**; criar a variável `PAGES_ATIVO=false` (o job `pages`
+       do `build-deploy` para de publicar) e só então **desativar o GitHub Pages** (Settings → Pages). A URL antiga
+       (`*.github.io/cee-site/`) deixa de responder.
 7. [ ] **Alertas e proteção:** Dependabot alerts e security updates ativados; secret scanning e push protection;
        proteção do branch `main` (PR obrigatório, CI `quality` verde, sem push forçado).
 8. [ ] **Depois:** transferir o repositório para uma organização do CEE com ≥ 3 administradores, um deles docente tutor ou

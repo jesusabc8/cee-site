@@ -1,9 +1,12 @@
 name: build-deploy
 
-# Publicação na Cloudflare (Workers com arquivos estáticos; wrangler.jsonc; ADR-018).
-# Segredos: CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID (de preferência como segredos do environment
-# `cloudflare`, restrito ao branch main). Variável: SITE_URL (ex.: https://cee-site.<conta>.workers.dev).
-# Só este job lê os segredos da Cloudflare; data-refresh não os referencia.
+# Publicação (ADR-018), com período de transição:
+# - `pages`: GitHub Pages, o sítio que está no ar hoje. Roda enquanto a variável PAGES_ATIVO não for "false".
+#   Atenção: o GitHub Pages ignora public/_headers e public/_redirects (sem CSP nem 301 por cabeçalho).
+# - `cloudflare`: Cloudflare Workers com arquivos estáticos (wrangler.jsonc). Só roda depois que a variável SITE_URL
+#   existir; segredos CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID no environment `cloudflare`.
+# Virada (docs/LANCAMENTO.md): configurar a Cloudflare → conferir a URL *.workers.dev → tornar o repositório privado →
+# definir PAGES_ATIVO=false e desativar o GitHub Pages. data-refresh não lê nenhum destes segredos.
 on:
   push:
     branches: [main]
@@ -17,14 +20,53 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: deploy-cloudflare
-  cancel-in-progress: false
-
 jobs:
-  deploy:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+  pages:
+    if: (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && vars.PAGES_ATIVO != 'false'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: deploy-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path || '/' }}
+      - run: npm run qa:seguranca
+        env:
+          CEE_NOMES_PROIBIDOS: ${{ secrets.CEE_NOMES_PROIBIDOS }}
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  cloudflare:
+    if: (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && vars.SITE_URL != ''
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-cloudflare
+      cancel-in-progress: false
     environment:
       name: cloudflare
       url: ${{ vars.SITE_URL }}
@@ -37,14 +79,6 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-      - name: Conferir variáveis
-        env:
-          SITE_URL: ${{ vars.SITE_URL }}
-        run: |
-          if [ -z "$SITE_URL" ]; then
-            echo "::error::Defina a variável SITE_URL (Settings → Secrets and variables → Actions → Variables)."
-            exit 1
-          fi
       # Sem scripts de instalação (esbuild e workerd funcionam pelos binários opcionais).
       - run: npm ci --ignore-scripts
       - run: npm run check

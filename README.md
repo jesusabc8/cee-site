@@ -153,6 +153,8 @@ Licenças: código sob [MIT](LICENSE); textos e dados sob [CC BY 4.0](LICENSE-CO
 
 O sítio é publicado na **Cloudflare** (Workers com arquivos estáticos; [`wrangler.jsonc`](wrangler.jsonc)) pelo workflow
 [`build-deploy.yml`](.github/workflows/build-deploy.yml) a cada push em `main` e após cada atualização de dados.
+**Transição:** enquanto a Cloudflare não estiver configurada (variável `SITE_URL` ausente), o mesmo workflow publica no
+GitHub Pages (job `pages`), que para com a variável `PAGES_ATIVO=false`.
 O workflow instala sem scripts, roda tipos e testes, gera o build com `SITE_URL` (variável do repositório) e `BASE_PATH=/`,
 roda `npm run qa:seguranca` e só então publica com `wrangler deploy`.
 
