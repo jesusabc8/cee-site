@@ -1,0 +1,26 @@
+{
+  "serie": "primario",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 5793",
+  "extraido_em": "2026-11-02T13:39:29.235Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "8712027f20c7c8915d065cca5485271ee75afeed973e8134d15d544ab2e85c8d",
+      "bytes": 2255
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "4f998fe602ee565720ff98c09f5e8b2ea62bf3da10c26f4c7d0b8ae41cb8462a",
+      "bytes": 2223
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=02/11/2026",
+      "sha256": "5b5fa5adb2ccb0ada570ea51b416d0647f3f3b4b3e4d942d8137418131e5224c",
+      "bytes": 2129
+    }
+  ]
+}

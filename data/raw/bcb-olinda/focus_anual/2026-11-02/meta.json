@@ -1,0 +1,44 @@
+{
+  "serie": "focus_anual",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0; Indicador ∈ {IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário}",
+  "extraido_em": "2026-11-02T13:39:29.235Z",
+  "arquivos": [
+    {
+      "arquivo": "indicador-1.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-05'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "06a98fd82fee2141547dbf0cefb1e0dd94201c06f7e3c94fe84fdc427f8b03a7",
+      "bytes": 42692
+    },
+    {
+      "arquivo": "indicador-2.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-05'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "92c385e6cca8e8ee4cbc8d6d940b7e301e8a0479943ed2dd9e421912b1bf05a0",
+      "bytes": 43620
+    },
+    {
+      "arquivo": "indicador-3.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-05'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "5380fbd844ffe44eb5ceec7187f1989e34e1e5151c2c80325e6f1c71ec3b9af8",
+      "bytes": 42848
+    },
+    {
+      "arquivo": "indicador-4.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'D%C3%ADvida%20bruta%20do%20governo%20geral'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-05'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "f13b0f5701899149e0cb7846891e4fc1650cca8aa8333b04d75bffe8040ea3e5",
+      "bytes": 104070
+    },
+    {
+      "arquivo": "indicador-5.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'D%C3%ADvida%20l%C3%ADquida%20do%20setor%20p%C3%BAblico'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-05'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "e15cdb6cd5731fb6c127f4428778719db0f4817cdc6cb102ba770df58ed96f64",
+      "bytes": 107058
+    },
+    {
+      "arquivo": "indicador-6.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Resultado%20prim%C3%A1rio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-05'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "2e202c758af4405a3c8547e846abb733ee5c735a7ca6fe14f1e6f22af71927cc",
+      "bytes": 94916
+    }
+  ]
+}

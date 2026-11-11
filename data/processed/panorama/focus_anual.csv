@@ -1,409 +1,4 @@
 data,indicador,ano_referencia,mediana,respondentes
-2026-06-30,Câmbio,2026,5.2,116
-2026-06-30,Câmbio,2027,5.3,115
-2026-06-30,Câmbio,2028,5.35,85
-2026-06-30,Câmbio,2029,5.4,78
-2026-06-30,Câmbio,2030,5.4,76
-2026-06-30,Dívida bruta do governo geral,2026,83.4,57
-2026-06-30,Dívida bruta do governo geral,2027,87,56
-2026-06-30,Dívida bruta do governo geral,2028,90.05,44
-2026-06-30,Dívida bruta do governo geral,2029,92.2361,43
-2026-06-30,Dívida bruta do governo geral,2030,94.4,42
-2026-06-30,Dívida bruta do governo geral,2031,96.4,38
-2026-06-30,Dívida bruta do governo geral,2032,98,37
-2026-06-30,Dívida bruta do governo geral,2033,99,37
-2026-06-30,Dívida bruta do governo geral,2034,99.75,36
-2026-06-30,Dívida bruta do governo geral,2035,100,35
-2026-06-30,Dívida líquida do setor público,2026,69.8376,53
-2026-06-30,Dívida líquida do setor público,2027,73.4862,53
-2026-06-30,Dívida líquida do setor público,2028,76.4,41
-2026-06-30,Dívida líquida do setor público,2029,79,40
-2026-06-30,Dívida líquida do setor público,2030,81.2226,38
-2026-06-30,Dívida líquida do setor público,2031,83.2,35
-2026-06-30,Dívida líquida do setor público,2032,84.6,35
-2026-06-30,Dívida líquida do setor público,2033,85.6,35
-2026-06-30,Dívida líquida do setor público,2034,87,35
-2026-06-30,Dívida líquida do setor público,2035,88.3,34
-2026-06-30,PIB Total,2026,1.9863,112
-2026-06-30,PIB Total,2027,1.6895,105
-2026-06-30,PIB Total,2028,2,80
-2026-06-30,PIB Total,2029,2,75
-2026-06-30,PIB Total,2030,2,70
-2026-06-30,Resultado primário,2026,-0.5,56
-2026-06-30,Resultado primário,2027,-0.4,55
-2026-06-30,Resultado primário,2028,-0.25,43
-2026-06-30,Resultado primário,2029,-0.1679,41
-2026-06-30,Resultado primário,2030,0,40
-2026-06-30,Resultado primário,2031,0.135,36
-2026-06-30,Resultado primário,2032,0.3298,36
-2026-06-30,Resultado primário,2033,0.53,36
-2026-06-30,Resultado primário,2034,0.6,35
-2026-06-30,Resultado primário,2035,0.7,34
-2026-06-30,Selic,2026,14,144
-2026-06-30,Selic,2027,12,139
-2026-06-30,Selic,2028,10.5,112
-2026-06-30,Selic,2029,10,106
-2026-06-30,Selic,2030,10,102
-2026-07-01,Câmbio,2026,5.2,117
-2026-07-01,Câmbio,2027,5.2915,116
-2026-07-01,Câmbio,2028,5.35,85
-2026-07-01,Câmbio,2029,5.4,78
-2026-07-01,Câmbio,2030,5.4,76
-2026-07-01,Dívida bruta do governo geral,2026,83.4,57
-2026-07-01,Dívida bruta do governo geral,2027,87,56
-2026-07-01,Dívida bruta do governo geral,2028,90.05,44
-2026-07-01,Dívida bruta do governo geral,2029,92.2361,43
-2026-07-01,Dívida bruta do governo geral,2030,94.4,42
-2026-07-01,Dívida bruta do governo geral,2031,96.4,38
-2026-07-01,Dívida bruta do governo geral,2032,98,37
-2026-07-01,Dívida bruta do governo geral,2033,99,37
-2026-07-01,Dívida bruta do governo geral,2034,99.75,36
-2026-07-01,Dívida bruta do governo geral,2035,100,35
-2026-07-01,Dívida líquida do setor público,2026,69.8376,53
-2026-07-01,Dívida líquida do setor público,2027,73.4862,53
-2026-07-01,Dívida líquida do setor público,2028,76.4,41
-2026-07-01,Dívida líquida do setor público,2029,79,40
-2026-07-01,Dívida líquida do setor público,2030,81.2226,38
-2026-07-01,Dívida líquida do setor público,2031,83.2,35
-2026-07-01,Dívida líquida do setor público,2032,84.6,35
-2026-07-01,Dívida líquida do setor público,2033,85.6,35
-2026-07-01,Dívida líquida do setor público,2034,87,35
-2026-07-01,Dívida líquida do setor público,2035,88.3,34
-2026-07-01,PIB Total,2026,1.9865,113
-2026-07-01,PIB Total,2027,1.6895,105
-2026-07-01,PIB Total,2028,2,80
-2026-07-01,PIB Total,2029,2,75
-2026-07-01,PIB Total,2030,2,70
-2026-07-01,Resultado primário,2026,-0.5,56
-2026-07-01,Resultado primário,2027,-0.4,55
-2026-07-01,Resultado primário,2028,-0.25,43
-2026-07-01,Resultado primário,2029,-0.1679,41
-2026-07-01,Resultado primário,2030,0,40
-2026-07-01,Resultado primário,2031,0.135,36
-2026-07-01,Resultado primário,2032,0.3298,36
-2026-07-01,Resultado primário,2033,0.53,36
-2026-07-01,Resultado primário,2034,0.6,35
-2026-07-01,Resultado primário,2035,0.7,34
-2026-07-01,Selic,2026,14,145
-2026-07-01,Selic,2027,12,140
-2026-07-01,Selic,2028,10.5,112
-2026-07-01,Selic,2029,10,106
-2026-07-01,Selic,2030,10,102
-2026-07-02,Câmbio,2026,5.2,118
-2026-07-02,Câmbio,2027,5.283,117
-2026-07-02,Câmbio,2028,5.35,86
-2026-07-02,Câmbio,2029,5.4,79
-2026-07-02,Câmbio,2030,5.4,77
-2026-07-02,Dívida bruta do governo geral,2026,83.36,58
-2026-07-02,Dívida bruta do governo geral,2027,87,57
-2026-07-02,Dívida bruta do governo geral,2028,90,45
-2026-07-02,Dívida bruta do governo geral,2029,92.2181,44
-2026-07-02,Dívida bruta do governo geral,2030,94.1,43
-2026-07-02,Dívida bruta do governo geral,2031,96,39
-2026-07-02,Dívida bruta do governo geral,2032,97.5,38
-2026-07-02,Dívida bruta do governo geral,2033,99,38
-2026-07-02,Dívida bruta do governo geral,2034,99.5,37
-2026-07-02,Dívida bruta do governo geral,2035,100,36
-2026-07-02,Dívida líquida do setor público,2026,69.8188,54
-2026-07-02,Dívida líquida do setor público,2027,73.4432,54
-2026-07-02,Dívida líquida do setor público,2028,76.39,42
-2026-07-02,Dívida líquida do setor público,2029,79,41
-2026-07-02,Dívida líquida do setor público,2030,81.2,39
-2026-07-02,Dívida líquida do setor público,2031,83.1098,36
-2026-07-02,Dívida líquida do setor público,2032,84.55,36
-2026-07-02,Dívida líquida do setor público,2033,85.6,36
-2026-07-02,Dívida líquida do setor público,2034,87,36
-2026-07-02,Dívida líquida do setor público,2035,88,35
-2026-07-02,PIB Total,2026,1.9865,113
-2026-07-02,PIB Total,2027,1.6948,106
-2026-07-02,PIB Total,2028,2,81
-2026-07-02,PIB Total,2029,2,76
-2026-07-02,PIB Total,2030,2,71
-2026-07-02,Resultado primário,2026,-0.5,57
-2026-07-02,Resultado primário,2027,-0.4,56
-2026-07-02,Resultado primário,2028,-0.25,44
-2026-07-02,Resultado primário,2029,-0.159,42
-2026-07-02,Resultado primário,2030,0,41
-2026-07-02,Resultado primário,2031,0.15,37
-2026-07-02,Resultado primário,2032,0.35,37
-2026-07-02,Resultado primário,2033,0.56,37
-2026-07-02,Resultado primário,2034,0.7,36
-2026-07-02,Resultado primário,2035,0.7,35
-2026-07-02,Selic,2026,14,146
-2026-07-02,Selic,2027,12,141
-2026-07-02,Selic,2028,10.5,113
-2026-07-02,Selic,2029,10,107
-2026-07-02,Selic,2030,10,103
-2026-07-03,Câmbio,2026,5.2,118
-2026-07-03,Câmbio,2027,5.283,117
-2026-07-03,Câmbio,2028,5.35,87
-2026-07-03,Câmbio,2029,5.4,80
-2026-07-03,Câmbio,2030,5.4,78
-2026-07-03,Dívida bruta do governo geral,2026,83.32,57
-2026-07-03,Dívida bruta do governo geral,2027,87,56
-2026-07-03,Dívida bruta do governo geral,2028,90.05,44
-2026-07-03,Dívida bruta do governo geral,2029,92.2181,44
-2026-07-03,Dívida bruta do governo geral,2030,94.1,43
-2026-07-03,Dívida bruta do governo geral,2031,96,39
-2026-07-03,Dívida bruta do governo geral,2032,97.5,38
-2026-07-03,Dívida bruta do governo geral,2033,98.9,38
-2026-07-03,Dívida bruta do governo geral,2034,99.4,37
-2026-07-03,Dívida bruta do governo geral,2035,99.9,36
-2026-07-03,Dívida líquida do setor público,2026,69.8376,53
-2026-07-03,Dívida líquida do setor público,2027,73.4001,53
-2026-07-03,Dívida líquida do setor público,2028,76.4,41
-2026-07-03,Dívida líquida do setor público,2029,79,41
-2026-07-03,Dívida líquida do setor público,2030,81.2,39
-2026-07-03,Dívida líquida do setor público,2031,83.0098,36
-2026-07-03,Dívida líquida do setor público,2032,84.4,36
-2026-07-03,Dívida líquida do setor público,2033,85.55,36
-2026-07-03,Dívida líquida do setor público,2034,86.9,36
-2026-07-03,Dívida líquida do setor público,2035,88,35
-2026-07-03,PIB Total,2026,1.9859,114
-2026-07-03,PIB Total,2027,1.6895,107
-2026-07-03,PIB Total,2028,2,82
-2026-07-03,PIB Total,2029,2,77
-2026-07-03,PIB Total,2030,2,72
-2026-07-03,Resultado primário,2026,-0.5,56
-2026-07-03,Resultado primário,2027,-0.4,55
-2026-07-03,Resultado primário,2028,-0.25,43
-2026-07-03,Resultado primário,2029,-0.159,42
-2026-07-03,Resultado primário,2030,0,41
-2026-07-03,Resultado primário,2031,0.15,37
-2026-07-03,Resultado primário,2032,0.35,37
-2026-07-03,Resultado primário,2033,0.56,37
-2026-07-03,Resultado primário,2034,0.7,36
-2026-07-03,Resultado primário,2035,0.7,35
-2026-07-03,Selic,2026,14,147
-2026-07-03,Selic,2027,12,142
-2026-07-03,Selic,2028,10.5,114
-2026-07-03,Selic,2029,10,107
-2026-07-03,Selic,2030,10,103
-2026-07-06,Câmbio,2026,5.2,118
-2026-07-06,Câmbio,2027,5.3,117
-2026-07-06,Câmbio,2028,5.35,88
-2026-07-06,Câmbio,2029,5.4,82
-2026-07-06,Câmbio,2030,5.425,80
-2026-07-06,Dívida bruta do governo geral,2026,83.4,55
-2026-07-06,Dívida bruta do governo geral,2027,87,54
-2026-07-06,Dívida bruta do governo geral,2028,90,43
-2026-07-06,Dívida bruta do governo geral,2029,92.2,43
-2026-07-06,Dívida bruta do governo geral,2030,94.05,42
-2026-07-06,Dívida bruta do governo geral,2031,95.985,38
-2026-07-06,Dívida bruta do governo geral,2032,97,37
-2026-07-06,Dívida bruta do governo geral,2033,98.8,37
-2026-07-06,Dívida bruta do governo geral,2034,99.2,36
-2026-07-06,Dívida bruta do governo geral,2035,99.8,35
-2026-07-06,Dívida líquida do setor público,2026,69.8,51
-2026-07-06,Dívida líquida do setor público,2027,73.4,51
-2026-07-06,Dívida líquida do setor público,2028,76.39,40
-2026-07-06,Dívida líquida do setor público,2029,79,40
-2026-07-06,Dívida líquida do setor público,2030,81.15,38
-2026-07-06,Dívida líquida do setor público,2031,83,35
-2026-07-06,Dívida líquida do setor público,2032,84.3,35
-2026-07-06,Dívida líquida do setor público,2033,85.5,35
-2026-07-06,Dívida líquida do setor público,2034,86.8,35
-2026-07-06,Dívida líquida do setor público,2035,88,34
-2026-07-06,PIB Total,2026,1.9859,114
-2026-07-06,PIB Total,2027,1.6895,107
-2026-07-06,PIB Total,2028,2,82
-2026-07-06,PIB Total,2029,2,77
-2026-07-06,PIB Total,2030,2,72
-2026-07-06,Resultado primário,2026,-0.5,54
-2026-07-06,Resultado primário,2027,-0.4,53
-2026-07-06,Resultado primário,2028,-0.255,42
-2026-07-06,Resultado primário,2029,-0.1679,41
-2026-07-06,Resultado primário,2030,0,40
-2026-07-06,Resultado primário,2031,0.135,36
-2026-07-06,Resultado primário,2032,0.3298,36
-2026-07-06,Resultado primário,2033,0.53,36
-2026-07-06,Resultado primário,2034,0.6,35
-2026-07-06,Resultado primário,2035,0.7,34
-2026-07-06,Selic,2026,14,147
-2026-07-06,Selic,2027,12,142
-2026-07-06,Selic,2028,10.5,114
-2026-07-06,Selic,2029,10,107
-2026-07-06,Selic,2030,10,103
-2026-07-07,Câmbio,2026,5.2,118
-2026-07-07,Câmbio,2027,5.3,117
-2026-07-07,Câmbio,2028,5.35,88
-2026-07-07,Câmbio,2029,5.4,82
-2026-07-07,Câmbio,2030,5.425,80
-2026-07-07,Dívida bruta do governo geral,2026,83.4,55
-2026-07-07,Dívida bruta do governo geral,2027,87,54
-2026-07-07,Dívida bruta do governo geral,2028,90,43
-2026-07-07,Dívida bruta do governo geral,2029,92.2,43
-2026-07-07,Dívida bruta do governo geral,2030,94.05,42
-2026-07-07,Dívida bruta do governo geral,2031,95.985,38
-2026-07-07,Dívida bruta do governo geral,2032,97,37
-2026-07-07,Dívida bruta do governo geral,2033,98.8,37
-2026-07-07,Dívida bruta do governo geral,2034,99.2,36
-2026-07-07,Dívida bruta do governo geral,2035,99.8,35
-2026-07-07,Dívida líquida do setor público,2026,69.8,51
-2026-07-07,Dívida líquida do setor público,2027,73.4,51
-2026-07-07,Dívida líquida do setor público,2028,76.39,40
-2026-07-07,Dívida líquida do setor público,2029,79,40
-2026-07-07,Dívida líquida do setor público,2030,81.15,38
-2026-07-07,Dívida líquida do setor público,2031,83,35
-2026-07-07,Dívida líquida do setor público,2032,84.3,35
-2026-07-07,Dívida líquida do setor público,2033,85.5,35
-2026-07-07,Dívida líquida do setor público,2034,86.8,35
-2026-07-07,Dívida líquida do setor público,2035,88,34
-2026-07-07,PIB Total,2026,1.9859,114
-2026-07-07,PIB Total,2027,1.6895,107
-2026-07-07,PIB Total,2028,2,82
-2026-07-07,PIB Total,2029,2,77
-2026-07-07,PIB Total,2030,2,72
-2026-07-07,Resultado primário,2026,-0.5,54
-2026-07-07,Resultado primário,2027,-0.4,53
-2026-07-07,Resultado primário,2028,-0.255,42
-2026-07-07,Resultado primário,2029,-0.1679,41
-2026-07-07,Resultado primário,2030,0,40
-2026-07-07,Resultado primário,2031,0.135,36
-2026-07-07,Resultado primário,2032,0.3298,36
-2026-07-07,Resultado primário,2033,0.58,36
-2026-07-07,Resultado primário,2034,0.8,35
-2026-07-07,Resultado primário,2035,0.85,34
-2026-07-07,Selic,2026,14,147
-2026-07-07,Selic,2027,12,142
-2026-07-07,Selic,2028,10.5,114
-2026-07-07,Selic,2029,10,107
-2026-07-07,Selic,2030,10,103
-2026-07-08,Câmbio,2026,5.2,118
-2026-07-08,Câmbio,2027,5.3,117
-2026-07-08,Câmbio,2028,5.35,88
-2026-07-08,Câmbio,2029,5.4,82
-2026-07-08,Câmbio,2030,5.425,80
-2026-07-08,Dívida bruta do governo geral,2026,83.4,55
-2026-07-08,Dívida bruta do governo geral,2027,87,54
-2026-07-08,Dívida bruta do governo geral,2028,90,43
-2026-07-08,Dívida bruta do governo geral,2029,92.2,43
-2026-07-08,Dívida bruta do governo geral,2030,94.05,42
-2026-07-08,Dívida bruta do governo geral,2031,95.985,38
-2026-07-08,Dívida bruta do governo geral,2032,97,37
-2026-07-08,Dívida bruta do governo geral,2033,98.8,37
-2026-07-08,Dívida bruta do governo geral,2034,99.2,36
-2026-07-08,Dívida bruta do governo geral,2035,99.8,35
-2026-07-08,Dívida líquida do setor público,2026,69.8,51
-2026-07-08,Dívida líquida do setor público,2027,73.4,51
-2026-07-08,Dívida líquida do setor público,2028,76.39,40
-2026-07-08,Dívida líquida do setor público,2029,79,40
-2026-07-08,Dívida líquida do setor público,2030,81.15,38
-2026-07-08,Dívida líquida do setor público,2031,83,35
-2026-07-08,Dívida líquida do setor público,2032,84.3,35
-2026-07-08,Dívida líquida do setor público,2033,85.5,35
-2026-07-08,Dívida líquida do setor público,2034,86.8,35
-2026-07-08,Dívida líquida do setor público,2035,88,34
-2026-07-08,PIB Total,2026,1.9857,115
-2026-07-08,PIB Total,2027,1.6841,108
-2026-07-08,PIB Total,2028,2,82
-2026-07-08,PIB Total,2029,2,77
-2026-07-08,PIB Total,2030,2,72
-2026-07-08,Resultado primário,2026,-0.5,54
-2026-07-08,Resultado primário,2027,-0.4,53
-2026-07-08,Resultado primário,2028,-0.255,42
-2026-07-08,Resultado primário,2029,-0.1679,41
-2026-07-08,Resultado primário,2030,0,40
-2026-07-08,Resultado primário,2031,0.135,36
-2026-07-08,Resultado primário,2032,0.3298,36
-2026-07-08,Resultado primário,2033,0.58,36
-2026-07-08,Resultado primário,2034,0.8,35
-2026-07-08,Resultado primário,2035,0.85,34
-2026-07-08,Selic,2026,14,147
-2026-07-08,Selic,2027,12,142
-2026-07-08,Selic,2028,10.5,114
-2026-07-08,Selic,2029,10,107
-2026-07-08,Selic,2030,10,103
-2026-07-09,Câmbio,2026,5.2,116
-2026-07-09,Câmbio,2027,5.283,115
-2026-07-09,Câmbio,2028,5.35,86
-2026-07-09,Câmbio,2029,5.4,80
-2026-07-09,Câmbio,2030,5.4,78
-2026-07-09,Dívida bruta do governo geral,2026,83.36,54
-2026-07-09,Dívida bruta do governo geral,2027,87,53
-2026-07-09,Dívida bruta do governo geral,2028,90,43
-2026-07-09,Dívida bruta do governo geral,2029,92.2,43
-2026-07-09,Dívida bruta do governo geral,2030,94.35,42
-2026-07-09,Dívida bruta do governo geral,2031,96.4,38
-2026-07-09,Dívida bruta do governo geral,2032,98,37
-2026-07-09,Dívida bruta do governo geral,2033,99,37
-2026-07-09,Dívida bruta do governo geral,2034,99.45,36
-2026-07-09,Dívida bruta do governo geral,2035,100,35
-2026-07-09,Dívida líquida do setor público,2026,69.8188,50
-2026-07-09,Dívida líquida do setor público,2027,73.4001,50
-2026-07-09,Dívida líquida do setor público,2028,76.39,40
-2026-07-09,Dívida líquida do setor público,2029,79,40
-2026-07-09,Dívida líquida do setor público,2030,81.15,38
-2026-07-09,Dívida líquida do setor público,2031,83,35
-2026-07-09,Dívida líquida do setor público,2032,84.3,35
-2026-07-09,Dívida líquida do setor público,2033,85.5,35
-2026-07-09,Dívida líquida do setor público,2034,87,35
-2026-07-09,Dívida líquida do setor público,2035,88,34
-2026-07-09,PIB Total,2026,1.9863,112
-2026-07-09,PIB Total,2027,1.6776,106
-2026-07-09,PIB Total,2028,2,80
-2026-07-09,PIB Total,2029,2,75
-2026-07-09,PIB Total,2030,2,70
-2026-07-09,Resultado primário,2026,-0.5,53
-2026-07-09,Resultado primário,2027,-0.4,52
-2026-07-09,Resultado primário,2028,-0.255,42
-2026-07-09,Resultado primário,2029,-0.168,41
-2026-07-09,Resultado primário,2030,-0.025,40
-2026-07-09,Resultado primário,2031,0.125,36
-2026-07-09,Resultado primário,2032,0.3298,36
-2026-07-09,Resultado primário,2033,0.58,36
-2026-07-09,Resultado primário,2034,0.8,35
-2026-07-09,Resultado primário,2035,0.85,34
-2026-07-09,Selic,2026,14,145
-2026-07-09,Selic,2027,12,140
-2026-07-09,Selic,2028,10.5,112
-2026-07-09,Selic,2029,10,105
-2026-07-09,Selic,2030,10,101
-2026-07-10,Câmbio,2026,5.2,117
-2026-07-10,Câmbio,2027,5.2799,116
-2026-07-10,Câmbio,2028,5.335,88
-2026-07-10,Câmbio,2029,5.4,81
-2026-07-10,Câmbio,2030,5.4,79
-2026-07-10,Dívida bruta do governo geral,2026,83.31,56
-2026-07-10,Dívida bruta do governo geral,2027,87,55
-2026-07-10,Dívida bruta do governo geral,2028,90,45
-2026-07-10,Dívida bruta do governo geral,2029,92.2181,44
-2026-07-10,Dívida bruta do governo geral,2030,94.7,43
-2026-07-10,Dívida bruta do governo geral,2031,96.8,39
-2026-07-10,Dívida bruta do governo geral,2032,98,38
-2026-07-10,Dívida bruta do governo geral,2033,99,38
-2026-07-10,Dívida bruta do governo geral,2034,99.5,37
-2026-07-10,Dívida bruta do governo geral,2035,100,36
-2026-07-10,Dívida líquida do setor público,2026,69.8688,52
-2026-07-10,Dívida líquida do setor público,2027,73.4001,52
-2026-07-10,Dívida líquida do setor público,2028,76.4,41
-2026-07-10,Dívida líquida do setor público,2029,79,41
-2026-07-10,Dívida líquida do setor público,2030,81.2,39
-2026-07-10,Dívida líquida do setor público,2031,83.0098,36
-2026-07-10,Dívida líquida do setor público,2032,84.4,36
-2026-07-10,Dívida líquida do setor público,2033,85.55,36
-2026-07-10,Dívida líquida do setor público,2034,87,36
-2026-07-10,Dívida líquida do setor público,2035,88,35
-2026-07-10,PIB Total,2026,1.9865,113
-2026-07-10,PIB Total,2027,1.6541,107
-2026-07-10,PIB Total,2028,2,82
-2026-07-10,PIB Total,2029,2,76
-2026-07-10,PIB Total,2030,2,71
-2026-07-10,Resultado primário,2026,-0.5,55
-2026-07-10,Resultado primário,2027,-0.4,54
-2026-07-10,Resultado primário,2028,-0.27,44
-2026-07-10,Resultado primário,2029,-0.184,42
-2026-07-10,Resultado primário,2030,0,41
-2026-07-10,Resultado primário,2031,0.15,37
-2026-07-10,Resultado primário,2032,0.35,37
-2026-07-10,Resultado primário,2033,0.6,37
-2026-07-10,Resultado primário,2034,0.8,36
-2026-07-10,Resultado primário,2035,1,35
-2026-07-10,Selic,2026,14,147
-2026-07-10,Selic,2027,12,142
-2026-07-10,Selic,2028,10.5,116
-2026-07-10,Selic,2029,10,108
-2026-07-10,Selic,2030,10,104
 2026-07-13,Câmbio,2026,5.2,108
 2026-07-13,Câmbio,2027,5.27,105
 2026-07-13,Câmbio,2028,5.3044,81
@@ -3689,3 +3284,408 @@ data,indicador,ano_referencia,mediana,respondentes
 2026-10-23,Selic,2028,10,115
 2026-10-23,Selic,2029,10,110
 2026-10-23,Selic,2030,10,107
+2026-10-26,Câmbio,2026,5.05,111
+2026-10-26,Câmbio,2027,5.158,110
+2026-10-26,Câmbio,2028,5.201,86
+2026-10-26,Câmbio,2029,5.28,81
+2026-10-26,Câmbio,2030,5.3,80
+2026-10-26,Dívida bruta do governo geral,2026,83.5,55
+2026-10-26,Dívida bruta do governo geral,2027,87.205,54
+2026-10-26,Dívida bruta do governo geral,2028,90.1501,50
+2026-10-26,Dívida bruta do governo geral,2029,92.7,47
+2026-10-26,Dívida bruta do governo geral,2030,95,45
+2026-10-26,Dívida bruta do governo geral,2031,96,42
+2026-10-26,Dívida bruta do governo geral,2032,97.35,42
+2026-10-26,Dívida bruta do governo geral,2033,97.8123,42
+2026-10-26,Dívida bruta do governo geral,2034,98.705,42
+2026-10-26,Dívida bruta do governo geral,2035,99.45,40
+2026-10-26,Dívida líquida do setor público,2026,70.1001,52
+2026-10-26,Dívida líquida do setor público,2027,74,51
+2026-10-26,Dívida líquida do setor público,2028,77,47
+2026-10-26,Dívida líquida do setor público,2029,79.3857,44
+2026-10-26,Dívida líquida do setor público,2030,81.25,42
+2026-10-26,Dívida líquida do setor público,2031,83.0627,39
+2026-10-26,Dívida líquida do setor público,2032,84.5219,39
+2026-10-26,Dívida líquida do setor público,2033,85.7028,39
+2026-10-26,Dívida líquida do setor público,2034,87,39
+2026-10-26,Dívida líquida do setor público,2035,88.0143,38
+2026-10-26,PIB Total,2026,1.8,109
+2026-10-26,PIB Total,2027,1.2782,109
+2026-10-26,PIB Total,2028,1.81,79
+2026-10-26,PIB Total,2029,2,72
+2026-10-26,PIB Total,2030,2,71
+2026-10-26,Resultado primário,2026,-0.48,56
+2026-10-26,Resultado primário,2027,-0.3,55
+2026-10-26,Resultado primário,2028,-0.065,50
+2026-10-26,Resultado primário,2029,0.1,46
+2026-10-26,Resultado primário,2030,0.28,43
+2026-10-26,Resultado primário,2031,0.55,40
+2026-10-26,Resultado primário,2032,0.74,39
+2026-10-26,Resultado primário,2033,0.86,39
+2026-10-26,Resultado primário,2034,1,39
+2026-10-26,Resultado primário,2035,1,38
+2026-10-26,Selic,2026,13.25,131
+2026-10-26,Selic,2027,11.625,130
+2026-10-26,Selic,2028,10,111
+2026-10-26,Selic,2029,10,106
+2026-10-26,Selic,2030,10,104
+2026-10-27,Câmbio,2026,5.059,113
+2026-10-27,Câmbio,2027,5.1846,112
+2026-10-27,Câmbio,2028,5.206,88
+2026-10-27,Câmbio,2029,5.28,83
+2026-10-27,Câmbio,2030,5.3,81
+2026-10-27,Dívida bruta do governo geral,2026,83.5,55
+2026-10-27,Dívida bruta do governo geral,2027,87.205,54
+2026-10-27,Dívida bruta do governo geral,2028,90.1501,50
+2026-10-27,Dívida bruta do governo geral,2029,92.7,47
+2026-10-27,Dívida bruta do governo geral,2030,95,45
+2026-10-27,Dívida bruta do governo geral,2031,96,42
+2026-10-27,Dívida bruta do governo geral,2032,97.35,42
+2026-10-27,Dívida bruta do governo geral,2033,97.8123,42
+2026-10-27,Dívida bruta do governo geral,2034,98.705,42
+2026-10-27,Dívida bruta do governo geral,2035,99.45,40
+2026-10-27,Dívida líquida do setor público,2026,70.1,53
+2026-10-27,Dívida líquida do setor público,2027,74,52
+2026-10-27,Dívida líquida do setor público,2028,76.8,48
+2026-10-27,Dívida líquida do setor público,2029,79.1714,45
+2026-10-27,Dívida líquida do setor público,2030,81.25,42
+2026-10-27,Dívida líquida do setor público,2031,83.0627,39
+2026-10-27,Dívida líquida do setor público,2032,84.5219,39
+2026-10-27,Dívida líquida do setor público,2033,85.7028,39
+2026-10-27,Dívida líquida do setor público,2034,87,39
+2026-10-27,Dívida líquida do setor público,2035,88.0143,38
+2026-10-27,PIB Total,2026,1.7998,112
+2026-10-27,PIB Total,2027,1.2782,111
+2026-10-27,PIB Total,2028,1.8,81
+2026-10-27,PIB Total,2029,2,74
+2026-10-27,PIB Total,2030,2,72
+2026-10-27,Resultado primário,2026,-0.48,56
+2026-10-27,Resultado primário,2027,-0.3,55
+2026-10-27,Resultado primário,2028,-0.065,50
+2026-10-27,Resultado primário,2029,0.1,46
+2026-10-27,Resultado primário,2030,0.28,43
+2026-10-27,Resultado primário,2031,0.55,40
+2026-10-27,Resultado primário,2032,0.74,39
+2026-10-27,Resultado primário,2033,0.86,39
+2026-10-27,Resultado primário,2034,1,39
+2026-10-27,Resultado primário,2035,1,38
+2026-10-27,Selic,2026,13.25,135
+2026-10-27,Selic,2027,11.75,134
+2026-10-27,Selic,2028,10.0001,115
+2026-10-27,Selic,2029,10,110
+2026-10-27,Selic,2030,10,107
+2026-10-28,Câmbio,2026,5.063,113
+2026-10-28,Câmbio,2027,5.2,112
+2026-10-28,Câmbio,2028,5.215,88
+2026-10-28,Câmbio,2029,5.29,83
+2026-10-28,Câmbio,2030,5.33,81
+2026-10-28,Dívida bruta do governo geral,2026,83.5,55
+2026-10-28,Dívida bruta do governo geral,2027,87.2197,54
+2026-10-28,Dívida bruta do governo geral,2028,90.267,50
+2026-10-28,Dívida bruta do governo geral,2029,92.7,47
+2026-10-28,Dívida bruta do governo geral,2030,95.04,45
+2026-10-28,Dívida bruta do governo geral,2031,96.0501,42
+2026-10-28,Dívida bruta do governo geral,2032,97.35,42
+2026-10-28,Dívida bruta do governo geral,2033,97.8123,42
+2026-10-28,Dívida bruta do governo geral,2034,98.705,42
+2026-10-28,Dívida bruta do governo geral,2035,99.45,40
+2026-10-28,Dívida líquida do setor público,2026,70.1,53
+2026-10-28,Dívida líquida do setor público,2027,74.1,52
+2026-10-28,Dívida líquida do setor público,2028,77.05,48
+2026-10-28,Dívida líquida do setor público,2029,79.6,45
+2026-10-28,Dívida líquida do setor público,2030,81.35,42
+2026-10-28,Dívida líquida do setor público,2031,83.0627,39
+2026-10-28,Dívida líquida do setor público,2032,84.5219,39
+2026-10-28,Dívida líquida do setor público,2033,85.7028,39
+2026-10-28,Dívida líquida do setor público,2034,87,39
+2026-10-28,Dívida líquida do setor público,2035,88.0143,38
+2026-10-28,PIB Total,2026,1.7998,112
+2026-10-28,PIB Total,2027,1.2782,111
+2026-10-28,PIB Total,2028,1.8,81
+2026-10-28,PIB Total,2029,2,74
+2026-10-28,PIB Total,2030,2,72
+2026-10-28,Resultado primário,2026,-0.48,56
+2026-10-28,Resultado primário,2027,-0.3,55
+2026-10-28,Resultado primário,2028,-0.16,50
+2026-10-28,Resultado primário,2029,0.1,46
+2026-10-28,Resultado primário,2030,0.28,43
+2026-10-28,Resultado primário,2031,0.55,40
+2026-10-28,Resultado primário,2032,0.74,39
+2026-10-28,Resultado primário,2033,0.86,39
+2026-10-28,Resultado primário,2034,1,39
+2026-10-28,Resultado primário,2035,1,38
+2026-10-28,Selic,2026,13.25,135
+2026-10-28,Selic,2027,11.75,134
+2026-10-28,Selic,2028,10.25,115
+2026-10-28,Selic,2029,10,110
+2026-10-28,Selic,2030,10,107
+2026-10-29,Câmbio,2026,5.0651,114
+2026-10-29,Câmbio,2027,5.2,113
+2026-10-29,Câmbio,2028,5.23,89
+2026-10-29,Câmbio,2029,5.3,85
+2026-10-29,Câmbio,2030,5.348,82
+2026-10-29,Dívida bruta do governo geral,2026,83.5,56
+2026-10-29,Dívida bruta do governo geral,2027,87.21,55
+2026-10-29,Dívida bruta do governo geral,2028,90.334,51
+2026-10-29,Dívida bruta do governo geral,2029,92.7,47
+2026-10-29,Dívida bruta do governo geral,2030,95.04,45
+2026-10-29,Dívida bruta do governo geral,2031,96.0501,42
+2026-10-29,Dívida bruta do governo geral,2032,97.35,42
+2026-10-29,Dívida bruta do governo geral,2033,97.8123,42
+2026-10-29,Dívida bruta do governo geral,2034,98.705,42
+2026-10-29,Dívida bruta do governo geral,2035,99.45,40
+2026-10-29,Dívida líquida do setor público,2026,70.1,54
+2026-10-29,Dívida líquida do setor público,2027,74,53
+2026-10-29,Dívida líquida do setor público,2028,77.1,49
+2026-10-29,Dívida líquida do setor público,2029,79.6,45
+2026-10-29,Dívida líquida do setor público,2030,81.4,42
+2026-10-29,Dívida líquida do setor público,2031,83.0627,39
+2026-10-29,Dívida líquida do setor público,2032,84.5411,39
+2026-10-29,Dívida líquida do setor público,2033,85.7028,39
+2026-10-29,Dívida líquida do setor público,2034,87,39
+2026-10-29,Dívida líquida do setor público,2035,88.0143,38
+2026-10-29,PIB Total,2026,1.79,112
+2026-10-29,PIB Total,2027,1.2754,111
+2026-10-29,PIB Total,2028,1.8,82
+2026-10-29,PIB Total,2029,2,74
+2026-10-29,PIB Total,2030,2,72
+2026-10-29,Resultado primário,2026,-0.48,57
+2026-10-29,Resultado primário,2027,-0.3,56
+2026-10-29,Resultado primário,2028,-0.13,51
+2026-10-29,Resultado primário,2029,0.05,46
+2026-10-29,Resultado primário,2030,0.28,43
+2026-10-29,Resultado primário,2031,0.5,40
+2026-10-29,Resultado primário,2032,0.74,39
+2026-10-29,Resultado primário,2033,0.86,39
+2026-10-29,Resultado primário,2034,1,39
+2026-10-29,Resultado primário,2035,1,38
+2026-10-29,Selic,2026,13.25,137
+2026-10-29,Selic,2027,12,136
+2026-10-29,Selic,2028,10.25,118
+2026-10-29,Selic,2029,10,112
+2026-10-29,Selic,2030,10,109
+2026-10-30,Câmbio,2026,5.3428,120
+2026-10-30,Câmbio,2027,5.4,119
+2026-10-30,Câmbio,2028,5.4,93
+2026-10-30,Câmbio,2029,5.45,89
+2026-10-30,Câmbio,2030,5.5,86
+2026-10-30,Dívida bruta do governo geral,2026,83.5,59
+2026-10-30,Dívida bruta do governo geral,2027,87.4,58
+2026-10-30,Dívida bruta do governo geral,2028,90.5,53
+2026-10-30,Dívida bruta do governo geral,2029,93.1614,49
+2026-10-30,Dívida bruta do governo geral,2030,95.5001,47
+2026-10-30,Dívida bruta do governo geral,2031,96.9294,44
+2026-10-30,Dívida bruta do governo geral,2032,98.556,44
+2026-10-30,Dívida bruta do governo geral,2033,99.9399,44
+2026-10-30,Dívida bruta do governo geral,2034,100.3,44
+2026-10-30,Dívida bruta do governo geral,2035,101.6729,42
+2026-10-30,Dívida líquida do setor público,2026,70.2,57
+2026-10-30,Dívida líquida do setor público,2027,74.2,56
+2026-10-30,Dívida líquida do setor público,2028,77.2,51
+2026-10-30,Dívida líquida do setor público,2029,79.6911,47
+2026-10-30,Dívida líquida do setor público,2030,82.2004,44
+2026-10-30,Dívida líquida do setor público,2031,83.834,41
+2026-10-30,Dívida líquida do setor público,2032,85,41
+2026-10-30,Dívida líquida do setor público,2033,86.3,41
+2026-10-30,Dívida líquida do setor público,2034,87.2,41
+2026-10-30,Dívida líquida do setor público,2035,89.05,40
+2026-10-30,PIB Total,2026,1.7607,117
+2026-10-30,PIB Total,2027,1.198,116
+2026-10-30,PIB Total,2028,1.8,87
+2026-10-30,PIB Total,2029,2,79
+2026-10-30,PIB Total,2030,2,77
+2026-10-30,Resultado primário,2026,-0.49,62
+2026-10-30,Resultado primário,2027,-0.4,61
+2026-10-30,Resultado primário,2028,-0.2,55
+2026-10-30,Resultado primário,2029,-0.1,50
+2026-10-30,Resultado primário,2030,-0.0125,46
+2026-10-30,Resultado primário,2031,0.2,43
+2026-10-30,Resultado primário,2032,0.3752,42
+2026-10-30,Resultado primário,2033,0.6086,42
+2026-10-30,Resultado primário,2034,0.8,42
+2026-10-30,Resultado primário,2035,0.8,41
+2026-10-30,Selic,2026,13.5,143
+2026-10-30,Selic,2027,12.5,143
+2026-10-30,Selic,2028,11,125
+2026-10-30,Selic,2029,10.25,114
+2026-10-30,Selic,2030,10,111
+2026-11-03,Câmbio,2026,5.35,120
+2026-11-03,Câmbio,2027,5.4,119
+2026-11-03,Câmbio,2028,5.41,93
+2026-11-03,Câmbio,2029,5.45,90
+2026-11-03,Câmbio,2030,5.5,87
+2026-11-03,Dívida bruta do governo geral,2026,83.57,59
+2026-11-03,Dívida bruta do governo geral,2027,87.45,58
+2026-11-03,Dívida bruta do governo geral,2028,90.7,53
+2026-11-03,Dívida bruta do governo geral,2029,93.2,49
+2026-11-03,Dívida bruta do governo geral,2030,95.5001,47
+2026-11-03,Dívida bruta do governo geral,2031,96.9294,44
+2026-11-03,Dívida bruta do governo geral,2032,98.556,44
+2026-11-03,Dívida bruta do governo geral,2033,99.9399,44
+2026-11-03,Dívida bruta do governo geral,2034,100.3,44
+2026-11-03,Dívida bruta do governo geral,2035,101.6729,42
+2026-11-03,Dívida líquida do setor público,2026,70.2,57
+2026-11-03,Dívida líquida do setor público,2027,74.25,56
+2026-11-03,Dívida líquida do setor público,2028,77.3,51
+2026-11-03,Dívida líquida do setor público,2029,79.88,47
+2026-11-03,Dívida líquida do setor público,2030,82.3504,44
+2026-11-03,Dívida líquida do setor público,2031,83.834,41
+2026-11-03,Dívida líquida do setor público,2032,85,41
+2026-11-03,Dívida líquida do setor público,2033,86.3,41
+2026-11-03,Dívida líquida do setor público,2034,87.2,41
+2026-11-03,Dívida líquida do setor público,2035,89.05,40
+2026-11-03,PIB Total,2026,1.7579,118
+2026-11-03,PIB Total,2027,1.17,117
+2026-11-03,PIB Total,2028,1.8,87
+2026-11-03,PIB Total,2029,2,80
+2026-11-03,PIB Total,2030,2,78
+2026-11-03,Resultado primário,2026,-0.5,63
+2026-11-03,Resultado primário,2027,-0.4,62
+2026-11-03,Resultado primário,2028,-0.2,56
+2026-11-03,Resultado primário,2029,-0.1,51
+2026-11-03,Resultado primário,2030,0,47
+2026-11-03,Resultado primário,2031,0.2,44
+2026-11-03,Resultado primário,2032,0.3503,43
+2026-11-03,Resultado primário,2033,0.6,43
+2026-11-03,Resultado primário,2034,0.8,43
+2026-11-03,Resultado primário,2035,0.85,42
+2026-11-03,Selic,2026,13.5,144
+2026-11-03,Selic,2027,12.5,144
+2026-11-03,Selic,2028,11,126
+2026-11-03,Selic,2029,10.25,115
+2026-11-03,Selic,2030,10,112
+2026-11-04,Câmbio,2026,5.35,120
+2026-11-04,Câmbio,2027,5.4,119
+2026-11-04,Câmbio,2028,5.41,93
+2026-11-04,Câmbio,2029,5.45,90
+2026-11-04,Câmbio,2030,5.5,87
+2026-11-04,Dívida bruta do governo geral,2026,83.5,59
+2026-11-04,Dívida bruta do governo geral,2027,87.5,58
+2026-11-04,Dívida bruta do governo geral,2028,90.7,53
+2026-11-04,Dívida bruta do governo geral,2029,93.221,49
+2026-11-04,Dívida bruta do governo geral,2030,95.8,47
+2026-11-04,Dívida bruta do governo geral,2031,97.2,44
+2026-11-04,Dívida bruta do governo geral,2032,98.6772,44
+2026-11-04,Dívida bruta do governo geral,2033,100,44
+2026-11-04,Dívida bruta do governo geral,2034,100.7981,44
+2026-11-04,Dívida bruta do governo geral,2035,101.95,42
+2026-11-04,Dívida líquida do setor público,2026,70.2,57
+2026-11-04,Dívida líquida do setor público,2027,74.25,56
+2026-11-04,Dívida líquida do setor público,2028,77.3,51
+2026-11-04,Dívida líquida do setor público,2029,79.88,47
+2026-11-04,Dívida líquida do setor público,2030,82.6004,44
+2026-11-04,Dívida líquida do setor público,2031,84.6,41
+2026-11-04,Dívida líquida do setor público,2032,85.7,41
+2026-11-04,Dívida líquida do setor público,2033,86.8,41
+2026-11-04,Dívida líquida do setor público,2034,87.4,41
+2026-11-04,Dívida líquida do setor público,2035,89.2154,40
+2026-11-04,PIB Total,2026,1.7579,118
+2026-11-04,PIB Total,2027,1.17,117
+2026-11-04,PIB Total,2028,1.8,87
+2026-11-04,PIB Total,2029,2,80
+2026-11-04,PIB Total,2030,2,78
+2026-11-04,Resultado primário,2026,-0.5,63
+2026-11-04,Resultado primário,2027,-0.4,62
+2026-11-04,Resultado primário,2028,-0.2,56
+2026-11-04,Resultado primário,2029,-0.1,51
+2026-11-04,Resultado primário,2030,0,47
+2026-11-04,Resultado primário,2031,0.2,44
+2026-11-04,Resultado primário,2032,0.3503,43
+2026-11-04,Resultado primário,2033,0.6,43
+2026-11-04,Resultado primário,2034,0.8,43
+2026-11-04,Resultado primário,2035,0.85,42
+2026-11-04,Selic,2026,13.5,144
+2026-11-04,Selic,2027,12.5,144
+2026-11-04,Selic,2028,11,126
+2026-11-04,Selic,2029,10.25,115
+2026-11-04,Selic,2030,10,112
+2026-11-05,Câmbio,2026,5.35,119
+2026-11-05,Câmbio,2027,5.4,118
+2026-11-05,Câmbio,2028,5.42,92
+2026-11-05,Câmbio,2029,5.45,89
+2026-11-05,Câmbio,2030,5.5,86
+2026-11-05,Dívida bruta do governo geral,2026,83.5,59
+2026-11-05,Dívida bruta do governo geral,2027,87.5,58
+2026-11-05,Dívida bruta do governo geral,2028,90.7,53
+2026-11-05,Dívida bruta do governo geral,2029,93.221,49
+2026-11-05,Dívida bruta do governo geral,2030,95.8,47
+2026-11-05,Dívida bruta do governo geral,2031,97.2,44
+2026-11-05,Dívida bruta do governo geral,2032,98.6772,44
+2026-11-05,Dívida bruta do governo geral,2033,100,44
+2026-11-05,Dívida bruta do governo geral,2034,100.7981,44
+2026-11-05,Dívida bruta do governo geral,2035,101.95,42
+2026-11-05,Dívida líquida do setor público,2026,70.2,57
+2026-11-05,Dívida líquida do setor público,2027,74.25,56
+2026-11-05,Dívida líquida do setor público,2028,77.3,51
+2026-11-05,Dívida líquida do setor público,2029,79.88,47
+2026-11-05,Dívida líquida do setor público,2030,82.6004,44
+2026-11-05,Dívida líquida do setor público,2031,84.6,41
+2026-11-05,Dívida líquida do setor público,2032,85.7,41
+2026-11-05,Dívida líquida do setor público,2033,86.8,41
+2026-11-05,Dívida líquida do setor público,2034,87.4,41
+2026-11-05,Dívida líquida do setor público,2035,89.2154,40
+2026-11-05,PIB Total,2026,1.7542,117
+2026-11-05,PIB Total,2027,1.1607,116
+2026-11-05,PIB Total,2028,1.8,87
+2026-11-05,PIB Total,2029,2,80
+2026-11-05,PIB Total,2030,2,78
+2026-11-05,Resultado primário,2026,-0.5,63
+2026-11-05,Resultado primário,2027,-0.4,62
+2026-11-05,Resultado primário,2028,-0.2,56
+2026-11-05,Resultado primário,2029,-0.1,51
+2026-11-05,Resultado primário,2030,0,47
+2026-11-05,Resultado primário,2031,0.2,44
+2026-11-05,Resultado primário,2032,0.3503,43
+2026-11-05,Resultado primário,2033,0.6,43
+2026-11-05,Resultado primário,2034,0.8,43
+2026-11-05,Resultado primário,2035,0.85,42
+2026-11-05,Selic,2026,13.75,143
+2026-11-05,Selic,2027,12.5,143
+2026-11-05,Selic,2028,11,125
+2026-11-05,Selic,2029,10.25,115
+2026-11-05,Selic,2030,10,112
+2026-11-06,Câmbio,2026,5.35,122
+2026-11-06,Câmbio,2027,5.4,121
+2026-11-06,Câmbio,2028,5.45,94
+2026-11-06,Câmbio,2029,5.5,91
+2026-11-06,Câmbio,2030,5.5075,88
+2026-11-06,Dívida bruta do governo geral,2026,83.585,60
+2026-11-06,Dívida bruta do governo geral,2027,87.5,59
+2026-11-06,Dívida bruta do governo geral,2028,90.7,54
+2026-11-06,Dívida bruta do governo geral,2029,93.2445,50
+2026-11-06,Dívida bruta do governo geral,2030,95.8254,48
+2026-11-06,Dívida bruta do governo geral,2031,97.4,45
+2026-11-06,Dívida bruta do governo geral,2032,98.7543,45
+2026-11-06,Dívida bruta do governo geral,2033,100,45
+2026-11-06,Dívida bruta do governo geral,2034,100.9962,45
+2026-11-06,Dívida bruta do governo geral,2035,102,43
+2026-11-06,Dívida líquida do setor público,2026,70.2,58
+2026-11-06,Dívida líquida do setor público,2027,74.3001,57
+2026-11-06,Dívida líquida do setor público,2028,77.375,52
+2026-11-06,Dívida líquida do setor público,2029,79.94,48
+2026-11-06,Dívida líquida do setor público,2030,83,45
+2026-11-06,Dívida líquida do setor público,2031,84.8,42
+2026-11-06,Dívida líquida do setor público,2032,85.95,42
+2026-11-06,Dívida líquida do setor público,2033,87.55,42
+2026-11-06,Dívida líquida do setor público,2034,88,42
+2026-11-06,Dívida líquida do setor público,2035,89.3307,41
+2026-11-06,PIB Total,2026,1.7546,118
+2026-11-06,PIB Total,2027,1.1513,117
+2026-11-06,PIB Total,2028,1.8,88
+2026-11-06,PIB Total,2029,2,81
+2026-11-06,PIB Total,2030,2,79
+2026-11-06,Resultado primário,2026,-0.5,63
+2026-11-06,Resultado primário,2027,-0.4,62
+2026-11-06,Resultado primário,2028,-0.2,56
+2026-11-06,Resultado primário,2029,-0.1,51
+2026-11-06,Resultado primário,2030,-0.025,47
+2026-11-06,Resultado primário,2031,0.1477,44
+2026-11-06,Resultado primário,2032,0.3503,43
+2026-11-06,Resultado primário,2033,0.6,43
+2026-11-06,Resultado primário,2034,0.8,43
+2026-11-06,Resultado primário,2035,0.85,42
+2026-11-06,Selic,2026,13.75,144
+2026-11-06,Selic,2027,12.5,144
+2026-11-06,Selic,2028,11,126
+2026-11-06,Selic,2029,10.25,116
+2026-11-06,Selic,2030,10,113
