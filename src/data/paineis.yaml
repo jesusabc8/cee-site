@@ -1,5 +1,7 @@
-# Painéis do Observatório CEE — Economia Brasileira em Dados (Proposta v3.0, Quadro 11; arquitetura aprovada em 2026-10).
-# Três áreas (areas.yaml); cada painel corresponde a uma linha de pesquisa com o mesmo código e nome (linhas.yaml).
+# Painéis do Observatório CEE — Economia Brasileira em Dados (Estatuto, art. 35; Regimento Interno, art. 23).
+# Painéis do Observatório por programa (Manual, Parte I, Quadro 1; programas.yaml); cada painel corresponde a uma linha
+# com o mesmo código e nome (linhas.yaml). Programas em formação (D, E, F) não têm painel (ADR-017).
+# Nenhum painel muda de estado sem evidência no repositório; nenhum slug público muda sem 301.
 # `ano` define o ano do plano; contagens e rótulos "Previsto · ano N" do sítio são derivados daqui (ADR-016).
 # O painel A2 (Política Monetária) usa a página /observatorio/conjuntura/ (Edição 1.0); o slug `conjuntura` é mantido
 # por causa dos vintages arquivados e de eventuais citações (TODO em docs/PENDIENTES.md: renomear com 301).
@@ -114,11 +116,11 @@
   estado: previsto
   ano: 2
   titulo:
-    pt: Tecnologia e Capacidade de Absorção
-    en: Technology and Absorptive Capacity
+    pt: Empresas, Tecnologia e Competitividade
+    en: Firms, Technology and Competitiveness
   resumo:
-    pt: Difusão de tecnologia e capacidade da economia de absorvê-la.
-    en: Technology diffusion and the economy's capacity to absorb it.
+    pt: Empresas, adoção de tecnologia e competitividade da economia brasileira.
+    en: Firms, technology adoption and the competitiveness of the Brazilian economy.
 - id: trabalho-informalidade
   ordem: 7
   area: c
@@ -131,3 +133,25 @@
   resumo:
     pt: Mercado de trabalho e persistência da informalidade.
     en: The labour market and the persistence of informality.
+- id: credito
+  ordem: 8
+  area: a
+  linha: A4
+  estado: previsto
+  titulo:
+    pt: Crédito e Estabilidade Financeira
+    en: Credit and Financial Stability
+  resumo:
+    pt: Crédito, endividamento das famílias e das empresas e estabilidade financeira.
+    en: Credit, household and corporate indebtedness, and financial stability.
+- id: educacao
+  ordem: 9
+  area: c
+  linha: C3
+  estado: previsto
+  titulo:
+    pt: Educação e Capital Humano
+    en: Education and Human Capital
+  resumo:
+    pt: Escolaridade, aprendizagem e formação de capital humano no Brasil.
+    en: Schooling, learning and human-capital formation in Brazil.

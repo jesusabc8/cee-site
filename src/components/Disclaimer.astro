@@ -1,50 +1,45 @@
 ---
 /**
- * Descargo institucional (Proposta, Anexo C.1).
+ * Aviso de responsabilidade (Manual de Programas e Produtos, Parte II, "Aviso de responsabilidade e licença").
  * - variant="short": rodapé de todas as páginas.
- * - variant="full": final de cada publicação; muda de redação quando
- *   config.useUniversityName for true (após autorização formal).
+ * - variant="full": final de cada publicação; a Avaliação de Conjuntura acrescenta que expressa o juízo
+ *   colegiado da Diretoria.
  */
-import { config } from '../config';
 import type { Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
   variant?: 'short' | 'full';
-  dataUrl?: string;
+  /** Tipo da publicação (variant="full"). */
+  tipo?: string;
 }
-const { lang, variant = 'short', dataUrl = config.repoUrl } = Astro.props;
+const { lang, variant = 'short', tipo } = Astro.props;
 
 const textos = {
   'pt-BR': {
-    short:
-      'O CEE é uma iniciativa estudantil. Suas publicações não representam a posição da PUC Minas nem de qualquer outra instituição.',
-    antes:
-      'Este documento é produto do Centro de Estudos Econômicos (CEE), iniciativa estudantil de estudantes de Ciências Econômicas da PUC Minas. As opiniões e conclusões são de responsabilidade exclusiva de seus autores e não representam a posição da PUC Minas nem de qualquer outra instituição. Os dados e o código para reproduzir os resultados estão disponíveis em',
-    depois:
-      'Este documento é produto do Centro de Estudos Econômicos (CEE), do curso de Ciências Econômicas da PUC Minas. As opiniões e conclusões são de responsabilidade exclusiva de seus autores e não refletem necessariamente a posição do CEE, de seus docentes de referência, da PUC Minas ou de qualquer outra instituição. Os dados e o código para reproduzir os resultados estão disponíveis em',
-    errata: 'Erros identificados após a publicação serão corrigidos por errata pública e datada.',
-    titulo: 'Descargo',
+    short: 'O CEE é uma liga acadêmica estudantil. As opiniões expressas em suas publicações são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.',
+    aviso: 'As opiniões expressas são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.',
+    ac: 'Esta Avaliação de Conjuntura expressa o juízo colegiado da Diretoria do CEE.',
+    licenca: 'Publicado sob licença Creative Commons Atribuição 4.0 (CC BY 4.0), salvo restrição de terceiros.',
+    errata: 'Erros identificados após a publicação são corrigidos por errata pública e datada.',
+    titulo: 'Aviso de responsabilidade',
   },
   en: {
-    short:
-      'CEE is a student initiative. Its publications do not represent the position of PUC Minas or any other institution.',
-    antes:
-      'This document is a product of the Centro de Estudos Econômicos (CEE), a student initiative of Economics students at PUC Minas. The views and conclusions are solely those of the authors and do not represent the position of PUC Minas or any other institution. Data and code to reproduce the results are available at',
-    depois:
-      'This document is a product of the Centro de Estudos Econômicos (CEE) of the Economics programme at PUC Minas. The views and conclusions are solely those of the authors and do not necessarily reflect the position of CEE, its faculty advisers, PUC Minas or any other institution. Data and code to reproduce the results are available at',
-    errata: 'Errors identified after publication will be corrected through a public, dated erratum.',
+    short: 'CEE is a student academic society. The views expressed in its publications are those of the authors and do not represent the position of the Pontifical Catholic University of Minas Gerais.',
+    aviso: 'The views expressed are those of the authors and do not represent the position of the Pontifical Catholic University of Minas Gerais.',
+    ac: 'This Economic Assessment expresses the collegiate judgement of the CEE Board.',
+    licenca: 'Published under a Creative Commons Attribution 4.0 licence (CC BY 4.0), unless restricted by third parties.',
+    errata: 'Errors identified after publication are corrected through a public, dated erratum.',
     titulo: 'Disclaimer',
   },
 }[lang];
-const corpo = config.useUniversityName ? textos.depois : textos.antes;
 ---
 {variant === 'short' ? (
   <p class="disclaimer disclaimer--short">{textos.short}</p>
 ) : (
   <aside class="disclaimer disclaimer--full" aria-labelledby="descargo-titulo">
     <h2 id="descargo-titulo" class="eyebrow">{textos.titulo}</h2>
-    <p>{corpo} <a href={dataUrl}>{dataUrl.replace(/^https?:\/\//, '')}</a>. {textos.errata}</p>
+    <p>{textos.aviso}{tipo === 'avaliacao-de-conjuntura' && ` ${textos.ac}`} {textos.licenca} {textos.errata}</p>
   </aside>
 )}
 <style>

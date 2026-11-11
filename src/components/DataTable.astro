@@ -19,9 +19,8 @@ interface Props {
   rows: Record<string, string | number | null>[];
   source?: string;
   lang?: Lang;
-  maxHeight?: string;
 }
-const { caption, columns, rows, source, lang = 'pt-BR', maxHeight } = Astro.props;
+const { caption, columns, rows, source, lang = 'pt-BR' } = Astro.props;
 const t = useTranslations(lang);
 const nf = (d: number) => new Intl.NumberFormat(lang, { minimumFractionDigits: d, maximumFractionDigits: d });
 const fmt = (c: Column, v: string | number | null) =>
@@ -29,8 +28,7 @@ const fmt = (c: Column, v: string | number | null) =>
 const id = `tbl-${Math.random().toString(36).slice(2, 8)}`;
 ---
 <figure class="data-table">
-  <div class="table-scroll" role="region" aria-labelledby={id} tabindex="0"
-    style={maxHeight ? `max-height:${maxHeight}` : undefined}>
+  <div class="table-scroll" role="region" aria-labelledby={id} tabindex="0">
     <table>
       <caption id={id}>{caption}</caption>
       <thead>

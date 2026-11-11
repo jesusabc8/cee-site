@@ -1,5 +1,12 @@
 name: build-deploy
 
+# Publicação (ADR-018), com período de transição:
+# - `pages`: GitHub Pages, o sítio que está no ar hoje. Roda enquanto a variável PAGES_ATIVO não for "false".
+#   Atenção: o GitHub Pages ignora public/_headers e public/_redirects (sem CSP nem 301 por cabeçalho).
+# - `cloudflare`: Cloudflare Workers com arquivos estáticos (wrangler.jsonc). Só roda depois que a variável SITE_URL
+#   existir; segredos CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID no environment `cloudflare`.
+# Virada (docs/LANCAMENTO.md): configurar a Cloudflare → conferir a URL *.workers.dev → tornar o repositório privado →
+# definir PAGES_ATIVO=false e desativar o GitHub Pages. data-refresh não lê nenhum destes segredos.
 on:
   push:
     branches: [main]
@@ -12,45 +19,81 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
-  build:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+  pages:
+    if: (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && vars.PAGES_ATIVO != 'false'
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - id: pages
-        uses: actions/configure-pages@v5
-      - run: npm ci
-      - run: npm run check
-      - run: npm test
-      - run: npm run build
-        env:
-          # Ex.: https://usuario.github.io e /cee-site. Com domínio próprio, base_path fica vazio.
-          SITE_URL: ${{ steps.pages.outputs.origin }}
-          BASE_PATH: ${{ steps.pages.outputs.base_path || '/' }}
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: deploy-pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path || '/' }}
+      - run: npm run qa:seguranca
+        env:
+          CEE_NOMES_PROIBIDOS: ${{ secrets.CEE_NOMES_PROIBIDOS }}
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  cloudflare:
+    if: (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && vars.SITE_URL != ''
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-cloudflare
+      cancel-in-progress: false
+    environment:
+      name: cloudflare
+      url: ${{ vars.SITE_URL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      # Sem scripts de instalação (esbuild e workerd funcionam pelos binários opcionais).
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          BASE_PATH: /
+      # Falha o deploy se houver algo interno ou pessoal em dist/.
+      - run: npm run qa:seguranca
+        env:
+          CEE_NOMES_PROIBIDOS: ${{ secrets.CEE_NOMES_PROIBIDOS }}
+      - uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4.152.0'
+          command: deploy

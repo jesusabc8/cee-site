@@ -1,0 +1,330 @@
+# Programas de pesquisa do CEE — Manual de Programas e Produtos, Parte I (fonte: docs/fuentes/normas/manual_cee.tex),
+# Estatuto, arts. 35–36. Fonte única para /pesquisa/, a portada, o rodapé e o Observatório.
+# `situacao` deriva o rótulo ("Ativo" / "Em formação"); nunca escrevê-lo à mão. Só a Diretoria Colegiada altera a situação
+# (Manual, Parte I, §1.2); a criação ou extinção de programas exige a Assembleia Geral (Estatuto, art. 35, §5º).
+- id: a
+  codigo: A
+  tipo: programa
+  ordem: 1
+  situacao: ativo
+  nome:
+    pt: Macroeconomia e Política Macroeconômica
+    en: Macroeconomics and Macroeconomic Policy
+  objeto:
+    pt: O ciclo econômico, a inflação e os equilíbrios macroeconômicos do Brasil, e as políticas monetária, creditícia e fiscal que os afetam.
+    en: Brazil's business cycle, inflation and macroeconomic balances, and the monetary, credit and fiscal policies that affect them.
+  nota:
+    pt: >-
+      Um só programa, com dois subprogramas: as políticas monetária e fiscal não se analisam sem o arcabouço
+      macroeconômico comum — expectativas, hiato do produto, taxa de juros real neutra e a diferença entre juros e
+      crescimento que governa a dívida.
+    en: >-
+      A single programme with two sub-programmes: monetary and fiscal policy cannot be analysed without the common
+      macroeconomic framework — expectations, the output gap, the neutral real interest rate and the gap between interest
+      and growth that governs public debt.
+  abrange:
+    pt: >-
+      Atividade, emprego e inflação no curto e médio prazo; regime de metas e comunicação do Banco Central; transmissão
+      monetária; crédito livre e direcionado; endividamento das famílias e das empresas; estabilidade financeira; resultado
+      primário, dívida pública, arcabouço fiscal, rigidez orçamentária, multiplicadores; interação entre as políticas
+      monetária e fiscal.
+    en: >-
+      Short- and medium-term activity, employment and inflation; the inflation-targeting regime and central bank
+      communication; monetary transmission; free and earmarked credit; household and corporate indebtedness; financial
+      stability; the primary balance, public debt, the fiscal framework, budget rigidity and multipliers; the interaction
+      between monetary and fiscal policy.
+  nao_abrange:
+    pt: >-
+      A incidência distributiva de tributos e transferências (Programa C), os efeitos alocativos de regimes tributários
+      especiais (Programa B) e a determinação do câmbio por choques externos (Programa D).
+    en: >-
+      The distributional incidence of taxes and transfers (Programme C), the allocative effects of special tax regimes
+      (Programme B) and the determination of the exchange rate by external shocks (Programme D).
+  subprogramas:
+    - codigo: A.1
+      nome:
+        pt: Política Monetária e Estabilidade Financeira
+        en: Monetary Policy and Financial Stability
+      perguntas:
+        - codigo: A.1.1
+          pt: Por que, após mais de duas décadas de regime de metas, as expectativas de inflação no Brasil se desancoram com frequência, e quanto pesam nisso a comunicação do Banco Central, o risco fiscal e os choques de oferta?
+          en: Why, after more than two decades of inflation targeting, do inflation expectations in Brazil so often become unanchored, and how much do central bank communication, fiscal risk and supply shocks contribute?
+        - codigo: A.1.2
+          pt: Como a política monetária se transmite em uma economia com grande parcela de crédito direcionado e elevado comprometimento de renda das famílias, e quanto essa estrutura reduz a potência da taxa Selic?
+          en: How is monetary policy transmitted in an economy with a large share of earmarked credit and high household debt-service burdens, and how much does this structure weaken the Selic rate?
+        - codigo: A.1.3
+          pt: Que riscos a expansão do crédito, a concentração bancária e as novas formas de intermediação, como o Pix, o open finance e o crédito digital, trazem para a estabilidade financeira e para a condução da política monetária?
+          en: What risks do credit expansion, banking concentration and new forms of intermediation, such as Pix, open finance and digital credit, pose to financial stability and to the conduct of monetary policy?
+    - codigo: A.2
+      nome:
+        pt: Política Fiscal e Dívida Pública
+        en: Fiscal Policy and Public Debt
+      perguntas:
+        - codigo: A.2.1
+          pt: Sob que combinações de resultado primário, juros reais e crescimento a dívida pública brasileira se estabiliza, e quão perto o país está de um regime de dominância fiscal?
+          en: Under what combinations of primary balance, real interest rates and growth does Brazil's public debt stabilise, and how close is the country to a regime of fiscal dominance?
+        - codigo: A.2.2
+          pt: A rigidez do orçamento, com vinculações, indexações e despesas obrigatórias crescentes, é compatível com a sustentabilidade da dívida e com a preservação do investimento público?
+          en: Is budget rigidity — earmarking, indexation and rising mandatory spending — compatible with debt sustainability and the preservation of public investment?
+        - codigo: A.2.3
+          pt: Qual é o tamanho dos multiplicadores fiscais no Brasil ao longo do ciclo, e como a política fiscal interage com a monetária na determinação da inflação e dos juros?
+          en: How large are fiscal multipliers in Brazil over the cycle, and how does fiscal policy interact with monetary policy in determining inflation and interest rates?
+  dados: Banco Central do Brasil (SGS, Focus, estatísticas monetárias, de crédito e fiscais, SCR, Relatório de Política Monetária); IBGE (Contas Nacionais Trimestrais, IPCA, PNAD Contínua); Tesouro Nacional (RTN, RPF, Relatório da Dívida); Instituição Fiscal Independente; ANBIMA (ETTJ).
+  referencias: Mishkin (2022); Blanchard (2004); Leeper (1991); Blanchard (2019); Ramey (2019); Giambiagi et al. (2016).
+- id: b
+  codigo: B
+  tipo: programa
+  ordem: 2
+  situacao: ativo
+  nome:
+    pt: Competitividade, Produtividade e Transformação Estrutural
+    en: Competitiveness, Productivity and Structural Transformation
+  objeto:
+    pt: 'Os determinantes do crescimento de longo prazo pelo lado da oferta: produtividade, alocação de recursos entre empresas e setores, ambiente de negócios, tecnologia e mudança estrutural.'
+    en: 'The supply-side determinants of long-run growth: productivity, the allocation of resources across firms and sectors, the business environment, technology and structural change.'
+  abrange:
+    pt: >-
+      Contabilidade do crescimento e da produtividade total dos fatores; má alocação; concorrência, entrada e saída de
+      empresas; distorções de crédito subsidiado, regimes tributários especiais e exigências de conteúdo local; custo
+      Brasil e infraestrutura; qualidade da gestão, inovação e adoção de tecnologia; transformação estrutural e
+      realocação setorial.
+    en: >-
+      Growth and total factor productivity accounting; misallocation; competition and firm entry and exit; distortions
+      from subsidised credit, special tax regimes and local-content requirements; the "Brazil cost" and infrastructure;
+      management quality, innovation and technology adoption; structural transformation and sectoral reallocation.
+  nao_abrange:
+    pt: >-
+      A formação de capital humano em si (Programa C), a abertura comercial como objeto (Programa D) e a qualidade das
+      instituições como determinante (Programa E), salvo quando a pergunta principal é a produtividade.
+    en: >-
+      Human-capital formation in itself (Programme C), trade openness as an object of study (Programme D) and the
+      quality of institutions as a determinant (Programme E), except when the main question is productivity.
+  perguntas:
+    - codigo: B.1
+      pt: Por que a produtividade da economia brasileira está praticamente estagnada desde os anos 1980, apesar da estabilização macroeconômica e das reformas, e quanto disso se deve à má alocação de recursos entre empresas e setores?
+      en: Why has productivity in the Brazilian economy been virtually stagnant since the 1980s, despite macroeconomic stabilisation and reforms, and how much of this is due to the misallocation of resources across firms and sectors?
+    - codigo: B.2
+      pt: Como as distorções competitivas, entre elas o crédito subsidiado, os regimes tributários especiais, as exigências de conteúdo local e as barreiras à entrada, afetam o surgimento, o crescimento e a saída de empresas, e o que a reforma da tributação do consumo pode alterar?
+      en: How do competitive distortions — among them subsidised credit, special tax regimes, local-content requirements and barriers to entry — affect the entry, growth and exit of firms, and what can the reform of consumption taxation change?
+    - codigo: B.3
+      pt: O que limita a adoção de tecnologia, a qualidade da gestão e a inovação nas empresas brasileiras, e por que os ganhos da transformação estrutural se esgotaram?
+      en: What limits technology adoption, management quality and innovation in Brazilian firms, and why have the gains from structural transformation run out?
+  dados: IBGE (Contas Nacionais e Regionais, PIA-Empresa, PAS, PINTEC, CEMPRE); Observatório da Produtividade Regis Bonelli; Penn World Table; RAIS e Novo Caged; BNDES (dados abertos de operações).
+  referencias: Hsieh e Klenow (2009); McMillan e Rodrik (2011); Bloom e Van Reenen (2007); Veloso (2024); Veloso e Zaourak (2024); Veloso et al. (2013); CAF (2021); Matos (2025).
+- id: c
+  codigo: C
+  tipo: programa
+  ordem: 3
+  situacao: ativo
+  nome:
+    pt: 'Desenvolvimento e Inclusão: Trabalho, Capital Humano, Pobreza e Desigualdade'
+    en: 'Development and Inclusion: Labour, Human Capital, Poverty and Inequality'
+  objeto:
+    pt: 'As condições de vida da população e os mecanismos que as determinam: mercado de trabalho, educação, pobreza, desigualdade e programas sociais.'
+    en: "People's living conditions and the mechanisms that determine them: the labour market, education, poverty, inequality and social programmes."
+  abrange:
+    pt: >-
+      Medição de pobreza e desigualdade; mobilidade; informalidade; rendimentos e salário mínimo; transferências de
+      renda; incidência distributiva de tributos e gastos; escolaridade, aprendizagem e retorno da educação;
+      desigualdades por região, sexo, cor ou raça e idade; avaliação de programas sociais.
+    en: >-
+      Measurement of poverty and inequality; mobility; informality; earnings and the minimum wage; cash transfers; the
+      distributional incidence of taxes and spending; schooling, learning and returns to education; inequalities by
+      region, sex, colour or race and age; evaluation of social programmes.
+  nao_abrange:
+    pt: O efeito da educação sobre a produtividade agregada como pergunta principal (Programa B) e o financiamento das políticas sociais do ponto de vista da dívida (Programa A).
+    en: The effect of education on aggregate productivity as the main question (Programme B) and the financing of social policies from the standpoint of public debt (Programme A).
+  perguntas:
+    - codigo: C.1
+      pt: O que explica a redução e, ao mesmo tempo, a persistência da pobreza e da desigualdade no Brasil, e quanto das mudanças observadas se deve ao mercado de trabalho, às transferências e à forma de medir?
+      en: What explains both the reduction and the persistence of poverty and inequality in Brazil, and how much of the observed change is due to the labour market, to transfers and to the way they are measured?
+    - codigo: C.2
+      pt: Por que a informalidade permanece elevada, e em que medida resulta da baixa produtividade das empresas, dos custos de formalização ou do desenho dos programas sociais e dos regimes simplificados?
+      en: Why does informality remain high, and to what extent does it result from low firm productivity, the costs of formalisation or the design of social programmes and simplified tax regimes?
+    - codigo: C.3
+      pt: Por que a expansão da escolaridade não se traduziu em ganhos proporcionais de produtividade e de renda, e o que explica a baixa qualidade da aprendizagem?
+      en: Why has the expansion of schooling not translated into proportional gains in productivity and income, and what explains the low quality of learning?
+  dados: IBGE (PNAD Contínua, POF, Síntese de Indicadores Sociais, Censo Demográfico); INEP (Saeb, Ideb, Censo Escolar, ENEM); MDS (CadÚnico, VIS Data); RAIS e Novo Caged; Banco Mundial (Poverty and Inequality Platform); OCDE (PISA).
+  referencias: Barros, Henriques e Mendonça (2000); Banerjee e Duflo (2011); Ulyssea (2018); Hanushek e Woessmann (2015); Gruber (2016); IBGE (2025).
+- id: d
+  codigo: D
+  tipo: programa
+  ordem: 4
+  situacao: em-formacao
+  nome:
+    pt: Economia Aberta e Inserção Internacional
+    en: Open Economy and International Integration
+  objeto:
+    pt: As relações econômicas do Brasil com o resto do mundo e seus efeitos sobre atividade, preços, produtividade e regiões.
+    en: Brazil's economic relations with the rest of the world and their effects on activity, prices, productivity and regions.
+  abrange:
+    pt: >-
+      Balanço de pagamentos e vulnerabilidade externa; câmbio, repasse cambial e reservas; fluxos de capital; termos de
+      troca e ciclos de commodities; política comercial, tarifas e acordos; cadeias globais de valor; transmissão de
+      choques externos.
+    en: >-
+      The balance of payments and external vulnerability; the exchange rate, exchange-rate pass-through and reserves;
+      capital flows; terms of trade and commodity cycles; trade policy, tariffs and agreements; global value chains;
+      the transmission of external shocks.
+  nao_abrange:
+    pt: A condução da política monetária doméstica (Programa A), embora o programa estude os choques externos que ela enfrenta.
+    en: The conduct of domestic monetary policy (Programme A), although the programme studies the external shocks it faces.
+  perguntas:
+    - codigo: D.1
+      pt: Como os choques externos, como os preços de commodities, os juros e as tarifas das economias centrais e o ciclo chinês, se transmitem à atividade, ao câmbio e à inflação no Brasil?
+      en: How are external shocks — commodity prices, interest rates and tariffs in the advanced economies, and the Chinese cycle — transmitted to activity, the exchange rate and inflation in Brazil?
+    - codigo: D.2
+      pt: Por que o Brasil permanece relativamente fechado ao comércio, e que efeitos uma integração maior, por meio de acordos comerciais e cadeias globais de valor, teria sobre produtividade, emprego e regiões?
+      en: Why does Brazil remain relatively closed to trade, and what effects would greater integration, through trade agreements and global value chains, have on productivity, employment and regions?
+    - codigo: D.3
+      pt: O que determina a vulnerabilidade externa do país e o repasse cambial aos preços, e qual o papel das reservas internacionais, dos fluxos de capital e do regime de câmbio flutuante?
+      en: What determines the country's external vulnerability and exchange-rate pass-through to prices, and what role do international reserves, capital flows and the floating exchange-rate regime play?
+  paineis_previstos:
+    - codigo: D1
+      pt: Setor Externo e Câmbio
+      en: External Sector and Exchange Rate
+    - codigo: D2
+      pt: Comércio e Cadeias de Valor
+      en: Trade and Value Chains
+  dados: Banco Central do Brasil (estatísticas do setor externo, câmbio, reservas); Comex Stat (MDIC); FUNCEX; FMI (IFS, WEO); OCDE-OMC (TiVA); UN Comtrade.
+  referencias: Dix-Carneiro e Kovak (2017); Goldberg e Pavcnik (2007); Rey (2013); Burstein, Eichenbaum e Rebelo (2005).
+- id: e
+  codigo: E
+  tipo: programa
+  ordem: 5
+  situacao: em-formacao
+  nome:
+    pt: Instituições, Estado e Economia Política
+    en: Institutions, the State and Political Economy
+  objeto:
+    pt: Como as regras formais e informais, a capacidade do Estado e o processo político condicionam o desempenho econômico e a adoção de reformas.
+    en: How formal and informal rules, state capacity and the political process shape economic performance and the adoption of reforms.
+  abrange:
+    pt: >-
+      Segurança jurídica e eficiência do Judiciário; regulação e agências reguladoras; capacidade e qualidade do gasto do
+      Estado; federalismo fiscal; grupos de interesse e captura do orçamento; economia política das reformas; incerteza de
+      política econômica e ciclos eleitorais.
+    en: >-
+      Legal certainty and judicial efficiency; regulation and regulatory agencies; state capacity and the quality of
+      public spending; fiscal federalism; interest groups and budget capture; the political economy of reform; economic
+      policy uncertainty and electoral cycles.
+  nao_abrange:
+    pt: >-
+      Avaliação de partidos, candidaturas ou governos. O programa estuda instituições e incentivos, não preferências
+      políticas, em observância ao princípio do apartidarismo do Estatuto.
+    en: >-
+      The assessment of parties, candidates or governments. The programme studies institutions and incentives, not
+      political preferences, in keeping with the Statute's principle of non-partisanship.
+  perguntas:
+    - codigo: E.1
+      pt: Como a qualidade das instituições, entre elas a segurança jurídica, a eficiência do Judiciário, a regulação e a capacidade do Estado, afeta o investimento, a produtividade e o crescimento no Brasil e em seus estados?
+      en: How does the quality of institutions — among them legal certainty, judicial efficiency, regulation and state capacity — affect investment, productivity and growth in Brazil and its states?
+    - codigo: E.2
+      pt: Por que reformas que elevam o bem-estar agregado são difíceis de aprovar e de sustentar no Brasil, e como grupos de interesse capturam o orçamento por meio de subsídios, isenções e regimes especiais?
+      en: Why are welfare-improving reforms hard to pass and sustain in Brazil, and how do interest groups capture the budget through subsidies, exemptions and special regimes?
+    - codigo: E.3
+      pt: Como a incerteza de política econômica e o ciclo eleitoral afetam expectativas, prêmios de risco e decisões de investimento?
+      en: How do economic policy uncertainty and the electoral cycle affect expectations, risk premia and investment decisions?
+  paineis_previstos:
+    - codigo: E1
+      pt: Instituições e Capacidade do Estado
+      en: Institutions and State Capacity
+  dados: CNJ (Justiça em Números); Tesouro Nacional e Receita Federal (gastos tributários, transparência orçamentária); TCU; Banco Mundial (Worldwide Governance Indicators); índices de incerteza de política econômica; Portal da Transparência.
+  referencias: Acemoglu, Johnson e Robinson (2001); Acemoglu e Robinson (2012); Besley e Persson (2011); Olson (1965); Ponticelli e Alencar (2016); Baker, Bloom e Davis (2016).
+- id: f
+  codigo: F
+  tipo: programa
+  ordem: 6
+  situacao: em-formacao
+  nome:
+    pt: Energia, Clima e Recursos Naturais
+    en: Energy, Climate and Natural Resources
+  objeto:
+    pt: A relação entre recursos naturais, energia, clima e desempenho econômico no Brasil.
+    en: The relationship between natural resources, energy, climate and economic performance in Brazil.
+  nota:
+    pt: >-
+      O Brasil tem vantagens comparativas em agropecuária, mineração, petróleo e energia renovável que nenhum outro
+      programa estuda como objeto; eventos climáticos já afetam a inflação de alimentos, a produção agrícola e as contas
+      públicas; e Minas Gerais é um estado minerador e agrícola.
+    en: >-
+      Brazil has comparative advantages in agriculture, mining, oil and renewable energy that no other programme studies
+      as such; climate events already affect food inflation, agricultural output and the public accounts; and Minas
+      Gerais is a mining and agricultural state.
+  abrange:
+    pt: >-
+      Choques climáticos e produtividade agrícola; matriz energética, preços de energia e combustíveis; mineração e renda
+      de recursos naturais; transição energética; precificação de carbono e mercado regulado; custos econômicos e
+      distributivos da política ambiental.
+    en: >-
+      Climate shocks and agricultural productivity; the energy mix and energy and fuel prices; mining and natural-resource
+      rents; the energy transition; carbon pricing and the regulated market; the economic and distributional costs of
+      environmental policy.
+  perguntas:
+    - codigo: F.1
+      pt: Qual o impacto de eventos climáticos extremos, como secas, enchentes e o El Niño, sobre a produção agropecuária, a inflação e as finanças públicas?
+      en: What is the impact of extreme climate events, such as droughts, floods and El Niño, on agricultural output, inflation and public finances?
+    - codigo: F.2
+      pt: Como converter as vantagens do Brasil em recursos naturais e energia renovável em produtividade e renda sustentáveis, sem aprofundar a dependência de commodities?
+      en: How can Brazil's advantages in natural resources and renewable energy be turned into sustainable productivity and income without deepening commodity dependence?
+    - codigo: F.3
+      pt: Quais são os custos econômicos e distributivos da transição energética e da política ambiental, e que instrumentos, como a precificação de carbono, os alcançam ao menor custo?
+      en: What are the economic and distributional costs of the energy transition and environmental policy, and which instruments, such as carbon pricing, achieve their goals at least cost?
+  paineis_previstos:
+    - codigo: F1
+      pt: Clima, Energia e Agropecuária
+      en: Climate, Energy and Agriculture
+  dados: IBGE (LSPA, PAM, PPM); CONAB; EPE (Balanço Energético Nacional); ANP; ANEEL; ANM; INMET e CEMADEN; MapBiomas.
+  referencias: Dell, Jones e Olken (2014); Burke, Hsiang e Miguel (2015); van der Ploeg (2011); Banco Central do Brasil (2026).
+- id: transversal
+  codigo: T
+  tipo: transversal
+  ordem: 7
+  situacao: ativo
+  nome:
+    pt: Transversal — Métodos e Dados
+    en: Cross-cutting — Methods and Data
+  objeto:
+    pt: >-
+      Os métodos de medição, identificação e reprodutibilidade usados por todos os programas. Conduzido conjuntamente
+      pelo Economista-Chefe e pela Chefia de Dados e Tecnologia, sem cargo próprio, responde pela infraestrutura comum de
+      dados e código do Centro.
+    en: >-
+      The measurement, identification and reproducibility methods used by all programmes. Led jointly by the Chief
+      Economist and the Data and Technology unit, with no position of its own, it is responsible for the Centre's common
+      data and code infrastructure.
+  perguntas:
+    - codigo: T.1
+      pt: Como medir com precisão e em tempo quase real, com dados abertos, a atividade, a inflação e o bem-estar no Brasil e em Minas Gerais?
+      en: How can activity, inflation and well-being in Brazil and Minas Gerais be measured accurately and in near real time with open data?
+    - codigo: T.2
+      pt: Quando os métodos experimentais e quase-experimentais permitem identificar com credibilidade os efeitos de políticas a partir de dados públicos brasileiros?
+      en: When do experimental and quasi-experimental methods allow the effects of policies to be credibly identified from Brazilian public data?
+    - codigo: T.3
+      pt: Como integrar microdados, aprendizado de máquina e fontes textuais, como atas, relatórios e notícias, à análise econômica de forma reprodutível e verificável?
+      en: How can microdata, machine learning and textual sources — minutes, reports and news — be integrated into economic analysis in a reproducible and verifiable way?
+  referencias: Angrist e Pischke (2009); Athey e Imbens (2017); Giannone, Reichlin e Small (2008); Gentzkow, Kelly e Taddy (2019); Christensen e Miguel (2018).
+- id: minas-gerais
+  codigo: MG
+  tipo: lente
+  ordem: 8
+  nome:
+    pt: Minas Gerais e Desenvolvimento Regional
+    en: Minas Gerais and Regional Development
+  objeto:
+    pt: >-
+      Sempre que os dados permitirem, os produtos apresentam o recorte de Minas Gerais e de suas regiões e o comparam ao
+      Brasil. Não é programa porque cada pergunta dos programas tem uma versão mineira.
+    en: >-
+      Whenever the data allow, outputs present the breakdown for Minas Gerais and its regions and compare it with Brazil.
+      It is not a programme because every programme question has a Minas Gerais version.
+- id: brasil-comparado
+  codigo: BC
+  tipo: lente
+  ordem: 9
+  nome:
+    pt: Brasil Comparado
+    en: Brazil in Comparative Perspective
+  objeto:
+    pt: Os resultados são situados em relação a países de renda semelhante e às economias que convergiram, como recomendam a literatura de contabilidade do desenvolvimento e as séries da Penn World Table.
+    en: Results are placed alongside countries with similar income levels and economies that have converged, as recommended by the development-accounting literature and the Penn World Table series.

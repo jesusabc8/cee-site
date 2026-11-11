@@ -99,13 +99,25 @@ describe('pobreza (SIS 2025, Tabela 2.18) e abertura comercial', () => {
     expect(Number(r.pobreza_us685_ppc2017)).toBeCloseTo(23.1, 1);
     expect(Number(r.extrema_us215_ppc2017)).toBeCloseTo(3.5, 1);
   });
-  it('abertura = (X12 + M12) / PIB12 × 100', () => {
-    const ab = lerCsvTexto(readFileSync('data/processed/panorama/abertura.csv', 'utf8'));
-    for (const l of ab.slice(-24)) {
-      const esperado = ((Number(l.exportacoes_12m_usd_milhoes) + Number(l.importacoes_12m_usd_milhoes)) / Number(l.pib_12m_usd_milhoes)) * 100;
-      expect(Number(l.abertura_pib)).toBeCloseTo(esperado, 1);
-      expect(Number(l.abertura_pib)).toBeGreaterThan(10);
-      expect(Number(l.abertura_pib)).toBeLessThan(50);
+  // Abertura (ADR-019): PWT 11.0, (csh_x·pl_x − csh_m·pl_m)/pl_gdpo × 100 = (X + M de bens e serviços)/PIB a preços correntes.
+  const ab = lerCsvTexto(readFileSync('data/processed/panorama/abertura.csv', 'utf8'));
+  it('abertura = (csh_x·pl_x − csh_m·pl_m) / pl_gdpo × 100, e a versão em PPC = (csh_x − csh_m) × 100', () => {
+    for (const l of ab) {
+      const [x, m, px, pm, py] = ['csh_x', 'csh_m', 'pl_x', 'pl_m', 'pl_gdpo'].map((k) => Number(l[k]));
+      expect(Number(l.abertura_pib)).toBeCloseTo(((x! * px! - m! * pm!) / py!) * 100, 1);
+      expect(Number(l.abertura_ppc)).toBeCloseTo((x! - m!) * 100, 1);
+      expect(Number(l.exportacoes_pib) + Number(l.importacoes_pib)).toBeCloseTo(Number(l.abertura_pib), 1);
+      expect(m!).toBeLessThanOrEqual(0); // convenção da PWT: importações com sinal negativo
     }
+  });
+  it('2023 reproduz as Contas Nacionais Trimestrais do IBGE (SIDRA 1846): (X + M de bens e serviços) / PIB = 33,67 %', () => {
+    // SIDRA 1846, valores correntes, soma de 2023.I–IV (milhões de R$): exportação 1.966.445; importação 1.717.767; PIB 10.943.344.
+    const ibge = ((1966445 + 1717767) / 10943344) * 100;
+    expect(Number(ab.find((l) => l.ano === '2023')!.abertura_pib)).toBeCloseTo(ibge, 1);
+  });
+  it('série anual de 1950 a 2023, entre 5 % e 60 % do PIB', () => {
+    expect(ab[0]!.ano).toBe('1950');
+    expect(ab.at(-1)!.ano).toBe('2023');
+    for (const l of ab) { expect(Number(l.abertura_pib)).toBeGreaterThan(5); expect(Number(l.abertura_pib)).toBeLessThan(60); }
   });
 });

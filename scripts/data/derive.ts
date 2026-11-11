@@ -151,21 +151,37 @@ const estabilizacao = {
 };
 await writeFile(join(OUT, 'estabilizacao.json'), JSON.stringify(estabilizacao, null, 2) + '\n');
 
-// ——— Abertura comercial: (X + M de bens, 12 meses, US$ FOB) ÷ PIB em US$ acumulado em 12 meses (SGS 4192) ———
+// ——— Abertura comercial (PWT 11.0; ADR-019) ———
+// Na PWT, csh_x e csh_m são as participações das exportações e importações (contas nacionais, bens e serviços) no
+// cgdpo, avaliadas em PPC correntes: csh_x = (X/PIB) × (pl_gdpo / pl_x), com csh_m < 0 por convenção. A razão a preços
+// correntes, que é o indicador usual (X + M)/PIB, recupera-se exatamente por identidade:
+//   abertura = (csh_x × pl_x − csh_m × pl_m) / pl_gdpo × 100
+// e não depende dos níveis de preço extrapolados (eles se cancelam). A versão em PPC (csh_x − csh_m) vai só no CSV.
+const aberturaPwt: Linha[] = pwt.filter((r) => r.pais === 'BRA').flatMap((r) => {
+  const [x, m, px, pm, py] = [n(r.csh_x), n(r.csh_m), n(r.pl_x), n(r.pl_m), n(r.pl_gdpo)];
+  if (x === null || m === null || px === null || pm === null || py === null || py === 0) return [];
+  const xp = (x * px) / py * 100;
+  const mp = (-m * pm) / py * 100;
+  return [{ ano: Number(r.ano), exportacoes_pib: r2(xp), importacoes_pib: r2(mp), abertura_pib: r2(xp + mp), abertura_ppc: r2((x - m) * 100), csh_x: x, csh_m: m, pl_x: px, pl_m: pm, pl_gdpo: py }];
+});
+if (!aberturaPwt.length) throw new Error('Abertura comercial: Brasil sem csh_x/csh_m na PWT.');
+await writeFile(join(OUT, 'abertura.csv'), csv(aberturaPwt));
+
+// Série anterior (ADR-013): só bens, mensal, ComexStat ÷ PIB em US$ (SGS 4192). Não aparece no sítio; mantida como
+// derivado de referência, porque as extrações de comércio continuam arquivadas.
 const pibUsdMes = new Map(pibUsd.map((r) => [r.periodo!, n(r.pib_usd_milhoes_12m)]));
-const abertura: Linha[] = [];
+const aberturaBens: Linha[] = [];
 for (let i = 11; i < comercio.length; i++) {
   const janela = comercio.slice(i - 11, i + 1);
   const periodo = comercio[i]!.periodo!;
   const contiguo = janela.every((r, k) => k === 0 || Date.UTC(Number(r.periodo!.slice(0, 4)), Number(r.periodo!.slice(5, 7)) - 1) - Date.UTC(Number(janela[k - 1]!.periodo!.slice(0, 4)), Number(janela[k - 1]!.periodo!.slice(5, 7)) - 1) < 32 * 864e5);
   const y = pibUsdMes.get(periodo);
   if (!contiguo || !y || janela.some((r) => !r.exportacao_usd || !r.importacao_usd)) continue;
-  const x12 = janela.reduce((a, r) => a + Number(r.exportacao_usd), 0) / 1e6;
-  const m12 = janela.reduce((a, r) => a + Number(r.importacao_usd), 0) / 1e6;
-  abertura.push({ periodo, exportacoes_12m_usd_milhoes: r2(x12), importacoes_12m_usd_milhoes: r2(m12), pib_12m_usd_milhoes: y, abertura_pib: r2(((x12 + m12) / y) * 100) });
+  const x12 = janela.reduce((acc, r) => acc + Number(r.exportacao_usd), 0) / 1e6;
+  const m12 = janela.reduce((acc, r) => acc + Number(r.importacao_usd), 0) / 1e6;
+  aberturaBens.push({ periodo, exportacoes_12m_usd_milhoes: r2(x12), importacoes_12m_usd_milhoes: r2(m12), pib_12m_usd_milhoes: y, abertura_bens_pib: r2(((x12 + m12) / y) * 100) });
 }
-if (!abertura.length) throw new Error('Abertura comercial: nenhum mês com comércio e PIB em US$.');
-await writeFile(join(OUT, 'abertura.csv'), csv(abertura));
+await writeFile(join(OUT, 'abertura_bens.csv'), csv(aberturaBens));
 
 // ——— 6. Indicadores "Brasil em números" ———
 type Tile = Record<string, unknown>;
@@ -186,8 +202,8 @@ const tiles: Tile[] = [];
   tiles.push({ id: 'cambio', grupo: 'externo', icone: 'arrow-left-right', titulo: 'Câmbio', valor: n(u.fim_periodo), unidade: 'R$/US$', descricao: 'PTAX venda, última cotação', referencia: u.data_ultimo, tipo_ref: 'dia', variacao: sinal(n(u.fim_periodo), n(p.fim_periodo)), spark: spark(ptax, 120, (x) => n(x.media_mensal)), ancora: 'grafico-cambio', ...fonte('ptax') }); }
 { const u = ult(cc), p = pen(cc);
   tiles.push({ id: 'conta_corrente', grupo: 'externo', icone: 'globe', titulo: 'Conta corrente', valor: n(u.transacoes_correntes_pib), unidade: '% PIB', descricao: 'Transações correntes, acumulado em 12 meses', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.transacoes_correntes_pib), n(p.transacoes_correntes_pib)), spark: spark(cc, 120, (x) => n(x.transacoes_correntes_pib)), ancora: null, ...fonte('conta_corrente') }); }
-{ const u = ult(abertura), p = pen(abertura);
-  tiles.push({ id: 'abertura', grupo: 'externo', icone: 'ship', titulo: 'Abertura comercial', valor: u.abertura_pib, unidade: '% PIB', descricao: '(Exportações + importações de bens) ÷ PIB, 12 meses', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(u.abertura_pib as number, p.abertura_pib as number), spark: spark(abertura, 120, (x) => x.abertura_pib as number), ancora: null, calculado: true, ...fonte('comercio'), fonte: 'MDIC, BCB', serie: 'ComexStat · SGS 4192' }); }
+{ const u = ult(aberturaPwt), p = pen(aberturaPwt);
+  tiles.push({ id: 'abertura', grupo: 'externo', icone: 'ship', titulo: 'Abertura comercial', valor: u.abertura_pib, unidade: '% PIB', descricao: '(Exportações + importações de bens e serviços) ÷ PIB, preços correntes', referencia: u.ano, tipo_ref: 'ano', variacao: sinal(u.abertura_pib as number, p.abertura_pib as number), spark: spark(aberturaPwt, 10, (x) => x.abertura_pib as number), ancora: null, calculado: true, ...fonte('pwt'), fonte: 'Groningen Growth and Development Centre', serie: 'PWT 11.0 (csh_x, csh_m, pl_x, pl_m, pl_gdpo)' }); }
 { const u = ult(prim), p = pen(prim);
   tiles.push({ id: 'primario', grupo: 'fiscal', icone: 'wallet', titulo: 'Resultado primário', valor: n(u.superavit_primario_pib), unidade: '% PIB', descricao: 'Setor público consolidado, 12 meses (+ superávit, − déficit)', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.superavit_primario_pib), n(p.superavit_primario_pib)), spark: spark(prim, 120, (x) => n(x.superavit_primario_pib)), ancora: 'grafico-estabilizacao', ...fonte('primario') }); }
 { const u = ult(dbgg), p = pen(dbgg);
@@ -205,7 +221,8 @@ await writeFile(join(OUT, 'derivados.json'), JSON.stringify({
   ipca_meta: { entradas: ['ipca', 'metas_inflacao', 'focus_mensal_ipca'], data_focus_mensal: dataFocusMensal, metodo: 'IPCA 12 meses observado; meta e limites do ano (meta contínua desde 2025); trajetória: acumulação de 12 meses com variações observadas e, nos meses futuros, a mediana Focus mensal.' },
   pwt: { entradas: ['pwt'], pib_pc: 'rgdpna / pop', produtividade: '(rgdpna/emp)_i ÷ (rgdpna/emp)_EUA × 100', proximidade: '(cgdpo × pl_gdpo / pop)_i ÷ (cgdpo × pl_gdpo / pop)_EUA × 100', pib_pc_rel_ppc: '(rgdpna/pop)_i ÷ (rgdpna/pop)_EUA × 100' },
   divida: { entradas: ['dbgg', 'dlsp', 'focus_anual'], data_focus: dataFocus },
-  abertura: { entradas: ['comercio', 'pib_usd'], formula: '(exportações + importações de bens, US$ FOB, soma de 12 meses) / PIB em US$ acumulado em 12 meses × 100' },
+  abertura: { entradas: ['pwt'], formula: '(csh_x × pl_x − csh_m × pl_m) / pl_gdpo × 100 = (exportações + importações de bens e serviços) / PIB, a preços correntes (Brasil, PWT 11.0)', formula_ppc: '(csh_x − csh_m) × 100, participação em PPC correntes (só no CSV)', conferencia: 'Em 2023 reproduz as Contas Nacionais Trimestrais do IBGE (SIDRA 1846): (1.966.445 + 1.717.767) / 10.943.344 = 33,67 %' },
+  abertura_bens: { entradas: ['comercio', 'pib_usd'], formula: '(exportações + importações de bens, US$ FOB, soma de 12 meses) / PIB em US$ acumulado em 12 meses × 100 (não exibida; ADR-013)' },
   estabilizacao: { entradas: ['dbgg', 'primario', 'focus_anual', 'focus_ipca'] },
 }, null, 2) + '\n');
 console.log(`✓ derivados: juro real (${juroReal.length}), IPCA×meta (${ipcaMeta.length}, projeção até ${projecao.at(-1)?.periodo}), PWT, dívida, s* = ${r2(sStar)} (d=${d}, r=${r2(rCentral)}, g=${r2(gCentral)}), ${tiles.length} indicadores`);

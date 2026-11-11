@@ -12,7 +12,6 @@ import Box from '../Box.astro';
 import { graficosConjuntura } from '../../lib/conjuntura';
 import { DICIONARIO_CONJUNTURA } from '../../lib/dicionario';
 import { fmtDate, isoDate } from '../../lib/publicacoes';
-import { config } from '../../config';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
@@ -20,7 +19,7 @@ interface Props { painel: CollectionEntry<'paineis'>; lang: Lang }
 const { painel, lang } = Astro.props;
 const p = painel.data;
 const k = lang === 'en' ? 'en' : 'pt';
-const area = await getEntry('areas', p.area);
+const area = await getEntry('programas', p.area);
 const publicado = p.estado === 'publicado';
 const nome = `${p.linha}. ${p.titulo[k]}`;
 const g = publicado && painel.id === 'conjuntura' ? graficosConjuntura(lang) : null;
@@ -32,14 +31,14 @@ const url = new URL(href(`/observatorio/${painel.id}/`), Astro.site).href;
 const ano = vintage ? vintage.slice(0, 4) : '';
 
 const L = {
-  pt: { obs: 'Observatório CEE', area: 'Área', edicao: 'Edição', vintage: 'Dados extraídos em', linha: 'Linha', licenca: 'Licença', situacao: 'Situação',
+  pt: { obs: 'Observatório CEE', area: 'Programa', edicao: 'Edição', vintage: 'Dados extraídos em', linha: 'Linha', licenca: 'Licença', situacao: 'Situação',
     fontes: 'Fontes previstas', series: 'Mostrar séries', metodo: 'Nota metodológica', dic: 'Dicionário de dados', arquivo: 'Arquivo', variavel: 'Variável', descricao: 'Descrição', unidade: 'Unidade', origem: 'Origem',
     mudancas: 'Histórico de mudanças', citar: 'Como citar este painel', downloads: 'Downloads', vint: 'Registro de vintage (JSON)', doi: 'DOI', doiPend: 'DOI ainda não atribuído; será solicitado via Zenodo após a transferência do repositório para a organização do CEE.',
-    catalogo: 'Catálogo de dados e fontes', stale: 'Atenção: a última atualização automática falhou para', staleTxt: 'Os gráficos exibem o vintage anterior, com a data indicada.', codigo: 'Código de extração e processamento' },
-  en: { obs: 'CEE Observatory', area: 'Area', edicao: 'Edition', vintage: 'Data extracted on', linha: 'Line', licenca: 'Licence', situacao: 'Status',
+    catalogo: 'Catálogo de dados e fontes', stale: 'Atenção: a última atualização automática falhou para', staleTxt: 'Os gráficos exibem o vintage anterior, com a data indicada.', codigo: 'Código de extração e processamento', semCodigo: 'Código disponível mediante solicitação ao CEE.', dados: 'Dados (CSV)' },
+  en: { obs: 'CEE Observatory', area: 'Programme', edicao: 'Edition', vintage: 'Data extracted on', linha: 'Line', licenca: 'Licence', situacao: 'Status',
     fontes: 'Planned sources', series: 'Show series', metodo: 'Methodological note', dic: 'Data dictionary', arquivo: 'File', variavel: 'Variable', descricao: 'Description', unidade: 'Unit', origem: 'Origin',
     mudancas: 'Change log', citar: 'How to cite this dashboard', downloads: 'Downloads', vint: 'Vintage record (JSON)', doi: 'DOI', doiPend: 'No DOI yet; it will be requested via Zenodo once the repository is transferred to the CEE organisation.',
-    catalogo: 'Data and source catalogue', stale: 'Warning: the last automated update failed for', staleTxt: 'Charts show the previous vintage, with its date.', codigo: 'Extraction and processing code' },
+    catalogo: 'Data and source catalogue', stale: 'Warning: the last automated update failed for', staleTxt: 'Charts show the previous vintage, with its date.', codigo: 'Extraction and processing code', semCodigo: 'Code available from CEE on request.', dados: 'Data (CSV)' },
 }[k];
 const citacao = `CENTRO DE ESTUDOS ECONÔMICOS (CEE). Observatório CEE — Economia Brasileira em Dados. ${p.linha}. ${p.titulo.pt}. Edição ${p.versao ?? '—'}. Dados extraídos em ${vintage?.slice(0, 10) ?? '—'}. Belo Horizonte: CEE, ${ano}. Disponível em: ${url}.`;
 const jsonld = publicado ? {
@@ -83,7 +82,7 @@ const jsonld = publicado ? {
           <details class="prose metodo">
             <summary>{k === 'en' ? 'Read the methodological note' : 'Ler a nota metodológica'}</summary>
             <p>{p.metodologia?.[k]}</p>
-            <p><a href={`${config.repoUrl}/tree/main/scripts/data`}>{L.codigo}</a> · <a href={href('/observatorio/catalogo/', lang)}>{L.catalogo}</a></p>
+            <p><a href="#downloads">{L.dados}</a> · {p.codigo_url ? <a href={p.codigo_url}>{L.codigo}</a> : <span>{L.semCodigo}</span>} · <a href={href('/observatorio/catalogo/', lang)}>{L.catalogo}</a></p>
           </details>
         </section>
 
@@ -97,7 +96,7 @@ const jsonld = publicado ? {
           </div>
         </section>
 
-        <section class="section split">
+        <section class="section split" id="downloads">
           <h2 class="section__title">{L.downloads}</h2>
           <ul class="dl">
             {['ipca', 'selic_meta', 'desocupacao', 'focus_ipca'].map((s) => <li><a href={href(`/dados/conjuntura/${s}.csv`)} download>{s}.csv</a></li>)}

@@ -1,33 +1,47 @@
 ---
 titulo: Methodology and reproducibility
-descricao: Six-stage production cycle, three review layers, fixed repository structure, data vintages, errata policy, CRediT authorship and AI policy.
+descricao: Editorial workflow, minimum review and deadlines by output, common standards for all publications, data vintages, errata, CRediT authorship, conflicts of interest and AI use.
 eyebrow: About
-bajada: No number is published unless someone else re-runs the code and obtains the same result. This rule is not negotiable.
-fonte_proposta: "§5, §6, Annexes E and F (summary; the Portuguese page is authoritative)"
-atualizado: 2026-10-20
+bajada: Every published number must be re-runnable from the source data and is checked by someone other than the authors. No author reviews or decides on the publication of their own work.
+fonte_normas: "Statute, arts. 37 and 55–59; Internal Rules, arts. 24 and 44–48; Programmes and Outputs Manual, Part II and Annexes G and H (summary; the Portuguese page is authoritative)"
+atualizado: 2026-11-09
 ---
-## Production cycle
+## Editorial workflow
 
-Every quantitative product follows six stages, always in this order: (1) choice of a question answerable with available public data; (2) a one-page **analytical design sheet**, filed and dated before any result is examined; (3) construction of data and code, with immutable raw data and numbered, versioned scripts; (4) **independent numerical verification** by a non-author, re-running the repository from scratch on a different machine; (5) a written content review by the faculty adviser; (6) publication with CRediT authorship, an open licence and a replication package — and a public, dated erratum if an error is found later.
+Every output follows, in this order, the workflow set in the Internal Rules (art. 46): (1) **registration of the proposal** with the Programme Coordinator, stating the question, sources, period and method, and the Manual question it answers; (2) **preparation** with data and code in a CEE repository, with version history; (3) **numerical verification** by someone other than the authors, who re-runs the code and checks every number, table and chart, with a verification report; (4) **editorial review**; (5) **faculty and external reports**, where required; (6) **submission to the Editorial Committee** with all review records and the Annex H checklist; (7) **publication** with version, date, CRediT authorship, sources, licence and disclaimer; (8) **dissemination** by the Communication and Marketing team.
 
-## Three review layers
+The Editorial Committee decides each submission with a reasoned decision: approve; approve with minor changes; return for revision; or reject. The Collegiate Board cannot overturn an editorial decision or waive review.
 
-| Layer | Who | What | Approval criterion |
-|---|---|---|---|
-| 1. Numerical verification | A member who is not an author | Re-runs the repository from scratch | Every table and figure is reproduced |
-| 2. Content review | Faculty adviser | Method, interpretation, limitations | Written approval |
-| 3. Editorial review | Editorial Committee | Clarity, citation, units, labels, licence | Checklist fully ticked |
+## Minimum review and reference deadlines
 
-Data Insights require layer 1; Business-Cycle Notes layers 1 and 3; Technical Notes all three; Working Papers all three plus an external review. The level of review depends on the ambition of the product, **never on the deadline**.
+| Output | Minimum review | Review deadline · max. rounds |
+|---|---|---|
+| Panel edition, Data Insight, Blog | Numerical (panel); numerical and editorial (DI); editorial (Blog) | 5 working days · 2 |
+| Business-Cycle Note, Policy Brief | Numerical and editorial (NC); editorial and faculty (PB) | 10 working days · 2 |
+| Technical Note, Project Report | Numerical, editorial and faculty | 20 working days · 3 |
+| Discussion Paper | Numerical, editorial, faculty and external | 30 working days plus the external report · 3 |
+| Economic Assessment | Factual and numerical | — |
+| Semiannual Economic Report | Numerical, editorial and faculty | — |
 
-## Repository, vintages and citation
+Length and purpose of each output are in the [catalogue of outputs](../publicacoes/).
 
-Every product uses the same repository structure (raw data, numbered scripts, processed data, outputs, README, data dictionary and environment lock file). Official series are revised by their sources, so every extraction is archived with its date (a *vintage*), allowing published results to be reproduced with the data as they stood. Observatory editions are numbered, carry a change log and, when available, a DOI.
+## Common standards
 
-## Errata
+- **Identification.** Every output has a series, a sequential number within the year and a version, as in `CEE-NT 2027/03 v1.0`.
+- **Data, code and verification.** Every published number can be re-run from the source data. When replication code is not public, the publication says: "Code available from CEE on request".
+- **Charts and tables.** Number, informative full-sentence title, unit, note where needed and source with period; no 3-D charts, no unmarked truncated axes, and colour is never the only way to tell series apart. On this site every chart also has an alternative table and a CSV file.
+- **References.** Author-date system (ABNT NBR 10520:2023 and NBR 6023:2018); outputs in English may follow APA.
+- **Recommendations.** Only in Technical Notes, Discussion Papers, Project Reports and the Policy Briefs derived from them, in a separate section. Other outputs describe and analyse; they do not recommend.
+- **Disclaimer and licence.** "The views expressed are those of the authors and do not represent the position of the Pontifical Catholic University of Minas Gerais." The Economic Assessment adds that it expresses the Board's collegiate judgement. Licence CC BY 4.0, unless restricted by third parties.
 
-Errors found after publication produce a **public, dated erratum** attached to the original, which remains accessible. Silent correction is a serious breach. The target is not zero errata — that would reward hiding mistakes — but an interval of **less than seven days** between identification and publication of the erratum. See the [errata register](../erratas/).
+## Vintages
+
+Official series are revised by their sources, so every extraction is archived with its date (a *vintage*), allowing published results to be reproduced with the data as they stood. On this site raw data are kept with their extraction date and a checksum and are never edited.
+
+## Errata, expressions of concern and retractions
+
+A material error in a published output triggers a **notice linked to it within seven calendar days** and an erratum with date, version and effects on results and conclusions as soon as the correction is done. An expression of concern is issued when a relevant doubt is under investigation; a retraction when reliability, authorship or regularity are substantially compromised, after giving the authors five working days to respond. See the [errata register](../erratas/).
 
 ## Authorship, conflicts and AI
 
-Contributions are declared by role using the CRediT taxonomy. Members declare political affiliations, jobs and relevant internships on joining and every semester, and step aside from products involving organisations they are linked to. AI tools may be used and must be declared; all analytical judgements are verified by people, AI-generated code goes through the same independent re-execution, no personal data is entered into external tools, and AI tools are never listed as authors.
+Authorship follows the CRediT taxonomy; reviewers, verifiers and supervisors are acknowledged unless they meet the authorship criteria, and honorary authorship is forbidden. Conflicts of interest are declared on joining, every semester and whenever a new situation arises; a link to an organisation directly assessed bars the person from preparing, reviewing or deciding on the output. The use of AI tools is disclosed in each output, with the tool and purpose; responsibility stays with the authors, AI tools are never listed as authors, and personal or restricted data are not entered into external tools.

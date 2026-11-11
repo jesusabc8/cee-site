@@ -1,0 +1,60 @@
+---
+# MODELO — Anexo D — Policy Brief. 2–4 páginas, até 2.000 palavras. Autoria: autores do produto de origem. `origem` obrigatória: identificador de NT, TD ou RP já publicados (o build confere). Revisão: editorial e parecer docente sobre a fidelidade à origem. Sem equações nem tabelas de regressão.
+# Copie para src/content/publicacoes/<slug>.mdx. O nome do arquivo vira a URL permanente /publicacoes/<slug>/
+# (minúsculas, hífens, sem acentos). Campos com "TODO" precisam ser preenchidos; o build falha se faltar campo
+# obrigatório (src/schemas/publicacao.ts) e avisa se a extensão sair da faixa do Manual.
+tipo: policy-brief
+titulo: "TODO"
+subtitulo: "TODO"
+data: 2027-01-31            # data de publicação (AAAA-MM-DD)
+versao: "1.0"
+identificador: "CEE-PB 2027/NN v1.0"   # série, número no ano (2 dígitos) e versão; ano = ano de `data`
+area: b                     # a | b | c | d | e | f | transversal
+pergunta: "B.1"            # pergunta do Manual, Parte I (ex.: A.1.2, B.3)
+autoria:                    # funções CRediT: conceituacao, curadoria, analise, investigacao, metodologia,
+  - nome: "TODO Nome Sobrenome"   # administracao, recursos, software, supervisao, validacao, visualizacao,
+    funcao_credit: [analise, redacao]   # redacao, revisao, financiamento
+resumo: "TODO Resumo de uma a duas linhas para listas, RSS e buscadores."
+origem: "CEE-NT 2027/NN v1.0"
+recomendacoes:
+  - "TODO Opção de política, com benefícios, custos e quem os suporta."
+fontes:
+  - instituicao: "TODO"
+    serie: "TODO"
+    codigo: "TODO"
+    unidade: "TODO"
+    extraido_em: 2027-01-30
+    url: "https://example.org/TODO"
+dados:
+  - rotulo: "Dados (CSV)"
+    url: "/dados/TODO.csv"
+# codigo_url: "https://…"   # código público de replicação; sem ele, a página informa
+#                           # "Código disponível mediante solicitação ao CEE".
+conflitos: "Os autores declaram não haver conflitos de interesse."
+declaracao_ia: "TODO Ferramenta, finalidade, partes afetadas e verificação humana. Se não houve uso: 'Não houve uso de ferramentas de inteligência artificial.'"
+# licenca: CC-BY-4.0        # padrão; alterar só por restrição de terceiros
+---
+
+{/* Título: a mensagem principal, em até três linhas. */}
+
+## Mensagens-chave
+
+- TODO Três a cinco tópicos que, lidos sozinhos, informam o problema, o principal resultado e a principal implicação.
+
+## O problema e sua importância
+
+## O que a pesquisa fez
+
+TODO Pergunta, dados e abordagem em linguagem não técnica.
+
+## O que a pesquisa encontrou
+
+TODO Resultados em gráficos simples, números ou palavras.
+
+## Implicações e opções de política
+
+## Desafios de implementação
+
+TODO Restrições econômicas, fiscais e institucionais.
+
+## Referências

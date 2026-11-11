@@ -1,8 +1,8 @@
 ---
 /**
- * Índice do Observatório CEE — Economia Brasileira em Dados: um observatório, três áreas (areas.yaml),
- * painéis (paineis.yaml). Contagens e anos saem dos dados; painéis com estado `previsto` aparecem só como cartão
- * ("Previsto · ano N"), sem página. As lentes transversais são camadas dos painéis, não painéis.
+ * Índice do Observatório CEE — Economia Brasileira em Dados (produto do CEE; Manual, Parte II): painéis agrupados pelos
+ * programas que têm painel (programas.yaml + paineis.yaml). Contagens e anos saem dos dados; painéis com estado `previsto` aparecem só como cartão
+ * ("Previsto · ano N"), sem página. Programas em formação não têm painel; as lentes são recortes, não painéis.
  */
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
@@ -15,8 +15,11 @@ import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
-const areas = (await getCollection('areas')).filter((a) => a.data.tipo === 'area').sort((a, b) => a.data.ordem - b.data.ordem);
+const todos = (await getCollection('programas')).sort((a, b) => a.data.ordem - b.data.ordem);
 const paineis = (await getCollection('paineis')).sort((a, b) => a.data.linha.localeCompare(b.data.linha));
+const areas = todos.filter((a) => a.data.tipo === 'programa' && paineis.some((p) => p.data.area === a.id));
+const emFormacao = todos.filter((a) => a.data.situacao === 'em-formacao');
+const lentes = todos.filter((a) => a.data.tipo === 'lente');
 // Contagens derivadas dos dados (nunca escritas à mão).
 const EXTENSO = { pt: ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez'], en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'] };
 const ext = (n: number) => EXTENSO[k][n] ?? String(n);
@@ -25,17 +28,17 @@ const nPaineis = ext(paineis.length);
 const L = {
   pt: {
     t: 'Observatório CEE — Economia Brasileira em Dados',
-    lede: `Um único observatório, organizado em ${nAreas} áreas temáticas e ${nPaineis} painéis. Todas as séries estão documentadas no Catálogo de dados e fontes, com fonte, data de extração e vintage.`,
-    area: 'Área', pergunta: 'Pergunta-guia', pub: 'Edição', ver: 'Abrir painel', situacao: 'Ver situação',
-    lentes: 'Lentes transversais', lentesTxt: 'Instituições, Brasil comparado e Minas Gerais como recorte são camadas de análise presentes em cada painel, não painéis próprios.',
+    lede: `O Observatório é um dos produtos do CEE; seus ${nPaineis} painéis seguem os programas de pesquisa (${nAreas} programas com painel). Todas as séries estão documentadas no Catálogo de dados e fontes, com fonte, data de extração e vintage.`,
+    area: 'Programa', pergunta: 'Objeto', pub: 'Edição', ver: 'Abrir painel', situacao: 'Ver situação',
+    lentes: 'Lentes e programas em formação', lentesTxt: `As lentes ${lentes.map((l) => l.data.nome.pt).join('; ')} são recortes aplicáveis a qualquer painel, não painéis próprios. Os programas em formação (${emFormacao.map((a) => a.data.codigo).join(', ')}) não têm painel; seus painéis estão previstos para quando o programa for ativado.`,
     recursos: 'Também no Observatório', cat: 'Catálogo de dados e fontes', catTxt: 'Todas as séries usadas, com código, unidade, termos de uso e registro da verificação contra a fonte oficial.',
     rastreio: 'Rastreabilidade', abrirCat: 'Abrir catálogo',
   },
   en: {
     t: 'CEE Observatory — Brazilian Economy in Data',
-    lede: `A single observatory, organised in ${nAreas} thematic areas and ${nPaineis} panels. Every series is documented in the Data and source catalogue, with its source, extraction date and vintage.`,
-    area: 'Area', pergunta: 'Guiding question', pub: 'Edition', ver: 'Open dashboard', situacao: 'See status',
-    lentes: 'Cross-cutting lenses', lentesTxt: 'Institutions, Brazil in comparative perspective and Minas Gerais as a regional focus are analytical layers present in every panel, not separate panels.',
+    lede: `The Observatory is one of CEE's outputs; its ${nPaineis} panels follow the research programmes (${nAreas} programmes with panels). Every series is documented in the Data and source catalogue, with its source, extraction date and vintage.`,
+    area: 'Programme', pergunta: 'Scope', pub: 'Edition', ver: 'Open dashboard', situacao: 'See status',
+    lentes: 'Lenses and programmes in formation', lentesTxt: `The lenses ${lentes.map((l) => l.data.nome.en).join('; ')} are perspectives that apply to any panel, not separate panels. Programmes in formation (${emFormacao.map((a) => a.data.codigo).join(', ')}) have no panel; their panels are planned for when the programme is activated.`,
     recursos: 'Also in the Observatory', cat: 'Data and source catalogue', catTxt: 'Every series used, with code, unit, terms of use and the record of its verification against the official source.',
     rastreio: 'Traceability', abrirCat: 'Open catalogue',
   },
@@ -51,7 +54,7 @@ const L = {
           <span class="obs-area__code" aria-hidden="true">{a.data.codigo}</span>
           <div>
             <h2 id={`area-${a.id}`}><span class="visually-hidden">{L.area} {a.data.codigo}: </span>{a.data.nome[k]}</h2>
-            <p class="obs-area__q"><span class="eyebrow">{L.pergunta}</span> {a.data.pergunta_guia[k]}</p>
+            <p class="obs-area__q"><span class="eyebrow">{L.pergunta}</span> {a.data.objeto[k]}</p>
           </div>
         </header>
         <ul class:list={['cards', { 'cards--3': paineis.filter((p) => p.data.area === a.id).length === 3 }]} role="list">

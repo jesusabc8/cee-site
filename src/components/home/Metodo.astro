@@ -1,7 +1,7 @@
 ---
 /**
- * Metodologia em seis etapas (Proposta §6.1–6.6 e Anexo E), como abas verticais acessíveis:
- * setas ↑↓ (e ←→), Home/End; sem JavaScript, as seis etapas aparecem em sequência.
+ * Fluxo editorial (Regimento Interno, art. 46; Manual, Parte II), agrupado em seis etapas, como abas verticais
+ * acessíveis: setas ↑↓ (e ←→), Home/End; sem JavaScript, as etapas aparecem em sequência.
  */
 import Icon from '../ui/Icon.astro';
 import { href } from '../../i18n/routing';
@@ -12,24 +12,24 @@ const { lang } = Astro.props;
 const en = lang === 'en';
 // [título, resumo, texto, regra/saída]
 const PT: [string, string, string, string][] = [
-  ['Pergunta', 'Uma pergunta respondível com dado público.', 'Toda análise começa por uma pergunta escrita, delimitada e respondível com dado público disponível.', 'Saída: pergunta registrada na ficha de desenho analítico.'],
-  ['Ficha de desenho', 'Método definido antes de ver o resultado.', 'Antes do exame de qualquer resultado, o autor preenche, em uma página, a ficha de desenho analítico: pergunta, hipótese, fontes, especificação principal, testes de robustez previstos e o que contaria como evidência contrária.', 'Saída: ficha datada e arquivada no repositório.'],
-  ['Dado e código', 'Dados brutos imutáveis; tudo derivado vem de script.', 'Os dados brutos nunca são editados à mão. Todo produto é um repositório com a mesma estrutura, de modo que qualquer integrante reexecute o trabalho de outro sem instruções adicionais.', 'Saída: repositório com estrutura fixa e dados brutos imutáveis.'],
-  ['Verificação independente', 'Outra pessoa reexecuta e confere cada número.', 'Um integrante que não é autor reexecuta o repositório do zero, em máquina distinta, e confere cada tabela e figura do texto.', 'Regra: nenhum número é publicado sem que outra pessoa reexecute o código e chegue ao mesmo resultado.'],
-  ['Revisão de conteúdo e editorial', 'Docente de referência e Comitê Editorial.', 'Conforme o produto, um docente de referência avalia a adequação do método e as limitações declaradas, e o Comitê Editorial confere clareza, citação, unidades, rótulos e licença.', 'Nota Técnica: três camadas. Working paper: três camadas e parecer externo ao Centro.'],
-  ['Publicação e errata', 'Licença aberta; correção pública e datada.', 'O produto sai com licença aberta, autoria por função (CRediT) e declaração de uso de IA. Erros identificados viram errata pública e datada.', 'Regra: correção silenciosa é falta grave; a errata sai em menos de sete dias após a identificação do erro.'],
+  ['Registro da proposta', 'Pergunta, fontes, período e método, antes de começar.', 'Todo produto começa com o registro da proposta junto ao Coordenador de Programa: pergunta específica, programa e pergunta do Manual a que responde, fontes, período, método, cronograma e verificador proposto.', 'Saída: proposta aprovada, aprovada com ajustes ou não aprovada pelo Coordenador.'],
+  ['Dados e código', 'Tudo reexecutável a partir dos dados de origem.', 'A elaboração é feita com dados e código no repositório do CEE, com histórico de versões. Os dados brutos não são editados à mão; tudo o que é derivado vem de código.', 'Regra: todo número publicado deve ser reexecutável a partir dos dados de origem.'],
+  ['Verificação numérica', 'Outra pessoa reexecuta e confere cada número.', 'Uma pessoa distinta dos autores reexecuta o código e confere cada número, tabela e gráfico, com relatório de conferência no repositório.', 'Regra: nenhum autor revisa o próprio trabalho.'],
+  ['Revisão e pareceres', 'Revisão editorial; parecer docente e externo quando exigidos.', 'Conforme o produto, a revisão mínima inclui revisão editorial, parecer docente de conteúdo e, no Texto para Discussão, parecer externo.', 'Nota Técnica: numérica, editorial e docente. Texto para Discussão: também parecer externo.'],
+  ['Comitê Editorial', 'Órgão independente que aprova todas as publicações.', 'A submissão vai ao Comitê Editorial com todos os registros de revisão e a lista de verificação do Manual. O Comitê aprova, aprova com ajustes menores, devolve para revisão ou rejeita, com fundamentação.', 'Regra: a Diretoria não pode revogar decisão editorial nem dispensar revisão.'],
+  ['Publicação e errata', 'Versão, autoria CRediT, licença e aviso.', 'O produto sai com identificador e versão, autoria por função (CRediT), fontes, licença CC BY 4.0, declaração de uso de IA e aviso de responsabilidade. Erro material gera aviso e errata públicos.', 'Regra: aviso vinculado ao produto em até sete dias corridos da ciência do erro.'],
 ];
 const EN: [string, string, string, string][] = [
-  ['Question', 'A question answerable with public data.', 'Every analysis starts from a written, bounded question that can be answered with available public data.', 'Output: question recorded in the analytical design form.'],
-  ['Design form', 'Method set before seeing the result.', 'Before looking at any result, the author fills in a one-page analytical design form: question, hypothesis, sources, main specification, planned robustness checks and what would count as contrary evidence.', 'Output: dated form filed in the repository.'],
-  ['Data and code', 'Immutable raw data; everything derived comes from scripts.', 'Raw data are never edited by hand. Every output is a repository with the same structure, so that any member can re-run another\'s work without further instructions.', 'Output: repository with a fixed structure and immutable raw data.'],
-  ['Independent verification', 'Someone else re-runs and checks every number.', 'A member who is not an author re-runs the repository from scratch, on a different machine, and checks every table and figure in the text.', 'Rule: no number is published unless someone else re-runs the code and obtains the same result.'],
-  ['Content and editorial review', 'Reference faculty member and Editorial Committee.', 'Depending on the output, a reference faculty member assesses the method and stated limitations, and the Editorial Committee checks clarity, citation, units, labels and licence.', 'Technical Note: three layers. Working paper: three layers plus external review.'],
-  ['Publication and errata', 'Open licence; public, dated corrections.', 'The output is released under an open licence, with authorship by role (CRediT) and an AI-use statement. Errors become public, dated errata.', 'Rule: silent correction is a serious breach; the erratum is published within seven days of the error being identified.'],
+  ['Proposal registration', 'Question, sources, period and method, before starting.', 'Every output starts with a proposal registered with the Programme Coordinator: specific question, the programme and Manual question it answers, sources, period, method, timetable and proposed verifier.', 'Output: proposal approved, approved with changes or not approved by the Coordinator.'],
+  ['Data and code', 'Everything re-runnable from the source data.', 'Work is done with data and code in a CEE repository, with version history. Raw data are never edited by hand; everything derived comes from code.', 'Rule: every published number must be re-runnable from the source data.'],
+  ['Numerical verification', 'Someone else re-runs and checks every number.', 'A person other than the authors re-runs the code and checks every number, table and chart, with a verification report in the repository.', 'Rule: no author reviews their own work.'],
+  ['Review and reports', 'Editorial review; faculty and external reports where required.', 'Depending on the output, the minimum review includes editorial review, a faculty content report and, for Discussion Papers, an external report.', 'Technical Note: numerical, editorial and faculty. Discussion Paper: also an external report.'],
+  ['Editorial Committee', 'Independent body that approves every publication.', 'The submission goes to the Editorial Committee with all review records and the Manual checklist. The Committee approves, approves with minor changes, returns for revision or rejects, with reasons.', 'Rule: the Board cannot overturn an editorial decision or waive review.'],
+  ['Publication and errata', 'Version, CRediT authorship, licence and disclaimer.', 'The output is released with identifier and version, authorship by role (CRediT), sources, a CC BY 4.0 licence, an AI-use statement and a disclaimer. A material error triggers a public notice and erratum.', 'Rule: a notice linked to the output within seven calendar days of becoming aware of the error.'],
 ];
 const ST = en ? EN : PT;
-const ICONES = ['search', 'pencil-ruler', 'folder-git-2', 'git-compare-arrows', 'list-checks', 'badge-check'];
-const INI = 3;
+const ICONES = ['clipboard-list', 'folder-git-2', 'git-compare-arrows', 'list-checks', 'scale', 'badge-check'];
+const INI = 2;
 const dd = (i: number) => String(i + 1).padStart(2, '0');
 ---
 <section class="metodo band-paper section" id="metodo" aria-labelledby="metodo-t">
@@ -53,7 +53,7 @@ const dd = (i: number) => String(i + 1).padStart(2, '0');
       <div class="panels">
         {ST.map((s, i) => (
           <div class="panel" role="tabpanel" id={`step-p-${i}`} aria-labelledby={`step-${i}`} data-ini={i === INI ? '' : undefined}>
-            <p class="eyebrow">{en ? 'Stage' : 'Etapa'} {dd(i)} {en ? 'of' : 'de'} 06</p>
+            <p class="eyebrow">{en ? 'Stage' : 'Etapa'} {dd(i)} {en ? 'of' : 'de'} {dd(ST.length - 1)}</p>
             <h3>{s[0]}</h3>
             <p>{s[2]}</p>
             <p class="panel__rule mono">{s[3]}</p>

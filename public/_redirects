@@ -1,0 +1,25 @@
+# Redirecionamentos permanentes (301) de slugs públicos retirados (ADR-017). Nenhum slug público muda sem 301.
+# Sintaxe: origem destino código. Cloudflare Workers com arquivos estáticos lê este arquivo de dist/_redirects.
+
+# Etapa 5 — Carta de Princípios retirada; o conteúdo normativo está em /sobre/ (Estatuto).
+/documentos/carta-de-principios.md /sobre/ 301
+
+# Etapa 2 — a lente "Instituições" virou o Programa E (Instituições, Estado e Economia Política).
+/pesquisa/instituicoes/ /pesquisa/e/ 301
+/pesquisa/instituicoes /pesquisa/e/ 301
+/en/pesquisa/instituicoes/ /en/pesquisa/e/ 301
+/en/pesquisa/instituicoes /en/pesquisa/e/ 301
+
+# Etapa 4 — Working Paper virou Texto para Discussão; Replicação e Edição especial saíram do catálogo.
+/publicacoes/tipo/working-paper/* /publicacoes/tipo/texto-para-discussao/:splat 301
+/publicacoes/tipo/working-paper /publicacoes/tipo/texto-para-discussao/ 301
+/en/publicacoes/tipo/working-paper/* /en/publicacoes/tipo/texto-para-discussao/:splat 301
+/en/publicacoes/tipo/working-paper /en/publicacoes/tipo/texto-para-discussao/ 301
+/publicacoes/tipo/replicacao/* /publicacoes/ 301
+/publicacoes/tipo/replicacao /publicacoes/ 301
+/en/publicacoes/tipo/replicacao/* /en/publicacoes/ 301
+/en/publicacoes/tipo/replicacao /en/publicacoes/ 301
+/publicacoes/tipo/edicao-especial/* /publicacoes/ 301
+/publicacoes/tipo/edicao-especial /publicacoes/ 301
+/en/publicacoes/tipo/edicao-especial/* /en/publicacoes/ 301
+/en/publicacoes/tipo/edicao-especial /en/publicacoes/ 301

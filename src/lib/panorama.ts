@@ -11,7 +11,6 @@ import { lerCsvTexto } from '../../scripts/data/csv';
 import type { ChartSpec, SerieSpec } from './viz/render';
 import { fmtNum, fmtX } from './viz/render';
 import { href } from '../i18n/routing';
-import { config } from '../site.config';
 import type { Lang } from '../i18n/ui';
 
 const P = 'data/processed';
@@ -362,7 +361,7 @@ export function panorama(lang: Lang) {
   }
 
   const estab = lerJson<Estabilizacao>('panorama', 'estabilizacao');
-  return { graficos, estabilizacao: estab, fonteEstab: [fonte('dbgg'), fonte('primario'), fonte('focus_anual'), fonte('focus_ipca')], repo: config.repoUrl };
+  return { graficos, estabilizacao: estab, fonteEstab: [fonte('dbgg'), fonte('primario'), fonte('focus_anual'), fonte('focus_ipca')] };
 }
 
 export interface Estabilizacao {

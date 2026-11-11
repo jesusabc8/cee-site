@@ -1,0 +1,16 @@
+# Cabeçalhos de segurança (ADR-018). Cloudflare Workers com arquivos estáticos lê este arquivo de dist/_headers.
+# Nenhum script, estilo ou manipulador inline no build (astro.config.mjs: inlineStylesheets 'never',
+# assetsInlineLimit 0); por isso script-src e style-src não precisam de hashes. 'wasm-unsafe-eval' é exigido pelo
+# Pagefind (busca em WebAssembly). Os blocos application/json e application/ld+json não são executados.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-Frame-Options: DENY
+
+# Arquivos com hash no nome: cache longo.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

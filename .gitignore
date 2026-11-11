@@ -12,3 +12,16 @@ test-results/
 # até a apresentação à coordenação do curso. Ver docs/fuentes/README.md.
 docs/fuentes/*.docx
 docs/fuentes/*.pdf
+
+# Atos normativos do CEE (Estatuto, Regimento Interno, Manual de Programas e Produtos): minutas.
+# PDFs e DOCX nunca vão ao repositório; os .tex só depois que o repositório for privado (ADR-017).
+docs/fuentes/normas/*.pdf
+docs/fuentes/normas/*.docx
+docs/fuentes/normas/*.tex
+docs/fuentes/normas/*.sty
+# Lista de nomes proibidos usada por scripts/qa/seguranca.mjs (nunca versionada).
+docs/seguranca/nomes-proibidos.txt
+
+# Cloudflare Wrangler (estado local de wrangler dev)
+.wrangler/
+.dev.vars

@@ -33,7 +33,7 @@ const EN: Record<string, { titulo: string; unidade: string; descricao: string }>
   conta_corrente: { titulo: 'Current account', unidade: '% GDP', descricao: 'Current transactions, 12-month sum' },
   primario: { titulo: 'Primary balance', unidade: '% GDP', descricao: 'Consolidated public sector, 12 months (+ surplus, − deficit)' },
   dbgg: { titulo: 'Gross debt', unidade: '% GDP', descricao: 'General government (DBGG)' },
-  abertura: { titulo: 'Trade openness', unidade: '% GDP', descricao: '(Exports + imports of goods) ÷ GDP, 12 months' },
+  abertura: { titulo: 'Trade openness', unidade: '% GDP', descricao: '(Exports + imports of goods and services) ÷ GDP, current prices' },
   pobreza: { titulo: 'Poverty', unidade: '% pop.', descricao: 'Below US$6.85 a day, 2017 PPP (World Bank)' },
   desocupacao: { titulo: 'Unemployment', unidade: '%', descricao: 'PNAD Contínua, rolling quarter, not seasonally adjusted' },
 };
@@ -60,7 +60,7 @@ const dirTxt: Record<string, string> = en
   : { '▲': 'acima da observação anterior', '▼': 'abaixo da observação anterior', '■': 'igual à observação anterior' };
 const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
 const serieCurta = (s: string) => s.split(/[,(]/)[0]!.trim();
-const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f.split(' — ')[0]!);
+const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'Groningen Growth and Development Centre' ? 'GGDC' : f.split(' — ')[0]!);
 ---
 <section class="bn" id="brasil-em-numeros" aria-labelledby="bn-t">
   <div class="wrap">

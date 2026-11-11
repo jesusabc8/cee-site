@@ -1,4 +1,4 @@
-/** Esquema dos painéis do Observatório (Proposta §4.2, §5.2 e §6.4). */
+/** Esquema dos painéis do Observatório (Regimento Interno, art. 23; Manual, Parte I, Quadro 1). */
 import { z } from 'astro/zod';
 
 const bi = z.object({ pt: z.string().min(1), en: z.string().min(1) });
@@ -6,8 +6,9 @@ const bi = z.object({ pt: z.string().min(1), en: z.string().min(1) });
 export const painelSchema = z.object({
   titulo: bi,
   resumo: bi,
+  /** Programa (Manual, Parte I). Programas em formação (D, E, F) não têm painel. */
   area: z.enum(['a', 'b', 'c']),
-  linha: z.string().regex(/^[ABC]\d$/),
+  linha: z.string().regex(/^[A-F]\d$/),
   ordem: z.number().int(),
   /**
    * publicado: com dados verificados; em-construcao / em-institucionalizacao: sem cifras no sítio;
@@ -15,7 +16,7 @@ export const painelSchema = z.object({
    */
   estado: z.enum(['publicado', 'em-construcao', 'em-institucionalizacao', 'previsto']),
   /** Ano do plano em que o painel entra (1, 2…). Os rótulos "Previsto · ano N" e as contagens saem daqui. */
-  ano: z.number().int().min(1),
+  ano: z.number().int().min(1).optional(),
   situacao: bi.optional(),
   /** Edição numerada (obrigatória quando publicado). */
   versao: z.string().optional(),
@@ -25,7 +26,11 @@ export const painelSchema = z.object({
   metodologia: bi.optional(),
   changelog: z.array(z.object({ versao: z.string(), data: z.coerce.date(), nota: z.string() }).strict()).default([]),
   doi: z.string().regex(/^10\.\d{4,9}\/\S+$/).optional(),
+  /** Depósito público de replicação (Zenodo ou repositório público só com dados e código). Sem ele, o sítio informa
+   *  "Código disponível mediante solicitação ao CEE" (o repositório do sítio é privado; ADR-018). */
+  codigo_url: z.url().optional(),
 }).strict().superRefine((p, ctx) => {
+  if (p.estado !== 'previsto' && p.ano === undefined) ctx.addIssue({ code: 'custom', path: ['ano'], message: 'Painel ativo ou em construção exige `ano`.' });
   if (p.estado !== 'previsto') {
     for (const k of ['situacao', 'fontes_previstas'] as const) {
       if (!p[k]) ctx.addIssue({ code: 'custom', path: [k], message: `Painel com página exige \`${k}\`.` });

@@ -12,16 +12,16 @@ const pubs = await getPublicacoes();
 const erratas = pubs.flatMap((p) => p.data.erratas.map((e) => ({ ...e, pub: p })))
   .sort((a, b) => b.data.getTime() - a.data.getTime());
 const L = {
-  pt: { t: 'Erratas', lede: 'Registro público e cronológico de todas as correções. Cada errata descreve o erro, seu efeito sobre as conclusões e a correção aplicada; o arquivo original permanece acessível. A meta é publicar a errata em menos de sete dias após a identificação do erro.',
+  pt: { t: 'Erratas', lede: 'Registro público e cronológico de todas as correções. Cada errata descreve o erro, seu efeito sobre as conclusões e a correção aplicada; o arquivo original permanece acessível. Constatado erro material, o Comitê Editorial publica aviso vinculado ao produto em até sete dias corridos e a errata tão logo concluída a correção (Regimento Interno, art. 47).',
     vazio: 'Nenhuma errata registrada até o momento.', pub: 'Publicação', ident: 'Erro identificado em', prazo: 'dias até a errata', efeito: 'Efeito sobre as conclusões', corr: 'Correção', versao: 'versão corrigida', pol: 'Política de errata' },
-  en: { t: 'Errata', lede: 'Public, chronological register of every correction. Each erratum describes the error, its effect on the conclusions and the correction applied; the original remains available. The target is to publish the erratum less than seven days after the error is identified.',
+  en: { t: 'Errata', lede: 'Public, chronological register of every correction. Each erratum describes the error, its effect on the conclusions and the correction applied; the original remains available. When a material error is found, the Editorial Committee publishes a notice linked to the output within seven calendar days and the erratum as soon as the correction is done (Internal Rules, art. 47).',
     vazio: 'No errata recorded so far.', pub: 'Publication', ident: 'Error identified', prazo: 'days to erratum', efeito: 'Effect on conclusions', corr: 'Correction', versao: 'corrected version', pol: 'Errata policy' },
 }[k];
 const dias = (a: Date, b: Date) => Math.round((a.getTime() - b.getTime()) / 86_400_000);
 ---
 <Base title={L.t} description={L.lede} lang={lang}>
   <PageHero lang={lang} eyebrow={k === 'en' ? 'Policies' : 'Políticas'} title={L.t} lede={L.lede}>
-    <p class="meta"><a href={`${href('/metodologia/', lang)}#${k === 'en' ? 'errata' : 'política-de-errata'}`}>{L.pol}</a></p>
+    <p class="meta"><a href={`${href('/metodologia/', lang)}#${k === 'en' ? 'errata-expressions-of-concern-and-retractions' : 'erratas-notas-de-preocupação-e-retratações'}`}>{L.pol}</a></p>
   </PageHero>
   <div class="wrap">
     {erratas.length === 0 ? <p class="meta vazio">{L.vazio}</p> : (

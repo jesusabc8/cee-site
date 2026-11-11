@@ -7,7 +7,7 @@ import { getPublicacoes } from '../../lib/publicacoes';
 export async function getStaticPaths() {
   const pubs = await getPublicacoes();
   const paineis = await getCollection('paineis', (p) => p.data.estado !== 'previsto');
-  const lic = 'Iniciativa estudantil · Acesso aberto · CC BY 4.0';
+  const lic = 'Liga acadêmica estudantil · Acesso aberto · CC BY 4.0';
   return [
     { params: { slug: 'default' }, props: { rotulo: 'Análise econômica empírica sobre o Brasil', titulo: 'Rigorosa, reprodutível e de acesso aberto', meta: lic } },
     ...pubs.map((p) => ({

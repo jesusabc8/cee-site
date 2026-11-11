@@ -1,89 +1,166 @@
 ---
+/**
+ * /pesquisa/: arquitetura de pesquisa (Manual, Parte I, Quadro 1) e perguntas de pesquisa por programa.
+ * Contagens, situação e painéis vêm de programas.yaml e paineis.yaml; nada é escrito à mão.
+ */
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../layout/PageHero.astro';
-import Areas from '../home/Areas.astro';
+import StatusTag from '../StatusTag.astro';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
-const areas = (await getCollection('areas')).sort((a, b) => a.data.ordem - b.data.ordem);
-// Linhas do ano 1 derivadas de linhas.yaml (nunca escritas à mão).
-const ano1 = (await getCollection('linhas', (l) => l.data.ano === 1)).map((l) => l.data.codigo).sort();
-const EXT = { pt: ['zero', 'uma', 'duas', 'três', 'quatro', 'cinco', 'seis', 'sete'], en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven'] };
-const lista = (xs: string[], e: string) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} ${e} ${xs.at(-1)}` : xs.join(''));
-const lente = areas.find((a) => a.data.tipo === 'lente');
+const todos = (await getCollection('programas')).sort((a, b) => a.data.ordem - b.data.ordem);
+const programas = todos.filter((p) => p.data.tipo === 'programa');
+const transversal = todos.find((p) => p.data.tipo === 'transversal');
+const lentes = todos.filter((p) => p.data.tipo === 'lente');
+const paineis = (await getCollection('paineis')).sort((a, b) => a.data.linha.localeCompare(b.data.linha));
+const EXT = { pt: ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito'], en: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'] };
+const EXTF = { pt: ['zero', 'uma', 'duas', 'três', 'quatro'], en: EXT.en };
+const n = (x: number) => EXT[k][x] ?? String(x);
+const nf = (x: number) => EXTF[k][x] ?? String(x);
 
 const T = {
   pt: {
-    title: 'Pesquisa', eyebrow: 'Agenda',
-    lede: 'Um observatório de dados no centro, três áreas permanentes ao redor e uma lente transversal. As áreas foram derivadas das perguntas que a literatura e os documentos de conjuntura colocam, e não de uma taxonomia abstrata.',
-    niveis: 'Área, linha e tema',
-    niveisTxt: 'A área é um campo permanente de trabalho, com uma pergunta-guia, e só muda por reforma da Carta de Princípios. A linha é uma agenda de dois a três anos dentro de uma área. O tema é um projeto de um semestre que gera um ou mais produtos.',
-    obs: 'Observatório CEE — Economia Brasileira em Dados', obsTxt: 'Não é uma das áreas: é a infraestrutura que as três compartilham — séries econômicas brasileiras em formato limpo e versionado, com dicionário de variáveis, script de extração e data de cada atualização.', obsLink: 'Ver o Observatório',
-    lenteTit: 'Lente transversal',
-    regras: 'Regras de gestão das linhas',
-    regrasList: [
-      '<strong>Abertura</strong>: pergunta-guia escrita; dados abertos verificados; ao menos três integrantes e um docente de referência; um produto comprometido em até seis meses.',
-      '<strong>Estado latente</strong>: dois semestres consecutivos sem produto publicado.',
-      `<strong>Capacidade primeiro</strong>: no primeiro ano, apenas ${EXT.pt[ano1.length] ?? ano1.length} linhas (${lista(ano1, 'e')}).`,
-      '<strong>Recorte mineiro</strong>: Minas Gerais entra quando agrega algo que as instituições estaduais já existentes não cobrem; não é obrigatório em cada produto.',
+    title: 'Pesquisa', eyebrow: 'Programas de pesquisa',
+    lede: `A pesquisa do CEE organiza-se em ${n(programas.length)} programas temáticos, um programa transversal de métodos e dados e ${nf(lentes.length)} lentes de análise.`,
+    arq: 'Arquitetura', programa: 'Programa', paineis: 'Painéis do Observatório', situacao: 'Situação',
+    infra: 'Infraestrutura comum de dados e código', lentesTit: 'Lentes', previstos: 'previstos quando o programa for ativado',
+    obsFrase: 'O Observatório é um dos produtos do CEE; seus painéis seguem os programas.', obsLink: 'Ver o Observatório',
+    conceitos: 'Conceitos',
+    conceitosList: [
+      '<strong>Programa</strong> é uma linha permanente de pesquisa, com objeto, fronteiras e perguntas definidos no Manual de Programas e Produtos.',
+      '<strong>Subprograma</strong> é uma divisão de programa com perguntas próprias, sem coordenação própria.',
+      '<strong>Painel</strong> é a unidade de acompanhamento contínuo de indicadores no Observatório; abre e fecha segundo as regras do Regimento Interno.',
+      '<strong>Lente</strong> é um recorte aplicável a qualquer programa e não possui equipe própria.',
     ],
-    estadoNota: 'Nenhuma linha está ativa ainda: as linhas previstas para o ano 1 serão abertas quando cumprirem os critérios acima.',
+    ativos: 'Programas ativos e em formação',
+    ativosTxt: 'Um programa é ativo quando tem Coordenador designado e pelo menos um painel ou projeto em andamento. Enquanto isso não ocorre, é programa em formação: suas perguntas integram a agenda, mas ele não abre painel nem recebe Coordenador. A ativação depende de deliberação da Diretoria Colegiada, comprovados um Coordenador aprovado em banca, pelo menos três membros comprometidos e um plano de produtos para os dois semestres seguintes.',
+    fronteiras: 'Fronteiras entre programas',
+    fronteirasTxt: 'Um mesmo tema pode interessar a mais de um programa. O produto pertence ao programa cuja pergunta principal ele responde; em caso de dúvida, decide o Economista-Chefe.',
+    perguntas: 'Perguntas de pesquisa',
   },
   en: {
-    title: 'Research', eyebrow: 'Agenda',
-    lede: 'A data observatory at the centre, three permanent areas around it and one cross-cutting lens. The areas were derived from the questions raised by the literature and by current macroeconomic reports, not from an abstract taxonomy.',
-    niveis: 'Area, line and topic',
-    niveisTxt: 'An area is a permanent field of work with a guiding question, changed only by amending the Charter. A line is a two-to-three-year agenda within an area. A topic is a one-semester project producing one or more outputs.',
-    obs: 'CEE Observatory — Brazilian Economy in Data', obsTxt: 'Not an area but the infrastructure all three share — clean, versioned Brazilian economic series with a data dictionary, extraction script and the date of every update.', obsLink: 'Go to the Observatory',
-    lenteTit: 'Cross-cutting lens',
-    regras: 'Rules for research lines',
-    regrasList: [
-      '<strong>Opening</strong>: a written guiding question; verified open data; at least three members and a faculty adviser; one product committed within six months.',
-      '<strong>Dormancy</strong>: two consecutive semesters without a published product.',
-      `<strong>Capacity first</strong>: only ${EXT.en[ano1.length] ?? ano1.length} lines in year one (${lista(ano1, 'and')}).`,
-      '<strong>Minas Gerais focus</strong>: used only when it adds something existing state institutions do not cover.',
+    title: 'Research', eyebrow: 'Research programmes',
+    lede: `CEE research is organised in ${n(programas.length)} thematic programmes, one cross-cutting programme on methods and data, and ${n(lentes.length)} analytical lenses.`,
+    arq: 'Architecture', programa: 'Programme', paineis: 'Observatory panels', situacao: 'Status',
+    infra: 'Common data and code infrastructure', lentesTit: 'Lenses', previstos: 'planned for when the programme is activated',
+    obsFrase: "The Observatory is one of CEE's outputs; its panels follow the programmes.", obsLink: 'Go to the Observatory',
+    conceitos: 'Concepts',
+    conceitosList: [
+      '<strong>Programme</strong>: a permanent line of research, with the scope, boundaries and questions set out in the Programmes and Outputs Manual.',
+      '<strong>Sub-programme</strong>: a division of a programme with its own questions and no coordinator of its own.',
+      '<strong>Panel</strong>: the Observatory unit that tracks indicators continuously; it opens and closes under the Internal Rules.',
+      '<strong>Lens</strong>: a perspective that applies to any programme and has no team of its own.',
     ],
-    estadoNota: 'No line is active yet: year-1 lines will open once they meet the criteria above.',
+    ativos: 'Active programmes and programmes in formation',
+    ativosTxt: 'A programme is active when it has an appointed Coordinator and at least one panel or project under way. Until then it is a programme in formation: its questions are on the agenda, but it opens no panel and has no Coordinator. Activation requires a Board decision, with a Coordinator approved by a selection panel, at least three committed members and an output plan for the following two semesters.',
+    fronteiras: 'Boundaries between programmes',
+    fronteirasTxt: 'The same topic may interest more than one programme. An output belongs to the programme whose main question it answers; when in doubt, the Chief Economist decides.',
+    perguntas: 'Research questions',
   },
 }[k];
+const nomeProg = (p: (typeof todos)[number]) => `${p.data.codigo} — ${p.data.nome[k]}`;
 ---
 <Base title={T.title} description={T.lede} lang={lang}>
   <PageHero lang={lang} eyebrow={T.eyebrow} icon="compass" title={T.title} lede={T.lede} />
-  <Areas lang={lang} />
   <div class="wrap">
-    <section class="section split">
-      <h2 class="section__title">{T.niveis}</h2>
-      <div class="prose">
-        <p>{T.niveisTxt}</p>
-        <p class="meta">{T.estadoNota}</p>
+    <section class="section">
+      <h2 id="arq-t" class="section__title">{T.arq}</h2>
+      <div class="table-scroll" role="region" tabindex="0" aria-labelledby="arq-t">
+        <table class="arq">
+          <thead><tr><th scope="col">{T.programa}</th><th scope="col">{T.paineis}</th><th scope="col">{T.situacao}</th></tr></thead>
+          <tbody>
+            {programas.map((p) => {
+              const ps = paineis.filter((x) => x.data.area === p.id);
+              return (
+                <tr>
+                  <th scope="row">
+                    <a href={href(`/pesquisa/${p.id}/`, lang)}>{nomeProg(p)}</a>
+                    {p.data.subprogramas?.map((s) => <span class="sub">{s.codigo} {s.nome[k]}</span>)}
+                  </th>
+                  <td>
+                    {ps.length > 0
+                      ? ps.map((x, i) => <>{i > 0 && '; '}{x.data.linha} {x.data.titulo[k]}</>)
+                      : p.data.paineis_previstos && <span class="muted">{p.data.paineis_previstos.map((x) => `${x.codigo} ${x[k]}`).join('; ')} ({T.previstos})</span>}
+                  </td>
+                  <td>{p.data.situacao && <StatusTag estado={p.data.situacao} lang={lang} />}</td>
+                </tr>
+              );
+            })}
+            {transversal && (
+              <tr class="sep">
+                <th scope="row"><a href={href(`/pesquisa/${transversal.id}/`, lang)}>{transversal.data.nome[k]}</a></th>
+                <td>{T.infra}</td>
+                <td>{transversal.data.situacao && <StatusTag estado={transversal.data.situacao} lang={lang} />}</td>
+              </tr>
+            )}
+            <tr>
+              <th scope="row">{T.lentesTit}</th>
+              <td>{lentes.map((l) => l.data.nome[k]).join('; ')}</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <p class="obs-frase">{T.obsFrase} <a href={href('/observatorio/', lang)}>{T.obsLink}</a></p>
     </section>
 
     <section class="section split">
-      <h2 class="section__title">L0 · {T.obs}</h2>
-      <div class="prose">
-        <p>{T.obsTxt}</p>
-        <p><a href={href('/observatorio/', lang)}>{T.obsLink}</a></p>
-      </div>
+      <h2 class="section__title">{T.conceitos}</h2>
+      <ul class="prose">{T.conceitosList.map((c) => <li set:html={c} />)}</ul>
     </section>
 
-    {lente && (
-      <section class="section split">
-        <h2 class="section__title">{T.lenteTit}</h2>
-        <div class="prose">
-          <h3><a href={href(`/pesquisa/${lente.id}/`, lang)}>{lente.data.nome[k]}</a></h3>
-          <p>{lente.data.descricao[k]}</p>
-        </div>
-      </section>
-    )}
+    <section class="section split">
+      <h2 class="section__title">{T.ativos}</h2>
+      <p class="prose">{T.ativosTxt}</p>
+    </section>
 
     <section class="section split">
-      <h2 class="section__title">{T.regras}</h2>
-      <ul class="prose">{T.regrasList.map((r) => <li set:html={r} />)}</ul>
+      <h2 class="section__title">{T.fronteiras}</h2>
+      <p class="prose">{T.fronteirasTxt}</p>
+    </section>
+
+    <section class="section" aria-labelledby="perg-t">
+      <h2 id="perg-t" class="section__title">{T.perguntas}</h2>
+      <div class="cfm">
+        {[...programas, ...(transversal ? [transversal] : [])].map((p) => (
+          <section class="cfm__prog" aria-labelledby={`perg-${p.id}`}>
+            <h3 id={`perg-${p.id}`}><a href={href(`/pesquisa/${p.id}/`, lang)}>{nomeProg(p)}</a></h3>
+            {p.data.subprogramas?.map((s) => (
+              <>
+                <h4>{s.codigo} {s.nome[k]}</h4>
+                <ol>{s.perguntas.map((q) => <li><span class="num">{q.codigo}</span>{q[k]}</li>)}</ol>
+              </>
+            ))}
+            {p.data.perguntas && <ol>{p.data.perguntas.map((q) => <li><span class="num">{q.codigo}</span>{q[k]}</li>)}</ol>}
+          </section>
+        ))}
+      </div>
     </section>
   </div>
 </Base>
+<style>
+  .arq { width: 100%; border-collapse: collapse; font-size: 0.9375rem; border-top: 2px solid var(--navy); }
+  .arq th, .arq td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); }
+  .arq thead th { font: 600 11px / 1.3 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
+  .arq tbody th { font-weight: 600; width: 38%; }
+  .arq tbody th a { color: var(--navy); }
+  .arq .sub { display: block; margin-top: 4px; font: italic 400 0.875rem / 1.4 var(--sans); color: var(--muted); }
+  .arq .sep th, .arq .sep td { border-top: 2px solid var(--line-strong); }
+  .muted { color: var(--muted); }
+  .obs-frase { margin-top: var(--s-4); color: var(--ink); }
+  .cfm { display: grid; gap: clamp(28px, 3vw, 40px); }
+  @media (min-width: 64rem) { .cfm { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; } }
+  .cfm__prog { border-top: 3px solid var(--navy); padding-top: 16px; min-width: 0; }
+  .cfm__prog h3 { font-size: 1.1875rem; line-height: 1.3; }
+  .cfm__prog h3 a { color: var(--navy); text-decoration: none; }
+  .cfm__prog h3 a:hover { text-decoration: underline; }
+  .cfm__prog h4 { font: 600 0.8125rem / 1.4 var(--sans); letter-spacing: 0.04em; color: var(--petrol); margin: 16px 0 8px; }
+  .cfm__prog ol { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 12px; }
+  .cfm__prog li { display: grid; grid-template-columns: 3.4rem 1fr; gap: 8px; font: 400 1rem / 1.55 var(--serif); color: var(--ink); }
+  .cfm__prog li .num { font: 600 0.8125rem / 1.9 var(--mono); color: var(--petrol); }
+</style>

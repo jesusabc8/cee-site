@@ -4,9 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import rehypeTableScroll from './src/lib/rehype-table-scroll.mjs';
 
-// SITE_URL e BASE_PATH são definidos pelo workflow de deploy.
-// Em GitHub Pages de projeto: SITE_URL=https://<usuario>.github.io  BASE_PATH=/cee-site
-// Em domínio próprio: SITE_URL=https://dominio  BASE_PATH=/
+// SITE_URL e BASE_PATH são definidos pelo workflow de deploy (Cloudflare: SITE_URL = vars.SITE_URL, BASE_PATH=/).
 const site = process.env.SITE_URL ?? 'http://localhost:4321';
 const base = process.env.BASE_PATH ?? '/';
 
@@ -15,7 +13,11 @@ export default defineConfig({
   base,
   trailingSlash: 'always',
   output: 'static',
-  build: { format: 'directory' },
+  // CSP (public/_headers, ADR-018): nenhum script nem estilo inline. CSS e JS sempre em arquivos externos, sem
+  // source maps. O suporte nativo security.csp do Astro emite <meta> com hashes; como a política vai no cabeçalho
+  // e as duas se somariam, optou-se por externalizar tudo.
+  build: { format: 'directory', inlineStylesheets: 'never' },
+  vite: { build: { assetsInlineLimit: 0, sourcemap: false } },
   i18n: {
     locales: ['pt-BR', 'en'],
     defaultLocale: 'pt-BR',

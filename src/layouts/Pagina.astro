@@ -14,12 +14,12 @@ const toc = headings.filter((h) => h.depth === 2);
 const d = entry.data;
 const fmt = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const L = lang === 'en'
-  ? { toc: 'On this page', upd: 'Last updated', src: 'Source: CEE institutional proposal v3.0' }
-  : { toc: 'Nesta página', upd: 'Atualizado em', src: 'Fonte: Proposta institucional do CEE v3.0' };
+  ? { toc: 'On this page', upd: 'Last updated', src: 'Source: CEE normative acts (draft)' }
+  : { toc: 'Nesta página', upd: 'Atualizado em', src: 'Fonte: atos normativos do CEE (minutas)' };
 ---
 <Base title={d.titulo} description={d.descricao} lang={lang}>
   <PageHero lang={lang} eyebrow={d.eyebrow} title={d.titulo} lede={d.bajada}>
-    <p class="meta">{L.upd} <time datetime={d.atualizado.toISOString().slice(0, 10)}>{fmt.format(d.atualizado)}</time> · {L.src}, {d.fonte_proposta}</p>
+    <p class="meta">{L.upd} <time datetime={d.atualizado.toISOString().slice(0, 10)}>{fmt.format(d.atualizado)}</time> · {L.src}, {d.fonte_normas}</p>
   </PageHero>
   <div class="wrap">
     <div class="pagina">

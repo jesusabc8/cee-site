@@ -1,0 +1,7 @@
+# Revisão obrigatória pelo responsável (com proteção de branch ativada em main).
+# Ao transferir para a organização do CEE, trocar por uma equipe (ex.: @org/mantenedores).
+*                     @jesusabc8
+/.github/             @jesusabc8
+/wrangler.jsonc       @jesusabc8
+/public/_headers      @jesusabc8
+/public/_redirects    @jesusabc8

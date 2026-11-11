@@ -1,4 +1,4 @@
-/** Dicionário de dados dos CSV do painel de Conjuntura (Proposta §6.3: cada variável, unidade e origem). */
+/** Dicionário de dados dos CSV do painel de Conjuntura (Manual, Parte II, "Dados, código e verificação": cada variável, unidade e origem). */
 export const DICIONARIO_CONJUNTURA = [
   { arquivo: 'ipca.csv', variavel: 'periodo', descricao: 'Mês de referência (AAAA-MM)', unidade: '—', origem: 'SIDRA 1737' },
   { arquivo: 'ipca.csv', variavel: 'variacao_mensal', descricao: 'IPCA — variação mensal', unidade: '%', origem: 'SIDRA 1737, var. 63' },

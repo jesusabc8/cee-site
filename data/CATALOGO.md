@@ -112,7 +112,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=09/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=11/11/2026`
 
 ## primario — NFSP — resultado primário do setor público consolidado, acumulado em 12 meses
 
@@ -126,7 +126,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=09/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=11/11/2026`
 
 ## dbgg — Dívida bruta do governo geral (DBGG)
 
@@ -139,7 +139,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=09/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=11/11/2026`
 
 ## dlsp — Dívida líquida do setor público (DLSP)
 
@@ -152,7 +152,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=09/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=11/11/2026`
 
 ## focus_anual — Expectativas de mercado (Focus) — indicadores anuais, mediana
 
@@ -164,9 +164,9 @@
 - **Nome oficial retornado pela fonte:** IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário
 - **Observações:** IPCA anual vem da série focus_ipca (painel Conjuntura).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-12'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-12'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-12'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-14'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-14'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-14'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
   - … (6 requisições, uma por ano)
 
 ## focus_mensal_ipca — Expectativas de mercado (Focus) — IPCA mensal, mediana
@@ -179,7 +179,7 @@
 - **Nome oficial retornado pela fonte:** ExpectativaMercadoMensais: Indicador, Data, DataReferencia (MM/AAAA), Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
 - **Observações:** Horizonte observado em 16/10/2026: até 10/2028. Usado para compor a trajetória do IPCA em 12 meses (cálculo do CEE).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-09-25'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-09-27'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
 
 ## focus_12m_ipca — Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana
 
@@ -210,8 +210,8 @@
 - **Consulta pública:** https://doi.org/10.34894/FABVLR
 - **Termos de uso:** CC BY 4.0 (Penn World Table)
 - **Verificação (2026-10-20):** API do Dataverse (lista de arquivos do DOI 10.34894/FABVLR com checksum SHA-1); o arquivo enviado pela coordenação é idêntico (mesmo SHA-1)
-- **Nome oficial retornado pela fonte:** rgdpna "Real GDP at constant 2021 national prices (in mil. 2021US$)"; pop "Population (in millions)"; emp "Number of persons engaged (in millions)"; cgdpo "Output-side real GDP at current PPPs (in mil. 2021US$)"; pl_gdpo "Price level of CGDPo (PPP/XR), price level of USA GDPo in 2021=1"
-- **Observações:** Fonte estática (versão 11.0). Cita-se: Feenstra, Inklaar e Timmer (2015), American Economic Review 105(10).
+- **Nome oficial retornado pela fonte:** rgdpna "Real GDP at constant 2021 national prices (in mil. 2021US$)"; pop "Population (in millions)"; emp "Number of persons engaged (in millions)"; cgdpo "Output-side real GDP at current PPPs (in mil. 2021US$)"; pl_gdpo "Price level of CGDPo (PPP/XR), price level of USA GDPo in 2021=1"; csh_x "Share of merchandise exports at current PPPs"; csh_m "Share of merchandise imports at current PPPs"; pl_x "Price level of exports, price level of USA GDPo in 2021=1"; pl_m "Price level of imports, price level of USA GDPo in 2021=1"
+- **Observações:** Fonte estática (versão 11.0). Cita-se: Feenstra, Inklaar e Timmer (2015), American Economic Review 105(10). Apesar do rótulo "merchandise" na Legend, o guia do usuário (PWT 11.0, User guide to data files) informa que exportações e importações vêm das contas nacionais; conferido em 2026-11-11: (csh_x·pl_x − csh_m·pl_m)/pl_gdpo do Brasil em 2023 = 33,7 %, igual à razão (exportação + importação de bens e serviços)/PIB das Contas Nacionais Trimestrais do IBGE (SIDRA 1846, 2023: 33,67 %). Logo, cobre bens e serviços.
 - **Requisições da extração:**
   - `https://dataverse.nl/api/access/datafile/554105`
 
@@ -226,7 +226,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2018`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2019&dataFinal=31/12/2023`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=09/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=11/11/2026`
 
 ## comercio — Exportações e importações brasileiras de bens, total mensal
 

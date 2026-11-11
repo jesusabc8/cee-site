@@ -1,7 +1,7 @@
 ---
 /**
- * Convite a participar (Proposta §7.2–7.4): entrada aberta, mérito para progredir e assinar,
- * trilha formativa de oito sessões.
+ * Convite a participar (Estatuto, arts. 11 e 19; Regimento Interno, arts. 3º a 8º): convocatória aberta,
+ * carreira em cinco níveis, trilha formativa.
  */
 import Icon from '../ui/Icon.astro';
 import { href } from '../../i18n/routing';
@@ -12,14 +12,14 @@ const { lang } = Astro.props;
 const en = lang === 'en';
 const FATOS = en
   ? [
-    ['door-open', 'Open entry', 'No selection while there is more work than people. Everyone starts with a small, real task.'],
-    ['award', 'Progressive merit', 'From Participant to Area Coordinator, with written criteria. Merit counts for progressing and signing, not for entering.'],
-    ['graduation-cap', 'Training in method', 'Eight sessions per semester: data sources, reproducible workflow, version control, PNAD microdata, research design, growth accounting, technical writing and honest visualisation.'],
+    ['door-open', 'Open entry', 'Calls in February and August, with no test, no grade requirement and no prior programming or econometrics. If places run out, a public draw decides.'],
+    ['award', 'Five-level research career', 'From Participant (N1) to Senior Researcher (N5), with public cumulative criteria based on published outputs, verifications and reviews. Merit counts for progressing and for office, never for joining.'],
+    ['graduation-cap', 'Training track', 'In the first semester: research integrity, Brazilian data sources, R or Python and version control, technical writing and visualisation, reproducibility and peer review.'],
   ]
   : [
-    ['door-open', 'Entrada aberta', 'Sem seleção enquanto houver mais trabalho do que gente. Cada pessoa começa com uma tarefa pequena e real.'],
-    ['award', 'Mérito progressivo', 'De Participante a Coordenador de Área, com critérios escritos. O mérito vale para progredir e assinar, não para entrar.'],
-    ['graduation-cap', 'Formação em método', 'Oito sessões por semestre: fontes de dados, fluxo reproduzível, controle de versão, microdados da PNAD, desenho de pesquisa, contabilidade do crescimento, redação técnica e visualização honesta.'],
+    ['door-open', 'Ingresso aberto', 'Convocatórias em fevereiro e agosto, sem prova, sem exigência de nota e sem conhecimento prévio de programação ou econometria. Se faltarem vagas, decide o sorteio público.'],
+    ['award', 'Carreira em cinco níveis', 'De Participante (N1) a Pesquisador(a) Sênior (N5), com critérios públicos e cumulativos baseados em produtos publicados, verificações e revisões. O mérito vale para progredir e para os cargos, nunca para entrar.'],
+    ['graduation-cap', 'Trilha formativa', 'No primeiro semestre: integridade acadêmica, fontes de dados brasileiras, R ou Python e controle de versões, redação técnica e visualização, reprodutibilidade e revisão por pares.'],
   ];
 ---
 <section class="participe band-petrol" id="participe" aria-labelledby="part-t">
@@ -28,8 +28,8 @@ const FATOS = en
       <p class="eyebrow">{en ? 'Get involved' : 'Participe'}</p>
       <h2 id="part-t">{en ? 'Learn economic research by doing economic research.' : 'Aprenda a fazer pesquisa econômica fazendo pesquisa econômica.'}</h2>
       <p class="participe__lead">{en
-        ? 'Entry is open to Economics students from any campus and the distance-learning track. Responsibility grows with demonstrated quality, according to written, public criteria.'
-        : 'Entrada aberta a estudantes de Ciências Econômicas de qualquer campus e do EAD. A responsabilidade cresce com a qualidade demonstrada, segundo critérios escritos e públicos.'}</p>
+        ? 'Open to students of Economics and of other programmes whose contribution is relevant. Responsibility grows with proven output, according to written, public criteria.'
+        : 'Aberto a estudantes de Ciências Econômicas e de outros cursos cuja contribuição seja pertinente. A responsabilidade cresce com a produção comprovada, segundo critérios escritos e públicos.'}</p>
       <a class="btn btn--sky" href={href('/participe/', lang)}>{en ? 'How to get involved' : 'Como participar'} <Icon name="arrow-right" size={16} /></a>
     </div>
     <ul class="facts reveal" role="list">

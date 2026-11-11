@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import AreaPage from '../../../components/pesquisa/AreaPage.astro';
 
 export async function getStaticPaths() {
-  const areas = await getCollection('areas');
+  const areas = await getCollection('programas', (p) => p.data.tipo !== 'lente');
   return areas.map((area) => ({ params: { area: area.id }, props: { area } }));
 }
 const { area } = Astro.props;

@@ -1,0 +1,16 @@
+// Cloudflare Workers com arquivos estáticos (ADR-018). Sem código de Worker: só o conteúdo de ./dist,
+// com cabeçalhos em dist/_headers e redirecionamentos em dist/_redirects (copiados de public/).
+// Deploy: workflow build-deploy (cloudflare/wrangler-action). Teste local: npm run build && npx wrangler dev.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "cee-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": { "enabled": false }
+}

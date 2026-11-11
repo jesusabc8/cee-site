@@ -12,7 +12,7 @@ interface Props { pub: Pub; lang: Lang; headingLevel?: 'h2' | 'h3' }
 const { pub, lang, headingLevel = 'h3' } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const p = pub.data;
-const area = await getEntry('areas', p.area);
+const area = await getEntry('programas', p.area);
 const H = headingLevel;
 const titulo = k === 'en' && p.titulo_en ? p.titulo_en : p.titulo;
 const resumo = k === 'en' && p.resumo_en ? p.resumo_en : p.resumo;
@@ -21,7 +21,7 @@ const autores = p.autoria.map((a) => `${a.nome} (${a.funcao_credit.map((f) => CR
 <article class="pub-row" data-tipo={p.tipo} data-area={p.area} data-ano={p.data.getUTCFullYear()}
   data-autores={p.autoria.map((a) => a.nome).join('|')}>
   <p class="pub-row__meta meta">
-    <span class="pub-row__tipo">{TIPOS[p.tipo][k]}{p.numero && ` ${p.numero}`}</span>
+    <span class="pub-row__tipo">{TIPOS[p.tipo][k]}</span>
     <span aria-hidden="true">·</span>
     <time datetime={isoDate(p.data)}>{fmtDate(p.data, lang, 'short')}</time>
     {area && <><span aria-hidden="true">·</span> <span>{area.data.codigo} {area.data.nome[k]}</span></>}

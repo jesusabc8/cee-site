@@ -72,7 +72,7 @@ Paleta de dados: marinho `#0A2259`, azul `#3C8DCB`, aço `#4A7C96`, ardósia `#8
 O texto vem de `src/site.config.ts` (`institutionalLine`, `useUniversityName`).
 **Consequências.** Antes do lançamento, obter a autorização escrita (`docs/LANCAMENTO.md`). Se ela for negada, basta `useUniversityName: false` para retirar o nome.
 
-## ADR-013 — Pobreza pela SIS e abertura comercial de bens no "Brasil em números" (2026-10-20)
+## ADR-013 — Pobreza pela SIS e abertura comercial de bens no "Brasil em números" (2026-10-20) — abertura substituída pela ADR-019
 **Contexto.** A coordenação pediu trocar as fichas "Juro real ex ante" e "Focus · IPCA" por pobreza (IBGE) e grau de abertura comercial (com a API do ComexStat). Os dois indicadores retirados continuam no gráfico "Selic meta e juro real ex ante" e no gráfico do IPCA.
 **Pobreza.** Os indicadores ODS do SIDRA (tabelas 5817 e 5877) dão valores diferentes dos divulgados pelo IBGE: por exemplo, 26,5 % em 2024 contra 23,1 % na SIS. Além disso, a linha usada não está documentada na API. Por isso usa-se a **Síntese de Indicadores Sociais**, Tabela 2.18 (arquivo ODS oficial no FTP do IBGE), cujo cabeçalho declara a linha:
 - **pobreza** = menos de US$ 6,85 PPC 2017 por dia; **extrema pobreza** = menos de US$ 2,15;
@@ -125,3 +125,92 @@ O texto vem de `src/site.config.ts` (`institutionalLine`, `useUniversityName`).
 **Consequências.**
 - A regra "Capacidade primeiro" em Pesquisa passa a listar as quatro linhas do ano 1 (antes, três na Proposta).
 - Os gráficos do Panorama poderão ser redistribuídos entre A1, A2 e A3 à medida que esses painéis forem publicados.
+
+## ADR-017 — Substituição da Proposta v3.0 pelo Estatuto, Regimento e Manual; seis programas; Observatório como produto (2026-11-09)
+**Contexto.** A coordenação substituiu a Proposta v3.0 por três atos normativos em minuta: o Estatuto do CEE, o Regimento Interno e o Manual de Programas e Produtos.
+**Decisão.**
+- **Fonte de verdade**, nesta ordem: Estatuto > Regimento > Manual. As fontes ficam em `docs/fuentes/normas/` e fora do git até o repositório ser privado. Divergência sítio × documentos: prevalecem os documentos. Lacuna: registrar em `PENDIENTES`, sem inventar.
+- **Arquitetura** (Manual, Parte I):
+  - seis programas (A–F), mais o Transversal (T), em `src/data/programas.yaml`, que substitui `areas.yaml`;
+  - A, B, C e T estão ativos; D, E e F, em formação, e o rótulo deriva de `situacao`;
+  - lentes: Minas Gerais e Desenvolvimento Regional; Brasil Comparado;
+  - "Instituições e Capacidade do Estado" deixa de ser lente e vira o programa E.
+- **Observatório.** É um produto; seus painéis seguem os programas (Quadro 1):
+  - A1–A4, B1–B2 e C1–C3;
+  - D1, D2, E1 e F1 não são criados enquanto o programa estiver em formação;
+  - A2 continua sendo `/observatorio/conjuntura/` (Edição 1.0).
+- **Catálogo de produtos** (Manual, Parte II):
+  - DI, NC, AC, RS, NT, TD, RP, PB, BL e Relatório Anual, com identificador `CEE-XX AAAA/NN vN.N`;
+  - Working Paper passa a Texto para Discussão, com 301 de `/publicacoes/tipo/working-paper/`;
+  - Replicação e Edição especial saem do catálogo, porque não havia publicação real desses tipos.
+- **Carta de Princípios.** Retirada, com 301 para `/sobre/`, por estar superada pelo Estatuto (art. 7º).
+**Consequências.**
+- O esquema de publicações aceita `area` a–f e `transversal`, `linha` A–F e o campo `pergunta` (código do Manual).
+- As páginas Sobre, Governança, Participe, Metodologia, Contato e Privacidade foram reescritas a partir dos `.tex`.
+
+## ADR-018 — Repositório privado, publicação na Cloudflare e endurecimento de segurança (2026-11-10)
+
+**Contexto.** O repositório (com histórico, minutas e dados pessoais em metadados de commit) estava público e o sítio no
+GitHub Pages, sem controle de cabeçalhos. O sítio continua público; o repositório passará a privado.
+
+**Decisão.**
+- Publicação em **Cloudflare Workers com arquivos estáticos** (`wrangler.jsonc`, `assets.directory ./dist`,
+  `not_found_handling 404-page`), pelo workflow `build-deploy` com `cloudflare/wrangler-action`. As ações do GitHub Pages
+  foram retiradas, mas o Pages **não** foi desativado: o responsável o desativa depois de testar a URL `*.workers.dev` e
+  tornar o repositório privado (`docs/LANCAMENTO.md`).
+- **Cabeçalhos** em `public/_headers` (CSP, HSTS, nosniff, Referrer-Policy, Permissions-Policy, COOP, X-Frame-Options) e
+  **301** em `public/_redirects`. A CSP não tem `'unsafe-inline'` nem hashes: o build não gera nenhum script, estilo ou
+  manipulador inline (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`; cores de legenda e barras em atributos SVG;
+  cores dinâmicas do tooltip via CSSOM). O `security.csp` nativo do Astro 7 existe, mas entrega a política em `<meta>` com
+  hashes; somado à política do cabeçalho, exigiria manter as duas em sincronia — por isso a opção por externalizar tudo.
+  `'wasm-unsafe-eval'` fica por causa do Pagefind. Verificação: `docs/qa/normas-2026-11/` (zero violações).
+- **Nada interno em `dist/`:** `npm run qa:seguranca` (e-mails, telefone, CPF, chaves, arquivos proibidos, nomes da lista
+  fora do git ou do segredo `CEE_NOMES_PROIBIDOS`, link para o repositório, GIEF/FIEMG/FGV), no CI e antes do deploy.
+  Links para o repositório retirados; código de replicação por `codigo_url` ou "disponível mediante solicitação ao CEE".
+- **Cadeia de dependências:** Actions fixadas por SHA; `permissions: contents: read` (só `data-refresh` escreve e não lê
+  os segredos da Cloudflare, que ficam no environment `cloudflare`); Dependabot semanal; `npm ci --ignore-scripts`;
+  `npm audit --audit-level=high` e gitleaks (binário oficial com SHA-256 fixado, sem serviço de licença) no CI.
+  Para zerar os achados altos: vitest 4.1.12, lighthouse 13.6.0 (13 dias de publicado; mantido pelo Google e só usado no
+  QA), `undici` 7.30.1 por `overrides` (dependência do wrangler) e retirada do `wait-on`. A instalação do vitest 4 exigiu o
+  npm 11.21.1 (o npm 10.9.4 falha com `edgesOut` no resolvedor de peers); o lockfile v3 resultante funciona com o npm 10 do CI.
+
+**Transição (2026-11-11).** Até a Cloudflare estar configurada, o `build-deploy` mantém um job `pages` (GitHub Pages, Actions
+fixadas por SHA) para que o sítio no ar continue sendo atualizado; o job `cloudflare` só roda quando a variável `SITE_URL`
+existir. Com `PAGES_ATIVO=false`, o job `pages` deixa de rodar. No Pages não há CSP nem 301 por cabeçalho (`_headers` e
+`_redirects` são ignorados).
+
+**Consequências.** A Cloudflare só publica depois que o responsável criar o token, os segredos e a variável `SITE_URL`. DOI por depósito direto no
+Zenodo (a integração GitHub–Zenodo exige repositório público).
+
+## ADR-019 — Abertura comercial pela Penn World Table 11.0 (2026-11-11)
+
+**Contexto.** A coordenação pediu que a ficha "Abertura comercial" do "Brasil em números" passe a ser calculada com a
+PWT 11.0. O cálculo anterior (ADR-013) **não estava errado**, mas media outro conceito: só **bens** (ComexStat, US$ FOB) sobre
+o PIB em US$, mensal em 12 meses (2023: 26,5 %). O indicador usual de abertura (por exemplo, NE.TRD.GNFS.ZS do Banco Mundial)
+inclui **bens e serviços** das contas nacionais.
+
+**O que a PWT mede.** Na Legend, `csh_x` e `csh_m` aparecem como "Share of merchandise exports/imports at current PPPs", em
+proporção do `cgdpo`, com `csh_m` negativo por convenção. O guia do usuário informa, porém, que exportações e importações vêm
+das contas nacionais. A conferência numérica confirma: a razão recuperada para o Brasil em 2023 (33,7 %) é igual à das Contas
+Nacionais Trimestrais do IBGE (SIDRA 1846: (1.966.445 + 1.717.767) / 10.943.344 = 33,67 %). Logo, a cobertura é de bens e
+serviços, e o rótulo "merchandise" não descreve a cobertura.
+
+**Decisão.**
+- **Ficha:** abertura a preços correntes recuperada da PWT por identidade:
+  `(csh_x × pl_x − csh_m × pl_m) / pl_gdpo × 100`, porque `csh_x = (X/PIB) × (pl_gdpo / pl_x)`.
+  - Os níveis de preço se cancelam, de modo que o resultado não depende da extrapolação de `pl_x` e `pl_m` (`i_xm`
+    "Extrapolated" desde 2016).
+  - Série anual de 1950 a 2023; a ficha mostra 2023 e o minigráfico, 2014–2023.
+- **Versão em PPC** (`csh_x − csh_m`; 2023: 28,2 %): vai só no CSV, como coluna `abertura_ppc`. Não é o indicador
+  convencional.
+  - Ela avalia o comércio pelos preços relativos de exportação e importação e o PIB pela PPC do produto. Por isso, mistura
+    volume de comércio com nível de preços relativo do país.
+  - Para a ideia de "abertura real", ver Alcalá e Ciccone (2004), *Quarterly Journal of Economics* 119(2).
+- **Série anterior:** a série de bens do ComexStat continua derivada em `abertura_bens.csv`, sem exibição. As extrações não
+  foram apagadas.
+
+**Consequências.**
+- A ficha perde atualidade: o último ano é 2023, ante set/2026 na série mensal de bens. A próxima atualização depende de
+  uma nova versão da PWT.
+- O nível sobe de cerca de 26 % para 34 %, porque passam a entrar os serviços e a fonte passa a ser
+  as contas nacionais.
