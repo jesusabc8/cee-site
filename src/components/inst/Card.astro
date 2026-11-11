@@ -1,0 +1,26 @@
+---
+/** Cartão com ícone (ou número), título e texto curto. */
+import Icon from '../ui/Icon.astro';
+interface Props { titulo: string; icone?: string; num?: string | number; destaque?: boolean }
+const { titulo, icone, num, destaque = false } = Astro.props;
+---
+<article class:list={['card', { 'card--destaque': destaque }]}>
+  <header class="card__head">
+    {num !== undefined ? <span class="card__num" aria-hidden="true">{String(num).padStart(2, '0')}</span> : icone && <span class="card__icone"><Icon name={icone} size={20} /></span>}
+    <h3 class="card__tit">{titulo}</h3>
+  </header>
+  <div class="card__txt"><slot /></div>
+</article>
+<style>
+  .card { position: relative; display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 22px 22px 20px; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--petrol); transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s; }
+  .card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); border-top-color: var(--navy); }
+  .card--destaque { background: var(--paper); border-top-color: var(--navy); }
+  .card__head { display: flex; align-items: center; gap: 12px; }
+  .card__icone { display: grid; place-items: center; flex: none; width: 40px; height: 40px; color: var(--navy); background: var(--mist); border-radius: 2px; }
+  .card__num { flex: none; font: 600 1.25rem / 1 var(--mono); color: var(--petrol); letter-spacing: -0.02em; }
+  .card__tit { margin: 0; padding: 0; border: 0; font: 600 1.0625rem / 1.3 var(--sans); color: var(--navy); letter-spacing: -0.005em; }
+  .card__txt :global(p) { margin: 0; max-width: none; font-size: 0.96875rem; line-height: 1.6; color: #34465c; }
+  .card__txt :global(p + p) { margin-top: 0.6em; }
+  .card__txt :global(ul) { margin: 0; padding-left: 1.1em; font-size: 0.9375rem; line-height: 1.55; color: #34465c; }
+  @media (prefers-reduced-motion: reduce) { .card, .card:hover { transition: none; transform: none; } }
+</style>

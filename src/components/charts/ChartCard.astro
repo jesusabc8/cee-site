@@ -9,15 +9,16 @@ import { renderSvg } from '../../lib/viz/render';
 import type { Grafico } from '../../lib/panorama';
 import type { Lang } from '../../i18n/ui';
 
-interface Props { g: Grafico; lang: Lang; nivel?: 'h2' | 'h3' | 'h4' }
-const { g, lang, nivel = 'h3' } = Astro.props;
+/** preRender=false: sem SVG no HTML (o navegador desenha ao exibir). Para fichas que nascem ocultas e só abrem com JS. */
+interface Props { g: Grafico; lang: Lang; nivel?: 'h2' | 'h3' | 'h4'; preRender?: boolean }
+const { g, lang, nivel = 'h3', preRender = true } = Astro.props;
 const H = nivel;
 const en = lang === 'en';
 const s = g.spec;
 const xMax = Math.max(...s.series.flatMap((x) => x.points.map((p) => p.x)));
 const def = s.ranges?.find((r) => r.id === s.defaultRange) ?? s.ranges?.[0];
 const xFrom = def?.years ? Date.UTC(new Date(xMax).getUTCFullYear() - def.years, new Date(xMax).getUTCMonth(), 1) : undefined;
-const svg = renderSvg(s, g.largo ? 1100 : 540, xFrom);
+const svg = preRender ? renderSvg(s, g.largo ? 1100 : 540, xFrom) : '';
 const nf = new Intl.NumberFormat(lang, { maximumFractionDigits: 4 });
 const cell = (v: string | number | null) => (v === null || v === '' ? '—' : typeof v === 'number' ? nf.format(v) : v);
 const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));

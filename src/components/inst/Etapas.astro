@@ -1,0 +1,11 @@
+---
+/** Sequência numerada: horizontal (ciclo curto) ou vertical (fluxo longo, linha do tempo). */
+interface Props { orientacao?: 'h' | 'v'; rotulo?: string }
+const { orientacao = 'v', rotulo } = Astro.props;
+---
+<ol class:list={['etapas', `etapas--${orientacao}`]} aria-label={rotulo}><slot /></ol>
+<style>
+  .etapas { list-style: none; margin: 1.6em 0 0; padding: 0; counter-reset: etapa; }
+  .etapas--h { display: grid; gap: 0; border-top: 2px solid var(--navy); }
+  @media (min-width: 48rem) { .etapas--h { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); } }
+</style>

@@ -4,22 +4,44 @@ descricao: Fluxo editorial, revisão mínima e prazos por produto, normas comuns
 eyebrow: Institucional
 bajada: Todo número publicado deve ser reexecutável a partir dos dados de origem e é conferido por pessoa distinta dos autores. Nenhum autor revisa ou decide sobre a publicação do próprio trabalho.
 fonte_normas: "Estatuto, arts. 37 e 55 a 59; Regimento Interno, arts. 24 e 44 a 48; Manual de Programas e Produtos, Parte II (normas comuns, Quadros 2 e 3) e Anexos G e H"
-atualizado: 2026-11-09
+atualizado: 2026-11-11
 ---
 import Box from '../../../components/Box.astro';
+import Destaque from '../../../components/inst/Destaque.astro';
+import Numeros from '../../../components/inst/Numeros.astro';
+import Cards from '../../../components/inst/Cards.astro';
+import Card from '../../../components/inst/Card.astro';
+import Etapas from '../../../components/inst/Etapas.astro';
+import Etapa from '../../../components/inst/Etapa.astro';
+import Checklist from '../../../components/inst/Checklist.astro';
+
+<Destaque rotulo="Princípio do protocolo" icone="shield-check">
+
+Todo número publicado deve ser reexecutável a partir dos dados de origem e é conferido por pessoa distinta dos autores. Nenhum autor revisa ou decide sobre a publicação do próprio trabalho.
+
+</Destaque>
+
+<Numeros itens={[
+  { valor: '8', rotulo: 'etapas do fluxo editorial', nota: 'Regimento, art. 46' },
+  { valor: '9', rotulo: 'séries com identificador', nota: 'Manual, Parte II (DI a BL)' },
+  { valor: '7', rotulo: 'dias corridos para o aviso de errata', nota: 'Regimento, art. 47' },
+  { valor: '13', rotulo: 'itens na lista de verificação', nota: 'Manual, Anexo H' },
+]} />
 
 ## Fluxo editorial
 
 Todo produto segue, nesta ordem, o fluxo do Regimento Interno (art. 46):
 
-1. **Registro da proposta** junto ao Coordenador de Programa, com pergunta, fontes, período e método (formulário do Anexo G do Manual), indicando o programa e a pergunta do Manual a que responde.
-2. **Elaboração** com dados e código em repositório do CEE, com histórico de versões.
-3. **Verificação numérica** por pessoa distinta dos autores, que reexecuta o código e confere cada número, tabela e gráfico, com relatório de conferência.
-4. **Revisão editorial.**
-5. **Parecer docente de conteúdo e parecer externo**, quando exigidos.
-6. **Submissão ao Comitê Editorial** com todos os registros de revisão e a lista de verificação do Anexo H do Manual.
-7. **Publicação** com identificação de versão, data, autores segundo a taxonomia CRediT, fontes, licença e aviso de responsabilidade.
-8. **Divulgação** pela Chefia de Comunicação e Marketing.
+<Etapas rotulo="Etapas do fluxo editorial">
+  <Etapa titulo="Registro da proposta"><p>Junto ao Coordenador de Programa, com pergunta, fontes, período e método (formulário do Anexo G do Manual), indicando o programa e a pergunta do Manual a que responde.</p></Etapa>
+  <Etapa titulo="Elaboração"><p>Com dados e código em repositório do CEE, com histórico de versões.</p></Etapa>
+  <Etapa titulo="Verificação numérica"><p>Por pessoa distinta dos autores, que reexecuta o código e confere cada número, tabela e gráfico, com relatório de conferência.</p></Etapa>
+  <Etapa titulo="Revisão editorial"><p>Conforme a revisão mínima exigida pela série (ver a seção seguinte).</p></Etapa>
+  <Etapa titulo="Pareceres"><p>Parecer docente de conteúdo e parecer externo, quando exigidos pela série.</p></Etapa>
+  <Etapa titulo="Submissão ao Comitê Editorial"><p>Com todos os registros de revisão e a lista de verificação do Anexo H do Manual.</p></Etapa>
+  <Etapa titulo="Publicação"><p>Com identificação de versão, data, autores segundo a taxonomia CRediT, fontes, licença e aviso de responsabilidade.</p></Etapa>
+  <Etapa titulo="Divulgação"><p>Pela Chefia de Comunicação e Marketing.</p></Etapa>
+</Etapas>
 
 O Comitê Editorial decide cada submissão com uma das seguintes decisões fundamentadas: aprovar; aprovar com ajustes menores; devolver para revisão; ou rejeitar. A Diretoria Colegiada não pode revogar decisão editorial nem dispensar revisão. Enquanto não houver composição independente do Comitê, a publicação aguarda.
 
@@ -53,13 +75,18 @@ O produto que não atende às exigências após o número máximo de rodadas é 
 
 ## Normas comuns a todos os produtos
 
-- **Identificação.** Cada produto recebe série, número sequencial no ano e versão, no formato `CEE-NT 2027/03 v1.0`, e identifica programa, pergunta, fontes, período, método, limitações, responsáveis e versão.
-- **Dados, código e verificação.** Todo número publicado é reexecutável a partir dos dados de origem; dados, código e registro de conferência ficam no repositório do CEE. Quando o código de replicação não é público, a publicação informa: “Código disponível mediante solicitação ao CEE”.
-- **Gráficos e tabelas.** Número, título informativo em frase completa, unidade de medida, nota quando necessária e fonte com período. Sem gráficos tridimensionais, sem eixos truncados sem aviso e sem cor como único meio de distinguir séries. Neste sítio, cada gráfico traz também tabela alternativa e arquivo CSV.
-- **Citações e referências.** Sistema autor-data (ABNT NBR 10520:2023), com lista de referências conforme a ABNT NBR 6023:2018; produtos em inglês podem seguir o estilo APA.
-- **Linguagem.** Português claro, frases curtas, uma ideia por parágrafo, termos técnicos definidos na primeira ocorrência; sem adjetivos sem base em evidência nem linguagem partidária. Fatos, interpretações e cenários são distinguidos.
-- **Recomendações.** Só em Notas Técnicas, Textos para Discussão, Relatórios de Projeto e nos Policy Briefs deles derivados, em seção própria, separada da evidência e acompanhada de seus limites. Os demais produtos descrevem e analisam; não recomendam.
-- **Aviso de responsabilidade e licença.** “As opiniões expressas são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.” A Avaliação de Conjuntura acrescenta que expressa o juízo colegiado da Diretoria. Licença Creative Commons Atribuição 4.0 (CC BY 4.0), salvo restrição de terceiros.
+<Cards cols={2}>
+  <Card titulo="Identificação" icone="fingerprint"><p>Cada produto recebe série, número sequencial no ano e versão, no formato <code>CEE-NT 2027/03 v1.0</code>, e identifica programa, pergunta, fontes, período, método, limitações, responsáveis e versão.</p></Card>
+  <Card titulo="Dados, código e verificação" icone="database"><p>Todo número publicado é reexecutável a partir dos dados de origem; dados, código e registro de conferência ficam no repositório do CEE. Quando o código de replicação não é público, a publicação informa: “Código disponível mediante solicitação ao CEE”.</p></Card>
+  <Card titulo="Gráficos e tabelas" icone="line-chart"><p>Número, título informativo em frase completa, unidade, nota quando necessária e fonte com período. Sem gráficos tridimensionais, sem eixos truncados sem aviso e sem cor como único meio de distinguir séries. Neste sítio, cada gráfico traz também tabela alternativa e arquivo CSV.</p></Card>
+  <Card titulo="Citações e referências" icone="book-marked"><p>Sistema autor-data (ABNT NBR 10520:2023), com lista de referências conforme a ABNT NBR 6023:2018; produtos em inglês podem seguir o estilo APA.</p></Card>
+  <Card titulo="Linguagem" icone="scroll-text"><p>Português claro, frases curtas, uma ideia por parágrafo, termos técnicos definidos na primeira ocorrência; sem adjetivos sem base em evidência nem linguagem partidária. Fatos, interpretações e cenários são distinguidos.</p></Card>
+  <Card titulo="Recomendações" icone="scale"><p>Só em Notas Técnicas, Textos para Discussão, Relatórios de Projeto e nos Policy Briefs deles derivados, em seção própria, separada da evidência e acompanhada de seus limites. Os demais produtos descrevem e analisam; não recomendam.</p></Card>
+</Cards>
+
+<Box variant="note" title="Aviso de responsabilidade e licença">
+  <p>“As opiniões expressas são de responsabilidade dos autores e não representam a posição da Pontifícia Universidade Católica de Minas Gerais.” A Avaliação de Conjuntura acrescenta que expressa o juízo colegiado da Diretoria. Licença Creative Commons Atribuição 4.0 (CC BY 4.0), salvo restrição de terceiros.</p>
+</Box>
 
 ## Versões, vintages e citação
 
@@ -74,7 +101,15 @@ O produto que não atende às exigências após o número máximo de rodadas é 
 
 ## Erratas, notas de preocupação e retratações
 
-Constatado erro material em produto publicado, o Comitê Editorial publica **aviso vinculado ao produto em até sete dias corridos** e errata com data, versão e efeitos sobre resultados e conclusões tão logo concluída a correção. A **nota de preocupação** é emitida quando há dúvida relevante pendente de apuração; a **retratação**, quando a confiabilidade, a autoria ou a regularidade estão substancialmente comprometidas. Antes de uma ou outra, os autores têm cinco dias úteis para se manifestar. A retratação registra razões, alcance e histórico, sem presumir culpa pessoal. O arquivo original permanece acessível; correção silenciosa não é admitida. Todas as erratas ficam no [registro público de erratas](../erratas/).
+Constatado erro material em produto publicado, o Comitê Editorial publica **aviso vinculado ao produto em até sete dias corridos** e errata com data, versão e efeitos sobre resultados e conclusões tão logo concluída a correção. O arquivo original permanece acessível; correção silenciosa não é admitida.
+
+<Cards cols={3}>
+  <Card titulo="Errata" icone="rotate-ccw"><p>Erro material: aviso em até sete dias corridos e errata com data, versão e efeitos sobre resultados e conclusões.</p></Card>
+  <Card titulo="Nota de preocupação" icone="triangle-alert"><p>Quando há dúvida relevante pendente de apuração. Os autores têm cinco dias úteis para se manifestar.</p></Card>
+  <Card titulo="Retratação" icone="ban"><p>Quando a confiabilidade, a autoria ou a regularidade estão substancialmente comprometidas. Registra razões, alcance e histórico, sem presumir culpa pessoal.</p></Card>
+</Cards>
+
+Todas as erratas ficam no [registro público de erratas](../erratas/).
 
 ## Autoria por função (CRediT)
 
@@ -94,19 +129,21 @@ O uso de ferramentas de inteligência artificial na coleta de dados, na programa
 
 Resumo do Anexo H do Manual, aplicado a todo produto antes de ir ao Comitê Editorial:
 
-- Série, número, versão, data, programa e pergunta identificados.
-- Extensão dentro do limite da série.
-- Conclusão principal no início do texto.
-- Cada número, tabela e gráfico conferido pelo verificador, com relatório no repositório.
-- Gráficos e tabelas com título, unidade, nota e fonte com período.
-- Dados e código no repositório, reexecutáveis a partir da fonte.
-- Fatos, interpretações e cenários claramente distinguidos.
-- Recomendações, se houver, apenas em série que as admite e em seção própria.
-- Referências completas no sistema autor-data.
-- Autoria conforme CRediT; agradecimentos a revisores e verificadores.
-- Declaração de uso de ferramentas de inteligência artificial.
-- Pareceres exigidos anexados.
-- Aviso de responsabilidade e licença.
+<Checklist rotulo="Lista de verificação antes da submissão" itens={[
+  'Série, número, versão, data, programa e pergunta identificados.',
+  'Extensão dentro do limite da série.',
+  'Conclusão principal no início do texto.',
+  'Cada número, tabela e gráfico conferido pelo verificador, com relatório no repositório.',
+  'Gráficos e tabelas com título, unidade, nota e fonte com período.',
+  'Dados e código no repositório, reexecutáveis a partir da fonte.',
+  'Fatos, interpretações e cenários claramente distinguidos.',
+  'Recomendações, se houver, apenas em série que as admite e em seção própria.',
+  'Referências completas no sistema autor-data.',
+  'Autoria conforme CRediT; agradecimentos a revisores e verificadores.',
+  'Declaração de uso de ferramentas de inteligência artificial.',
+  'Pareceres exigidos anexados.',
+  'Aviso de responsabilidade e licença.',
+]} />
 
 <Box variant="note" title="O que o sítio verifica automaticamente">
   <p>Ao gerar o sítio, cada publicação é validada contra o catálogo: identificador coerente com tipo, ano e versão; recomendações apenas nas séries que as admitem; resumo, palavras-chave e códigos JEL no Texto para Discussão; origem existente no Policy Brief; modalidade no Blog; e prazo do aviso de errata. A extensão fora da faixa do Manual gera alerta. Os demais itens dependem dos revisores.</p>

@@ -364,6 +364,147 @@ export function panorama(lang: Lang) {
   return { graficos, estabilizacao: estab, fonteEstab: [fonte('dbgg'), fonte('primario'), fonte('focus_anual'), fonte('focus_ipca')] };
 }
 
+/**
+ * Vista detalhada de cada ficha do "Brasil em números" (clique na ficha): um gráfico por indicador, com id próprio
+ * (prefixo "bn-", para não repetir os ids dos gráficos do Panorama na mesma página) e períodos padronizados.
+ * Reaproveita os gráficos do Panorama e do painel de Conjuntura; conta corrente, resultado primário, abertura e
+ * pobreza têm gráfico próprio aqui. Títulos, subtítulos e tabelas saem do dado.
+ */
+export function detalhesIndicadores(lang: Lang, desocupacao: Grafico): Record<string, Grafico> {
+  const en = lang === 'en';
+  const nf = (v: number, d = 1) => fmtNum(v, d, lang);
+  const fx = (x: number, f: 'month' | 'quarter' | 'year' | 'day') => fmtX(x, f, lang);
+  const RANGES = (lista: [string, number | null][]) => lista.map(([id, years]) => ({
+    id, years, label: years === null ? (en ? 'All' : 'Tudo') : `${years} ${en ? 'years' : 'anos'}`,
+  }));
+  const PADRAO = RANGES([['5a', 5], ['10a', 10], ['tudo', null]]);
+  const doPanorama = Object.fromEntries(panorama(lang).graficos.map((g) => [g.id, g]));
+  const clone = (g: Grafico, ranges = PADRAO, defaultRange = '10a'): Grafico => {
+    const id = `bn-${g.id.replace(/^grafico-/, '')}`;
+    return { ...g, id, largo: true, spec: { ...g.spec, id, ranges, defaultRange } };
+  };
+  const out: Record<string, Grafico> = {
+    pib: clone(doPanorama['grafico-pib']!),
+    ipca: clone(doPanorama['grafico-ipca-meta']!),
+    selic: clone(doPanorama['grafico-juros']!),
+    cambio: clone(doPanorama['grafico-cambio']!),
+    dbgg: clone(doPanorama['grafico-divida']!),
+    desocupacao: clone(desocupacao),
+  };
+
+  // Conta corrente
+  {
+    const cc = ler('panorama', 'conta_corrente');
+    const u = cc.at(-1)!;
+    const v = n(u.transacoes_correntes_pib)!;
+    out.conta_corrente = clone({
+      id: 'conta-corrente', bloco: 'atividade', icone: 'globe', rotulo: en ? 'External sector' : 'Setor externo',
+      titulo: en ? 'Current account balance' : 'Saldo em transações correntes',
+      subtitulo: en
+        ? `In the 12 months to ${fx(mes(u.periodo!), 'month')}, the current account ${v < 0 ? 'deficit' : 'surplus'} was ${nf(Math.abs(v), 2)}% of GDP.`
+        : `Nos 12 meses até ${fx(mes(u.periodo!), 'month')}, o ${v < 0 ? 'déficit' : 'superávit'} em transações correntes foi de ${nf(Math.abs(v), 2)}% do PIB.`,
+      unidade: en ? '% of GDP, 12-month sum' : '% do PIB, acumulado em 12 meses',
+      descricao: en ? 'Monthly current account balance as a share of GDP, 12-month sum; negative values are deficits.' : 'Saldo mensal em transações correntes em proporção do PIB, acumulado em 12 meses; valores negativos são déficits.',
+      spec: {
+        id: 'conta-corrente', height: 320, xFormat: 'month', yDigits: 2, yUnit: '%', yTickSuffix: '%', zero: true, lang,
+        series: [{ id: 'cc', label: en ? 'Current account' : 'Transações correntes', endLabel: en ? 'Balance' : 'Saldo', color: COR.navy, width: 2.4, points: cc.map((r) => ({ x: mes(r.periodo!), y: n(r.transacoes_correntes_pib) })) }],
+      },
+      legenda: [{ id: 'cc', label: en ? 'Current account balance, % of GDP (12 months)' : 'Transações correntes, % do PIB (12 meses)', color: COR.navy, style: 'line' }],
+      fontes: [fonte('conta_corrente')], csv: [csvLink('panorama', 'conta_corrente')],
+      nota: en ? 'Series published by the Central Bank of Brazil (balance of payments, BPM6 methodology), already expressed as a share of GDP over 12 months.' : 'Série divulgada pelo Banco Central do Brasil (balanço de pagamentos, metodologia BPM6), já expressa em proporção do PIB em 12 meses.',
+      tabela: { colunas: [en ? 'Month' : 'Mês', en ? '% of GDP' : '% do PIB'], linhas: [...cc].reverse().map((r) => [fx(mes(r.periodo!), 'month'), n(r.transacoes_correntes_pib)]) },
+    });
+  }
+
+  // Resultado primário
+  {
+    const pr = ler('panorama', 'primario');
+    const u = pr.at(-1)!;
+    const v = n(u.superavit_primario_pib)!;
+    out.primario = clone({
+      id: 'primario', bloco: 'fiscal', icone: 'wallet', rotulo: en ? 'Fiscal' : 'Fiscal',
+      titulo: en ? 'Primary balance of the consolidated public sector' : 'Resultado primário do setor público consolidado',
+      subtitulo: en
+        ? `In the 12 months to ${fx(mes(u.periodo!), 'month')}, the consolidated public sector ran a primary ${v < 0 ? 'deficit' : 'surplus'} of ${nf(Math.abs(v), 2)}% of GDP.`
+        : `Nos 12 meses até ${fx(mes(u.periodo!), 'month')}, o setor público consolidado teve ${v < 0 ? 'déficit' : 'superávit'} primário de ${nf(Math.abs(v), 2)}% do PIB.`,
+      unidade: en ? '% of GDP, 12 months (+ surplus, − deficit)' : '% do PIB, 12 meses (+ superávit, − déficit)',
+      descricao: en ? 'Primary balance of the consolidated public sector over 12 months as a share of GDP; positive values are surpluses.' : 'Resultado primário do setor público consolidado em 12 meses, em proporção do PIB; valores positivos são superávits.',
+      spec: {
+        id: 'primario', height: 320, xFormat: 'month', yDigits: 2, yUnit: '%', yTickSuffix: '%', zero: true, lang,
+        series: [{ id: 'prim', label: en ? 'Primary balance' : 'Resultado primário', endLabel: en ? 'Balance' : 'Resultado', color: COR.navy, width: 2.4, points: pr.map((r) => ({ x: mes(r.periodo!), y: n(r.superavit_primario_pib) })) }],
+      },
+      legenda: [{ id: 'prim', label: en ? 'Primary balance, % of GDP (12 months)' : 'Resultado primário, % do PIB (12 meses)', color: COR.navy, style: 'line' }],
+      fontes: [fonte('primario')], csv: [csvLink('panorama', 'primario')],
+      nota: en ? 'The Central Bank publishes the public sector borrowing requirement (NFSP, series 5793), where positive values are deficits; CEE inverts the sign so that positive values are surpluses. The debt-stabilising primary balance is in the Panorama.' : 'O Banco Central divulga as necessidades de financiamento do setor público (NFSP, série 5793), em que valores positivos são déficits; o CEE inverte o sinal para que valores positivos sejam superávits. O primário que estabiliza a dívida está no Panorama.',
+      tabela: { colunas: [en ? 'Month' : 'Mês', en ? 'Primary balance (% of GDP)' : 'Resultado primário (% do PIB)', en ? 'NFSP (% of GDP)' : 'NFSP (% do PIB)'], linhas: [...pr].reverse().map((r) => [fx(mes(r.periodo!), 'month'), n(r.superavit_primario_pib), n(r.nfsp_primario_pib)]) },
+    });
+  }
+
+  // Abertura comercial (PWT 11.0; ADR-019)
+  {
+    const ab = ler('panorama', 'abertura');
+    const u = ab.at(-1)!;
+    const a = Number(u.ano);
+    out.abertura = clone({
+      id: 'abertura', bloco: 'atividade', icone: 'ship', rotulo: 'PWT 11.0',
+      titulo: en ? 'Trade openness: exports plus imports of goods and services' : 'Abertura comercial: exportações mais importações de bens e serviços',
+      subtitulo: en
+        ? `In ${a}, exports and imports of goods and services added up to ${nf(n(u.abertura_pib)!)}% of GDP (exports ${nf(n(u.exportacoes_pib)!)}%; imports ${nf(n(u.importacoes_pib)!)}%).`
+        : `Em ${a}, exportações e importações de bens e serviços somaram ${nf(n(u.abertura_pib)!)}% do PIB (exportações, ${nf(n(u.exportacoes_pib)!)}%; importações, ${nf(n(u.importacoes_pib)!)}%).`,
+      unidade: en ? '% of GDP, current prices' : '% do PIB, preços correntes',
+      descricao: en ? `Trade openness of Brazil, ${ab[0]!.ano}–${a}, with exports and imports shown separately.` : `Abertura comercial do Brasil, ${ab[0]!.ano}–${a}, com exportações e importações separadas.`,
+      spec: {
+        id: 'abertura', height: 320, xFormat: 'year', yDigits: 1, yUnit: '%', yTickSuffix: '%', zero: true, lang,
+        series: [
+          { id: 'imp', label: en ? 'Imports' : 'Importações', endLabel: en ? 'Imports' : 'Importações', color: COR.steel, width: 1.8, dash: '2 3', points: ab.map((r) => ({ x: ano(Number(r.ano)), y: n(r.importacoes_pib) })) },
+          { id: 'exp', label: en ? 'Exports' : 'Exportações', endLabel: en ? 'Exports' : 'Exportações', color: COR.azure, width: 1.8, dash: '6 3', points: ab.map((r) => ({ x: ano(Number(r.ano)), y: n(r.exportacoes_pib) })) },
+          { id: 'ab', label: en ? 'Openness' : 'Abertura', endLabel: en ? 'Openness' : 'Abertura', color: COR.navy, width: 2.6, points: ab.map((r) => ({ x: ano(Number(r.ano)), y: n(r.abertura_pib) })) },
+        ],
+      },
+      legenda: [
+        { id: 'ab', label: en ? '(Exports + imports) ÷ GDP' : '(Exportações + importações) ÷ PIB', color: COR.navy, style: 'line' },
+        { id: 'exp', label: en ? 'Exports ÷ GDP' : 'Exportações ÷ PIB', color: COR.azure, style: 'dash' },
+        { id: 'imp', label: en ? 'Imports ÷ GDP' : 'Importações ÷ PIB', color: COR.steel, style: 'dash' },
+      ],
+      fontes: [fonte('pwt', 'PWT 11.0: csh_x, csh_m, pl_x, pl_m, pl_gdpo')], csv: [csvLink('panorama', 'abertura')],
+      nota: en
+        ? 'Calculated by CEE from Penn World Table 11.0: (csh_x·pl_x − csh_m·pl_m) / pl_gdpo, which recovers the ratio at current prices from shares valued at current PPPs. Exports and imports come from the national accounts (goods and services); in 2023 the result matches IBGE’s quarterly national accounts (33.67%). The CSV also has the PPP-valued share (csh_x − csh_m), which is not the conventional indicator.'
+        : 'Calculado pelo CEE com a Penn World Table 11.0: (csh_x·pl_x − csh_m·pl_m) / pl_gdpo, que recupera a razão a preços correntes a partir das participações em PPC correntes. Exportações e importações vêm das contas nacionais (bens e serviços); em 2023 o resultado coincide com as Contas Nacionais Trimestrais do IBGE (33,67%). O CSV traz também a participação em PPC (csh_x − csh_m), que não é o indicador convencional.',
+      tabela: { colunas: [en ? 'Year' : 'Ano', en ? 'Openness (%)' : 'Abertura (%)', en ? 'Exports (%)' : 'Exportações (%)', en ? 'Imports (%)' : 'Importações (%)'], linhas: [...ab].reverse().map((r) => [r.ano!, n(r.abertura_pib), n(r.exportacoes_pib), n(r.importacoes_pib)]) },
+    }, RANGES([['10a', 10], ['30a', 30], ['tudo', null]]), 'tudo');
+  }
+
+  // Pobreza (SIS, Tabela 2.18)
+  {
+    const pb = ler('panorama', 'pobreza');
+    const u = pb.at(-1)!;
+    out.pobreza = clone({
+      id: 'pobreza', bloco: 'atividade', icone: 'hand-coins', rotulo: en ? 'IBGE · SIS' : 'IBGE · SIS',
+      titulo: en ? 'Poverty and extreme poverty in Brazil' : 'Pobreza e extrema pobreza no Brasil',
+      subtitulo: en
+        ? `In ${u.ano}, ${nf(n(u.pobreza_us685_ppc2017)!)}% of the population lived on less than US$6.85 a day (2017 PPP) and ${nf(n(u.extrema_us215_ppc2017)!)}% on less than US$2.15 (extreme poverty).`
+        : `Em ${u.ano}, ${nf(n(u.pobreza_us685_ppc2017)!)}% da população vivia com menos de US$ 6,85 por dia (PPC 2017) e ${nf(n(u.extrema_us215_ppc2017)!)}% com menos de US$ 2,15 (extrema pobreza).`,
+      unidade: en ? '% of the population' : '% da população',
+      descricao: en ? `Share of the population below the World Bank poverty lines, ${pb[0]!.ano}–${u.ano}.` : `Proporção da população abaixo das linhas de pobreza do Banco Mundial, ${pb[0]!.ano}–${u.ano}.`,
+      spec: {
+        id: 'pobreza', height: 320, xFormat: 'year', yDigits: 1, yUnit: '%', yTickSuffix: '%', zero: true, lang,
+        series: [
+          { id: 'ext', label: en ? 'Extreme poverty' : 'Extrema pobreza', endLabel: en ? 'Extreme' : 'Extrema', color: COR.azure, width: 2, dash: '6 3', markers: 'circle', points: pb.map((r) => ({ x: ano(Number(r.ano)), y: n(r.extrema_us215_ppc2017) })) },
+          { id: 'pob', label: en ? 'Poverty' : 'Pobreza', endLabel: en ? 'Poverty' : 'Pobreza', color: COR.navy, width: 2.6, markers: 'circle', points: pb.map((r) => ({ x: ano(Number(r.ano)), y: n(r.pobreza_us685_ppc2017) })) },
+        ],
+      },
+      legenda: [
+        { id: 'pob', label: en ? 'Below US$6.85 a day (2017 PPP)' : 'Abaixo de US$ 6,85 por dia (PPC 2017)', color: COR.navy, style: 'line' },
+        { id: 'ext', label: en ? 'Below US$2.15 a day (extreme poverty)' : 'Abaixo de US$ 2,15 por dia (extrema pobreza)', color: COR.azure, style: 'dash' },
+      ],
+      fontes: [fonte('pobreza')], csv: [csvLink('panorama', 'pobreza')],
+      nota: en ? 'IBGE, Síntese de Indicadores Sociais, Table 2.18 (household per capita income, PNAD Contínua). Lines in 2017 PPP; the next editions are expected to adopt the 2021 PPP lines, which will change the level of the series.' : 'IBGE, Síntese de Indicadores Sociais, Tabela 2.18 (rendimento domiciliar per capita, PNAD Contínua). Linhas em PPC 2017; as próximas edições devem adotar as linhas em PPC 2021, o que mudará o nível da série.',
+      tabela: { colunas: [en ? 'Year' : 'Ano', en ? 'Poverty (%)' : 'Pobreza (%)', en ? 'Extreme poverty (%)' : 'Extrema pobreza (%)'], linhas: [...pb].reverse().map((r) => [r.ano!, n(r.pobreza_us685_ppc2017), n(r.extrema_us215_ppc2017)]) },
+    }, RANGES([['5a', 5], ['10a', 10], ['tudo', null]]), 'tudo');
+  }
+  return out;
+}
+
 export interface Estabilizacao {
   formula: string; d: number; d_periodo: string; r: number; g: number; s_estrela: number;
   horizonte: { ano: number; selic: number; ipca: number; juro_real: number; pib: number }[];

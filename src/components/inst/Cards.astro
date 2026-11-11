@@ -1,0 +1,11 @@
+---
+/** Grade de cartões (2, 3 ou 4 colunas no desktop). */
+interface Props { cols?: 2 | 3 | 4; numerados?: boolean }
+const { cols = 3, numerados = false } = Astro.props;
+---
+<div class:list={['cards', `cards--${cols}`, { 'cards--num': numerados }]}><slot /></div>
+<style>
+  .cards { display: grid; gap: 16px; margin-top: 1.4em; counter-reset: card; }
+  @media (min-width: 40rem) { .cards--2, .cards--3, .cards--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 72rem) { .cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+</style>

@@ -4,15 +4,28 @@ descricao: How to join CEE — an open semiannual call, a training track, a five
 eyebrow: Participation
 bajada: Entry is open, with no test and no grade requirement. Merit counts for progressing in the career and for office, never for joining.
 fonte_normas: "Statute, arts. 9–19, 52–54 and 64; Internal Rules, arts. 3–10, 53–55 and 60 (summary; the Portuguese page is authoritative)"
-atualizado: 2026-11-09
+atualizado: 2026-11-11
 ---
 import Box from '../../../components/Box.astro';
+import Numeros from '../../../components/inst/Numeros.astro';
+import Cards from '../../../components/inst/Cards.astro';
+import Card from '../../../components/inst/Card.astro';
+import Etapas from '../../../components/inst/Etapas.astro';
+import Etapa from '../../../components/inst/Etapa.astro';
+
+<Numeros itens={[
+  { valor: 'Feb · Aug', rotulo: 'calls for new members', nota: 'Internal Rules, art. 3' },
+  { valor: '2–6 h', rotulo: 'indicative weekly commitment', nota: 'Statute, art. 53' },
+  { valor: '5', rotulo: 'levels in the research career', nota: 'Internal Rules, art. 8' },
+  { valor: '15 %', rotulo: 'cap on alumni and external members', nota: 'Statute, art. 10' },
+]} />
 
 ## Who can take part
 
-**Full members** are students enrolled at the University, in Economics or in other programmes whose contribution is relevant to the Centre, with the same rights (except for degree requirements for some offices). Joining requires no test, no grade average and no prior knowledge of programming or econometrics.
-
-Others can contribute without joining the management: **accredited collaborators** (alumni and students or researchers from other institutions, on a specific project), **collaborating faculty** and **guests**, for one-off contributions.
+<Cards cols={2}>
+  <Card titulo="Full members" icone="graduation-cap" destaque><p>Students enrolled at the University, in Economics or in other programmes whose contribution is relevant to the Centre, with the same rights (except for degree requirements for some offices). Joining requires no test, no grade average and no prior knowledge of programming or econometrics.</p></Card>
+  <Card titulo="Contributing without joining the management" icone="handshake"><p><strong>Accredited collaborators</strong> (alumni and students or researchers from other institutions, on a specific project), <strong>collaborating faculty</strong> and <strong>guests</strong>, for one-off contributions.</p></Card>
+</Cards>
 
 ## Call for new members
 
@@ -30,11 +43,13 @@ Others can contribute without joining the management: **accredited collaborators
 
 Every new member completes the training track in the first semester, with a Level 2 or higher member as reference for the first tasks:
 
-1. Mission, Statute, research protocols and academic integrity.
-2. Data sources on the Brazilian economy (IBGE, Central Bank of Brazil, National Treasury, Ipea and international databases).
-3. Tools: programming in R or Python, version control and repository organisation.
-4. Technical writing, data visualisation and citation.
-5. Reproducibility, numerical verification and peer review.
+<Etapas rotulo="Modules of the training track">
+  <Etapa titulo="Mission, Statute and integrity"><p>Research protocols and academic integrity.</p></Etapa>
+  <Etapa titulo="Data sources on the Brazilian economy"><p>IBGE, Central Bank of Brazil, National Treasury, Ipea and international databases.</p></Etapa>
+  <Etapa titulo="Tools"><p>Programming in R or Python, version control and repository organisation.</p></Etapa>
+  <Etapa titulo="Technical writing"><p>Data visualisation and citation.</p></Etapa>
+  <Etapa titulo="Reproducibility"><p>Numerical verification and peer review.</p></Etapa>
+</Etapas>
 
 Completing the track is required for Level 2.
 
