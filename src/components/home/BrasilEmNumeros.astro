@@ -4,9 +4,16 @@
  * Cada ficha: valor, unidade, data de referência, direção ante a observação anterior (▲▼■, sem cor
  * de juízo), minigráfico (até 10 anos), fonte, série e data de extração, e marca "calculado"
  * quando o valor é derivado pelo CEE. Sem valor → estado "dados em atualização", nunca um número.
+ *
+ * Vista detalhada no lugar: clicar numa ficha esconde a grade e mostra, no mesmo contêiner (mesma largura e
+ * cabeçalho), o gráfico interativo da série (períodos, legenda, projeção quando houver, fontes, CSV, nota e
+ * tabela), com o botão "← Voltar à tabela". Sem recarregar a página; o botão Voltar do navegador e a tecla Esc
+ * também fecham, e #indicador-<id> abre direto a vista. Sem JavaScript, a grade funciona como antes.
  */
 import Icon from '../ui/Icon.astro';
-import { indicadores, type Indicador } from '../../lib/panorama';
+import ChartCard from '../charts/ChartCard.astro';
+import { detalhesIndicadores, indicadores, type Indicador } from '../../lib/panorama';
+import { graficosConjuntura } from '../../lib/conjuntura';
 import { sparkline } from '../../lib/viz/render';
 import type { Lang } from '../../i18n/ui';
 
@@ -14,6 +21,7 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const en = lang === 'en';
 const lista = indicadores();
+const detalhes = detalhesIndicadores(lang, graficosConjuntura(lang).desocupacao);
 
 const GRUPOS = [
   { id: 'todos', pt: 'Todos', en: 'All' },
@@ -70,7 +78,8 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
         {GRUPOS.map((g, k) => <button type="button" class="chip" data-grupo={g.id} aria-pressed={k === 0 ? 'true' : 'false'}>{en ? g.en : g.pt}</button>)}
       </div>
     </div>
-    <ul class="bn__grid" role="list">
+    <div class="bn__panel" data-bn-panel>
+    <ul class="bn__grid" role="list" data-bn-grid>
       {lista.map((i) => {
         const t = en ? EN[i.id] ?? i : i;
         const v = valor(i);
@@ -80,10 +89,7 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
             {v === null ? (
               <p class="tile__skel"><span></span>{en ? 'Data being updated' : 'Dados em atualização'}</p>
             ) : (
-              <p class="tile__val num">
-                {i.ancora ? <a href={`#${i.ancora}`}>{v}<span class="visually-hidden"> {t.unidade}, {t.titulo}: {en ? 'see chart' : 'ver gráfico'}</span></a> : v}
-                <small aria-hidden={i.ancora ? 'true' : undefined}>{t.unidade}</small>
-              </p>
+              <p class="tile__val num">{v}<small>{t.unidade}</small></p>
             )}
             <p class="tile__lab">{t.descricao.replace(/ · (calculad[oa]|calculated)$/, '')}{i.secundario != null && (en ? `; extreme poverty (US$2.15): ${nf(i.secundario, 1)}%` : `; extrema pobreza (US$ 2,15): ${nf(i.secundario, 1)}%`)}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
             {i.spark.length > 1 && <Fragment set:html={sparkline(i.spark, 200, 34, '#4A7C96', '#0A2259')} />}
@@ -92,11 +98,29 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
               {v !== null && <span class="tile__dir" title={dirTxt[i.variacao]}><span aria-hidden="true">{i.variacao}</span><span class="visually-hidden">{dirTxt[i.variacao]}</span></span>}
             </p>
             <p class="tile__src mono"><abbr title={i.fonte}>{sigla(i.fonte)}</abbr> · {serieCurta(i.serie)} · {en ? 'ext.' : 'extr.'} {fd(i.extraido_em)}{i.desatualizado && <> · <span class="tile__stale">{en ? 'previous vintage' : 'vintage anterior'}</span></>}</p>
+            {detalhes[i.id] && (
+              <button type="button" class="tile__open" data-bn-open={i.id} aria-controls={`bn-det-${i.id}`} aria-expanded="false">
+                <span class="visually-hidden">{en ? 'Open the detailed chart' : 'Abrir o gráfico detalhado'}: {t.titulo}</span>
+              </button>
+            )}
           </li>
         );
       })}
     </ul>
-    <p class="bn__note">{en
+    {lista.filter((i) => detalhes[i.id]).map((i) => {
+      const t = en ? EN[i.id] ?? i : i;
+      return (
+        <div class="bn__detail" id={`bn-det-${i.id}`} role="region" aria-label={`${en ? 'Detailed chart' : 'Gráfico detalhado'}: ${t.titulo}`} tabindex="-1" hidden data-pagefind-ignore>
+          <div class="bn__bar">
+            <p class="bn__crumb"><Icon name={i.icone} size={16} /> {en ? 'Brazil in numbers' : 'Brasil em números'} <span aria-hidden="true">›</span> {t.titulo}</p>
+            <button type="button" class="bn__back" data-bn-close><Icon name="arrow-left" size={15} /> {en ? 'Back to the table' : 'Voltar à tabela'}</button>
+          </div>
+          <ChartCard g={detalhes[i.id]!} lang={lang} nivel="h3" preRender={false} />
+        </div>
+      );
+    })}
+    </div>
+    <p class="bn__note" data-bn-note>{en
       ? 'Each tile is generated from the data pipeline: official source, series code, reference date and extraction date. ▲▼■ show the direction relative to the previous observation and carry no judgement. Sparklines cover up to the last ten years.'
       : 'Cada ficha é gerada pelo pipeline de dados: fonte oficial, código da série, data de referência e data de extração. ▲▼■ indicam a direção ante a observação anterior, sem juízo de valor. Os minigráficos cobrem até os últimos dez anos.'}</p>
   </div>
@@ -104,17 +128,91 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
 
 <script>
   const sec = document.getElementById('brasil-em-numeros');
+  const grid = sec?.querySelector<HTMLElement>('[data-bn-grid]');
+  const nota = sec?.querySelector<HTMLElement>('[data-bn-note]');
   const chips = [...(sec?.querySelectorAll<HTMLButtonElement>('.chip') ?? [])];
   const tiles = [...(sec?.querySelectorAll<HTMLElement>('.tile') ?? [])];
+  const abrirBtns = [...(sec?.querySelectorAll<HTMLButtonElement>('[data-bn-open]') ?? [])];
+  const detalhes = [...(sec?.querySelectorAll<HTMLElement>('.bn__detail') ?? [])];
+  const reduzido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const HASH = /^#indicador-([a-z_]+)$/;
+  let aberto: string | null = null;
+
+  const trazerAVista = () => {
+    if (!sec) return;
+    const topo = sec.getBoundingClientRect().top;
+    if (topo < 0 || topo > window.innerHeight * 0.4) sec.scrollIntoView({ behavior: reduzido ? 'auto' : 'smooth', block: 'start' });
+  };
+
+  function abrir(id: string, { historico = true, foco = true } = {}) {
+    const det = document.getElementById(`bn-det-${id}`);
+    if (!sec || !grid || !det) return;
+    grid.hidden = true;
+    if (nota) nota.hidden = true;
+    detalhes.forEach((d) => { d.hidden = d !== det; });
+    abrirBtns.forEach((b) => b.setAttribute('aria-expanded', String(b.dataset.bnOpen === id)));
+    sec.dataset.estado = 'detalhe';
+    aberto = id;
+    if (historico) history.pushState({ bn: id }, '', `#indicador-${id}`);
+    trazerAVista();
+    if (foco) det.focus({ preventScroll: true });
+  }
+
+  function fechar({ foco = true } = {}) {
+    if (!sec || !grid || aberto === null) return;
+    const id = aberto;
+    aberto = null;
+    detalhes.forEach((d) => { d.hidden = true; });
+    grid.hidden = false;
+    if (nota) nota.hidden = false;
+    abrirBtns.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+    delete sec.dataset.estado;
+    trazerAVista();
+    if (foco) abrirBtns.find((b) => b.dataset.bnOpen === id)?.focus({ preventScroll: true });
+  }
+
+  // Voltar à grade: desfaz a entrada no histórico criada ao abrir (o popstate fecha a vista).
+  const voltar = () => {
+    if ((history.state as { bn?: string } | null)?.bn) history.back();
+    else { fechar(); if (HASH.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); }
+  };
+
+  abrirBtns.forEach((b) => b.addEventListener('click', () => abrir(b.dataset.bnOpen!)));
+  sec?.querySelectorAll<HTMLButtonElement>('[data-bn-close]').forEach((b) => b.addEventListener('click', voltar));
+  sec?.addEventListener('keydown', (e) => { if (e.key === 'Escape' && aberto) { e.preventDefault(); voltar(); } });
+  window.addEventListener('popstate', (e) => {
+    const id = (e.state as { bn?: string } | null)?.bn;
+    if (id) abrir(id, { historico: false });
+    else fechar();
+  });
+
+  // Filtros: com a vista detalhada aberta, um filtro volta para a grade já filtrada.
   chips.forEach((c) => c.addEventListener('click', () => {
+    if (aberto) voltar();
     chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
     const g = c.dataset.grupo;
     tiles.forEach((t) => { t.hidden = g !== 'todos' && t.dataset.grupo !== g; });
   }));
+
+  // Link interno para #indicador-<id> na mesma página (âncora clicada ou hash digitado).
+  window.addEventListener('hashchange', () => {
+    const h = HASH.exec(location.hash);
+    if (h && document.getElementById(`bn-det-${h[1]}`) && aberto !== h[1]) {
+      history.replaceState({ bn: h[1] }, '', location.href);
+      abrir(h[1]!, { historico: false });
+    }
+  });
+
+  // Link direto: /#indicador-ipca abre a vista detalhada.
+  const m = HASH.exec(location.hash);
+  if (m && document.getElementById(`bn-det-${m[1]}`)) {
+    history.replaceState({ bn: m[1] }, '', location.href);
+    abrir(m[1]!, { historico: false, foco: false });
+  }
 </script>
 
 <style>
-  .bn { position: relative; z-index: 5; margin-top: -120px; }
+  .bn { position: relative; z-index: 5; margin-top: -120px; scroll-margin-top: 96px; }
   .bn__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 18px; }
   .bn__head h2 { font-size: 1.375rem; color: var(--white); letter-spacing: -0.01em; }
   .chips { display: none; gap: 8px; flex-wrap: wrap; }
@@ -133,16 +231,47 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
   .chip:hover { background: rgb(255 255 255 / 12%); }
   .chip[aria-pressed='true'] { background: var(--white); color: var(--navy); border-color: var(--white); }
   .chip:focus-visible { outline-color: var(--sky); }
+  .bn__panel { background: var(--white); border-top: 3px solid var(--petrol); box-shadow: var(--shadow-panel); }
   .bn__grid {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    background: var(--white);
-    border-top: 3px solid var(--petrol);
-    box-shadow: var(--shadow-panel);
   }
+  .bn__grid[hidden], .bn__detail[hidden], .bn__note[hidden] { display: none; }
+  .tile__open { display: none; }
+  :global(.js) .tile__open { display: block; position: static; padding: 0; border: 0; background: none; width: 0; height: 0; }
+  .tile__open::after { content: ''; position: absolute; inset: 0; cursor: pointer; }
+  .tile__open:focus-visible { outline: none; }
+  .tile__open:focus-visible::after { outline: 2px solid var(--petrol); outline-offset: -4px; }
+  :global(.js) .tile:hover .tile__val { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .bn__detail { padding: 22px 28px 24px; outline: none; animation: bn-in 0.25s ease-out; }
+  @keyframes bn-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .bn__detail { animation: none; } }
+  .bn__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .bn__crumb { display: inline-flex; align-items: center; gap: 8px; margin: 0; font: 600 11.5px / 1.3 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--petrol); }
+  .bn__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 12px / 1 var(--sans);
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    border-radius: 30px;
+    border: 1px solid var(--navy);
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .bn__back:hover { background: var(--navy); color: var(--white); }
+  .bn__back:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
+  /* Fora da grade do Panorama a ficha não é subgrid: fluxo em bloco, para os controles terem altura própria. */
+  .bn__detail :global(.chart-card) { display: block; border: 0; padding: 18px 0 0; background: transparent; }
+  .bn__detail :global(.chart-card__foot) { margin-top: 6px; }
+  .bn__detail :global(.chart-card__title) { font-size: 1.5rem; }
+  .bn__detail :global(.chart-card__sub) { font-size: 1rem; }
   .tile {
     position: relative;
     display: flex;
@@ -160,10 +289,6 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
   .tile__top { display: flex; align-items: center; gap: 9px; margin: 0; color: var(--petrol); font: 600 11.5px / 1.2 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
   .tile__calc { display: inline-block; margin-left: 6px; vertical-align: 1px; font: 500 9.5px / 1 var(--mono); letter-spacing: 0.06em; color: var(--navy); border: 1px solid var(--line-strong); padding: 3px 5px; }
   .tile__val { margin: 14px 0 2px; font: 600 2.125rem / 1.1 var(--sans); letter-spacing: -0.02em; color: var(--navy); white-space: nowrap; }
-  .tile__val a { color: inherit; text-decoration: none; }
-  .tile__val a::after { content: ''; position: absolute; inset: 0; }
-  .tile__val a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
-  .tile__val a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
   .tile__val small { font-size: 0.9375rem; font-weight: 500; letter-spacing: 0; color: var(--muted); margin-left: 4px; }
   .tile__skel { margin: 14px 0 2px; font-size: 13px; color: var(--muted); }
   .tile__skel span { display: block; width: 60%; height: 30px; margin-bottom: 6px; background: linear-gradient(90deg, var(--paper), var(--mist), var(--paper)); }
@@ -181,6 +306,8 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
     .tile:nth-child(3n) { border-right: 0; }
   }
   @media (max-width: 48rem) {
+    .bn__detail { padding: 16px 16px 18px; }
+    .bn__detail :global(.chart-card__title) { font-size: 1.25rem; }
     .bn__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .tile:nth-child(3n) { border-right: 1px solid var(--line); }
     .tile:nth-child(2n) { border-right: 0; }
