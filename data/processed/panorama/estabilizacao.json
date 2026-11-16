@@ -1,18 +1,18 @@
 {
   "formula": "s* = d (r − g) / (1 + g)",
-  "d": 82.93,
+  "d": 82.95,
   "d_periodo": "2026-09",
   "d_fonte": "BCB, SGS 13762 (DBGG, % do PIB)",
-  "r": 6.66,
-  "g": 1.65,
-  "s_estrela": 4.09,
+  "r": 6.79,
+  "g": 1.61,
+  "s_estrela": 4.23,
   "horizonte": [
     {
       "ano": 2027,
-      "selic": 12.5,
-      "ipca": 4.9005,
-      "juro_real": 7.24,
-      "pib": 1.1513
+      "selic": 12.75,
+      "ipca": 5,
+      "juro_real": 7.38,
+      "pib": 1.0224
     },
     {
       "ano": 2028,
@@ -23,13 +23,13 @@
     },
     {
       "ano": 2029,
-      "selic": 10.25,
+      "selic": 10.5,
       "ipca": 4,
-      "juro_real": 6.01,
+      "juro_real": 6.25,
       "pib": 2
     }
   ],
-  "data_focus": "2026-11-06",
+  "data_focus": "2026-11-13",
   "primario_atual": -0.52,
   "primario_periodo": "2026-09",
   "primario_fonte": "BCB, SGS 5793 (NFSP primária 12 meses, sinal invertido)",
@@ -57,7 +57,7 @@
         0.81
       ],
       [
-        3.28,
+        3.29,
         2.86,
         2.44,
         2.02,

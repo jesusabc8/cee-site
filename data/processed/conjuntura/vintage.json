@@ -27,8 +27,8 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
-    "extraido_em": "2026-11-09T13:43:44.278Z",
-    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-11-09",
+    "extraido_em": "2026-11-16T15:34:10.403Z",
+    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-11-16",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -88,7 +88,7 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "00413d1ce72e733129a651a8f9861aee008b696485fb78ab067adda3522d96ec"
+        "sha256": "844b2693b87ced3a29d15ef5185426593ca830a1ffd0ce09aaadfe0e63ede8f1"
       }
     ],
     "linhas": 179,
@@ -125,17 +125,17 @@
     "unidade": "% (variação no ano de referência)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-09T13:43:44.278Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_ipca/2026-11-09",
+    "extraido_em": "2026-11-16T15:34:10.403Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_ipca/2026-11-16",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "3a4ce827eefffd9d7d2dd8d3cce4fa82f57bda84f55d616c627fb52c1ec7a5e0"
+        "sha256": "5f3bf626dbe60a542e7ba94b10f3d02b0adffe3a6b8938a3dec18b520fc3f22c"
       }
     ],
-    "linhas": 3585,
+    "linhas": 3610,
     "primeiro": "2024-01-02",
-    "ultimo": "2026-11-06",
+    "ultimo": "2026-11-13",
     "desatualizado": false,
     "falha": null
   }
