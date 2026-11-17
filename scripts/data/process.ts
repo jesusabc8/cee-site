@@ -4,6 +4,7 @@
  * Depois, scripts/data/derive.ts calcula os indicadores derivados (juro real, PWT, estabilização da dívida…).
  * Uso: node scripts/data/process.ts
  */
+import { sidraSeriesDe } from './sidra.ts';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
@@ -42,11 +43,8 @@ async function ultimoVintage(s: Serie) {
 }
 
 const json = (b: Buffer | undefined) => JSON.parse(b!.toString('utf8'));
-function sidraSeries(body: Buffer): Record<string, Record<string, string>> {
-  const out: Record<string, Record<string, string>> = {};
-  for (const v of json(body)) out[v.id] = v.resultados[0].series[0].serie;
-  return out;
-}
+const sidraSeries = (b: Buffer) => sidraSeriesDe(json(b));
+
 /** SGS em janelas → lista diária/mensal ordenada, sem datas posteriores à extração. */
 function sgsLista(c: Record<string, Buffer>, extraido: Date) {
   const limite = extraido.toISOString().slice(0, 10);

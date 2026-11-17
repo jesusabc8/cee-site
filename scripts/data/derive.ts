@@ -60,6 +60,7 @@ const observado = new Map(ipca.filter((r) => r.variacao_mensal).map((r) => [r.pe
 const dataFocusMensal = fMensal.map((r) => r.data!).sort().at(-1)!;
 const esperado = new Map(fMensal.filter((r) => r.data === dataFocusMensal && r.mediana).map((r) => [r.mes_referencia!, Number(r.mediana)]));
 const projecao = trajetoria12m(observado, esperado);
+if (!projecao.length) console.warn('! IPCA×meta: sem trajetória Focus (IPCA observado defasado em relação ao Focus mensal); o gráfico sai sem projeção.');
 const ipcaMeta: Linha[] = [
   ...ipca.map((r) => {
     const m = metaDoAno(Number(r.periodo!.slice(0, 4)));

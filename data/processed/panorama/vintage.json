@@ -17,8 +17,8 @@
     "linhas": 122,
     "primeiro": "1996-T1",
     "ultimo": "2026-T2",
-    "desatualizado": true,
-    "falha": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/5932/periodos/all/variaveis/6561%7C6564?localidades=N1%5Ball%5D&classificacao=11255%5B90707%5D: TypeError: fetch failed"
+    "desatualizado": false,
+    "falha": null
   },
   "ptax": {
     "nome": "Taxa de câmbio — livre — dólar americano (venda), PTAX",
@@ -27,8 +27,8 @@
     "unidade": "R$/US$",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
-    "extraido_em": "2026-11-16T15:34:10.403Z",
-    "vintage_dir": "data/raw/bcb-sgs/ptax/2026-11-16",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
+    "vintage_dir": "data/raw/bcb-sgs/ptax/2026-11-17",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -88,7 +88,7 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "91ab7906ad60fa98844dd6116e4ded8b78097fceb6d80b13d8c5c6040517d764"
+        "sha256": "b62fcc6c7ed311838a85a7fc4cb1293e4acf26706ae631ee7a64c943323b4cdd"
       }
     ],
     "linhas": 179,
@@ -261,16 +261,16 @@
     "unidade": "% (variação no mês de referência)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-16T15:34:10.403Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_mensal_ipca/2026-11-16",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_mensal_ipca/2026-11-17",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "e98681adb889dab74fc14c30e318c1471c9fed1283eed808bd1d1d36b6f9b1a3"
+        "sha256": "7245ebad7466339d2001c78e5cc9625840eab6bd4f30f35d11ff3b2a6a593eb2"
       }
     ],
-    "linhas": 725,
-    "primeiro": "2026-10-02",
+    "linhas": 700,
+    "primeiro": "2026-10-05",
     "ultimo": "2026-11-13",
     "desatualizado": false,
     "falha": null

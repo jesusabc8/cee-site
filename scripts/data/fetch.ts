@@ -15,6 +15,17 @@ const hoje = new Date();
 const dia = hoje.toISOString().slice(0, 10);
 const only = process.argv.find((a) => a.startsWith('--only='))?.slice(7).split(',');
 
+/** Baixa a URL principal; se falhar e houver `alternativa`, tenta a reserva. Devolve o corpo e a URL usada. */
+async function baixarComReserva(r: Requisicao, s: Serie): Promise<{ body: Buffer; url: string }> {
+  try {
+    return { body: await baixar(r, s), url: r.url };
+  } catch (e) {
+    if (!r.alternativa) throw e;
+    console.warn(`! ${s.id}: principal falhou (${String(e).slice(0, 160)}); usando a reserva ${r.alternativa}`);
+    return { body: await baixar({ ...r, url: r.alternativa }, s), url: r.alternativa };
+  }
+}
+
 async function baixar(r: Requisicao, s: Serie, tentativas = 4): Promise<Buffer> {
   const url = r.url;
   let erro: unknown;
@@ -65,9 +76,12 @@ async function extrair(s: Serie) {
   const dir = join(RAW, s.fonte, s.id, dia);
   const arquivos = [];
   const respostas: [string, Buffer][] = [];
+  const usadas: string[] = [];
   for (const r of s.requisicoes(hoje)) {
     if (respostas.length && r.metodo === 'POST') await new Promise((ok) => setTimeout(ok, 11_000));
-    respostas.push([r.arquivo, await baixar(r, s)]);
+    const { body, url } = await baixarComReserva(r, s);
+    respostas.push([r.arquivo, body]);
+    usadas.push(url);
   }
   // Vintage idêntico ao anterior (mesmos arquivos, mesmos hashes): não duplica.
   const base = join(RAW, s.fonte, s.id);
@@ -87,7 +101,7 @@ async function extrair(s: Serie) {
   for (const [i, [arquivo, body]] of respostas.entries()) {
     await writeFile(join(dir, arquivo), body);
     arquivos.push({
-      arquivo, url: reqs[i]!.url, ...(reqs[i]!.corpo ? { metodo: 'POST', corpo: JSON.parse(reqs[i]!.corpo!) } : {}), sha256: createHash('sha256').update(body).digest('hex'), bytes: body.length,
+      arquivo, url: usadas[i]!, ...(usadas[i] !== reqs[i]!.url ? { reserva_de: reqs[i]!.url } : {}), ...(reqs[i]!.corpo ? { metodo: 'POST', corpo: JSON.parse(reqs[i]!.corpo!) } : {}), sha256: createHash('sha256').update(body).digest('hex'), bytes: body.length,
       ...(s.formato === 'binario' ? { sha1: createHash('sha1').update(body).digest('hex') } : {}),
     });
   }

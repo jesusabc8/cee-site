@@ -6,19 +6,19 @@
     "unidade": "%",
     "frequencia": "mensal",
     "url_publica": "https://sidra.ibge.gov.br/tabela/1737",
-    "extraido_em": "2026-10-20T04:21:27.322Z",
-    "vintage_dir": "data/raw/ibge-sidra/ipca/2026-10-20",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
+    "vintage_dir": "data/raw/ibge-sidra/ipca/2026-11-17",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "d2ebbf27eef8a9c065127af95d8ed458c52a3b8257a7457e53190243fd0fd7a8"
+        "sha256": "479e7f12b4053323b6419a3e02b4004268adfb7a15faf7f043bbd0c1810d85bb"
       }
     ],
-    "linhas": 177,
+    "linhas": 178,
     "primeiro": "2012-01",
-    "ultimo": "2026-09",
-    "desatualizado": true,
-    "falha": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/1737/periodos/201201-209912/variaveis/63%7C2265?localidades=N1%5Ball%5D: TypeError: fetch failed"
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
   },
   "selic_meta": {
     "nome": "Taxa de juros — Meta Selic definida pelo Copom",
@@ -27,8 +27,8 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
-    "extraido_em": "2026-11-16T15:34:10.403Z",
-    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-11-16",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
+    "vintage_dir": "data/raw/bcb-sgs/selic_meta/2026-11-17",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -88,7 +88,7 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "844b2693b87ced3a29d15ef5185426593ca830a1ffd0ce09aaadfe0e63ede8f1"
+        "sha256": "550fb5450db042c79fb444ca3cc4ae462c74a40332fe0d2e91a6b54db38085d7"
       }
     ],
     "linhas": 179,
@@ -104,19 +104,19 @@
     "unidade": "%",
     "frequencia": "trimestre móvel (mensal)",
     "url_publica": "https://sidra.ibge.gov.br/tabela/6381",
-    "extraido_em": "2026-10-20T01:38:01.210Z",
-    "vintage_dir": "data/raw/ibge-sidra/desocupacao/2026-10-20",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
+    "vintage_dir": "data/raw/ibge-sidra/desocupacao/2026-11-17",
     "arquivos": [
       {
         "arquivo": "resposta.json",
-        "sha256": "d7e61c4b2306ad529982edf64dce310388c6d7a1f88898b97da9de3786af01c9"
+        "sha256": "22fef4bf7154f51c6e9b0bfae044226a7545a34ae5e60b7c247a0b94e71b465c"
       }
     ],
-    "linhas": 174,
+    "linhas": 175,
     "primeiro": "2012-03",
-    "ultimo": "2026-08",
-    "desatualizado": true,
-    "falha": "Error: Falha ao baixar https://servicodados.ibge.gov.br/api/v3/agregados/6381/periodos/201203-209912/variaveis/4099%7C4103?localidades=N1%5Ball%5D: TypeError: fetch failed"
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
   },
   "focus_ipca": {
     "nome": "Expectativas de mercado (Focus) — IPCA anual, mediana",

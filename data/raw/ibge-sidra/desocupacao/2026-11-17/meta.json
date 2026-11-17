@@ -1,0 +1,14 @@
+{
+  "serie": "desocupacao",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 6381, variáveis 4099 e 4103 (Brasil)",
+  "extraido_em": "2026-11-17T18:53:51.571Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/6381/periodos/201203-209912/variaveis/4099%7C4103?localidades=N1%5Ball%5D",
+      "sha256": "22fef4bf7154f51c6e9b0bfae044226a7545a34ae5e60b7c247a0b94e71b465c",
+      "bytes": 5886
+    }
+  ]
+}
