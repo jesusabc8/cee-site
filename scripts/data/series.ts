@@ -219,6 +219,27 @@ export const SERIES: Serie[] = [
     verificacao: { data: '2026-10-20', metodo: VERIF_SGS, nome_oficial: 'Taxa de câmbio - Livre - Dólar americano (venda) - diário' },
   },
   {
+    id: 'cambio_real',
+    painel: 'panorama',
+    fonte: 'bcb-sgs',
+    instituicao: 'Banco Central do Brasil',
+    nome: 'Índice da taxa de câmbio real efetiva (IPCA), jun/1994 = 100',
+    codigo: 'SGS 11752',
+    unidade: 'índice (jun/1994 = 100)',
+    frequencia: 'mensal',
+    url_publica: sgsPublica(11752),
+    licenca_fonte: LIC_BCB,
+    requisicoes: sgs(11752, ANO_INICIAL, 5),
+    verificacao: {
+      data: '2026-11-17',
+      // A série não está no catálogo CKAN do BCB (package_search por código e por nome: 0 resultados), por isso não se
+      // usa VERIF_SGS; a página de metadados do SGS responde "System unavailable".
+      metodo: 'Página pública de consulta do SGS (consultarValoresSeries, versão em português), que lista código, nome completo, unidade, periodicidade, início e último valor; valores conferidos com a API do SGS',
+      nome_oficial: 'Índice da taxa de câmbio real efetiva (IPCA) - Jun/1994=100',
+      observacoes: 'Unidade "Índice", periodicidade M, início 01/01/1988, último valor ago/2026 (consulta de 17/11/2026). Alta = depreciação real. A versão em inglês da mesma página traz "Jun/1994=101", erro de tradução do SGS; vale o nome em português. Valores de referência conferidos: jul/2011 71,76; set/2015 129,34; mai/2020 149,83; ago/2025 127,44; jul/2026 119,67; ago/2026 123,23.',
+    },
+  },
+  {
     id: 'conta_corrente',
     painel: 'panorama',
     fonte: 'bcb-sgs',
