@@ -159,14 +159,15 @@ export function panorama(lang: Lang) {
       id: 'grafico-ipca-meta', bloco: 'precos', icone: 'tag', rotulo: 'IPCA', largo: true,
       titulo: en ? 'IPCA inflation, target and market expectations' : 'IPCA, meta para a inflação e expectativas de mercado',
       subtitulo: en
-        ? `In ${fx(mes(u.periodo!), 'month')}, 12-month IPCA inflation was ${nf(v, 2)}%, ${posicao}. On the Focus survey of ${fx(dataFocus, 'day')}, it would reach ${projTxt.join(' and ')}.`
-        : `Em ${fx(mes(u.periodo!), 'month')}, o IPCA em 12 meses foi de ${nf(v, 2)}%, ${posicao}. Pela mediana do Focus de ${fx(dataFocus, 'day')}, chegaria a ${projTxt.join(' e a ')}.`,
+        ? `In ${fx(mes(u.periodo!), 'month')}, 12-month IPCA inflation was ${nf(v, 2)}%, ${posicao}.${projTxt.length ? ` On the Focus survey of ${fx(dataFocus, 'day')}, it would reach ${projTxt.join(' and ')}.` : ''}`
+        : `Em ${fx(mes(u.periodo!), 'month')}, o IPCA em 12 meses foi de ${nf(v, 2)}%, ${posicao}.${projTxt.length ? ` Pela mediana do Focus de ${fx(dataFocus, 'day')}, chegaria a ${projTxt.join(' e a ')}.` : ''}`,
       unidade: en ? '% change over 12 months (monthly data)' : 'variação % em 12 meses (dados mensais)',
       descricao: en ? 'Observed 12-month IPCA, inflation target, upper and lower tolerance limits and the path implied by the latest Focus monthly medians.' : 'IPCA em 12 meses observado, meta para a inflação, limites superior e inferior do intervalo de tolerância e trajetória implícita nas medianas mensais do Focus mais recente.',
       spec: {
         id: 'grafico-ipca-meta', height: 340, xFormat: 'month', yDigits: 2, yUnit: '%', yTickSuffix: '%', zero: true, lang,
         ranges: RANGES([['5a', 5], ['10a', 10], ['tudo', null]]), defaultRange: '10a',
-        projection: { x0: mes(proj[0]!.periodo!), label: en ? 'Focus projection' : 'Projeção Focus' },
+        // Sem trajetória (ex.: IPCA observado defasado em relação ao Focus), o gráfico sai sem a área de projeção.
+        ...(proj.length ? { projection: { x0: mes(proj[0]!.periodo!), label: en ? 'Focus projection' : 'Projeção Focus' } } : {}),
         bands: [{ id: 'banda', label: '', step: true, fill: 'rgb(138 164 179 / 16%)', lo: im.map((r) => ({ x: mes(r.periodo!), y: n(r.limite_inferior) })), hi: im.map((r) => ({ x: mes(r.periodo!), y: n(r.limite_superior) })) }],
         series: [
           { id: 'sup', label: en ? 'Upper limit' : 'Limite superior', color: COR.steel, kind: 'step', width: 1.2, dash: '5 4', endLabel: false, noTooltip: true, points: im.map((r) => ({ x: mes(r.periodo!), y: n(r.limite_superior) })) },

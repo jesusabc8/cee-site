@@ -10,6 +10,8 @@ export interface Requisicao {
   /** Padrão: GET. A API do ComexStat recebe a consulta em JSON via POST. */
   metodo?: 'POST';
   corpo?: string;
+  /** URL de reserva, usada se a principal falhar (ex.: apisidra para a API v3 de agregados do IBGE). */
+  alternativa?: string;
 }
 
 export type Fonte = 'bcb-sgs' | 'ibge-sidra' | 'ibge-sis' | 'mdic-comexstat' | 'bcb-olinda' | 'bcb-site' | 'pwt';
@@ -43,6 +45,11 @@ const SIDRA = 'https://servicodados.ibge.gov.br/api/v3/agregados';
 /** `inicio` = AAAAMM (intervalo até 209912) ou 'all' (a tabela 5932 retorna erro 500 com intervalo aberto). */
 const sidra = (tabela: number, inicio: string, variaveis: number[], classificacao = '') =>
   `${SIDRA}/${tabela}/periodos/${inicio === 'all' ? 'all' : `${inicio}-209912`}/variaveis/${variaveis.join('%7C')}?localidades=N1%5Ball%5D${classificacao}`;
+// Reserva: mesma tabela pela API de valores do SIDRA (apisidra), que respondeu quando a API v3 falhou a partir do
+// GitHub Actions (out./2026). A resposta bruta é arquivada como veio; process.ts reconhece os dois formatos.
+const APISIDRA = 'https://apisidra.ibge.gov.br/values/t';
+const sidraValores = (tabela: number, inicio: string, variaveis: number[], classificacao: [number, number] | null = null) =>
+  `${APISIDRA}/${tabela}/n1/all/v/${variaveis.join(',')}/p/${inicio === 'all' ? 'all' : `${inicio}-209912`}${classificacao ? `/c${classificacao[0]}/${classificacao[1]}` : ''}`;
 
 const OLINDA = 'https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata';
 const odata = (entidade: string, filtro: string, campos: string) =>
@@ -108,7 +115,7 @@ export const SERIES: Serie[] = [
     frequencia: 'mensal',
     url_publica: 'https://sidra.ibge.gov.br/tabela/1737',
     licenca_fonte: LIC_IBGE,
-    requisicoes: () => [{ url: sidra(1737, `${ANO_INICIAL}01`, [63, 2265]), arquivo: 'resposta.json' }],
+    requisicoes: () => [{ url: sidra(1737, `${ANO_INICIAL}01`, [63, 2265]), alternativa: sidraValores(1737, `${ANO_INICIAL}01`, [63, 2265]), arquivo: 'resposta.json' }],
     verificacao: {
       data: '2026-10-20',
       metodo: 'GET /api/v3/agregados/1737/metadados (API de agregados do IBGE)',
@@ -146,7 +153,7 @@ export const SERIES: Serie[] = [
     frequencia: 'trimestre móvel (mensal)',
     url_publica: 'https://sidra.ibge.gov.br/tabela/6381',
     licenca_fonte: LIC_IBGE,
-    requisicoes: () => [{ url: sidra(6381, `${ANO_INICIAL}03`, [4099, 4103]), arquivo: 'resposta.json' }],
+    requisicoes: () => [{ url: sidra(6381, `${ANO_INICIAL}03`, [4099, 4103]), alternativa: sidraValores(6381, `${ANO_INICIAL}03`, [4099, 4103]), arquivo: 'resposta.json' }],
     verificacao: {
       data: '2026-10-20',
       metodo: 'GET /api/v3/agregados/6381/metadados (API de agregados do IBGE)',
@@ -189,7 +196,7 @@ export const SERIES: Serie[] = [
     frequencia: 'trimestral',
     url_publica: 'https://sidra.ibge.gov.br/tabela/5932',
     licenca_fonte: LIC_IBGE,
-    requisicoes: () => [{ url: sidra(5932, 'all', [6561, 6564], '&classificacao=11255%5B90707%5D'), arquivo: 'resposta.json' }],
+    requisicoes: () => [{ url: sidra(5932, 'all', [6561, 6564], '&classificacao=11255%5B90707%5D'), alternativa: sidraValores(5932, 'all', [6561, 6564], [11255, 90707]), arquivo: 'resposta.json' }],
     verificacao: {
       data: '2026-10-20',
       metodo: 'GET /api/v3/agregados/5932/metadados (API de agregados do IBGE)',
