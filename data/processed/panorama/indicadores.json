@@ -57,21 +57,20 @@
     "serie": "SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil)",
     "extraido_em": "2026-10-20T04:18:16.854Z",
     "url": "https://sidra.ibge.gov.br/tabela/5932",
-    "desatualizado": true
+    "desatualizado": false
   },
   {
     "id": "ipca",
     "grupo": "precos",
     "icone": "tag",
     "titulo": "IPCA",
-    "valor": 4.58,
+    "valor": 4.63,
     "unidade": "% 12m",
     "descricao": "Acumulado em 12 meses · meta 3% ± 1,5 p.p.",
-    "referencia": "2026-09",
+    "referencia": "2026-10",
     "tipo_ref": "mes",
     "variacao": "▲",
     "spark": [
-      7.87,
       6.99,
       6.29,
       5.35,
@@ -190,14 +189,15 @@
       4.64,
       4.44,
       4.22,
-      4.58
+      4.58,
+      4.63
     ],
     "ancora": "grafico-ipca-meta",
     "fonte": "IBGE",
     "serie": "SIDRA 1737, variáveis 63 e 2265 (Brasil)",
-    "extraido_em": "2026-10-20T04:21:27.322Z",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
     "url": "https://sidra.ibge.gov.br/tabela/1737",
-    "desatualizado": true
+    "desatualizado": false
   },
   {
     "id": "selic",
@@ -207,7 +207,7 @@
     "valor": 13.75,
     "unidade": "% a.a.",
     "descricao": "Definida pelo Copom",
-    "referencia": "2026-11-16",
+    "referencia": "2026-11-17",
     "tipo_ref": "dia",
     "variacao": "■",
     "spark": [
@@ -335,7 +335,7 @@
     "ancora": "grafico-juros",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 432",
-    "extraido_em": "2026-11-16T15:34:10.403Z",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
     "desatualizado": false
   },
@@ -344,10 +344,10 @@
     "grupo": "externo",
     "icone": "arrow-left-right",
     "titulo": "Câmbio",
-    "valor": 5.6518,
+    "valor": 5.7851,
     "unidade": "R$/US$",
     "descricao": "PTAX venda, última cotação",
-    "referencia": "2026-11-13",
+    "referencia": "2026-11-17",
     "tipo_ref": "dia",
     "variacao": "▲",
     "spark": [
@@ -470,12 +470,12 @@
       5.1532,
       5.1447,
       5.1294,
-      5.54
+      5.5798
     ],
     "ancora": "grafico-cambio",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 1",
-    "extraido_em": "2026-11-16T15:34:10.403Z",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1",
     "desatualizado": false
   },
@@ -935,14 +935,13 @@
     "grupo": "trabalho",
     "icone": "users",
     "titulo": "Desocupação",
-    "valor": 5.3,
+    "valor": 5.2,
     "unidade": "%",
     "descricao": "PNAD Contínua, trimestre móvel, sem ajuste sazonal",
-    "referencia": "2026-08",
+    "referencia": "2026-09",
     "tipo_ref": "trimestre-movel",
-    "variacao": "■",
+    "variacao": "▼",
     "spark": [
-      11.9,
       11.9,
       12,
       12.1,
@@ -1061,14 +1060,15 @@
       5.6,
       5.4,
       5.3,
-      5.3
+      5.3,
+      5.2
     ],
     "ancora": null,
     "fonte": "IBGE",
     "serie": "SIDRA 6381, variáveis 4099 e 4103 (Brasil)",
-    "extraido_em": "2026-10-20T01:38:01.210Z",
+    "extraido_em": "2026-11-17T18:53:51.571Z",
     "url": "https://sidra.ibge.gov.br/tabela/6381",
-    "desatualizado": true
+    "desatualizado": false
   },
   {
     "id": "pobreza",
