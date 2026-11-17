@@ -24,8 +24,8 @@ const selic = await ler('conjuntura', 'selic_meta');
 const deso = await ler('conjuntura', 'desocupacao');
 const focusIpca = await ler('conjuntura', 'focus_ipca');
 const pib = await ler('panorama', 'pib');
-const ptax = await ler('panorama', 'ptax');
 const cc = await ler('panorama', 'conta_corrente');
+const cambioReal = await ler('panorama', 'cambio_real');
 const prim = await ler('panorama', 'primario');
 const dbgg = await ler('panorama', 'dbgg');
 const dlsp = await ler('panorama', 'dlsp');
@@ -199,8 +199,16 @@ const tiles: Tile[] = [];
   tiles.push({ id: 'ipca', grupo: 'precos', icone: 'tag', titulo: 'IPCA', valor: n(u.acumulada_12m), unidade: '% 12m', descricao: `Acumulado em 12 meses · meta ${metaDoAno(Number(u.periodo!.slice(0, 4))).meta.toString().replace('.', ',')}% ± 1,5 p.p.`, referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.acumulada_12m), n(p.acumulada_12m)), spark: spark(ipca, 120, (x) => n(x.acumulada_12m)), ancora: 'grafico-ipca-meta', ...fonte('ipca') }); }
 { const u = ult(selic), p = pen(selic);
   tiles.push({ id: 'selic', grupo: 'precos', icone: 'landmark', titulo: 'Selic meta', valor: n(u.meta_selic), unidade: '% a.a.', descricao: 'Definida pelo Copom', referencia: u.data_referencia, tipo_ref: 'dia', variacao: sinal(n(u.meta_selic), n(p.meta_selic)), spark: spark(selic, 120, (x) => n(x.meta_selic)), ancora: 'grafico-juros', ...fonte('selic_meta') }); }
-{ const u = ult(ptax), p = pen(ptax);
-  tiles.push({ id: 'cambio', grupo: 'externo', icone: 'arrow-left-right', titulo: 'Câmbio', valor: n(u.fim_periodo), unidade: 'R$/US$', descricao: 'PTAX venda, última cotação', referencia: u.data_ultimo, tipo_ref: 'dia', variacao: sinal(n(u.fim_periodo), n(p.fim_periodo)), spark: spark(ptax, 120, (x) => n(x.media_mensal)), ancora: 'grafico-cambio', ...fonte('ptax') }); }
+// Câmbio real efetivo (SGS 11752; ADR-020). Alta = depreciação real. Variação em 12 meses = 100 × (I_m / I_{m−12} − 1),
+// omitida se faltar I_{m−12}. A PTAX nominal continua no gráfico do Panorama (grafico-cambio).
+{ const u = ult(cambioReal), p = pen(cambioReal);
+  const [a, m] = u.periodo!.split('-').map(Number) as [number, number];
+  const ref12 = cambioReal.find((x) => x.periodo === `${a - 1}-${String(m).padStart(2, '0')}`);
+  const var12m = ref12 && n(ref12.indice) ? Math.round((n(u.indice)! / n(ref12.indice)! - 1) * 1000) / 10 : null;
+  const pct = (v: number) => `${v > 0 ? '+' : v < 0 ? '−' : '±'}${Math.abs(v).toFixed(1).replace('.', ',')}%`;
+  tiles.push({ id: 'cambio_real', grupo: 'externo', icone: 'arrow-left-right', titulo: 'Câmbio real', valor: Math.round(n(u.indice)! * 10) / 10, unidade: 'índice',
+    descricao: `Efetivo, deflator IPCA (jun/1994 = 100) · alta = depreciação real${var12m !== null ? ` · 12 meses: ${pct(var12m)}` : ''}`,
+    var12m, referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.indice), n(p.indice)), spark: spark(cambioReal, 120, (x) => n(x.indice)), ancora: 'bn-cambio-real', ...fonte('cambio_real') }); }
 { const u = ult(cc), p = pen(cc);
   tiles.push({ id: 'conta_corrente', grupo: 'externo', icone: 'globe', titulo: 'Conta corrente', valor: n(u.transacoes_correntes_pib), unidade: '% PIB', descricao: 'Transações correntes, acumulado em 12 meses', referencia: u.periodo, tipo_ref: 'mes', variacao: sinal(n(u.transacoes_correntes_pib), n(p.transacoes_correntes_pib)), spark: spark(cc, 120, (x) => n(x.transacoes_correntes_pib)), ancora: null, ...fonte('conta_corrente') }); }
 { const u = ult(aberturaPwt), p = pen(aberturaPwt);
@@ -222,6 +230,7 @@ await writeFile(join(OUT, 'derivados.json'), JSON.stringify({
   ipca_meta: { entradas: ['ipca', 'metas_inflacao', 'focus_mensal_ipca'], data_focus_mensal: dataFocusMensal, metodo: 'IPCA 12 meses observado; meta e limites do ano (meta contínua desde 2025); trajetória: acumulação de 12 meses com variações observadas e, nos meses futuros, a mediana Focus mensal.' },
   pwt: { entradas: ['pwt'], pib_pc: 'rgdpna / pop', produtividade: '(rgdpna/emp)_i ÷ (rgdpna/emp)_EUA × 100', proximidade: '(cgdpo × pl_gdpo / pop)_i ÷ (cgdpo × pl_gdpo / pop)_EUA × 100', pib_pc_rel_ppc: '(rgdpna/pop)_i ÷ (rgdpna/pop)_EUA × 100' },
   divida: { entradas: ['dbgg', 'dlsp', 'focus_anual'], data_focus: dataFocus },
+  cambio_real: { entradas: ['cambio_real'], cartao: 'último índice (1 casa)', var12m: '100 × (I_m / I_{m−12} − 1), 1 casa; omitida se faltar I_{m−12}' },
   abertura: { entradas: ['pwt'], formula: '(csh_x × pl_x − csh_m × pl_m) / pl_gdpo × 100 = (exportações + importações de bens e serviços) / PIB, a preços correntes (Brasil, PWT 11.0)', formula_ppc: '(csh_x − csh_m) × 100, participação em PPC correntes (só no CSV)', conferencia: 'Em 2023 reproduz as Contas Nacionais Trimestrais do IBGE (SIDRA 1846): (1.966.445 + 1.717.767) / 10.943.344 = 33,67 %' },
   abertura_bens: { entradas: ['comercio', 'pib_usd'], formula: '(exportações + importações de bens, US$ FOB, soma de 12 meses) / PIB em US$ acumulado em 12 meses × 100 (não exibida; ADR-013)' },
   estabilizacao: { entradas: ['dbgg', 'primario', 'focus_anual', 'focus_ipca'] },

@@ -388,10 +388,48 @@ export function detalhesIndicadores(lang: Lang, desocupacao: Grafico): Record<st
     pib: clone(doPanorama['grafico-pib']!),
     ipca: clone(doPanorama['grafico-ipca-meta']!),
     selic: clone(doPanorama['grafico-juros']!),
-    cambio: clone(doPanorama['grafico-cambio']!),
     dbgg: clone(doPanorama['grafico-divida']!),
     desocupacao: clone(desocupacao),
   };
+
+  // Câmbio real efetivo (SGS 11752; ADR-020): índice desde ANO_INICIAL, com a média do período como referência.
+  {
+    const cr = ler('panorama', 'cambio_real');
+    const u = cr.at(-1)!;
+    const v = n(u.indice)!;
+    const [a, m] = u.periodo!.split('-').map(Number) as [number, number];
+    const ref = cr.find((x) => x.periodo === `${a - 1}-${String(m).padStart(2, '0')}`);
+    const var12 = ref && n(ref.indice) ? (v / n(ref.indice)! - 1) * 100 : null;
+    const vals = cr.map((x) => n(x.indice)).filter((x): x is number => x !== null);
+    const media = vals.reduce((s2, x) => s2 + x, 0) / vals.length;
+    const periodoMedia = `${cr[0]!.periodo!.slice(0, 4)}–${u.periodo!.slice(0, 4)}`;
+    const leitura12 = var12 === null ? '' : en
+      ? ` That is ${nf(Math.abs(var12))}% ${var12 < 0 ? 'below' : 'above'} ${fx(mes(ref!.periodo!), 'month')}: a real ${var12 < 0 ? 'appreciation' : 'depreciation'} over 12 months.`
+      : ` São ${nf(Math.abs(var12))}% ${var12 < 0 ? 'abaixo' : 'acima'} de ${fx(mes(ref!.periodo!), 'month')}: ${var12 < 0 ? 'apreciação' : 'depreciação'} real em 12 meses.`;
+    out.cambio_real = clone({
+      id: 'cambio-real', bloco: 'precos', icone: 'arrow-left-right', rotulo: en ? 'External sector' : 'Setor externo',
+      titulo: en ? 'Real effective exchange rate (IPCA-deflated)' : 'Taxa de câmbio real efetiva (deflator IPCA)',
+      subtitulo: en
+        ? `In ${fx(mes(u.periodo!), 'month')}, the index stood at ${nf(v)} (June 1994 = 100).${leitura12}`
+        : `Em ${fx(mes(u.periodo!), 'month')}, o índice ficou em ${nf(v)} (jun/1994 = 100).${leitura12}`,
+      unidade: en ? 'index, June 1994 = 100 (monthly)' : 'índice, jun/1994 = 100 (mensal)',
+      descricao: en ? `Real effective exchange rate index since ${fx(mes(cr[0]!.periodo!), 'month')}, with the ${periodoMedia} average as a dashed reference line.` : `Índice da taxa de câmbio real efetiva desde ${fx(mes(cr[0]!.periodo!), 'month')}, com a média de ${periodoMedia} como linha tracejada de referência.`,
+      spec: {
+        id: 'cambio-real', height: 320, xFormat: 'month', yDigits: 1, yUnit: en ? 'index' : 'índice', lang,
+        refs: [{ y: Math.round(media * 100) / 100, label: en ? `average ${periodoMedia}: ${nf(media)}` : `média ${periodoMedia}: ${nf(media)}`, color: COR.steel, dash: '5 4' }],
+        series: [{ id: 'cr', label: en ? 'Real effective exchange rate' : 'Câmbio real efetivo', endLabel: en ? 'Index' : 'Índice', color: COR.navy, width: 2.4, points: cr.map((x) => ({ x: mes(x.periodo!), y: n(x.indice) })) }],
+      },
+      legenda: [
+        { id: 'cr', label: en ? 'Real effective exchange rate index (IPCA)' : 'Índice de câmbio real efetivo (IPCA)', color: COR.navy, style: 'line' },
+        { id: 'media', label: en ? `Average ${periodoMedia}` : `Média ${periodoMedia}`, color: COR.steel, style: 'dash' },
+      ],
+      fontes: [fonte('cambio_real')], csv: [csvLink('panorama', 'cambio_real')],
+      nota: en
+        ? 'Up = real depreciation: Brazilian goods become relatively cheaper for trading partners. Effective index: a basket of trading partners’ currencies per real, adjusted by relative prices (IPCA for Brazil). The BCB publishes it with a lag of about two to three months. The dashed line is the average of the whole period shown in “All”, not of the selected range.'
+        : 'Alta = depreciação real: os bens brasileiros ficam relativamente mais baratos para os parceiros comerciais. Índice efetivo: cesta de moedas dos parceiros comerciais por real, ajustada por preços relativos (IPCA para o Brasil). O BCB o divulga com defasagem de cerca de dois a três meses. A linha tracejada é a média de todo o período (opção “Tudo”), não do intervalo selecionado.',
+      tabela: { colunas: [en ? 'Month' : 'Mês', en ? 'Index (Jun 1994 = 100)' : 'Índice (jun/1994 = 100)'], linhas: [...cr].reverse().map((x) => [fx(mes(x.periodo!), 'month'), n(x.indice)]) },
+    });
+  }
 
   // Conta corrente
   {
@@ -518,6 +556,8 @@ export interface Indicador {
   id: string; grupo: 'atividade' | 'precos' | 'externo' | 'fiscal' | 'trabalho'; icone: string; titulo: string;
   valor: number | null; unidade: string; descricao: string; referencia: string; tipo_ref: string; variacao: string;
   spark: number[]; ancora: string | null; calculado?: boolean;
+  /** Variação em 12 meses (%), quando o indicador a tem (câmbio real). Em pt já está na descrição; em en é acrescentada. */
+  var12m?: number | null;
   /** Valor complementar mostrado na descrição (ex.: extrema pobreza). */
   secundario?: number | null;
   fonte: string; serie: string; extraido_em: string; url: string; desatualizado: boolean;
