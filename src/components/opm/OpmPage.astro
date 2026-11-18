@@ -9,7 +9,7 @@ import OpmShell from './OpmShell.astro';
 import KpiStrip from './KpiStrip.astro';
 import Mensagens from './Mensagens.astro';
 import Ficha from './Ficha.astro';
-import { ESTADO_PARTIDA, INDICADORES, MODULOS } from '../../lib/opm-dados';
+import { ESTADO_PARTIDA, INDICADORES, INDICADORES_ESPEC, MODULOS } from '../../lib/opm-dados';
 import { calendarioCopom, graficosModulo, kpisOpm, mensagensOpm, OPM_SLUG, rotDia, valoresCee, vintagesOpm } from '../../lib/opm';
 import { fmtNum } from '../../lib/viz/render';
 import { fmtDate, isoDate } from '../../lib/publicacoes';
@@ -38,7 +38,7 @@ const destaque = [
 ].map((g) => ({ ...g, largo: false, id: `${g.id}-destaque` }));
 const proximas = cal.filter((c) => !c.realizada).slice(0, 4);
 const ultimas = cal.filter((c) => c.realizada).slice(-3).reverse();
-const conta = (id: string) => INDICADORES.filter((i) => i.modulo === id && i.estado === 'publicado').length;
+const conta = (id: string) => INDICADORES_ESPEC.filter((i) => i.modulo === id && i.estado === 'publicado').length;
 const selo = (i: { estado: string; camada: number }) => (i.estado === 'publicado' ? (i.camada === 3 ? (en ? 'Experimental' : 'Experimental') : (en ? 'Published' : 'Publicado')) : (en ? 'In construction' : 'Em construção'));
 const jsonld = {
   '@context': 'https://schema.org', '@type': 'Dataset', name: `${p.linha}. ${opm}`, description: p.resumo[k], version: p.versao,
@@ -90,7 +90,7 @@ const jsonld = {
       <div class="table-scroll" role="region" aria-label={en ? 'Table: indicators' : 'Tabela: indicadores'} tabindex="0">
         <table class="tab">
           <thead><tr><th scope="col">Nº</th><th scope="col">{en ? 'Indicator' : 'Indicador'}</th><th scope="col">{en ? 'Module' : 'Módulo'}</th><th scope="col">{en ? 'Layer' : 'Camada'}</th><th scope="col">{en ? 'Status' : 'Situação'}</th></tr></thead>
-          <tbody>{INDICADORES.map((i) => {
+          <tbody>{INDICADORES_ESPEC.map((i) => {
             const m = MODULOS.find((x) => x.id === i.modulo)!;
             return <tr><th scope="row">{i.codigo}</th><td><a href={href(`${OPM_SLUG}${m.id}/#ind-${i.codigo.replace('.', '-')}`, lang)}>{i.nome[k]}</a></td><td>{m.codigo}</td><td class="num">{i.camada}</td><td><span class:list={['chip', `chip--${i.estado}`, { 'chip--exp': i.camada === 3 && i.estado === 'publicado' }]}>{selo(i)}</span></td></tr>;
           })}</tbody>
