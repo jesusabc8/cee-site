@@ -11,6 +11,7 @@
 | Expectativas de mercado (Focus) — IPCA anual, mediana | conjuntura | Olinda Expectativas v1, ExpectativasMercadoAnuais, Indicador='IPCA', baseCalculo=0 | % (variação no ano de referência) | diária (dias úteis) | 2026-10-20 | 2026-11-16 | 2024-01-02 → 2026-11-13 |
 | PIB a preços de mercado — taxa interanual e taxa contra o trimestre anterior (dessazonalizada) | panorama | SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil) | % | trimestral | 2026-10-20 | 2026-10-20 | 1996-T1 → 2026-T2 |
 | Taxa de câmbio — livre — dólar americano (venda), PTAX | panorama | SGS 1 | R$/US$ | diária | 2026-10-20 | 2026-11-17 | 2012-01 → 2026-11 |
+| Índice da taxa de câmbio real efetiva (IPCA), jun/1994 = 100 | panorama | SGS 11752 | índice (jun/1994 = 100) | mensal | 2026-11-17 | 2026-11-17 | 2012-01 → 2026-08 |
 | Transações correntes acumuladas em 12 meses em relação ao PIB | panorama | SGS 23079 | % do PIB | mensal | 2026-10-20 | 2026-10-28 | 2012-01 → 2026-09 |
 | NFSP — resultado primário do setor público consolidado, acumulado em 12 meses | panorama | SGS 5793 | % do PIB (NFSP: positivo = déficit) | mensal | 2026-10-20 | 2026-11-02 | 2012-01 → 2026-09 |
 | Dívida bruta do governo geral (DBGG) | panorama | SGS 13762 | % do PIB | mensal | 2026-10-20 | 2026-11-16 | 2012-01 → 2026-09 |
@@ -100,6 +101,20 @@
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01/01/2013&dataFinal=31/12/2013`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2014`
   - … (15 requisições, uma por ano)
+
+## cambio_real — Índice da taxa de câmbio real efetiva (IPCA), jun/1994 = 100
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 11752
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=11752
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-17):** Página pública de consulta do SGS (consultarValoresSeries, versão em português), que lista código, nome completo, unidade, periodicidade, início e último valor; valores conferidos com a API do SGS
+- **Nome oficial retornado pela fonte:** Índice da taxa de câmbio real efetiva (IPCA) - Jun/1994=100
+- **Observações:** Unidade "Índice", periodicidade M, início 01/01/1988, último valor ago/2026 (consulta de 17/11/2026). Alta = depreciação real. A versão em inglês da mesma página traz "Jun/1994=101", erro de tradução do SGS; vale o nome em português. Valores de referência conferidos: jul/2011 71,76; set/2015 129,34; mai/2020 149,83; ago/2025 127,44; jul/2026 119,67; ago/2026 123,23.
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2022&dataFinal=17/11/2026`
 
 ## conta_corrente — Transações correntes acumuladas em 12 meses em relação ao PIB
 

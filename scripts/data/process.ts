@@ -116,6 +116,7 @@ const processadores: Record<string, (c: Record<string, Buffer>, extraido: Date) 
       periodo, media_mensal: Math.round((m.soma / m.n) * 10000) / 10000, fim_periodo: m.ultimo, data_ultimo: m.data, dias: m.n,
     }));
   },
+  cambio_real: (c, e) => mensalSgs(c, e).map((r) => ({ periodo: r.periodo, indice: r.valor })),
   conta_corrente: (c, e) => mensalSgs(c, e).map((r) => ({ periodo: r.periodo, transacoes_correntes_pib: r.valor })),
   primario: (c, e) => mensalSgs(c, e).map((r) => ({
     periodo: r.periodo, nfsp_primario_pib: r.valor, superavit_primario_pib: r.valor === null ? null : Math.round(-r.valor * 100) / 100,

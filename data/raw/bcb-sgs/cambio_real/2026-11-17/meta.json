@@ -1,0 +1,26 @@
+{
+  "serie": "cambio_real",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 11752",
+  "extraido_em": "2026-11-17T23:35:17.740Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "4b816fa40057b79482838947b483e98d9b36ef4da89e3885e3bbc7633c06f304",
+      "bytes": 2297
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "53d650d9cbf9b4b6e9be055c15e72e6870674861967cc90395df26bbf3003190",
+      "bytes": 2329
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2022&dataFinal=17/11/2026",
+      "sha256": "e5ca5b6506151dfc0a7af9b9ae6d5cf8425c83e243df8567e55a109b4b27315e",
+      "bytes": 2185
+    }
+  ]
+}

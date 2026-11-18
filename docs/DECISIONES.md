@@ -214,3 +214,27 @@ serviços, e o rótulo "merchandise" não descreve a cobertura.
   uma nova versão da PWT.
 - O nível sobe de cerca de 26 % para 34 %, porque passam a entrar os serviços e a fonte passa a ser
   as contas nacionais.
+
+## ADR-020 — Câmbio real efetivo no cartão de câmbio do "Brasil em números" (2026-11-17)
+
+**Decisão.** O cartão de câmbio da página inicial passa a mostrar o câmbio real efetivo (SGS 11752) em vez da PTAX
+nominal, por medir competitividade externa e ser comparável no tempo. A PTAX permanece no Panorama
+(`grafico-cambio`). Custo aceito: defasagem de cerca de dois a três meses.
+
+**Série.** Índice da taxa de câmbio real efetiva (IPCA), jun/1994 = 100 (BCB/SGS 11752), mensal. Alta = depreciação real.
+- Nome oficial conferido em 17/11/2026 na página pública de consulta do SGS, em português.
+- A série não está no catálogo CKAN do BCB.
+- A versão em inglês da mesma página traz "Jun/1994=101", erro de tradução do SGS.
+- Não se usam as variantes bilaterais (11753 etc.), com outros deflatores ou a efetiva nominal (20360).
+
+**Cartão.**
+- Valor: o último índice, com uma casa.
+- Variação em 12 meses: 100 × (I_m / I_{m−12} − 1), omitida se faltar I_{m−12}.
+- Seta e texto de leitura próprios: ▲ = depreciação real ante o mês anterior.
+- Vista detalhada: índice desde 2012, com a média do período inteiro como linha tracejada rotulada com o período. A
+  linha não muda com o intervalo selecionado, porque o renderizador usa referências estáticas.
+
+**Conferência.** Valores conferidos com a API do SGS:
+- jul/2011 71,76. Fica fora do pipeline, que começa em 2012; conferido só na API.
+- set/2015 129,34; mai/2020 149,83; ago/2025 127,44; jul/2026 119,67; ago/2026 123,23.
+- Variação em 12 meses de ago/2026: −3,3 %.

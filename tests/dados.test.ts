@@ -25,6 +25,7 @@ const LIMITES: Record<string, Record<string, [number, number]>> = {
   focus_ipca: { mediana: [-2, 30] },
   pib: { var_interanual: [-15, 15], var_trimestral_sa: [-12, 12] },
   ptax: { media_mensal: [1, 15], fim_periodo: [1, 15] },
+  cambio_real: { indice: [40, 250] },
   conta_corrente: { transacoes_correntes_pib: [-10, 5] },
   primario: { nfsp_primario_pib: [-6, 15], superavit_primario_pib: [-15, 6] },
   dbgg: { dbgg_pib: [40, 120] },
@@ -91,5 +92,33 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
     // Trimestres (AAAA-Tn) comparados pelo último mês do trimestre.
     const comoData = (v: string) => (/^\d{4}-T\d$/.test(v) ? `${v.slice(0, 4)}-${String(Number(v.slice(6)) * 3).padStart(2, '0')}` : v);
     for (const l of linhas) expect(comoData(String(l[chave])) <= limite).toBe(true);
+  });
+});
+
+describe('câmbio real efetivo (SGS 11752; ADR-020)', () => {
+  const cr = Object.fromEntries(lerCsv('cambio_real').map((l) => [l.periodo, Number(l.indice)]));
+  it('confere com os valores de referência do SGS (duas casas, tolerância zero)', () => {
+    // jul/2011 (71,76) fica antes de ANO_INICIAL (2012) e foi conferido só na API.
+    expect(cr['2015-09']).toBe(129.34);
+    expect(cr['2020-05']).toBe(149.83);
+    expect(cr['2025-08']).toBe(127.44);
+    expect(cr['2026-07']).toBe(119.67);
+    expect(cr['2026-08']).toBe(123.23);
+  });
+  it('variação em 12 meses de ago/2026 = −3,3 % (123,23 / 127,44 − 1)', () => {
+    expect(Math.round((cr['2026-08']! / cr['2025-08']! - 1) * 1000) / 10).toBe(-3.3);
+  });
+  it('o cartão da página inicial usa a série e mostra a variação em 12 meses', () => {
+    const tiles = JSON.parse(readFileSync('data/processed/panorama/indicadores.json', 'utf8')) as Record<string, unknown>[];
+    const t = tiles.find((x) => x.id === 'cambio_real')!;
+    const ult = lerCsv('cambio_real').at(-1)!;
+    expect(t.serie).toBe('SGS 11752');
+    expect(t.referencia).toBe(ult.periodo);
+    expect(t.valor).toBe(Math.round(Number(ult.indice) * 10) / 10);
+    if (ult.periodo === '2026-08') {
+      expect(t.var12m).toBe(-3.3);
+      expect(t.descricao).toMatch(/12 meses: −3,3%$/);
+    }
+    expect(tiles.some((x) => x.id === 'cambio')).toBe(false);
   });
 });

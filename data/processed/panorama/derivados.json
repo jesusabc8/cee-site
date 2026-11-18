@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-11-17T18:55:14.111Z",
+  "gerado_em": "2026-11-17T23:36:56.520Z",
   "juro_real": {
     "entradas": [
       "selic_meta",
@@ -33,6 +33,13 @@
       "focus_anual"
     ],
     "data_focus": "2026-11-13"
+  },
+  "cambio_real": {
+    "entradas": [
+      "cambio_real"
+    ],
+    "cartao": "último índice (1 casa)",
+    "var12m": "100 × (I_m / I_{m−12} − 1), 1 casa; omitida se faltar I_{m−12}"
   },
   "abertura": {
     "entradas": [

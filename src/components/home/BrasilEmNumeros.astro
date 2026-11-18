@@ -37,7 +37,7 @@ const EN: Record<string, { titulo: string; unidade: string; descricao: string }>
   pib: { titulo: 'Real GDP', unidade: '% q/q', descricao: 'Change on previous quarter, seasonally adjusted' },
   ipca: { titulo: 'IPCA inflation', unidade: '% 12m', descricao: '12-month change · target 3% ± 1.5 p.p.' },
   selic: { titulo: 'Selic target', unidade: '% p.a.', descricao: 'Set by the Copom' },
-  cambio: { titulo: 'Exchange rate', unidade: 'R$/US$', descricao: 'PTAX selling rate, latest quote' },
+  cambio_real: { titulo: 'Real exchange rate', unidade: 'index', descricao: 'Effective, IPCA-deflated (Jun 1994 = 100) · up = real depreciation' },
   conta_corrente: { titulo: 'Current account', unidade: '% GDP', descricao: 'Current transactions, 12-month sum' },
   primario: { titulo: 'Primary balance', unidade: '% GDP', descricao: 'Consolidated public sector, 12 months (+ surplus, − deficit)' },
   dbgg: { titulo: 'Gross debt', unidade: '% GDP', descricao: 'General government (DBGG)' },
@@ -45,7 +45,7 @@ const EN: Record<string, { titulo: string; unidade: string; descricao: string }>
   pobreza: { titulo: 'Poverty', unidade: '% pop.', descricao: 'Below US$6.85 a day, 2017 PPP (World Bank)' },
   desocupacao: { titulo: 'Unemployment', unidade: '%', descricao: 'PNAD Contínua, rolling quarter, not seasonally adjusted' },
 };
-const DIGITOS: Record<string, number> = { pib: 1, ipca: 2, selic: 2, abertura: 1, pobreza: 1, cambio: 4, conta_corrente: 2, primario: 2, dbgg: 1, desocupacao: 1 };
+const DIGITOS: Record<string, number> = { pib: 1, ipca: 2, selic: 2, abertura: 1, pobreza: 1, cambio_real: 1, conta_corrente: 2, primario: 2, dbgg: 1, desocupacao: 1 };
 
 const nf = (v: number, d: number) => new Intl.NumberFormat(lang, { minimumFractionDigits: d, maximumFractionDigits: d }).format(Math.abs(v));
 const valor = (i: Indicador) => (i.valor === null ? null : `${i.valor < 0 ? '−' : ''}${nf(i.valor, DIGITOS[i.id] ?? 2)}`);
@@ -63,9 +63,19 @@ function referencia(i: Indicador) {
   }
   return new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${r}T12:00:00Z`)).replace('.', '').replace(/ de /g, ' ');
 }
-const dirTxt: Record<string, string> = en
+const dirTxtPadrao: Record<string, string> = en
   ? { '▲': 'up on previous observation', '▼': 'down on previous observation', '■': 'unchanged from previous observation' }
   : { '▲': 'acima da observação anterior', '▼': 'abaixo da observação anterior', '■': 'igual à observação anterior' };
+// Textos próprios por indicador, quando a direção tem leitura econômica específica (câmbio real: alta = depreciação).
+const dirTxtPorId: Record<string, Record<string, string>> = {
+  cambio_real: en
+    ? { '▲': 'real depreciation on previous month', '▼': 'real appreciation on previous month', '■': 'unchanged from previous month' }
+    : { '▲': 'depreciação real ante o mês anterior', '▼': 'apreciação real ante o mês anterior', '■': 'sem variação ante o mês anterior' },
+};
+const dirTxt = (i: Indicador) => (dirTxtPorId[i.id] ?? dirTxtPadrao)[i.variacao];
+// Em inglês, a variação em 12 meses (já embutida na descrição em português pelo pipeline) é acrescentada aqui.
+const var12En = (i: Indicador) => (i.var12m == null ? ''
+  : ` · 12 months: ${i.var12m > 0 ? '+' : i.var12m < 0 ? '−' : '±'}${new Intl.NumberFormat('en', { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(Math.abs(i.var12m))}%`);
 const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
 const serieCurta = (s: string) => s.split(/[,(]/)[0]!.trim();
 const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'Groningen Growth and Development Centre' ? 'GGDC' : f.split(' — ')[0]!);
@@ -91,11 +101,11 @@ const sigla = (f: string) => (f === 'Banco Central do Brasil' ? 'BCB' : f === 'G
             ) : (
               <p class="tile__val num">{v}<small>{t.unidade}</small></p>
             )}
-            <p class="tile__lab">{t.descricao.replace(/ · (calculad[oa]|calculated)$/, '')}{i.secundario != null && (en ? `; extreme poverty (US$2.15): ${nf(i.secundario, 1)}%` : `; extrema pobreza (US$ 2,15): ${nf(i.secundario, 1)}%`)}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
+            <p class="tile__lab">{t.descricao.replace(/ · (calculad[oa]|calculated)$/, '')}{en && var12En(i)}{i.secundario != null && (en ? `; extreme poverty (US$2.15): ${nf(i.secundario, 1)}%` : `; extrema pobreza (US$ 2,15): ${nf(i.secundario, 1)}%`)}{i.calculado && <span class="tile__calc">{en ? 'calculated' : 'calculado'}</span>}</p>
             {i.spark.length > 1 && <Fragment set:html={sparkline(i.spark, 200, 34, '#4A7C96', '#0A2259')} />}
             <p class="tile__meta mono">
               <span>{referencia(i)}</span>
-              {v !== null && <span class="tile__dir" title={dirTxt[i.variacao]}><span aria-hidden="true">{i.variacao}</span><span class="visually-hidden">{dirTxt[i.variacao]}</span></span>}
+              {v !== null && <span class="tile__dir" title={dirTxt(i)}><span aria-hidden="true">{i.variacao}</span><span class="visually-hidden">{dirTxt(i)}</span></span>}
             </p>
             <p class="tile__src mono"><abbr title={i.fonte}>{sigla(i.fonte)}</abbr> · {serieCurta(i.serie)} · {en ? 'ext.' : 'extr.'} {fd(i.extraido_em)}{i.desatualizado && <> · <span class="tile__stale">{en ? 'previous vintage' : 'vintage anterior'}</span></>}</p>
             {detalhes[i.id] && (
