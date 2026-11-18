@@ -15,10 +15,11 @@ const { g, lang, nivel = 'h3' } = Astro.props;
 const H = nivel;
 const en = lang === 'en';
 const s = g.spec;
-const xMax = Math.max(...s.series.flatMap((x) => x.points.map((p) => p.x)));
+const est = g.estatico;
+const xMax = est ? 0 : Math.max(...s.series.flatMap((x) => x.points.map((p) => p.x)));
 const def = s.ranges?.find((r) => r.id === s.defaultRange) ?? s.ranges?.[0];
 const xFrom = def?.years ? Date.UTC(new Date(xMax).getUTCFullYear() - def.years, new Date(xMax).getUTCMonth(), 1) : undefined;
-const svg = renderSvg(s, g.largo ? 1180 : 580, xFrom);
+const svg = est ? '' : renderSvg(s, g.largo ? 1180 : 580, xFrom);
 const nf = new Intl.NumberFormat(lang, { maximumFractionDigits: 4 });
 const cell = (v: string | number | null) => (v === null || v === '' ? '—' : typeof v === 'number' ? nf.format(v) : v);
 const safra = g.fontes.map((f) => f.extraido_em).sort().at(-1) ?? '';
@@ -32,7 +33,7 @@ const L = en
   ? { fonte: 'Source', safraDe: 'Vintage of', safra: 'vintage', csv: 'Data (CSV)', fig: 'Figure', dados: 'Data', tabela: 'Data table', periodo: 'Period', legenda: 'Key', exp: 'Experimental', stale: 'source unavailable at last update; previous vintage shown', baixar: 'Download' }
   : { fonte: 'Fonte', safraDe: 'Safra de', safra: 'safra', csv: 'Dados (CSV)', fig: 'Figura', dados: 'Dados', tabela: 'Tabela de dados', periodo: 'Período', legenda: 'Chave', exp: 'Experimental', stale: 'fonte indisponível na última atualização; exibe-se a safra anterior', baixar: 'Baixar' };
 ---
-<figure class:list={['ficha', { 'ficha--larga': g.largo, 'ficha--exp': g.experimental }]} id={g.id} data-viz aria-labelledby={`${g.id}-t`} aria-describedby={`${g.id}-d`}>
+<figure class:list={['ficha', { 'ficha--larga': g.largo, 'ficha--exp': g.experimental }]} id={g.id} data-viz={est ? undefined : ''} data-viz-estatico={est ? '' : undefined} aria-labelledby={`${g.id}-t`} aria-describedby={`${g.id}-d`}>
   <header class="ficha__cab">
     <p class="ficha__sup">
       <span class="ficha__cod">{g.rotulo}</span>
@@ -43,7 +44,7 @@ const L = en
     <p class="ficha__sub">{g.subtitulo}</p>
   </header>
 
-  {(legenda.length > 0 || s.ranges) && (
+  {!est && (legenda.length > 0 || s.ranges) && (
     <div class="ficha__controles">
       {legenda.length > 0 && (
         <ul class="ficha__chave" aria-label={L.legenda}>
@@ -60,8 +61,9 @@ const L = en
     </div>
   )}
 
-  <div class="ficha__plot" id={`${g.id}-plot`} data-viz-plot set:html={svg} />
-  <div class="viz-tip" data-viz-tip hidden></div>
+  {est
+    ? <div class="ficha__plot" id={`${g.id}-plot`} data-viz-plot>{est.map((e) => <div class={`ficha__var ficha__var--${e.classe}`} set:html={e.svg} />)}</div>
+    : <><div class="ficha__plot" id={`${g.id}-plot`} data-viz-plot set:html={svg} /><div class="viz-tip" data-viz-tip hidden></div></>}
   <p id={`${g.id}-d`} class="visually-hidden">{g.descricao}</p>
 
   <figcaption class="ficha__rodape">
@@ -86,7 +88,7 @@ const L = en
       </div>
     </details>
   </figcaption>
-  <script type="application/json" set:html={JSON.stringify(s)} />
+  {!est && <script type="application/json" set:html={JSON.stringify(s)} />}
 </figure>
 
 <script>
@@ -125,6 +127,9 @@ const L = en
   .ficha__periodos button:focus-visible { outline: 2px solid var(--pub-link); outline-offset: -2px; }
   .ficha__plot { position: relative; min-width: 0; }
   .ficha__plot :global(svg) { display: block; width: 100%; height: auto; }
+  /* Figuras estáticas: uma SVG por faixa de largura (o texto mantém tamanho legível no telefone). */
+  .ficha__var--estreita { display: none; }
+  @media (max-width: 40rem) { .ficha__var--larga { display: none; } .ficha__var--estreita { display: block; } }
   .ficha__rodape { display: grid; gap: 8px; padding-top: var(--e-1); border-top: 1px solid var(--pub-linha); font-size: var(--t-12); line-height: 1.55; color: var(--pub-suave); }
   .ficha__nota { margin: 0; color: var(--pub-tinta); font-size: var(--t-14); line-height: 1.5; max-width: 90ch; }
   .ficha__fonte { margin: 0; overflow-wrap: anywhere; }

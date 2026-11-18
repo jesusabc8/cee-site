@@ -50,6 +50,12 @@ html.pub {
   --s4: #9db3c2;
   --s-banda: rgb(60 141 203 / 16%);
   --s-banda-2: rgb(10 34 89 / 7%);
+  /* Escala sequencial (mapa regional; classes em relação à meta, ADR-030) */
+  --seq-1: #e3eef7;
+  --seq-2: #a9cbe6;
+  --seq-3: #5f9fd2;
+  --seq-4: #2a6aa8;
+  --seq-5: #0a2259;
   --s-grade: #e8edf2;
   --s-eixo: #5d6e80;
   --s-ref: #4f5f72;
@@ -76,6 +82,11 @@ html.pub {
     --s4: #5c7389;
     --s-banda: rgb(99 174 232 / 20%);
     --s-banda-2: rgb(225 235 246 / 8%);
+    --seq-1: #1f3352;
+    --seq-2: #2f5a8c;
+    --seq-3: #4f8cc4;
+    --seq-4: #94c1e8;
+    --seq-5: #e8f1fa;
     --s-grade: #1c2a41;
     --s-eixo: #9fb0c2;
     --s-ref: #a7b6c6;
@@ -124,3 +135,14 @@ html.pub .banda-1 { fill: var(--s-banda); }
 html.pub .banda-2 { fill: var(--s-banda-2); }
 html.pub .ref-linha { stroke: var(--s-ref); }
 html.pub .viz-marca { stroke: var(--pub-fundo); }
+/* Figuras estáticas (src/lib/viz/estaticos.ts) */
+html.pub .viz-tick--peq { font-size: 11px; }
+html.pub .seq-1 { fill: var(--seq-1); } html.pub .seq-2 { fill: var(--seq-2); } html.pub .seq-3 { fill: var(--seq-3); }
+html.pub .seq-4 { fill: var(--seq-4); } html.pub .seq-5 { fill: var(--seq-5); }
+html.pub .mapa-ponto { stroke: var(--pub-fundo); stroke-width: 1.2; fill-opacity: 0.92; }
+html.pub .mapa-ponto--destaque { stroke: var(--pub-tinta); stroke-width: 2.4; }
+html.pub .mapa-escala { fill: none; stroke: var(--s-eixo); stroke-width: 1; }
+html.pub .mapa-valor { font-weight: 500; fill: var(--s-eixo); }
+html.pub .mapa-rotulo--destaque { font-weight: 700; fill: var(--pub-tinta); text-decoration: underline; }
+html.pub .mm-topo { stroke: var(--pub-linha-forte); stroke-width: 1; }
+html.pub .mm-topo--destaque { stroke: var(--pub-destaque); stroke-width: 3; }
