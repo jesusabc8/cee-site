@@ -124,7 +124,7 @@ npm run lint      # ESLint + Stylelint
 npm test          # dados e regras editoriais
 npm run qa:links  # links internos e âncoras, depois de npm run build
 npm run qa:seguranca  # nada interno ou pessoal em dist/, depois de npm run build
-npm audit --audit-level=high
+npm run qa:audit   # npm audit --audit-level=high com exceções por ID (ADR-021)
 ```
 
 Acessibilidade (axe) e Lighthouse rodam no CI ([`quality.yml`](.github/workflows/quality.yml)); para rodar localmente, veja `scripts/qa/`. Registro da última rodada: [`docs/qa/README.md`](docs/qa/README.md).
@@ -175,7 +175,7 @@ curl -I http://localhost:8787/publicacoes/tipo/working-paper/   # 301
 ```
 
 Regras: Actions fixadas por SHA; `permissions: contents: read` por padrão (só `data-refresh` escreve, e não lê os segredos
-da Cloudflare); Dependabot semanal; `npm audit --audit-level=high` e gitleaks no CI. Gancho local opcional de gitleaks:
+da Cloudflare); Dependabot semanal; `npm run qa:audit` (npm audit --audit-level=high com exceções por ID, ADR-021) e gitleaks no CI. Gancho local opcional de gitleaks:
 ver [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ---
@@ -193,7 +193,7 @@ The site is static (Astro), with no cookies and no third-party resources. Observ
 - **Errata:** never correct silently. Bump `versao`, add an entry to `versoes` and to `erratas` (a notice within seven calendar days of becoming aware of the error — the build enforces this). Errata appear on the publication and in the public register at `/erratas/`.
 - **Data updates:** automatic every Monday ([`data-refresh`](.github/workflows/data-refresh.yml)); manually, `npm run data`. Never edit `data/raw/` by hand. If an API fails, the previous vintage is kept and the dashboard shows a warning.
 - **New series or dashboard:** verify the code against the official metadata first, add it to [`scripts/data/series.ts`](scripts/data/series.ts) with its `verificacao` block, write the processor and the plausible ranges in the tests, and run `npm run data`. At most three series per chart, one y-axis.
-- **Quality:** `npm run check`, `npm run lint`, `npm test`, `npm run qa:links`, `npm run qa:seguranca`, `npm audit --audit-level=high`; gitleaks, axe and Lighthouse run in CI.
+- **Quality:** `npm run check`, `npm run lint`, `npm test`, `npm run qa:links`, `npm run qa:seguranca`, `npm run qa:audit` (npm audit --audit-level=high with per-ID exceptions, ADR-021); gitleaks, axe and Lighthouse run in CI.
 - **Deployment:** Cloudflare Workers static assets via [`build-deploy`](.github/workflows/build-deploy.yml); security headers in `public/_headers`, 301s in `public/_redirects`; test locally with `npx wrangler dev`. Setup steps: [`docs/LANCAMENTO.md`](docs/LANCAMENTO.md).
 
 Licences: code under [MIT](LICENSE); text and data under [CC BY 4.0](LICENSE-CONTENT).

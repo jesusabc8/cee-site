@@ -21,7 +21,8 @@
     "qa:busca": "node scripts/qa/busca.mjs",
     "lint": "eslint . && stylelint \"src/**/*.{css,astro}\"",
     "data:derive": "node scripts/data/derive.ts",
-    "qa:seguranca": "node scripts/qa/seguranca.mjs"
+    "qa:seguranca": "node scripts/qa/seguranca.mjs",
+    "qa:audit": "node scripts/qa/audit.mjs"
   },
   "license": "MIT",
   "dependencies": {

@@ -238,3 +238,29 @@ nominal, por medir competitividade externa e ser comparável no tempo. A PTAX pe
 - jul/2011 71,76. Fica fora do pipeline, que começa em 2012; conferido só na API.
 - set/2015 129,34; mai/2020 149,83; ago/2025 127,44; jul/2026 119,67; ago/2026 123,23.
 - Variação em 12 meses de ago/2026: −3,3 %.
+
+## ADR-021 — Exceção temporária no npm audit para GHSA-fc5q-39xc-vjpf (picomatch) (2026-11-18)
+
+**Contexto.** Desde 17/11/2026 o `npm audit --audit-level=high` falha em todos os PRs por um único aviso alto:
+GHSA-fc5q-39xc-vjpf (picomatch ≤ 4.0.7, ReDoS em extglobs de ramo único, CVSS 7,5). Não há versão corrigida
+publicada: a última é a 4.0.7. Os 23 pacotes "high" do relatório são todos efeitos desse mesmo aviso
+(astro, vite, vitest, tinyglobby, fdir, anymatch, micromatch, stylelint e outros).
+
+**Verificação do alcance (18/11/2026).**
+- `npm ls picomatch`: só entra por astro/vite, @astrojs/internal-helpers, tinyglobby, fdir, unstorage→anymatch,
+  stylelint→micromatch e vitest. São ferramentas de build, de desenvolvimento e de teste.
+- `npm run build` seguido de busca em `dist/` por `picomatch`, `micromatch` e `POSIX_REGEX_SOURCE`: nenhuma ocorrência.
+  O sítio é estático e não tem servidor, logo o código vulnerável não chega ao que se publica.
+- O ataque exige padrões glob controlados por terceiros; no build os padrões vêm do próprio repositório.
+
+**Decisão.**
+- O passo de auditoria do CI passa a ser `npm run qa:audit` (`scripts/qa/audit.mjs`), equivalente a
+  `npm audit --audit-level=high`. O nível não muda: qualquer aviso high ou critical falha, salvo exceção.
+- A exceção, em `scripts/qa/audit-excecoes.json`, vale só para o ID GHSA-fc5q-39xc-vjpf e o pacote picomatch.
+- **Vencimento:** 18/12/2026 ou a publicação de versão de picomatch fora do intervalo afetado, o que vier primeiro.
+  O script consulta `npm view picomatch version` e, se a última versão corrigir o aviso, a exceção deixa de valer e o
+  CI falha até a atualização.
+- Qualquer outro aviso high ou critical continua a falhar o CI. Os testes estão em `tests/audit.test.ts`.
+
+**Consequências.** O CI volta a ficar verde sem relaxar o critério geral. Ao vencer, ou se o aviso passar a atingir
+`dist/`, a exceção é retirada: atualiza-se a dependência ou abre-se novo ADR.

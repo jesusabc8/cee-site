@@ -41,7 +41,7 @@ não invente: registre em `docs/PENDIENTES.md`. A Proposta v3.0 está superada.
   (CSP sem `'unsafe-inline'` em `script-src`; Pagefind exige `'wasm-unsafe-eval'`); redirecionamentos 301 em
   `public/_redirects`. Nenhum slug público muda sem 301.
 - GitHub Actions fixadas por SHA; `permissions: contents: read` por padrão; só `data-refresh` escreve e não vê os
-  segredos da Cloudflare. Dependabot semanal; `npm audit --audit-level=high` e gitleaks no CI.
+  segredos da Cloudflare. Dependabot semanal; `npm run qa:audit` (= `npm audit --audit-level=high` com exceções por ID e vencimento, ADR-021) e gitleaks no CI.
 - Nunca: reescrever histórico, push forçado, apagar dados, mudar configuração de conta GitHub/Cloudflare sem
   autorização expressa do responsável.
 

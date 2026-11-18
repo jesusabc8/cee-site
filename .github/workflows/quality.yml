@@ -41,7 +41,8 @@ jobs:
           cache: npm
       # Sem scripts de instalação. Exceção documentada: o navegador do Playwright é baixado por comando próprio abaixo.
       - run: npm ci --ignore-scripts
-      - run: npm audit --audit-level=high
+      # Equivale a npm audit --audit-level=high, com exceções temporárias por ID e vencimento (ADR-021).
+      - run: npm run qa:audit
       - run: npx playwright install --with-deps chromium
       - run: npm run check
       - run: npm run lint
