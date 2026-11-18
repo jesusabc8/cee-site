@@ -13,7 +13,9 @@ export const moduloSchema = z.object({
 }).strict();
 
 export const indicadorSchema = z.object({
-  codigo: z.string().regex(/^I\.(?:[1-9]|1\d|2[01])$/),
+  /** I.1–I.21: indicadores da especificação; C.n: complementares do CEE (ADR-030), fora da contagem de 21. */
+  codigo: z.string().regex(/^(?:I\.(?:[1-9]|1\d|2[01])|C\.[1-9]\d?)$/),
+  complementar: z.boolean().optional(),
   modulo: z.string(),
   camada: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   /** publicado = com dados no sítio; em-construcao = sem cifras. A camada 3 publicada leva o selo "experimental". */
@@ -27,6 +29,7 @@ export const indicadorSchema = z.object({
   /** Pendência que impede a publicação (obrigatória quando em construção). */
   pendencia: bi.optional(),
 }).strict().refine((i) => i.estado !== 'publicado' || Boolean(i.arquivo), { message: 'indicador publicado precisa de arquivo' })
+  .refine((i) => (i.complementar === true) === i.codigo.startsWith('C.'), { message: 'códigos C.n são exatamente os complementares' })
   .refine((i) => i.estado !== 'em-construcao' || Boolean(i.pendencia), { message: 'indicador em construção precisa de pendência' });
 
 export const estadoPartidaSchema = z.object({

@@ -16,10 +16,10 @@
 - id: a2-3-inflacao
   curto: { pt: 'Inflação', en: 'Inflation' }
   codigo: A2.3
-  titulo: { pt: 'Inflação, grupos e núcleos', en: 'Inflation, groups and core measures' }
+  titulo: { pt: 'Inflação, grupos, núcleos e regiões', en: 'Inflation, groups, cores and regions' }
   pergunta:
-    pt: Onde está a inflação, qual é a tendência subjacente e há quanto tempo o IPCA está fora do intervalo de tolerância?
-    en: Where is inflation, what is the underlying trend, and for how long has the IPCA been outside the tolerance band?
+    pt: Onde está a inflação, qual é a tendência subjacente, como ela se distribui entre grupos e áreas do país e há quanto tempo o IPCA está fora do intervalo de tolerância?
+    en: Where is inflation, what is the underlying trend, how is it spread across groups and areas of the country, and for how long has the IPCA been outside the tolerance band?
 - id: a2-4-expectativas
   curto: { pt: 'Expectativas', en: 'Expectations' }
   codigo: A2.4

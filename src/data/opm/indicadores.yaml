@@ -226,3 +226,37 @@
   pendencia:
     pt: 'Recolhimentos e bases de depósitos por modalidade ainda não enumerados em séries mensais verificadas; o conjunto aberto do BCB traz só as alíquotas legais (docs/PENDIENTES.md).'
     en: 'Reserve collections and deposit bases by type not yet enumerated as verified monthly series; the BCB open dataset only carries statutory rates (docs/PENDIENTES.md).'
+# Complementares do CEE ao módulo A2.3 (ADR-030): fora da contagem de 21 da especificação.
+- codigo: C.1
+  complementar: true
+  modulo: a2-3-inflacao
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Dispersão regional da inflação', en: 'Regional dispersion of inflation' }
+  formula: '\sigma_t=\sqrt{\frac{\sum_a w_a\,(\pi^{12}_{a,t}-\bar\pi^{12}_{t})^2}{\sum_a w_a}},\qquad IIQ_t=Q^{w}_{0{,}75}-Q^{w}_{0{,}25}'
+  descricao:
+    pt: 'Desvio-padrão e intervalo interquartil da inflação em 12 meses das 16 áreas do IPCA, ponderados pelos pesos regionais oficiais (IBGE, POF 2017–2018). Quantil ponderado: menor valor cujo peso acumulado atinge q. Mede heterogeneidade regional; não é medida de núcleo.'
+    en: 'Standard deviation and interquartile range of the 12-month inflation of the 16 IPCA areas, weighted by the official regional weights (IBGE, POF 2017–2018). Weighted quantile: the smallest value whose cumulative weight reaches q. It measures regional heterogeneity; it is not a core measure.'
+  arquivo: indicadores/regional_dispersao.csv
+- codigo: C.2
+  complementar: true
+  modulo: a2-3-inflacao
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Contribuição por grupo à diferença regional', en: 'Group contribution to the regional gap' }
+  formula: 'c_{a,g,t}=\frac{w_{a,g,t}\,\pi_{a,g,t}-w_{B,g,t}\,\pi_{B,g,t}}{100},\qquad \sum_g c_{a,g,t}=\pi_{a,t}-\pi_{B,t}'
+  descricao:
+    pt: 'Decompõe a diferença entre a inflação mensal de uma área e a do Brasil nos nove grupos do IPCA, com pesos e variações do mês (SIDRA 7060). A soma iguala a diferença a menos de arredondamento (teste automático). A coluna de 12 meses soma as contribuições mensais: aproximação aditiva, declarada.'
+    en: 'Decomposes the gap between an area’s monthly inflation and Brazil’s into the nine IPCA groups, using the month’s weights and changes (SIDRA 7060). The sum equals the gap up to rounding (automatic test). The 12-month column adds the monthly contributions: a declared additive approximation.'
+  arquivo: indicadores/regional_contribuicao.csv
+- codigo: C.3
+  complementar: true
+  modulo: a2-3-inflacao
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Classificações e núcleos em 12 meses', en: 'Classifications and cores over 12 months' }
+  formula: '\pi^{12}_t=100\left[\prod_{j=0}^{11}\left(1+\frac{\pi_{t-j}}{100}\right)-1\right]'
+  descricao:
+    pt: 'Composição em 12 meses das séries mensais do BCB: preços livres e administrados, serviços, bens industriais, alimentação no domicílio, comercializáveis e não comercializáveis, e os núcleos de médias aparadas (MA) e percentil 55 (P55), que são calculados pelo BCB. Inclui a média móvel de 12 meses do índice de difusão.'
+    en: 'Twelve-month compounding of the BCB monthly series: market and regulated prices, services, industrial goods, food at home, tradables and non-tradables, and the trimmed-mean (MA) and 55th-percentile (P55) cores, which the BCB computes. Includes the 12-month moving average of the diffusion index.'
+  arquivo: indicadores/inflacao_classificacoes.csv
