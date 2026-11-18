@@ -2545,6 +2545,261 @@
     "desatualizado": false,
     "falha": null
   },
+  "ipca15": {
+    "nome": "IPCA-15 — variação mensal e acumulada em 12 meses",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 3065, variáveis 355 e 1120 (Brasil)",
+    "unidade": "%",
+    "frequencia": "mensal",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/3065",
+    "extraido_em": "2026-11-18T18:56:53.037Z",
+    "vintage_dir": "data/raw/ibge-sidra/ipca15/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "094d19b4d3fcd8bd88548fb059a2e0f6732d8d45ad077e65313f42e069e0582b"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "inpc": {
+    "nome": "INPC — variação mensal e acumulada em 12 meses",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 1736, variáveis 44 e 2292 (Brasil)",
+    "unidade": "%",
+    "frequencia": "mensal",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/1736",
+    "extraido_em": "2026-11-18T18:56:53.037Z",
+    "vintage_dir": "data/raw/ibge-sidra/inpc/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "413a483fbd803cb034e07fdf633dd290588e79e1de1e5a2e74bff2dbe084f95a"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipp": {
+    "nome": "IPP — indústria geral e indústrias de transformação, variação mensal e em 12 meses",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 6903, variáveis 1396 e 1394, classificação 842 [46608, 46610] (Brasil)",
+    "unidade": "%",
+    "frequencia": "mensal (desde dez./2013)",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/6903",
+    "extraido_em": "2026-11-18T18:56:53.037Z",
+    "vintage_dir": "data/raw/ibge-sidra/ipp/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "6d338753ddeb58d31896c9d8f2b2ba14e5588ed90f36b4bd92d2ea464815b737"
+      }
+    ],
+    "linhas": 153,
+    "primeiro": "2014-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_regional": {
+    "nome": "IPCA por área — índice geral e grupos (variação mensal, 12 meses e peso)",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 7060, variáveis 63, 2265, 66, classificação 315 (índice geral e 9 grupos), Brasil, regiões metropolitanas (N7) e municípios (N6)",
+    "unidade": "% e peso (%)",
+    "frequencia": "mensal (desde jan./2020)",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/7060",
+    "extraido_em": "2026-11-18T18:56:53.037Z",
+    "vintage_dir": "data/raw/ibge-sidra/ipca_regional/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2020.json",
+        "sha256": "06bb375d91ba3086650ec78f5525685c18f93981fb54142e98eb3e8d07b0fae8"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "9a110c321733c8949dea86f17eb106dcc2ee924a4430bc1b8a6cfedd38b270d0"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "2b9c77941d20a7630feac0062cb8a6849acf26bcd904f4409dcccc9f1be30814"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "9d64c206bdafd1774f27e8b420b4be6e7459023608f37dbe301abea5d7d3ae59"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "eda9614e592179ec66c1d9e545d850ba5c98bb7ee11b45e2457ea8b3e1fd7ddb"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "992e7a59c76d0db90226677ce2e41566beb0bb34efed99f8a1bfb4fbae800dbf"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "12676480965c4195696b4dfa354eeefe2f3b7777a01064c5572de4f20a02c79c"
+      }
+    ],
+    "linhas": 13940,
+    "primeiro": "2020-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "inpc_regional": {
+    "nome": "INPC por área — índice geral e grupos (variação mensal, 12 meses e peso)",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 7063, variáveis 44, 2292, 45, classificação 315 (índice geral e 9 grupos), Brasil, regiões metropolitanas (N7) e municípios (N6)",
+    "unidade": "% e peso (%)",
+    "frequencia": "mensal (desde jan./2020)",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/7063",
+    "extraido_em": "2026-11-18T18:56:53.037Z",
+    "vintage_dir": "data/raw/ibge-sidra/inpc_regional/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2020.json",
+        "sha256": "d949979f782022aa510cb2a230c906a8cae92e6bb29fb1391229cf4fbf5e1439"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "4b0466c758cfcdb883cadd90873606f0c809a0a59c4bf5c0090448c086b76762"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "3c9739a4b51195850d388d8867666783328df8e13d6d7441fe565acbe9cca672"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "02c3cf114443784db55f184f2e5d424dde644510f8451f2a6c426d7b3022ccba"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "aecdaf7f860545eabc9d8b7928689f2717c7ce7750326483c9b6c109d046809a"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "c39da40e6b1f5d94120273fc6259e1fa3931c2f4ca10497dcfdb7b439a750c82"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "97b3d9ee8aab427cb0d9ff69eee6a49a63f843650768419d82e54b277f459937"
+      }
+    ],
+    "linhas": 13940,
+    "primeiro": "2020-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "pesos_regionais": {
+    "nome": "Pesos regionais do IPCA e do INPC (POF 2017-2018)",
+    "instituicao": "IBGE",
+    "codigo": "FTP IBGE, Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip",
+    "unidade": "% do índice nacional",
+    "frequencia": "fixo (estrutura POF 2017-2018, em vigor desde jan./2020)",
+    "url_publica": "https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Atualizacao_das_Estruturas_POF2017-2018/",
+    "extraido_em": "2026-11-18T18:56:53.037Z",
+    "vintage_dir": "data/raw/ibge-sidra/pesos_regionais/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "Pesos_Regionais_IPCA_e_INPC.zip",
+        "sha256": "39380fb3a7ca3c10cd6959f2a8dab187c59f51a100dfec184af2860fd07837a1"
+      }
+    ],
+    "linhas": 16,
+    "primeiro": "Aracaju",
+    "ultimo": "Vitória",
+    "desatualizado": false,
+    "falha": null
+  },
+  "capitais_coordenadas": {
+    "nome": "Centroides dos municípios-sede das áreas do IPCA",
+    "instituicao": "IBGE",
+    "codigo": "API de malhas v3 do IBGE, /malhas/municipios/{id}/metadados (campo centroide)",
+    "unidade": "graus (longitude, latitude)",
+    "frequencia": "fixo",
+    "url_publica": "https://servicodados.ibge.gov.br/api/docs/malhas?versao=3",
+    "extraido_em": "2026-11-18T18:56:53.037Z",
+    "vintage_dir": "data/raw/ibge-sidra/capitais_coordenadas/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "1200401.json",
+        "sha256": "1fedd50d88e68e840557ea1af089e0588603e77aa57cf43db701afeba3b76d08"
+      },
+      {
+        "arquivo": "1501402.json",
+        "sha256": "3f131b3b5f2219be3b0f27b515f077760b38bb7703fcd954722913585482dab4"
+      },
+      {
+        "arquivo": "2111300.json",
+        "sha256": "d73a64561890b1ecdeeeef5e72a35f04ad1e1f04de1c882c98d4f3382e98a316"
+      },
+      {
+        "arquivo": "2304400.json",
+        "sha256": "e423879f3022953f16514c290d6240bbb2ce0efc40ca7373e96889fd6ff2d12c"
+      },
+      {
+        "arquivo": "2611606.json",
+        "sha256": "b518e79e41b729291fe4a9b436912b7a3c38e200248d2e5d2d3751a45a4012d2"
+      },
+      {
+        "arquivo": "2800308.json",
+        "sha256": "6c33461a828b1947ae7f56d0004d6bed4ef4b497986edc34f0b2da8a9db8b60a"
+      },
+      {
+        "arquivo": "2927408.json",
+        "sha256": "03f5e259b14654eccefb55dfeaab381f723e29f959dc6655162b4ee2dec1a49c"
+      },
+      {
+        "arquivo": "3106200.json",
+        "sha256": "cbb6a41da63adf8bb4f65de1d42296db4b241216e496b10e01537aae23b9a531"
+      },
+      {
+        "arquivo": "3205309.json",
+        "sha256": "b42ff13550a55a77b2541a1532b928e99aee417ec04078898a89ca1c70e9479f"
+      },
+      {
+        "arquivo": "3304557.json",
+        "sha256": "f69a3f8b6c597b3fe8cdd7b7172d46de22a809eca5882c6b5fed6d46b5857138"
+      },
+      {
+        "arquivo": "3550308.json",
+        "sha256": "43ae272bbf17734db542306807bb3213e97ba029aad20897201be6c2db5a0e79"
+      },
+      {
+        "arquivo": "4106902.json",
+        "sha256": "187ad4552362f25aa0ee7d442b0069daead4926dda4af16cd8e60e5e17b3a495"
+      },
+      {
+        "arquivo": "4314902.json",
+        "sha256": "8bfe0dc0ec45d604cc7582f1b21c959875a19d661fa43ae2b040a8b8f0204a90"
+      },
+      {
+        "arquivo": "5002704.json",
+        "sha256": "32f85ca5327091e21f44559ec0541858c2a7758f51932d32d0e8db259963adab"
+      },
+      {
+        "arquivo": "5208707.json",
+        "sha256": "fe48a1cebd24891dd3bfda8956385646b0a036ca52a66e8cd690dc08acba7bdd"
+      },
+      {
+        "arquivo": "5300108.json",
+        "sha256": "1d2e0f4ed06512637f02e4b33242d653304b6f567b0ea5ebefe8f30e0fc19ae8"
+      }
+    ],
+    "linhas": 16,
+    "primeiro": "1200401",
+    "ultimo": "5300108",
+    "desatualizado": false,
+    "falha": null
+  },
   "base_restrita": {
     "nome": "Base monetária restrita (saldo em final de período)",
     "instituicao": "Banco Central do Brasil",

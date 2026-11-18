@@ -1,0 +1,14 @@
+{
+  "serie": "ipp",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 6903, variáveis 1396 e 1394, classificação 842 [46608, 46610] (Brasil)",
+  "extraido_em": "2026-11-18T18:56:53.037Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/6903/periodos/201401-209912/variaveis/1396%7C1394?localidades=N1%5Ball%5D&classificacao=842%5B46608,46610%5D",
+      "sha256": "6d338753ddeb58d31896c9d8f2b2ba14e5588ed90f36b4bd92d2ea464815b737",
+      "bytes": 11371
+    }
+  ]
+}

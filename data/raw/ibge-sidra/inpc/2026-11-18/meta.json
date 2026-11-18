@@ -1,0 +1,14 @@
+{
+  "serie": "inpc",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 1736, variáveis 44 e 2292 (Brasil)",
+  "extraido_em": "2026-11-18T18:56:53.037Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/1736/periodos/201201-209912/variaveis/44%7C2292?localidades=N1%5Ball%5D",
+      "sha256": "413a483fbd803cb034e07fdf633dd290588e79e1de1e5a2e74bff2dbe084f95a",
+      "bytes": 6148
+    }
+  ]
+}

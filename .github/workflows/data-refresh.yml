@@ -37,6 +37,7 @@ jobs:
         env:
           PYTHON: ${{ github.workspace }}/.venv/bin/python
       - run: npm run data:opm
+      - run: npm run data:inflacao
       - run: npm run data:neutro
         env:
           PYTHON: ${{ github.workspace }}/.venv/bin/python

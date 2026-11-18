@@ -1,0 +1,14 @@
+{
+  "serie": "ipca15",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 3065, variáveis 355 e 1120 (Brasil)",
+  "extraido_em": "2026-11-18T18:56:53.037Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/3065/periodos/201201-209912/variaveis/355%7C1120?localidades=N1%5Ball%5D",
+      "sha256": "094d19b4d3fcd8bd88548fb059a2e0f6732d8d45ad077e65313f42e069e0582b",
+      "bytes": 6143
+    }
+  ]
+}

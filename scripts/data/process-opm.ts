@@ -3,6 +3,7 @@
  * Os processadores genéricos (SGS mensal/diária, FRED) cobrem as séries marcadas com `generico` em series-opm.ts.
  */
 import readXlsxFile from 'read-excel-file/node';
+import { unzipSync } from 'fflate';
 import { lerCsvTexto, type Linha } from './csv.ts';
 import { sidraSeriesDe } from './sidra.ts';
 
@@ -64,6 +65,55 @@ export function datasCalendario(texto: string, ano: number) {
   if (out.length !== 8) throw new Error(`Calendário do Copom ${ano}: ${out.length} reuniões lidas (esperadas 8).`);
   return out;
 }
+
+
+/** SIDRA v3 em formato longo: uma linha por período × localidade × categoria × variável. Aceita também apisidra. */
+export function sidraLongo(c: Corpos): { periodo: string; loc: string; locNome: string; cat: string; catNome: string; v: string; valor: number | null }[] {
+  const out: { periodo: string; loc: string; locNome: string; cat: string; catNome: string; v: string; valor: number | null }[] = [];
+  for (const k of arquivos(c)) {
+    const dados = json(c[k]);
+    if (Array.isArray(dados) && dados[0] && 'NC' in dados[0]) {
+      const cab = dados[0] as Record<string, string>;
+      const dim = (re: RegExp) => Object.keys(cab).find((x) => /^D\dC$/.test(x) && re.test(cab[x]!));
+      const kV = dim(/^Variável \(Código\)$/)!, kP = dim(/^(Mês|Trimestre|Ano) \(Código\)$/)!, kL = dim(/^(Brasil|Município|Região Metropolitana) \(Código\)$/);
+      const kC = Object.keys(cab).find((x) => /^D\dC$/.test(x) && ![kV, kP, kL].includes(x));
+      for (const l of dados.slice(1) as Record<string, string>[]) {
+        out.push({ periodo: `${l[kP]!.slice(0, 4)}-${l[kP]!.slice(4)}`, loc: kL ? l[kL]! : '1', locNome: kL ? l[kL.replace(/C$/, 'N')]! : 'Brasil', cat: kC ? l[kC]! : '', catNome: kC ? l[kC.replace(/C$/, 'N')]! : '', v: l[kV]!, valor: num(l.V) });
+      }
+      continue;
+    }
+    for (const v of dados as { id: string; resultados: { classificacoes: { categoria: Record<string, string> }[]; series: { localidade: { id: string; nome: string }; serie: Record<string, string> }[] }[] }[]) {
+      for (const r of v.resultados) {
+        const [cat, catNome] = r.classificacoes[0] ? Object.entries(r.classificacoes[0].categoria)[0]! : ['', ''];
+        for (const s of r.series) for (const [p, val] of Object.entries(s.serie)) out.push({ periodo: `${p.slice(0, 4)}-${p.slice(4)}`, loc: s.localidade.id, locNome: s.localidade.nome, cat, catNome, v: v.id, valor: num(val) });
+      }
+    }
+  }
+  return out;
+}
+
+/** Formato largo por período a partir do longo: {periodo, <nome>: valor} para pares (variável, categoria). */
+function largo(l: ReturnType<typeof sidraLongo>, cols: Record<string, { v: string; cat?: string }>): Linha[] {
+  const m = new Map<string, Linha>();
+  for (const r of l) for (const [nome, f] of Object.entries(cols)) {
+    if (r.v !== f.v || (f.cat !== undefined && r.cat !== f.cat)) continue;
+    const linha = m.get(r.periodo) ?? { periodo: r.periodo };
+    linha[nome] = r.valor; m.set(r.periodo, linha);
+  }
+  return [...m.values()].sort((a, b) => String(a.periodo).localeCompare(String(b.periodo)));
+}
+
+const regional = (vars: [string, string, string]) => (c: Corpos) => {
+  const l = sidraLongo(c);
+  const m = new Map<string, Linha>();
+  for (const r of l) {
+    const k = `${r.periodo}|${r.loc}|${r.cat}`;
+    const linha = m.get(k) ?? { periodo: r.periodo, area: r.loc, area_nome: r.locNome, nivel: r.loc === '1' ? 'N1' : r.loc.length === 7 ? 'N6' : 'N7', categoria: Number(r.cat), categoria_nome: r.catNome.replace(/^\d+\./, ''), variacao_mensal: null, variacao_12m: null, peso: null };
+    if (r.v === vars[0]) linha.variacao_mensal = r.valor; else if (r.v === vars[1]) linha.variacao_12m = r.valor; else if (r.v === vars[2]) linha.peso = r.valor;
+    m.set(k, linha);
+  }
+  return [...m.values()].sort((a, b) => String(a.periodo).localeCompare(String(b.periodo)) || String(a.area).localeCompare(String(b.area)) || Number(a.categoria) - Number(b.categoria));
+};
 
 export const processadoresOpm: Record<string, Proc> = {
   copom_decisoes: (c) => (json(c['resposta.json']).conteudo as Record<string, unknown>[])
@@ -165,6 +215,28 @@ export const processadoresOpm: Record<string, Proc> = {
     const s = sidraSeriesDe(json(c['resposta.json']));
     return Object.keys(s['584']!).sort().map((p) => ({ trimestre: `${p.slice(0, 4)}-T${Number(p.slice(4, 6))}`, indice: num(s['584']![p]) }));
   },
+
+  ipca15: (c) => largo(sidraLongo(c), { variacao_mensal: { v: '355' }, acumulada_12m: { v: '1120' } }),
+  inpc: (c) => largo(sidraLongo(c), { variacao_mensal: { v: '44' }, acumulada_12m: { v: '2292' } }),
+  ipp: (c) => largo(sidraLongo(c), { geral_mensal: { v: '1396', cat: '46608' }, geral_12m: { v: '1394', cat: '46608' }, transformacao_mensal: { v: '1396', cat: '46610' }, transformacao_12m: { v: '1394', cat: '46610' } }),
+  ipca_regional: regional(['63', '2265', '66']),
+  inpc_regional: regional(['44', '2292', '45']),
+  // Planilha oficial dos pesos regionais (zip do FTP do IBGE): área, peso no INPC e no IPCA.
+  pesos_regionais: async (c) => {
+    const z = unzipSync(new Uint8Array(c['Pesos_Regionais_IPCA_e_INPC.zip']!));
+    const nome = Object.keys(z).find((k) => /\.xlsx$/i.test(k));
+    if (!nome) throw new Error('Planilha de pesos regionais ausente no zip.');
+    const f = await readXlsxFile(Buffer.from(z[nome]!)) as unknown;
+    const rows = (Array.isArray((f as unknown[])[0]) ? f : (f as { data: unknown[][] }[])[0]!.data) as unknown[][];
+    const cab = rows.findIndex((r) => r[1] === 'Áreas pesquisadas');
+    if (cab < 0 || rows[cab]![2] !== 'INPC' || rows[cab]![3] !== 'IPCA') throw new Error('Cabeçalho inesperado na planilha de pesos regionais.');
+    return rows.slice(cab + 1).filter((r) => typeof r[1] === 'string' && typeof r[3] === 'number' && r[1] !== 'Brasil')
+      .map((r) => ({ area_nome: String(r[1]), peso_inpc: Number(r[2]), peso_ipca: Number(r[3]) }));
+  },
+  capitais_coordenadas: (c) => arquivos(c).filter((k) => /^\d+\.json$/.test(k)).map((k) => {
+    const r = (json(c[k]) as { id: string; centroide: { longitude: number; latitude: number } }[])[0]!;
+    return { municipio: r.id, longitude: r.centroide.longitude, latitude: r.centroide.latitude };
+  }).sort((a, b) => a.municipio.localeCompare(b.municipio)),
 
   // SIDRA 7060: formato longo (período × categoria), com o nível hierárquico tirado do código "1.", "11.", "1101."…
   ipca_itens: (c) => {
