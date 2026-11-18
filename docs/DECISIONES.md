@@ -453,3 +453,59 @@ guardado inteiro a cada safra; o git armazena as versões por delta.
 
 **Justificativa.** Publicar números de um modelo cujo canal principal (juro → hiato) não é identificado induziria
 leitura econômica sem base. O selo "experimental" não substitui um critério mínimo de qualidade.
+
+## ADR-029 — Reconciliação da faixa de juro neutro, textos gerados e sistema visual de publicação (2026-11-18)
+
+### 1. Reconciliação (6,16–7,81 % × 6,30–7,13 %)
+
+**Causa.**
+- **Mesma safra, conjuntos de métodos diferentes.** As duas faixas vêm da safra de 18/11/2026 (dado de nov./2026).
+- **6,16–7,81 %:** faixa da **camada 1**, com 3 métodos: (a) Focus t+4 5,88 %, (b) HP unilateral 9,19 % e (b) Hamilton
+  6,44 %. Com três estimativas, Q1 e Q3 são pontos médios.
+- **6,30–7,13 %:** faixa da **camada 2**, que acrescenta (c) NTN-B longa (6,44 %). Com 4 métodos, Q1 e Q3 se estreitam.
+- A mediana (6,44 %) é a mesma por coincidência: o valor de (c) quase iguala o de Hamilton.
+- **Por que a página e o relatório divergiram.** Os PR #15 e #16 foram integrados em ramos intermediários
+  (`observatorio-politica-monetaria` e `opm-camada-2`) e não em `main`. O sítio publicado a partir de `main` mostra a
+  camada 1 (3 métodos), enquanto o relatório citava a camada 2 (4 métodos).
+
+**Decisão.**
+- O subtítulo da ficha passa a nomear os métodos usados em cada data: "(a) Focus t+4, (b) HP, (b) Hamilton, (c) NTN-B".
+- A mediana da faixa vai para a tabela e para o CSV.
+- Página, CSV (`indicadores/i4_faixa_neutro.csv`, colunas `q1`, `mediana`, `q3`, `metodos`) e minuta de TD citam a mesma
+  saída. A minuta não cita a faixa; o ADR-027 não cita cifras.
+
+### 2. Textos gerados
+
+- As datas passam a ser a data de referência real de cada série, por exemplo "último dado: set/2026" ou "13 nov 2026".
+  Acabam formas como "Em nov 2026" para mês incompleto.
+- Os títulos passam a ter forma de achado ("Núcleos desaceleram em 3,9 % anualizados").
+- Os tempos verbais vão no presente ("vai de", não "ia de").
+- O teste `tests/opm-textos.test.ts` falha se um número decimal de título, subtítulo, faixa de indicadores-chave ou
+  mensagem-chave não coincidir, nas casas exibidas, com o CSV publicado.
+  - Para fichas, vale a tabela da ficha. Para indicadores e mensagens, vale a origem declarada (arquivo, chave, coluna,
+    filtro).
+  - Constantes normativas com fonte: meta de 3,0 % e intervalo de 1,5–4,5 % (Res. CMN 5.141/2024); neutro do BCB de 5,00 %
+    (RPM, p. 80); hiato do BCB de 0,4 % (RPM, p. 83).
+
+### 3. Sistema visual de publicação (redesenho do OPM)
+
+**Contexto.** A revisão do sítio publicado apontou aspecto simples, grandes espaços em branco e elementos saindo do
+contêiner. Medição inicial (`scripts/qa/opm-layout.mjs`, 10 páginas × 2 idiomas × 5 larguras): 156 vãos > 96 px (até
+220 px), 32 contêineres mais de 40 % vazios e 40 colisões de rótulos em gráficos.
+
+**Decisão.** Sistema visual "publicação", descrito em `docs/DESIGN.md`, aplicado só ao OPM nesta etapa e adotável pelo
+resto do sítio:
+- tokens tipográficos e de espaçamento;
+- moldura com cabeçalho e navegação por módulos;
+- faixa de indicadores-chave e mensagens-chave geradas dos dados;
+- fichas com título-achado, estado e selo, e downloads CSV, PNG e SVG;
+- estilo `pub` do renderizador, opcional, que não altera Panorama nem portada;
+- temas claro e escuro, este só nas páginas `pub`;
+- nova página de downloads (`/observatorio/politica-monetaria/dados/`).
+
+**Resultado.**
+- Medição posterior: 0 achados em 11 páginas × 2 idiomas × 5 larguras.
+- axe: 0 violações nos dois temas.
+- Lighthouse móvel nas páginas do OPM: desempenho 95–98, acessibilidade 100.
+
+**Fora.** Faixas de recessão do CODACE: a fonte não tem licença aberta verificável.

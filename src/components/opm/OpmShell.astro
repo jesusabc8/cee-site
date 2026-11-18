@@ -1,0 +1,137 @@
+---
+/**
+ * Moldura das páginas do OPM (ADR-029): cabeçalho institucional compacto (migas, painel, título, edição e data dos
+ * dados), navegação por módulos, conteúdo em grade de 12 colunas (máx. 1280 px) e rodapé com fontes, licenças,
+ * versão e data dos dados. Ativa o estilo de publicação (temas claro e escuro) no <html>.
+ */
+import '../../styles/publicacao.css';
+import Base from '../../layouts/Base.astro';
+import { MODULOS } from '../../lib/opm-dados';
+import { OPM_SLUG, rotDia, vintagesOpm } from '../../lib/opm';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang; titulo: string; descricao: string; ativo: string; sobretitulo?: string; lede?: string; tituloPagina?: string; principio?: string;
+}
+const { lang, titulo, descricao, ativo, sobretitulo, lede, tituloPagina, principio } = Astro.props;
+const en = lang === 'en';
+const k = en ? 'en' : 'pt';
+const opm = en ? 'Monetary Policy Observatory' : 'Observatório de Política Monetária';
+const vint = Object.values(vintagesOpm()).map((v) => v.extraido_em).sort().at(-1)!.slice(0, 10);
+const dataDados = rotDia(Date.parse(`${vint}T00:00:00Z`), lang);
+const itens = [
+  { id: 'visao', rot: en ? 'Overview' : 'Visão geral', path: OPM_SLUG },
+  ...MODULOS.map((m) => ({ id: m.id, rot: `${m.codigo} ${m.titulo[k]}`, curto: m.codigo, nome: m.curto[k], path: `${OPM_SLUG}${m.id}/` })),
+  { id: 'dados', rot: en ? 'Data' : 'Dados', path: `${OPM_SLUG}dados/` },
+  { id: 'safras', rot: en ? 'Vintages' : 'Safras', path: `${OPM_SLUG}safras/` },
+];
+const L = en
+  ? { inicio: 'Home', obs: 'Observatory', painel: 'Panel A2 · Programme A, Macroeconomics', ed: 'Edition', dados: 'Data as of', lic: 'Licence', nav: 'Observatory sections', fontes: 'Sources', licencas: 'Licences', versao: 'Version', cat: 'Data catalogue', met: 'Methodology', citar: 'How to cite' }
+  : { inicio: 'Início', obs: 'Observatório', painel: 'Painel A2 · Programa A, Macroeconomia', ed: 'Edição', dados: 'Dados de', lic: 'Licença', nav: 'Seções do observatório', fontes: 'Fontes', licencas: 'Licenças', versao: 'Versão', cat: 'Catálogo de dados', met: 'Metodologia', citar: 'Como citar' };
+---
+<Base title={tituloPagina ?? `${titulo} — ${opm}`} description={descricao} lang={lang} ogImage="/og/painel-politica-monetaria.png" estilo="pub">
+  <slot name="head" slot="head" />
+  <header class="opm-mast">
+    <div class="opm-wrap">
+      <nav class="opm-migas" aria-label={en ? 'Breadcrumb' : 'Migas de pão'}>
+        <ol>
+          <li><a href={href('/', lang)}>{L.inicio}</a></li>
+          <li><a href={href('/observatorio/', lang)}>{L.obs}</a></li>
+          {ativo === 'visao' ? <li aria-current="page">{opm}</li> : <><li><a href={href(OPM_SLUG, lang)}>{opm}</a></li><li aria-current="page">{titulo}</li></>}
+        </ol>
+      </nav>
+      <p class="opm-sobre">{sobretitulo ?? L.painel}</p>
+      <h1 class="opm-titulo">{titulo}</h1>
+      {lede && <p class="opm-lede">{lede}</p>}
+      {principio && <p class="opm-principio">{principio}</p>}
+      <dl class="opm-meta">
+        <div><dt>{L.ed}</dt><dd>2.0</dd></div>
+        <div><dt>{L.dados}</dt><dd><time datetime={vint}>{dataDados}</time></dd></div>
+        <div><dt>{L.lic}</dt><dd>CC BY 4.0</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <nav class="opm-nav" aria-label={L.nav}>
+    <div class="opm-wrap">
+      <ul class="opm-nav__lista" data-rolavel>
+        {itens.map((i) => (
+          <li><a href={href(i.path, lang)} aria-current={i.id === ativo ? 'page' : undefined} title={i.rot}>
+            {'curto' in i ? <><span class="opm-nav__cod">{i.curto}</span><span class="opm-nav__rot">{i.nome}</span></> : <span class="opm-nav__rot opm-nav__rot--so">{i.rot}</span>}
+          </a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  <div class="opm-wrap opm-corpo" data-bloco>
+    <slot />
+  </div>
+
+  <footer class="opm-pe">
+    <div class="opm-wrap opm-pe__grade">
+      <div>
+        <p class="opm-pe__tit">{opm}</p>
+        <p>{en ? 'Panel A2 of the CEE Observatory — Brazilian Economy in Data. It describes and measures; it does not recommend the Selic rate.' : 'Painel A2 do Observatório CEE — Economia Brasileira em Dados. Descreve e mede; não recomenda a taxa Selic.'}</p>
+        <p>{L.versao} 2.0 · {L.dados} <time datetime={vint}>{dataDados}</time></p>
+      </div>
+      <div>
+        <p class="opm-pe__tit">{L.fontes}</p>
+        <p>{en ? 'Banco Central do Brasil (SGS, Focus, Copom); IBGE (SIDRA); National Treasury (Tesouro Direto); Federal Reserve Board and U.S. EIA (via FRED); Penn World Table.' : 'Banco Central do Brasil (SGS, Focus, Copom); IBGE (SIDRA); Tesouro Nacional (Tesouro Direto); Federal Reserve Board e U.S. EIA (via FRED).'}</p>
+      </div>
+      <div>
+        <p class="opm-pe__tit">{L.licencas}</p>
+        <p>{en ? 'CEE texts, indicators and charts: CC BY 4.0. Curves derived from Tesouro Direto: ODbL. Source data: terms of each institution, listed in the catalogue.' : 'Textos, indicadores e gráficos do CEE: CC BY 4.0. Curvas derivadas do Tesouro Direto: ODbL. Dados das fontes: termos de cada instituição, listados no catálogo.'}</p>
+      </div>
+      <ul class="opm-pe__links">
+        <li><a href={href('/observatorio/catalogo/', lang)}>{L.cat}</a></li>
+        <li><a href={href(`${OPM_SLUG}dados/`, lang)}>{en ? 'Downloads' : 'Downloads'}</a></li>
+        <li><a href={href(`${OPM_SLUG}#metodologia`, lang)}>{L.met}</a></li>
+        <li><a href={href(`${OPM_SLUG}#citar`, lang)}>{L.citar}</a></li>
+      </ul>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  :global(html.pub) .opm-wrap { max-width: calc(var(--largura-pub) + 2 * var(--margem-pub)); margin-inline: auto; padding-inline: var(--margem-pub); }
+  .opm-mast { background: var(--pub-faixa); color: var(--pub-faixa-texto); padding-block: var(--e-4) var(--e-4); border-bottom: 1px solid var(--pub-linha); }
+  .opm-migas ol { display: flex; flex-wrap: wrap; gap: 4px 0; list-style: none; margin: 0 0 var(--e-2); padding: 0; font: 500 var(--t-12) / 1.4 var(--sans); color: var(--pub-faixa-suave); }
+  .opm-migas li + li::before { content: '/'; margin: 0 8px; opacity: 0.6; }
+  .opm-migas a { color: var(--pub-faixa-suave); }
+  .opm-migas [aria-current] { color: var(--pub-faixa-texto); }
+  .opm-sobre { margin: 0 0 6px; font: 600 var(--t-12) / 1.3 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--pub-faixa-suave); }
+  .opm-titulo { margin: 0; font: 600 clamp(var(--t-28), 2.2vw + 1rem, var(--t-48)) / 1.12 var(--serif); letter-spacing: -0.01em; color: var(--pub-faixa-texto); max-width: 30ch; text-wrap: balance; }
+  .opm-lede { margin: var(--e-2) 0 0; max-width: 72ch; font: 400 var(--t-18) / 1.5 var(--serif); color: var(--pub-faixa-suave); }
+  .opm-principio { margin: var(--e-2) 0 0; max-width: 90ch; padding-left: 12px; border-left: 2px solid var(--pub-faixa-suave); font: 400 var(--t-14) / 1.5 var(--sans); color: var(--pub-faixa-suave); }
+  .opm-meta { display: flex; flex-wrap: wrap; gap: 6px var(--e-3); margin: var(--e-3) 0 0; font: 500 var(--t-14) / 1.3 var(--sans); }
+  .opm-meta div { display: flex; gap: 6px; }
+  .opm-meta dt { color: var(--pub-faixa-suave); }
+  .opm-meta dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .opm-nav { background: var(--pub-fundo); border-bottom: 1px solid var(--pub-linha); position: sticky; top: 0; z-index: 20; }
+  .opm-nav__lista { display: flex; gap: 0; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: thin; }
+  .opm-nav__lista a { display: flex; flex-direction: column; gap: 1px; padding: 10px 14px 9px; border-bottom: 2px solid transparent; color: var(--pub-suave); text-decoration: none; font: 500 var(--t-14) / 1.2 var(--sans); white-space: nowrap; }
+  .opm-nav__cod { font: 600 var(--t-12) / 1 var(--sans); color: var(--pub-suave); }
+  .opm-nav__rot { color: var(--pub-tinta); }
+  .opm-nav__rot--so { align-self: center; padding-block: 6px; }
+  .opm-nav__lista a:hover .opm-nav__rot { text-decoration: underline; }
+  .opm-nav__lista a[aria-current='page'] { border-bottom-color: var(--pub-destaque); color: var(--pub-tinta); }
+  .opm-nav__lista a[aria-current='page'] .opm-nav__rot, .opm-nav__lista a[aria-current='page'] { font-weight: 600; }
+  .opm-nav__lista a:focus-visible { outline: 2px solid var(--pub-link); outline-offset: -2px; }
+  .opm-corpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--secao); padding-block: var(--e-5) var(--e-5); }
+  .opm-corpo > :global(*) { min-width: 0; }
+  .opm-pe { background: var(--pub-superficie); border-top: 1px solid var(--pub-linha); padding-block: var(--e-5); font-size: var(--t-14); line-height: 1.55; color: var(--pub-suave); }
+  .opm-pe__grade { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--e-4); }
+  .opm-pe p { margin: 0 0 6px; }
+  .opm-pe__tit { font-weight: 600; color: var(--pub-tinta); }
+  .opm-pe__links { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; align-content: start; }
+  .opm-pe a { color: var(--pub-link); }
+  @media (max-width: 64rem) { .opm-pe__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) {
+    .opm-mast { padding-block: var(--e-3); }
+    .opm-corpo { gap: var(--e-5); padding-block: var(--e-3) var(--e-5); }
+    .opm-pe__grade { grid-template-columns: minmax(0, 1fr); gap: var(--e-3); }
+    .opm-lede { font-size: var(--t-16); }
+  }
+</style>

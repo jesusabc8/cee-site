@@ -1,0 +1,126 @@
+/*
+ * Sistema visual "publicação" (ADR-029): tokens e componentes de páginas de dados e pesquisa no padrão de
+ * observatórios institucionais. Adotado primeiro pelo Observatório de Política Monetária; o resto do sítio pode
+ * aderir aplicando a classe `pub` ao <html> (ver src/layouts/Base.astro, prop `estilo`).
+ *
+ * Regras: escala tipográfica 12/14/16/18/22/28/36/48; espaçamento em múltiplos de 8 px; seções separadas por ≤ 64 px
+ * (desktop) e ≤ 40 px (celular); sans (IBM Plex) na interface e nos gráficos, serif (Source Serif 4) nos títulos de
+ * seção e no texto corrido; algarismos tabulares em tabelas e rótulos. Temas claro e escuro (prefers-color-scheme).
+ */
+html.pub {
+  /* Escala tipográfica */
+  --t-12: 0.75rem;
+  --t-14: 0.875rem;
+  --t-16: 1rem;
+  --t-18: 1.125rem;
+  --t-22: 1.375rem;
+  --t-28: 1.75rem;
+  --t-36: 2.25rem;
+  --t-48: 3rem;
+  /* Espaçamento (8 px) */
+  --e-1: 0.5rem;
+  --e-2: 1rem;
+  --e-3: 1.5rem;
+  --e-4: 2rem;
+  --e-5: 2.5rem;
+  --e-6: 3rem;
+  --e-8: 4rem;
+  --secao: var(--e-8); /* ≤ 64 px */
+  --largura-pub: 1280px;
+  --margem-pub: clamp(16px, 3vw, 32px);
+
+  /* Superfícies e texto (tema claro) */
+  --pub-fundo: #fff;
+  --pub-superficie: #f5f7fa;
+  --pub-superficie-2: #eef2f6;
+  --pub-tinta: #0e1b2e;
+  --pub-suave: #4f5f72;
+  --pub-linha: #dbe3eb;
+  --pub-linha-forte: #9fb0bf;
+  --pub-destaque: #0a2259;
+  --pub-link: #1d5fa6;
+  --pub-faixa: #0a2259;
+  --pub-faixa-texto: #fff;
+  --pub-faixa-suave: #c9d7e6;
+
+  /* Séries (semântica fixa em todo o OPM; daltônico-segura por luminância + traço) */
+  --s1: #0a2259; /* série principal: IPCA, juro ex ante, Selic decidida */
+  --s2: #3c8dcb; /* comparação: núcleos, ex post */
+  --s3: #6b8799; /* terceira: Focus, prazos longos */
+  --s4: #9db3c2;
+  --s-banda: rgb(60 141 203 / 16%);
+  --s-banda-2: rgb(10 34 89 / 7%);
+  --s-grade: #e8edf2;
+  --s-eixo: #5d6e80;
+  --s-ref: #4f5f72;
+}
+
+@media (prefers-color-scheme: dark) {
+  html.pub {
+    color-scheme: dark;
+    --pub-fundo: #0b1322;
+    --pub-superficie: #111c30;
+    --pub-superficie-2: #16233a;
+    --pub-tinta: #e7edf4;
+    --pub-suave: #a7b6c6;
+    --pub-linha: #23324a;
+    --pub-linha-forte: #4a5d78;
+    --pub-destaque: #cfe0f4;
+    --pub-link: #8ec2f0;
+    --pub-faixa: #08101d;
+    --pub-faixa-texto: #e7edf4;
+    --pub-faixa-suave: #a7b6c6;
+    --s1: #e1ebf6;
+    --s2: #63aee8;
+    --s3: #9fb6c9;
+    --s4: #5c7389;
+    --s-banda: rgb(99 174 232 / 20%);
+    --s-banda-2: rgb(225 235 246 / 8%);
+    --s-grade: #1c2a41;
+    --s-eixo: #9fb0c2;
+    --s-ref: #a7b6c6;
+
+    /* Tokens do sítio redefinidos para que cabeçalho e rodapé acompanhem o tema nas páginas `pub` */
+    --ink: var(--pub-tinta);
+    --muted: var(--pub-suave);
+    --line: var(--pub-linha);
+    --line-strong: var(--pub-linha-forte);
+    --paper: var(--pub-superficie);
+    --mist: var(--pub-superficie-2);
+    --petrol: var(--pub-link);
+    --navy: #cfe0f4;
+    --chart-grid: var(--s-grade);
+    --chart-axis: var(--s-eixo);
+  }
+  html.pub body { background: var(--pub-fundo); color: var(--pub-tinta); }
+  html.pub .site-header, html.pub .site-header__inner { background: var(--pub-fundo); }
+  /* Logotipo e botões do cabeçalho no tema escuro: marca monocromática clara (como a versão branca oficial). */
+  html.pub .brand__logo { filter: brightness(0) invert(0.93); }
+  html.pub .site-header :is(.tool-btn, .lang-btn, button) { background: transparent; color: var(--pub-tinta); border-color: var(--pub-linha-forte); }
+}
+
+html.pub body { background: var(--pub-fundo); color: var(--pub-tinta); }
+
+/* ——— Gráficos no estilo publicação (render.ts, estilo 'pub') ——— */
+html.pub .viz-grid { stroke: var(--s-grade); }
+html.pub .viz-base { stroke: var(--pub-linha-forte); }
+html.pub .viz-zero { stroke: var(--s-eixo); stroke-width: 1; }
+html.pub .viz-tick { fill: var(--s-eixo); font-size: 12px; font-variant-numeric: tabular-nums; }
+html.pub .viz-eixo { fill: var(--s-eixo); font-size: 12px; font-weight: 500; }
+html.pub .viz-note { fill: var(--s-ref); font: 500 11px var(--sans); letter-spacing: 0; text-transform: none; }
+html.pub .viz-end { fill: var(--pub-tinta); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+html.pub .viz-copom { stroke: var(--s-eixo); stroke-opacity: 0.35; stroke-width: 1; }
+html.pub .viz-halo { paint-order: stroke; stroke: var(--pub-fundo); stroke-width: 4px; stroke-linejoin: round; }
+html.pub .viz-cursor { stroke: var(--pub-tinta); stroke-opacity: 0.35; }
+html.pub .serie-s1 { stroke: var(--s1); }
+html.pub .serie-s2 { stroke: var(--s2); }
+html.pub .serie-s3 { stroke: var(--s3); }
+html.pub .serie-s4 { stroke: var(--s4); }
+html.pub .preenche-s1 { fill: var(--s1); }
+html.pub .preenche-s2 { fill: var(--s2); }
+html.pub .preenche-s3 { fill: var(--s3); }
+html.pub .preenche-s4 { fill: var(--s4); }
+html.pub .banda-1 { fill: var(--s-banda); }
+html.pub .banda-2 { fill: var(--s-banda-2); }
+html.pub .ref-linha { stroke: var(--s-ref); }
+html.pub .viz-marca { stroke: var(--pub-fundo); }
