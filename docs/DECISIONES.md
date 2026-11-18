@@ -509,3 +509,51 @@ resto do sítio:
 - Lighthouse móvel nas páginas do OPM: desempenho 95–98, acessibilidade 100.
 
 **Fora.** Faixas de recessão do CODACE: a fonte não tem licença aberta verificável.
+
+## ADR-030 — Inflação ampliada e regional no módulo A2.3 (2026-11-18)
+
+**Contexto.** O módulo A2.3 mostrava só IPCA, núcleos, regime da meta, SAAR e subitens. A revisão pediu outras medidas
+de preços (IPCA-15, INPC, IPP, grupos, classificações, dispersão) e inflação regional com Belo Horizonte em destaque.
+
+**Decisão — medidas incluídas.**
+- IPCA-15 (SIDRA 3065), INPC (SIDRA 1736) e IPP da indústria geral e de transformação (SIDRA 6903, classificação 842).
+- Classificações do BCB já extraídas (livres, administrados, serviços, industriais, alimentação no domicílio,
+  comercializáveis, não comercializáveis), compostas em 12 meses pelo CEE (C.3).
+- Média aparada (MA, SGS 11426) e percentil 55 (P55, SGS 28750) **do BCB**. O CEE não calcula média aparada nem
+  percentil próprios: as medidas oficiais, com metodologia publicada pelo BCB, já existem e são abertas.
+- Difusão (SGS 21379) e sua média móvel de 12 meses.
+- Grupos e subgrupos do IPCA no último mês (SIDRA 7060), com contribuição = peso × variação / 100. O subgrupo
+  "Recreação e fumo" (código 47656, criado com a POF 2017–2018) fica fora da sequência de códigos e é atribuído
+  explicitamente a "Despesas pessoais"; um teste exige que os pesos dos subgrupos somem o do grupo.
+
+**Decisão — regional.**
+- IPCA e INPC das 16 áreas (SIDRA 7060 e 7063; níveis N7 regiões metropolitanas e N6 capitais), com pesos regionais
+  oficiais (arquivo do FTP do IBGE, estrutura POF 2017–2018, SHA-256 registrado no vintage).
+- A interface diz explicitamente que não existe IPCA por estado.
+- Mapa de **símbolos** nos centroides das capitais (API de malhas v3 do IBGE, mesma família de APIs do SIDRA), com área
+  proporcional ao peso e tom pela inflação em 12 meses; classes fixas em relação à meta (1,5 · 3,0 · 4,5 · 6,0).
+- **Sem coroplético e sem contornos:** a página de termos citada no LEIA-ME da malha ("Nota metodológica —
+  Informações técnicas e legais") não pôde ser lida (403 para clientes automatizados). Até conferir a licença, nenhum
+  polígono é publicado (PENDIENTES).
+- Ordenação das áreas, múltiplos pequenos (16 × Brasil, escala comum), dispersão ponderada (C.1: desvio-padrão e
+  intervalo interquartil; faixa mínimo–máximo), contribuição por grupo à diferença área − Brasil (C.2, Belo Horizonte
+  na figura; todas as áreas no CSV) e tabela ordenável com IPCA, INPC e grupos.
+- Testes de referência (`tests/inflacao.test.ts`):
+  - a linha Brasil da tabela regional é igual ao IPCA nacional (SIDRA 1737), mensal e 12 meses;
+  - os pesos regionais somam 100 % no IPCA e no INPC;
+  - a média das áreas ponderada pelos pesos reproduz o IPCA mensal do Brasil (|dif| < 0,03 p.p.; máximo observado
+    0,016 p.p., arredondamento);
+  - a soma das contribuições por grupo é igual à diferença área − Brasil (|dif| < 0,02 p.p.).
+
+**Decisão — fora.**
+- IGP-M, IGP-DI e IPC-S (provedor privado de índices gerais) e IPC-Fipe: sem licença de redistribuição verificada.
+  Não são extraídos nem citados no sítio (PENDIENTES).
+- Faixas de recessão (CODACE): mantida a decisão do ADR-029.
+
+**Indicadores complementares.** C.1–C.3 entram em `indicadores.yaml` com `complementar: true` e código `C.n`. A
+especificação continua com exatamente 21 indicadores (I.1–I.21), validados no build; o quadro "Os 21 indicadores"
+lista só esses.
+
+**Figuras estáticas.** Mapa, ordenação, múltiplos e barras são SVG gerados no build (`src/lib/viz/estaticos.ts`), uma
+versão por faixa de largura (texto legível a 360 px), com classes de cor nos temas claro e escuro, tabela alternativa,
+CSV e exportação PNG/SVG. Não têm cursor; o valor de cada área está no rótulo, no `title` e na tabela.

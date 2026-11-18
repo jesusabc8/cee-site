@@ -78,6 +78,13 @@
 | Petróleo Brent — preço à vista (Europa) | opm | FRED DCOILBRENTEU | US$ por barril | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-11 |
 | Taxas e preços dos títulos ofertados pelo Tesouro Direto | opm | Tesouro Transparente (CKAN), conjunto "Taxas dos Títulos Ofertados pelo Tesouro Direto", arquivo precotaxatesourodireto.csv | % a.a. (base 252) e R$ | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-17 |
 | PIB — índice de volume trimestral com ajuste sazonal | opm | SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil) | índice (média de 1995 = 100) | trimestral | 2026-11-18 | 2026-11-18 | 1996-T1 → 2026-T2 |
+| IPCA-15 — variação mensal e acumulada em 12 meses | opm | SIDRA 3065, variáveis 355 e 1120 (Brasil) | % | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| INPC — variação mensal e acumulada em 12 meses | opm | SIDRA 1736, variáveis 44 e 2292 (Brasil) | % | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPP — indústria geral e indústrias de transformação, variação mensal e em 12 meses | opm | SIDRA 6903, variáveis 1396 e 1394, classificação 842 [46608, 46610] (Brasil) | % | mensal (desde dez./2013) | 2026-11-18 | 2026-11-18 | 2014-01 → 2026-09 |
+| IPCA por área — índice geral e grupos (variação mensal, 12 meses e peso) | opm | SIDRA 7060, variáveis 63, 2265, 66, classificação 315 (índice geral e 9 grupos), Brasil, regiões metropolitanas (N7) e municípios (N6) | % e peso (%) | mensal (desde jan./2020) | 2026-11-18 | 2026-11-18 | 2020-01 → 2026-10 |
+| INPC por área — índice geral e grupos (variação mensal, 12 meses e peso) | opm | SIDRA 7063, variáveis 44, 2292, 45, classificação 315 (índice geral e 9 grupos), Brasil, regiões metropolitanas (N7) e municípios (N6) | % e peso (%) | mensal (desde jan./2020) | 2026-11-18 | 2026-11-18 | 2020-01 → 2026-10 |
+| Pesos regionais do IPCA e do INPC (POF 2017-2018) | opm | FTP IBGE, Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip | % do índice nacional | fixo (estrutura POF 2017-2018, em vigor desde jan./2020) | 2026-11-18 | 2026-11-18 | Aracaju → Vitória |
+| Centroides dos municípios-sede das áreas do IPCA | opm | API de malhas v3 do IBGE, /malhas/municipios/{id}/metadados (campo centroide) | graus (longitude, latitude) | fixo | 2026-11-18 | 2026-11-18 | 1200401 → 5300108 |
 | Base monetária restrita (saldo em final de período) | opm | SGS 1788 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
 | Papel-moeda em circulação (emitido), componente da base (saldo em final de período) | opm | SGS 1786 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
 | Reservas bancárias (saldo em final de período) | opm | SGS 1787 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
@@ -1047,6 +1054,95 @@
 - **Observações:** Já dessazonalizado pela fonte: o CEE não reajusta (ADR-023). Base do hiato do produto (I.15).
 - **Requisições da extração:**
   - `https://servicodados.ibge.gov.br/api/v3/agregados/1621/periodos/all/variaveis/584?localidades=N1%5Ball%5D&classificacao=11255%5B90707%5D`
+
+## ipca15 — IPCA-15 — variação mensal e acumulada em 12 meses
+
+- **Instituição:** IBGE
+- **Código:** SIDRA 3065, variáveis 355 e 1120 (Brasil)
+- **Consulta pública:** https://sidra.ibge.gov.br/tabela/3065
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** GET /api/v3/agregados/3065/metadados (API de agregados do IBGE)
+- **Nome oficial retornado pela fonte:** IPCA15 - Série histórica com número-índice, variação mensal e variações acumuladas (a partir de maio/2000); var. 355 "IPCA15 - Variação mensal" (%); var. 1120 "IPCA15 - Variação acumulada em 12 meses" (%)
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/3065/periodos/201201-209912/variaveis/355%7C1120?localidades=N1%5Ball%5D`
+
+## inpc — INPC — variação mensal e acumulada em 12 meses
+
+- **Instituição:** IBGE
+- **Código:** SIDRA 1736, variáveis 44 e 2292 (Brasil)
+- **Consulta pública:** https://sidra.ibge.gov.br/tabela/1736
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** GET /api/v3/agregados/1736/metadados (API de agregados do IBGE)
+- **Nome oficial retornado pela fonte:** INPC - Série histórica com número-índice, variação mensal e variações acumuladas (a partir de abril/1979); var. 44 "INPC - Variação mensal" (%); var. 2292 "INPC - Variação acumulada em 12 meses" (%)
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/1736/periodos/201201-209912/variaveis/44%7C2292?localidades=N1%5Ball%5D`
+
+## ipp — IPP — indústria geral e indústrias de transformação, variação mensal e em 12 meses
+
+- **Instituição:** IBGE
+- **Código:** SIDRA 6903, variáveis 1396 e 1394, classificação 842 [46608, 46610] (Brasil)
+- **Consulta pública:** https://sidra.ibge.gov.br/tabela/6903
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** GET /api/v3/agregados/6903/metadados (API de agregados do IBGE)
+- **Nome oficial retornado pela fonte:** Índice de Preços ao Produtor, por tipo de índice, indústria geral, indústrias extrativas e indústrias de transformação e atividades (dezembro de 2018 = 100); var. 1396 "IPP - Variação mês/mês imediatamente anterior" (%); var. 1394 "IPP - Variação mês/mesmo mês do ano anterior" (%); categorias 46608 "Indústria Geral" e 46610 "C Indústrias de Transformação"
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/6903/periodos/201401-209912/variaveis/1396%7C1394?localidades=N1%5Ball%5D&classificacao=842%5B46608,46610%5D`
+
+## ipca_regional — IPCA por área — índice geral e grupos (variação mensal, 12 meses e peso)
+
+- **Instituição:** IBGE
+- **Código:** SIDRA 7060, variáveis 63, 2265, 66, classificação 315 (índice geral e 9 grupos), Brasil, regiões metropolitanas (N7) e municípios (N6)
+- **Consulta pública:** https://sidra.ibge.gov.br/tabela/7060
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** GET /api/v3/agregados/7060/metadados (níveis N1, N6, N7) e consulta das localidades retornadas
+- **Nome oficial retornado pela fonte:** IPCA - Variação mensal, acumulada no ano, acumulada em 12 meses e peso mensal, para o índice geral, grupos, subgrupos, itens e subitens de produtos e serviços (a partir de janeiro/2020); 16 áreas: 10 regiões metropolitanas (Belém, Fortaleza, Recife, Salvador, Belo Horizonte, Grande Vitória, Rio de Janeiro, São Paulo, Curitiba, Porto Alegre) e 6 municípios (Rio Branco, São Luís, Aracaju, Campo Grande, Goiânia, Brasília)
+- **Observações:** Não existe IPCA/INPC por unidade da federação: as áreas são regiões metropolitanas e capitais.
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202001-202012/variaveis/63%7C2265%7C66?localidades=N1%5Ball%5D%7CN6%5Ball%5D%7CN7%5Ball%5D&classificacao=315%5B7169,7170,7445,7486,7558,7625,7660,7712,7766,7786%5D`
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202101-202112/variaveis/63%7C2265%7C66?localidades=N1%5Ball%5D%7CN6%5Ball%5D%7CN7%5Ball%5D&classificacao=315%5B7169,7170,7445,7486,7558,7625,7660,7712,7766,7786%5D`
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202201-202212/variaveis/63%7C2265%7C66?localidades=N1%5Ball%5D%7CN6%5Ball%5D%7CN7%5Ball%5D&classificacao=315%5B7169,7170,7445,7486,7558,7625,7660,7712,7766,7786%5D`
+  - … (7 requisições, uma por ano)
+
+## inpc_regional — INPC por área — índice geral e grupos (variação mensal, 12 meses e peso)
+
+- **Instituição:** IBGE
+- **Código:** SIDRA 7063, variáveis 44, 2292, 45, classificação 315 (índice geral e 9 grupos), Brasil, regiões metropolitanas (N7) e municípios (N6)
+- **Consulta pública:** https://sidra.ibge.gov.br/tabela/7063
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** GET /api/v3/agregados/7063/metadados (níveis N1, N6, N7) e consulta das localidades retornadas
+- **Nome oficial retornado pela fonte:** INPC - Variação mensal, acumulada no ano, acumulada em 12 meses e peso mensal, para o índice geral, grupos, subgrupos, itens e subitens de produtos e serviços (a partir de janeiro/2020); 16 áreas: 10 regiões metropolitanas (Belém, Fortaleza, Recife, Salvador, Belo Horizonte, Grande Vitória, Rio de Janeiro, São Paulo, Curitiba, Porto Alegre) e 6 municípios (Rio Branco, São Luís, Aracaju, Campo Grande, Goiânia, Brasília)
+- **Observações:** Não existe IPCA/INPC por unidade da federação: as áreas são regiões metropolitanas e capitais.
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7063/periodos/202001-202012/variaveis/44%7C2292%7C45?localidades=N1%5Ball%5D%7CN6%5Ball%5D%7CN7%5Ball%5D&classificacao=315%5B7169,7170,7445,7486,7558,7625,7660,7712,7766,7786%5D`
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7063/periodos/202101-202112/variaveis/44%7C2292%7C45?localidades=N1%5Ball%5D%7CN6%5Ball%5D%7CN7%5Ball%5D&classificacao=315%5B7169,7170,7445,7486,7558,7625,7660,7712,7766,7786%5D`
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7063/periodos/202201-202212/variaveis/44%7C2292%7C45?localidades=N1%5Ball%5D%7CN6%5Ball%5D%7CN7%5Ball%5D&classificacao=315%5B7169,7170,7445,7486,7558,7625,7660,7712,7766,7786%5D`
+  - … (7 requisições, uma por ano)
+
+## pesos_regionais — Pesos regionais do IPCA e do INPC (POF 2017-2018)
+
+- **Instituição:** IBGE
+- **Código:** FTP IBGE, Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip
+- **Consulta pública:** https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Atualizacao_das_Estruturas_POF2017-2018/
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** Arquivo oficial no FTP do IBGE; planilha "IPCA e INPC - Pesos regionais.xlsx" lida (16 áreas; soma 100)
+- **Nome oficial retornado pela fonte:** ESTRUTURAS DE PESOS REGIONAIS SEGUNDO AS ÁREAS PESQUISADAS — IPCA e INPC - POF 2017-2018
+- **Requisições da extração:**
+  - `https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip`
+
+## capitais_coordenadas — Centroides dos municípios-sede das áreas do IPCA
+
+- **Instituição:** IBGE
+- **Código:** API de malhas v3 do IBGE, /malhas/municipios/{id}/metadados (campo centroide)
+- **Consulta pública:** https://servicodados.ibge.gov.br/api/docs/malhas?versao=3
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** Consulta à API de malhas v3 (metadados de município, centroide)
+- **Nome oficial retornado pela fonte:** Metadados de município: id, nivel-geografico, centroide {longitude, latitude}, regiao-limitrofe, area
+- **Observações:** Só os centroides (coordenadas) são usados. Os polígonos da malha não são publicados: os termos de uso remetem à nota "Informações técnicas e legais", inacessível a clientes automatizados (docs/PENDIENTES.md).
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1200401/metadados`
+  - `https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1501402/metadados`
+  - `https://servicodados.ibge.gov.br/api/v3/malhas/municipios/2111300/metadados`
+  - … (16 requisições, uma por ano)
 
 ## base_restrita — Base monetária restrita (saldo em final de período)
 

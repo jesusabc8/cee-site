@@ -123,3 +123,14 @@ O sítio segue a ordem de precedência Estatuto > Regimento > Manual, salvo inst
 - **HLW (NY Fed):** termos de uso não conferidos (a página respondeu com redirecionamento a "404"). Não usado.
 - **TD:** autoria, verificação numérica independente, revisão e conferência das referências da especificação
   (BCB 2023a/b, 2024a; Fasolo et al., 2023; Araujo e Vicente, 2017) antes da versão 1.0.
+
+### Inflação ampliada e regional (ADR-030)
+- **IGP-M, IGP-DI, IPC-S** (FGV/IBRE) e **IPC-Fipe**: obter e registrar licença de redistribuição antes de incluir.
+  Sem licença verificada, não se extraem nem se citam no sítio (a varredura de `dist/` também exige ausência do nome
+  do provedor dos IGPs).
+- **Malha territorial do IBGE (polígonos):** ler a "Nota metodológica — Informações técnicas e legais" indicada no
+  LEIA-ME da malha (a página responde 403 a clientes automatizados) e decidir sobre um mapa coroplético das áreas.
+  Até lá, só o mapa de símbolos nos centroides.
+- **Contribuição em 12 meses por grupo:** hoje é soma de contribuições mensais (aproximação aditiva, declarada).
+  Avaliar decomposição exata por encadeamento (p. ex., ajuste de Ribe) se a coluna passar a ser destacada.
+- **Subgrupos por área:** a extração regional cobre índice geral e 9 grupos; subgrupos por área ficam para depois.

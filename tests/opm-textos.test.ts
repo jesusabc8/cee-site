@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { lerCsvTexto } from '../scripts/data/csv.ts';
 import { graficosModulo, kpisOpm, mensagensOpm, type FichaOpm, type Origem } from '../src/lib/opm';
 import { MODULOS } from '../src/lib/opm-dados';
+import { inflacaoAmpliada, inflacaoRegional } from '../src/lib/opm-inflacao';
 
 /** Constantes normativas citadas nos textos, com fonte: meta contínua e intervalo (Resolução CMN 5.141/2024),
  *  juro neutro do BCB (RPM set./2026, p. 80) e hiato do BCB no 3º tri de 2026 (RPM set./2026, p. 83). */
@@ -44,7 +45,7 @@ describe.each(['pt-BR', 'en'] as const)('textos gerados do OPM (%s)', (lang) => 
   const fichas = MODULOS.flatMap((m) => {
     const g = graficosModulo(m.id, lang);
     return [...g.graficos, ...(g.dessaz ?? []).flatMap((d) => [d.original, d.ajustada])];
-  });
+  }).concat(inflacaoAmpliada(lang).graficos, inflacaoRegional(lang).graficos);
 
   it.each(fichas.map((g) => [g.id, g] as const))('ficha %s: números do título e do subtítulo vêm do CSV publicado', (_, g) => {
     const vals = valoresDaFicha(g);

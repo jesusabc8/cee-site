@@ -1,0 +1,15 @@
+{
+  "serie": "pesos_regionais",
+  "fonte": "ibge-sidra",
+  "codigo": "FTP IBGE, Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip",
+  "extraido_em": "2026-11-18T18:56:53.037Z",
+  "arquivos": [
+    {
+      "arquivo": "Pesos_Regionais_IPCA_e_INPC.zip",
+      "url": "https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip",
+      "sha256": "39380fb3a7ca3c10cd6959f2a8dab187c59f51a100dfec184af2860fd07837a1",
+      "bytes": 8334,
+      "sha1": "fc167ca5723805bd8a552a2cd3eda471d9d1ee39"
+    }
+  ]
+}

@@ -24,7 +24,7 @@ export function vintagesOpm(): Record<string, VintageSerie> {
   vintCache ??= { ...lerVintage('conjuntura'), ...lerVintage('panorama'), ...lerVintage('opm') };
   return vintCache;
 }
-const fonte = (id: string): Fonte => {
+export const fonte = (id: string): Fonte => {
   const v = vintagesOpm()[id];
   if (!v) throw new Error(`OPM: série sem vintage: ${id}`);
   return { instituicao: v.instituicao, codigo: v.codigo, extraido_em: v.extraido_em.slice(0, 10), url: v.url_publica, desatualizado: v.desatualizado };
@@ -38,11 +38,13 @@ export function codigoCurto(c: string): string {
     .replace(/^Página "Histórico: meta de inflação vs\. inflação efetiva".*$/, 'Histórico de metas')
     .replace(/^Tesouro Transparente .*$/, 'Tesouro Direto (CKAN)')
     .replace(/^historico-votacoes-Copom\.xlsx.*$/, 'histórico de votações')
-    .replace(/^Comunicados BCB .*$/, 'calendário do Copom');
+    .replace(/^Comunicados BCB .*$/, 'calendário do Copom')
+    .replace(/^FTP IBGE, .*Pesos_Regionais.*$/, 'pesos regionais (FTP)')
+    .replace(/^API de malhas v3 do IBGE.*$/, 'API de malhas (centroides)');
 }
 const painelDe = (id: string) => (lerVintage('opm')[id] ? 'opm' : lerVintage('conjuntura')[id] ? 'conjuntura' : 'panorama');
-const csvSerie = (id: string) => ({ rotulo: `${id}.csv`, href: href(`/dados/${painelDe(id)}/${id}.csv`) });
-const csvInd = (arq: string) => ({ rotulo: arq.split('/').pop()!, href: href(`/dados/opm/${arq}`) });
+export const csvSerie = (id: string) => ({ rotulo: `${id}.csv`, href: href(`/dados/${painelDe(id)}/${id}.csv`) });
+export const csvInd = (arq: string) => ({ rotulo: arq.split('/').pop()!, href: href(`/dados/opm/${arq}`) });
 
 /** Último valor de cada mês de uma série diária. */
 function fimDeMes<T extends { data: string }>(xs: T[]): T[] {
@@ -52,7 +54,8 @@ function fimDeMes<T extends { data: string }>(xs: T[]): T[] {
 }
 
 /** Ficha do OPM: gráfico + estado da série (V/A/R) e selo experimental (ADR-029). */
-export type FichaOpm = Grafico & { estado?: 'V' | 'A' | 'R'; experimental?: boolean };
+/** `estatico`: figura gerada no build (mapa, múltiplos, barras), uma SVG por faixa de largura, sem cursor nem períodos. */
+export type FichaOpm = Grafico & { estado?: 'V' | 'A' | 'R'; experimental?: boolean; estatico?: { svg: string; classe: 'larga' | 'estreita' | 'unica' }[] };
 
 /** Reuniões ordinárias do Copom (marcas no eixo x). */
 let reunioesCache: { x: number; rotulo: string }[] | null = null;
@@ -70,14 +73,14 @@ export const rotMes = (x: number, lang: Lang) => { const d = new Date(x); return
 export const rotDia = (x: number, lang: Lang) => { const d = new Date(x); return `${d.getUTCDate()} ${(lang === 'en' ? MES_EN : MES_PT)[d.getUTCMonth()]} ${d.getUTCFullYear()}`; };
 const rotTri = (x: number) => { const d = new Date(x); return `${d.getUTCFullYear()}-T${Math.floor(d.getUTCMonth() / 3) + 1}`; };
 /** Subtítulo padronizado: unidade · frequência e período · último dado (com a data de referência real da série). */
-function subtitulo(lang: Lang, unidade: string, freq: string, pts: Ponto[], fmt: 'mes' | 'dia' | 'tri', extra?: string) {
+export function subtitulo(lang: Lang, unidade: string, freq: string, pts: Ponto[], fmt: 'mes' | 'dia' | 'tri', extra?: string) {
   const v = pts.filter((p) => p.y !== null);
   const f = (x: number) => (fmt === 'dia' ? rotDia(x, lang) : fmt === 'tri' ? rotTri(x) : rotMes(x, lang));
   const ini = v[0] ? f(v[0].x) : '', fim = v.at(-1) ? f(v.at(-1)!.x) : '';
   return [unidade, `${freq}, ${ini}–${fim}`, extra].filter(Boolean).join(' · ');
 }
 
-interface Monta {
+export interface Monta {
   id: string; icone: string; rotulo: string; titulo: string; subtitulo: string; unidade: string; descricao: string;
   /** Unidade curta escrita no topo do eixo y. */
   eixo?: string; marcas?: boolean; estado?: 'V' | 'A' | 'R'; experimental?: boolean;
@@ -87,7 +90,7 @@ interface Monta {
 }
 
 /** Monta a ficha com tabela alternativa gerada dos próprios pontos (uma linha por x). */
-function monta(m: Monta, lang: Lang): FichaOpm {
+export function monta(m: Monta, lang: Lang): FichaOpm {
   const en = lang === 'en';
   // Estilo de publicação: cor semântica pela posição da série (s1 = principal), faixas na cor de faixa.
   const CLS = ['s1', 's2', 's3', 's4'] as const;

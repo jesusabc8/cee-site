@@ -71,7 +71,7 @@
       data/specs/x13/), publicando sempre a série original ao lado da ajustada; IBC-Br e PIB já dessazonalizados pela
       fonte não são reajustados; as revisões são guardadas por safra. A regra da edição 1.0 ("nenhum valor é ajustado
       sazonalmente pelo CEE") está revogada. Validação contra o RPM de setembro de 2026: SAAR de três meses do IPCA e da
-      média dos núcleos dentro de 0,5 p.p. em maio e agosto. Fontes com restrição de redistribuição (B3, ANBIMA, J.P. Morgan, Cboe, provedores de CDS e sondagens privadas) ficam fora (ADR-024). O OPM descreve e mede; não recomenda a taxa Selic.
+      média dos núcleos dentro de 0,5 p.p. em maio e agosto. Fontes com restrição de redistribuição (B3, ANBIMA, J.P. Morgan, Cboe, provedores de CDS e sondagens privadas) ficam fora (ADR-024); índices gerais de preços e índices de preços sem licença de redistribuição verificada também ficam fora (ADR-030). Inflação regional (A2.3, ADR-030): IPCA e INPC das 16 áreas de coleta do IBGE (10 regiões metropolitanas e 6 capitais; não existe IPCA por estado), com os pesos regionais oficiais da estrutura POF 2017–2018; dispersão ponderada (desvio-padrão e intervalo interquartil) e contribuição de cada grupo à diferença entre a área e o Brasil; testes automáticos conferem que a linha Brasil coincide com o IPCA nacional e que os pesos somam 100 %. O OPM descreve e mede; não recomenda a taxa Selic.
     en: >-
       Data are downloaded from official APIs (BCB SGS, BCB Olinda/Focus, the BCB content and regulations APIs, IBGE
       SIDRA and FRED) by scripts in scripts/data/. Each raw response is stored unchanged in data/raw/ with its URL,
@@ -85,7 +85,7 @@
       specification in data/specs/x13/), always publishing the original series beside the adjusted one; the IBC-Br and
       GDP, already adjusted by the source, are not readjusted; revisions are stored by vintage. The edition-1.0 rule
       ("CEE applies no seasonal adjustment") is revoked. Validation against the September 2026 MPR: three-month SAAR of
-      the IPCA and the core average within 0.5 p.p. in May and August. Sources with redistribution restrictions (B3, ANBIMA, J.P. Morgan, Cboe, CDS providers and private surveys) are excluded (ADR-024). The OPM describes and measures; it does not recommend
+      the IPCA and the core average within 0.5 p.p. in May and August. Sources with redistribution restrictions (B3, ANBIMA, J.P. Morgan, Cboe, CDS providers and private surveys) are excluded (ADR-024), as are general price indices and price indices without a verified redistribution licence (ADR-030). Regional inflation (A2.3, ADR-030): IPCA and INPC for IBGE's 16 collection areas (10 metropolitan areas and 6 capital cities; there is no IPCA by state), with the official regional weights of the POF 2017–2018 structure; weighted dispersion (standard deviation and interquartile range) and each group's contribution to the gap between the area and Brazil; automatic tests check that the Brazil row equals the national IPCA and that the weights add up to 100%. The OPM describes and measures; it does not recommend
       the Selic rate.
   changelog:
     - versao: "1.0"

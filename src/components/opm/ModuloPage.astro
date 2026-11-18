@@ -5,7 +5,9 @@ import Ficha from './Ficha.astro';
 import IndicadorCard from './IndicadorCard.astro';
 import SeletorDessaz from './SeletorDessaz.astro';
 import { INDICADORES, MODULOS, type Modulo } from '../../lib/opm-dados';
-import { graficosModulo, OPM_SLUG } from '../../lib/opm';
+import TabelaOrdenavel from './TabelaOrdenavel.astro';
+import { graficosModulo, OPM_SLUG, type FichaOpm } from '../../lib/opm';
+import { inflacaoAmpliada, inflacaoRegional } from '../../lib/opm-inflacao';
 import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
@@ -15,14 +17,19 @@ const k = lang === 'en' ? 'en' : 'pt';
 const en = k === 'en';
 const { graficos, dessaz, tabelas } = graficosModulo(modulo.id, lang);
 // Fichas meias em pares; uma meia sem par numa linha vira larga (sem lacuna ao lado).
-const layout = (() => {
-  const out: { g: (typeof graficos)[number]; larga: boolean }[] = [];
-  let pend: (typeof graficos)[number][] = [];
+const dispor = (gs: FichaOpm[]) => {
+  const out: { g: FichaOpm; larga: boolean }[] = [];
+  let pend: FichaOpm[] = [];
   const fecha = () => { pend.forEach((g, i) => out.push({ g, larga: pend.length % 2 === 1 && i === pend.length - 1 })); pend = []; };
-  for (const g of graficos) { if (g.largo) { fecha(); out.push({ g, larga: true }); } else pend.push(g); }
+  for (const g of gs) { if (g.largo) { fecha(); out.push({ g, larga: true }); } else pend.push(g); }
   fecha();
   return out;
-})();
+};
+const layout = dispor(graficos);
+// A2.3: outras medidas de preços e inflação regional (ADR-030).
+const ampliada = modulo.id === 'a2-3-inflacao' ? inflacaoAmpliada(lang) : null;
+const regional = modulo.id === 'a2-3-inflacao' ? inflacaoRegional(lang) : null;
+const todasTabelas = [...(tabelas ?? []), ...(ampliada?.tabelas ?? [])];
 const inds = INDICADORES.filter((i) => i.modulo === modulo.id);
 const pos = MODULOS.findIndex((m) => m.id === modulo.id);
 const ant = MODULOS[pos - 1], prox = MODULOS[pos + 1];
@@ -38,6 +45,60 @@ const ant = MODULOS[pos - 1], prox = MODULOS[pos + 1];
     </section>
   )}
 
+  {ampliada && (
+    <section aria-labelledby="medidas-t" class="secao">
+      <div class="sec-cab">
+        <h2 id="medidas-t" class="sec-tit sec-tit--m">{en ? 'Other price measures' : 'Outras medidas de preços'}</h2>
+        <p class="sec-nota">{en ? 'Consumer indices, producer prices, BCB classifications, trimmed mean, percentile and diffusion' : 'Índices ao consumidor, preços ao produtor, classificações do BCB, média aparada, percentil e difusão'}</p>
+      </div>
+      <div class="g12 fichas">
+        {dispor(ampliada.graficos).map(({ g, larga }) => <div class={larga ? 'c12' : 'c6'}><Ficha g={larga ? { ...g, largo: true } : g} lang={lang} nivel="h3" /></div>)}
+      </div>
+    </section>
+  )}
+
+  {todasTabelas.map((t) => (
+    <section class="tabela" aria-labelledby={`${t.id}-t`} id={t.id}>
+      <div class="sec-cab"><h2 id={`${t.id}-t`} class="sec-tit sec-tit--m">{t.titulo}</h2></div>
+      <p class="nota nota--larga">{t.descricao}</p>
+      <div class="table-scroll" role="region" aria-label={`${en ? 'Table' : 'Tabela'}: ${t.titulo}`} tabindex="0">
+        <table class="tab">
+          <thead><tr>{t.colunas.map((c, i) => <th scope="col" class={i ? 'num' : undefined}>{c}</th>)}</tr></thead>
+          <tbody>{t.linhas.map((l) => <tr class={typeof l[0] === 'string' && l[0].startsWith('\u2003') ? 'tab__sub' : undefined}>{l.map((v, i) => (i === 0 ? <th scope="row">{v}</th> : <td class="num">{typeof v === 'number' ? new Intl.NumberFormat(lang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(v) : (v ?? '—')}</td>))}</tr>)}</tbody>
+        </table>
+      </div>
+      <p class="nota">{en ? 'Source' : 'Fonte'}: {t.fontes.map((f, i) => <>{i > 0 && '; '}<a href={f.url}>{f.instituicao === 'Banco Central do Brasil' ? 'BCB' : f.instituicao}</a>, {f.codigo}</>)}. {en ? 'Data' : 'Dados'}: {t.csv.map((c, i) => <>{i > 0 && ' · '}<a href={c.href} download>{c.rotulo}</a></>)}</p>
+    </section>
+  ))}
+
+  {regional && (
+    <section aria-labelledby="regional-t" class="secao" id="regional">
+      <div class="sec-cab">
+        <h2 id="regional-t" class="sec-tit sec-tit--m">{en ? 'Regional inflation' : 'Inflação regional'}</h2>
+        <p class="sec-nota">{en ? `IPCA and INPC by collection area, ${regional.periodo}` : `IPCA e INPC por área de coleta, ${regional.periodo}`}</p>
+      </div>
+      <p class="aviso aviso--curto">
+        <strong>{en ? 'There is no IPCA by state.' : 'Não existe IPCA por estado.'}</strong>{' '}
+        {en
+          ? 'IBGE collects prices in 16 areas — 10 metropolitan areas and 6 capital cities — that together make up the national index with official regional weights. A figure for “Minas Gerais” is in fact the Belo Horizonte metropolitan area.'
+          : 'O IBGE coleta preços em 16 áreas — 10 regiões metropolitanas e 6 capitais — que formam o índice nacional com pesos regionais oficiais. Um número de “Minas Gerais” é, na verdade, o da região metropolitana de Belo Horizonte.'}
+      </p>
+      <div class="g12 fichas">
+        {dispor(regional.graficos).map(({ g, larga }) => <div class={larga ? 'c12' : 'c6'}><Ficha g={larga ? { ...g, largo: true } : g} lang={lang} nivel="h3" /></div>)}
+      </div>
+      <div class="tab-regional">
+        <h3 class="bloco-tit">{en ? 'All areas: IPCA, INPC and groups' : 'Todas as áreas: IPCA, INPC e grupos'}</h3>
+        <TabelaOrdenavel id="tabela-regional" lang={lang}
+          legenda={en ? `IPCA and INPC by area, ${regional.periodo}. Group columns: change in the month (%). Sorted by 12-month IPCA.` : `IPCA e INPC por área, ${regional.periodo}. Colunas de grupos: variação no mês (%). Ordenada pelo IPCA em 12 meses.`}
+          ordemInicial={{ coluna: 5, sentido: 'descending' }}
+          colunas={[{ titulo: en ? 'Area' : 'Área' }, { titulo: en ? 'Type' : 'Tipo' }, { titulo: en ? 'Weight (%)' : 'Peso (%)', num: true }, { titulo: en ? 'Month (%)' : 'Mês (%)', num: true }, { titulo: en ? 'INPC 12m (%)' : 'INPC 12m (%)', num: true }, { titulo: en ? 'IPCA 12m (%)' : 'IPCA 12m (%)', num: true }, ...regional.tabela.grupos.map((gname) => ({ titulo: gname, num: true }))]}
+          linhas={regional.tabela.linhas.map((l) => ({ destaque: l.destaque, celulas: [l.nome, l.tipo, l.peso, l.mensal, l.inpc12, l.doze, ...l.grupos] }))}
+          rodape={{ celulas: [regional.tabela.brasil.nome, regional.tabela.brasil.tipo, regional.tabela.brasil.peso, regional.tabela.brasil.mensal, regional.tabela.brasil.inpc12, regional.tabela.brasil.doze, ...regional.tabela.brasil.grupos] }} />
+        <p class="nota">{en ? 'Source' : 'Fonte'}: IBGE, SIDRA 7060 (IPCA) {en ? 'and' : 'e'} 7063 (INPC); {en ? 'regional weights' : 'pesos regionais'}: IBGE (POF 2017–2018). {en ? 'Data' : 'Dados'}: <a href={href('/dados/opm/indicadores/regional_ultimo.csv')} download>regional_ultimo</a> · <a href={href('/dados/opm/ipca_regional.csv')} download>ipca_regional</a> · <a href={href('/dados/opm/inpc_regional.csv')} download>inpc_regional</a></p>
+      </div>
+    </section>
+  )}
+
   {modulo.id === 'a2-7-projecoes' && (
     <aside class="aviso">
       <h2 class="bloco-tit">{en ? 'What this module does' : 'O que este módulo faz'}</h2>
@@ -47,19 +108,6 @@ const ant = MODULOS[pos - 1], prox = MODULOS[pos + 1];
     </aside>
   )}
 
-  {tabelas?.map((t) => (
-    <section class="tabela" aria-labelledby={`${t.id}-t`} id={t.id}>
-      <div class="sec-cab"><h2 id={`${t.id}-t`} class="sec-tit sec-tit--m">{t.titulo}</h2></div>
-      <p class="nota nota--larga">{t.descricao}</p>
-      <div class="table-scroll" role="region" aria-label={`${en ? 'Table' : 'Tabela'}: ${t.titulo}`} tabindex="0">
-        <table class="tab">
-          <thead><tr>{t.colunas.map((c, i) => <th scope="col" class={i ? 'num' : undefined}>{c}</th>)}</tr></thead>
-          <tbody>{t.linhas.map((l) => <tr>{l.map((v, i) => (i === 0 ? <th scope="row">{v}</th> : <td class="num">{v}</td>))}</tr>)}</tbody>
-        </table>
-      </div>
-      <p class="nota">{en ? 'Source' : 'Fonte'}: {t.fontes.map((f, i) => <>{i > 0 && '; '}<a href={f.url}>{f.instituicao === 'Banco Central do Brasil' ? 'BCB' : f.instituicao}</a>, {f.codigo}</>)}. {en ? 'Data' : 'Dados'}: {t.csv.map((c, i) => <>{i > 0 && ' · '}<a href={c.href} download>{c.rotulo}</a></>)}</p>
-    </section>
-  ))}
 
   {dessaz && dessaz.length > 0 && (
     <section aria-labelledby="dessaz-t">
@@ -105,6 +153,11 @@ const ant = MODULOS[pos - 1], prox = MODULOS[pos + 1];
   .tab thead th { border-top: 0; border-bottom: 1px solid var(--pub-linha-forte); font: 600 var(--t-12) / 1.3 var(--sans); text-transform: uppercase; letter-spacing: 0.03em; color: var(--pub-suave); }
   .tab tbody th { font-weight: 500; }
   .tab .num { text-align: right; white-space: nowrap; }
+  .tab__sub th { font-weight: 400; color: var(--pub-suave); }
+  .secao { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--e-3); }
+  .secao .sec-cab { margin-bottom: 0; }
+  .aviso--curto { margin: 0; max-width: 95ch; font: 400 var(--t-14) / 1.55 var(--sans); }
+  .tab-regional { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--e-1); min-width: 0; }
   .inds { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr)); gap: var(--e-3); align-items: start; }
   .modnav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--e-2); padding-top: var(--e-2); border-top: 1px solid var(--pub-linha); font: 500 var(--t-14) / 1.4 var(--sans); }
   .modnav a { display: grid; gap: 2px; color: var(--pub-link); text-decoration: none; }
