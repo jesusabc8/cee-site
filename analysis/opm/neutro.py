@@ -56,6 +56,29 @@ def metodo_c() -> pd.Series | None:
     return pd.Series(out).sort_index() if out else None
 
 
+def metodo_d() -> pd.Series | None:
+    """(d) TIPS de 5 anos (DFII5), média mensal. Sem medida aberta de risco soberano, não estima o neutro brasileiro."""
+    p = SAIDA / "tips5.csv"
+    if not p.exists():
+        return None
+    t = pd.read_csv(p).dropna(subset=["valor"])
+    m = t.groupby(t.data.str[:7])["valor"].mean()
+    m.index = pd.PeriodIndex(m.index, freq="M")
+    return m
+
+
+def metodo_e() -> pd.Series | None:
+    """(e) modelo semiestrutural (camada 3), em tempo real; só entra se o modelo passar no critério de identificação."""
+    p, dg = IND / "i4e_neutro_modelo.csv", IND / "modelo_diagnostico.csv"
+    if not (p.exists() and dg.exists()) or int(pd.read_csv(dg).publicavel.iloc[0]) != 1:
+        return None
+    e = pd.read_csv(p).dropna()
+    q = pd.PeriodIndex(e.trimestre.str.replace("-T", "Q"), freq="Q")
+    s = pd.Series(e.neutro_modelo.values, index=q)
+    meses = pd.period_range(q.min().asfreq("M", "start"), q.max().asfreq("M", "end"), freq="M")
+    return pd.Series([s.get(m.asfreq("Q"), np.nan) for m in meses], index=meses)
+
+
 def faixa(metodos: pd.DataFrame) -> pd.DataFrame:
     q = metodos.apply(lambda r: pd.Series(np.percentile(r.dropna(), [25, 50, 75]) if r.notna().any() else [np.nan] * 3, index=["q1", "mediana", "q3"]), axis=1)
     q["metodos"] = metodos.notna().sum(axis=1)
@@ -74,8 +97,15 @@ def main() -> None:
     c = metodo_c()
     if c is not None:
         metodos["c_ntnb_longa"] = c.groupby(level=0).last()
+    e = metodo_e()
+    if e is not None:
+        metodos["e_modelo"] = e
+    # (d) só o juro real americano, sem prêmio de risco soberano e cambial (ADR-024): mostrado à parte, fora da faixa.
+    d_tips = metodo_d()
     f = faixa(metodos)
     out = pd.concat([metodos, f], axis=1)
+    if d_tips is not None:
+        out["d_tips5_sem_premio_fora_da_faixa"] = d_tips.reindex(out.index)
     out.insert(0, "juro_real_ex_ante", rea)
     out = out.round(4)
     out.index = out.index.astype(str)

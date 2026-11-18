@@ -54,8 +54,8 @@
     pt: Observatório de Política Monetária — decisões do Copom, juro real e neutro, inflação e núcleos, expectativas, transmissão, ambiente externo, projeções e moeda.
     en: Monetary Policy Observatory — Copom decisions, real and neutral rates, inflation and core measures, expectations, transmission, external environment, projections and money.
   situacao:
-    pt: Edição 2.0 (Observatório de Política Monetária). Camada 1 publicada; camadas 2 e 3 em construção. Atualização automática semanal; cada extração é arquivada com data e hash.
-    en: Edition 2.0 (Monetary Policy Observatory). Layer 1 published; layers 2 and 3 under construction. Weekly automated update; every extraction is archived with its date and hash.
+    pt: Edição 2.0 (Observatório de Política Monetária). Camadas 1 e 2 publicadas; camada 3 com selo experimental (I.16, I.17) e itens em validação. Atualização automática semanal; cada extração é arquivada com data e hash.
+    en: Edition 2.0 (Monetary Policy Observatory). Layers 1 and 2 published; layer 3 with an experimental seal (I.16, I.17) and items under validation. Weekly automated update; every extraction is archived with its date and hash.
   fontes_previstas: BCB (SGS, Focus/Olinda, API de conteúdo do Copom); IBGE (SIDRA); Federal Reserve Board e EIA (via FRED)
   metodologia:
     pt: >-

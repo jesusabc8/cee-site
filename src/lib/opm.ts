@@ -217,10 +217,12 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           series: [
             { id: 'a', label: '(a) Focus, t+4', color: COR.navy, width: 2, points: pts(f, 'periodo', 'a_focus_t4') },
             { id: 'c', label: '(c) NTN-B', color: COR.azure, dash: '6 3', points: pts(f, 'periodo', 'c_ntnb_longa') },
+            { id: 'd', label: en ? '(d) TIPS 5y, outside band' : '(d) TIPS 5a, fora da faixa', color: COR.steel, markers: 'circle', width: 1.4, points: pts(f, 'periodo', 'd_tips5_sem_premio_fora_da_faixa') },
           ],
-          legenda: [{ id: 'a', label: '(a) Focus, t+4', color: COR.navy, style: 'line' }, { id: 'c', label: en ? '(c) Long NTN-B net of term premium' : '(c) NTN-B longa líquida do prêmio a termo', color: COR.azure, style: 'dash' }],
-          fontes: [fonte('focus_anuais'), fonte('tesouro_direto')], csv: [csvInd('indicadores/i4_faixa_neutro.csv'), csvInd('indicadores/curvas_nss.csv')],
-          nota: en ? 'Tesouro Direto data under ODbL; the CEE curves (curvas_nss.csv) are a derived database published under the same licence.' : 'Dados do Tesouro Direto sob ODbL; as curvas do CEE (curvas_nss.csv) são base derivada publicada sob a mesma licença.',
+          legenda: [{ id: 'a', label: '(a) Focus, t+4', color: COR.navy, style: 'line' }, { id: 'c', label: en ? '(c) Long NTN-B net of term premium' : '(c) NTN-B longa líquida do prêmio a termo', color: COR.azure, style: 'dash' }, { id: 'd', label: en ? '(d) US 5-year TIPS, no sovereign risk premium — experimental, outside the band' : '(d) TIPS americano de 5 anos, sem prêmio de risco soberano — experimental, fora da faixa', color: COR.steel, style: 'marker' }],
+          fontes: [fonte('focus_anuais'), fonte('tesouro_direto'), fonte('tips5')], csv: [csvInd('indicadores/i4_faixa_neutro.csv'), csvInd('indicadores/curvas_nss.csv')],
+          nota: en ? 'Tesouro Direto data under ODbL; the CEE curves (curvas_nss.csv) are a derived database published under the same licence. Method (d) uses only the US real rate: without an open measure of sovereign and currency risk (ADR-024) it is not an estimate of the Brazilian neutral rate and stays outside the band.'
+            : 'Dados do Tesouro Direto sob ODbL; as curvas do CEE (curvas_nss.csv) são base derivada publicada sob a mesma licença. O método (d) usa só o juro real americano: sem medida aberta de risco soberano e cambial (ADR-024), não estima o neutro brasileiro e fica fora da faixa.',
         }, lang),
         monta({
           id: 'opm-neutro-filtros', icone: 'git-compare', rotulo: 'I.4 (b)',
@@ -467,6 +469,43 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           fontes: [fonte('ibcbr')], csv: [csvSerie('ibcbr')],
         }, lang),
         (() => {
+          const a = ler('opm/indicadores/i16_premio_termo_acm.csv');
+          const ua = a.at(-1)!;
+          const dg = ler('opm/indicadores/i16_acm_diagnostico.csv')[0]!;
+          return monta({
+            id: 'opm-premio-termo', icone: 'flask-conical', rotulo: en ? 'I.16 · Experimental' : 'I.16 · Experimental', largo: true,
+            titulo: en ? 'Term premium on the nominal curve (ACM)' : 'Prêmio a termo da curva prefixada (ACM)',
+            subtitulo: en ? `On ${fd(dia(ua.data!))}: ${n2(Number(ua.premio_24m))} p.p. at 24 months and ${n2(Number(ua.premio_36m))} p.p. at 36 months.` : `Em ${fd(dia(ua.data!))}: ${n2(Number(ua.premio_24m))} p.p. em 24 meses e ${n2(Number(ua.premio_36m))} p.p. em 36 meses.`,
+            unidade: en ? 'p.p. (fitted yield minus risk-neutral yield)' : 'p.p. (taxa ajustada menos taxa neutra ao risco)', xFormat: 'month', yDigits: 2, yUnit: 'p.p.', zero: true,
+            descricao: en ? 'Month-end term premium at 24 and 36 months.' : 'Prêmio a termo de fim de mês em 24 e 36 meses.',
+            series: [
+              { id: 'p24', label: en ? '24 months' : '24 meses', color: COR.navy, width: 2.2, points: pts(a, 'data', 'premio_24m', (d) => mes(d.slice(0, 7))) },
+              { id: 'p36', label: en ? '36 months' : '36 meses', color: COR.azure, dash: '6 3', points: pts(a, 'data', 'premio_36m', (d) => mes(d.slice(0, 7))) },
+            ],
+            legenda: [{ id: 'p24', label: en ? '24 months' : '24 meses', color: COR.navy, style: 'line' }, { id: 'p36', label: en ? '36 months' : '36 meses', color: COR.azure, style: 'dash' }],
+            fontes: [fonte('tesouro_direto')], csv: [csvInd('indicadores/i16_premio_termo_acm.csv'), csvInd('indicadores/i16_acm_diagnostico.csv'), csvInd('indicadores/curva_nominal_grade.csv')],
+            nota: en ? `EXPERIMENTAL (layer 3), pending Editorial Committee review; method in the draft Discussion Paper. Adrian, Crump and Moench (2013) with 3 factors (${n1(100 * Number(dg.variancia_explicada))}% of variance), fit error ${n1(Number(dg.erro_ajuste_bp))} bp. Short sample and maturities up to 3 years: the VAR projects rising short rates, unlike Focus, which pushes the premium below zero — a known small-sample bias. Do not read as market expectation.`
+              : `EXPERIMENTAL (camada 3), sujeito à revisão do Comitê Editorial; método na minuta de Texto para Discussão. Adrian, Crump e Moench (2013) com 3 fatores (${n1(100 * Number(dg.variancia_explicada))}% da variância), erro de ajuste de ${n1(Number(dg.erro_ajuste_bp))} bp. Amostra curta e prazos até 3 anos: o VAR projeta alta dos juros curtos, ao contrário da Focus, o que empurra o prêmio para baixo de zero — viés de amostra pequena conhecido. Não ler como expectativa de mercado.`,
+          }, lang);
+        })(),
+        (() => {
+          const c = ler('opm/indicadores/i17_condicoes_financeiras.csv');
+          const uc = c.at(-1)!;
+          const cg = ler('opm/indicadores/i17_cargas.csv');
+          return monta({
+            id: 'opm-icf', icone: 'flask-conical', rotulo: en ? 'I.17 · Experimental' : 'I.17 · Experimental', largo: true,
+            titulo: en ? 'Financial conditions index (principal components)' : 'Índice de condições financeiras (componentes principais)',
+            subtitulo: en ? `In ${fm(mes(uc.periodo!))}, the index stood at ${n2(Number(uc.icf))} (sample mean = 0; higher = tighter).` : `Em ${fm(mes(uc.periodo!))}, o índice estava em ${n2(Number(uc.icf))} (média da amostra = 0; maior = mais apertado).`,
+            unidade: en ? 'standard units (first principal component)' : 'unidades padronizadas (primeiro componente principal)', xFormat: 'month', yDigits: 2, yUnit: '', zero: true,
+            descricao: en ? 'Monthly first principal component of seven standardised variables.' : 'Primeiro componente principal mensal de sete variáveis padronizadas.',
+            series: [{ id: 'icf', label: 'ICF', color: COR.navy, width: 2.2, points: pts(c, 'periodo', 'icf') }],
+            legenda: [{ id: 'icf', label: en ? 'Financial conditions index' : 'Índice de condições financeiras', color: COR.navy, style: 'line' }],
+            fontes: [fonte('spread_credito'), fonte('icc'), fonte('cambio_real'), fonte('dolar_global'), fonte('ust10'), fonte('tesouro_direto')], csv: [csvInd('indicadores/i17_condicoes_financeiras.csv'), csvInd('indicadores/i17_cargas.csv')],
+            nota: en ? `EXPERIMENTAL (layer 3). First component explains ${n1(100 * Number(cg[0]!.variancia_explicada_pc1))}% of variance; loadings in i17_cargas.csv. Full-sample PCA (not real time): past values change as data arrive.`
+              : `EXPERIMENTAL (camada 3). O primeiro componente explica ${n1(100 * Number(cg[0]!.variancia_explicada_pc1))}% da variância; cargas em i17_cargas.csv. PCA na amostra inteira (não é tempo real): valores passados mudam com novos dados.`,
+          }, lang);
+        })(),
+        (() => {
           const h = ler('opm/indicadores/i15_hiato_produto_trimestral.csv').filter((r) => r.minimo);
           const uh = h.at(-1)!;
           return monta({
@@ -570,7 +609,20 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           nota: en ? 'Layer 1 only records and compares projections. Forecast errors of the BCB and of Focus will be computed once each outcome is known, from the vintages stored from this edition on (ADR-025). CEE scenarios (layer 3) will be conditional exercises, never CEE forecasts.'
             : 'A camada 1 só registra e compara projeções. Os erros de previsão do BCB e da Focus serão calculados quando cada dado for conhecido, a partir das safras guardadas desde esta edição (ADR-025). Os cenários do CEE (camada 3) serão exercícios condicionais, nunca previsões do CEE.',
         }, lang),
-      ] };
+      ], tabelas: [(() => {
+        const co = ler('opm/indicadores/modelo_coeficientes.csv');
+        const dg = ler('opm/indicadores/modelo_diagnostico.csv')[0]!;
+        const pub = dg.publicavel === '1';
+        return {
+          id: 'opm-modelo', titulo: en ? 'CEE semi-structural model (experimental): estimated coefficients' : 'Modelo semiestrutural do CEE (experimental): coeficientes estimados',
+          descricao: (en ? `Quarterly OLS, Newey-West errors (IS, Phillips, Taylor, UIP). Identification check for publishing the model's neutral rate (I.4 e) and conditional scenarios: IS slope t ≤ −2 and positive output-gap coefficient in the Phillips curve. Current result: t = ${n2(Number(dg.t_inclinacao_is))} and coefficient ${n2(Number(dg.coef_hiato_phillips))} — ` : `MQO trimestral, erros de Newey-West (IS, Phillips, Taylor, UIP). Critério para publicar o juro neutro do modelo (I.4 e) e os cenários condicionais: inclinação da IS com t ≤ −2 e coeficiente do hiato positivo na curva de Phillips. Resultado atual: t = ${n2(Number(dg.t_inclinacao_is))} e coeficiente ${n2(Number(dg.coef_hiato_phillips))} — `)
+            + (pub ? (en ? 'passed; scenarios in modelo_cenarios.csv.' : 'aprovado; cenários em modelo_cenarios.csv.') : (en ? 'not passed: the scenarios would not distinguish interest-rate paths, so they are not published; the full exercise is in the draft Discussion Paper.' : 'não aprovado: os cenários não distinguiriam trajetórias de juros e por isso não são publicados; o exercício completo está na minuta de Texto para Discussão.')),
+          colunas: [en ? 'Equation · variable' : 'Equação · variável', en ? 'Coefficient' : 'Coeficiente', en ? 'Std. error' : 'Erro-padrão', 'n', 'R²'],
+          linhas: co.map((r) => [`${r.equacao} · ${r.variavel}`, n2(Number(r.coeficiente)), n2(Number(r.erro_padrao)), r.n!, n2(Number(r.r2))]),
+          fontes: [fonte('pib_volume_sa'), fonte('focus_selic'), fonte('focus_inflacao_12m'), fonte('ipca'), fonte('cambio_real'), fonte('selic_meta'), fonte('fed_funds_sup')],
+          csv: [csvInd('indicadores/modelo_coeficientes.csv'), csvInd('indicadores/modelo_diagnostico.csv')],
+        };
+      })()] };
     }
     case 'a2-8-moeda': {
       const a = ler('opm/indicadores/i18_agregados.csv');
