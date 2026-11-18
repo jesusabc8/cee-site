@@ -1,0 +1,82 @@
+---
+/** Página de módulo do OPM (A2.1–A2.8): pergunta, gráficos, seletor original/dessazonalizado e fichas de indicador. */
+import Base from '../../layouts/Base.astro';
+import PageHero from '../layout/PageHero.astro';
+import ChartCard from '../charts/ChartCard.astro';
+import Box from '../Box.astro';
+import IndicadorCard from './IndicadorCard.astro';
+import SeletorDessaz from './SeletorDessaz.astro';
+import { INDICADORES, MODULOS, type Modulo } from '../../lib/opm-dados';
+import { graficosModulo, OPM_SLUG } from '../../lib/opm';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { modulo: Modulo; lang: Lang }
+const { modulo, lang } = Astro.props;
+const k = lang === 'en' ? 'en' : 'pt';
+const en = k === 'en';
+const { graficos, dessaz } = graficosModulo(modulo.id, lang);
+const inds = INDICADORES.filter((i) => i.modulo === modulo.id);
+const pos = MODULOS.findIndex((m) => m.id === modulo.id);
+const ant = MODULOS[pos - 1], prox = MODULOS[pos + 1];
+const opm = en ? 'Monetary Policy Observatory' : 'Observatório de Política Monetária';
+const titulo = `${modulo.codigo} ${modulo.titulo[k]}`;
+---
+<Base title={`${titulo} — ${opm}`} description={modulo.pergunta[k]} lang={lang} ogImage="/og/painel-politica-monetaria.png">
+  <PageHero lang={lang} eyebrow={`${opm} · ${en ? 'Edition' : 'Edição'} 2.0`} title={titulo} lede={modulo.pergunta[k]}
+    crumbs={[{ label: en ? 'Observatory' : 'Observatório', path: '/observatorio/' }, { label: opm, path: OPM_SLUG }, { label: modulo.codigo }]} />
+  <div class="wrap">
+    <p class="principio meta">{en
+      ? 'The OPM describes and measures; it does not recommend the Selic rate. Neutral rates, gaps and policy rules are shown as bands, with method and date.'
+      : 'O OPM descreve e mede; não recomenda a taxa Selic. Juro neutro, hiatos e regras de política aparecem como faixas, com método e data.'}</p>
+
+    {graficos.length > 0 && (
+      <div class="graficos section">
+        {graficos.map((g) => <div class:list={['graficos__item', { 'is-wide': g.largo }]}><ChartCard g={g} lang={lang} nivel="h2" /></div>)}
+      </div>
+    )}
+
+    {dessaz && dessaz.length > 0 && (
+      <section class="section" aria-labelledby="dessaz-t">
+        <h2 id="dessaz-t" class="section__title">{en ? 'Original and seasonally adjusted series' : 'Séries original e dessazonalizada'}</h2>
+        <p class="meta">{en
+          ? 'Seasonally adjusted by CEE with X-13ARIMA-SEATS (ADR-023). The adjusted series is a CEE estimate, revised with each new data point, and never an official series.'
+          : 'Dessazonalizadas pelo CEE com X-13ARIMA-SEATS (ADR-023). A série ajustada é estimativa do CEE, revista a cada novo dado, e nunca série oficial.'}</p>
+        <div class="dessaz">
+          {dessaz.map((d, n) => <SeletorDessaz id={`sel-${modulo.id}-${n}`} titulo={d.titulo} original={d.original} ajustada={d.ajustada} lang={lang} />)}
+        </div>
+      </section>
+    )}
+
+    {modulo.id === 'a2-7-projecoes' && (
+      <Box variant="note" title={en ? 'What this module does in layer 1' : 'O que este módulo faz na camada 1'} lang={lang}>
+        <p>{en
+          ? 'It records and compares BCB and Focus projections and, once each outcome is known, their forecast errors. CEE scenarios from the semi-structural model (layer 3) will be conditional exercises, published with a Discussion Paper, never as CEE forecasts. The BCB values of the starting point are on the main page.'
+          : 'Registra e compara as projeções do BCB e da Focus e, conhecido cada dado, seus erros de previsão. Os cenários do CEE com o modelo semiestrutural (camada 3) serão exercícios condicionais, publicados com Texto para Discussão, nunca como previsão do CEE. Os valores do BCB do estado de partida estão na página principal.'}</p>
+      </Box>
+    )}
+
+    <section class="section" aria-labelledby="ind-t">
+      <h2 id="ind-t" class="section__title">{en ? 'Indicators in this module' : 'Indicadores deste módulo'}</h2>
+      {inds.length ? <div class="inds">{inds.map((i) => <IndicadorCard i={i} lang={lang} />)}</div>
+        : <p class="meta">{en ? 'This module uses source series only; it has no CEE indicator in the specification.' : 'Este módulo usa só séries das fontes; não tem indicador do CEE na especificação.'}</p>}
+    </section>
+
+    <nav class="modnav" aria-label={en ? 'Other modules' : 'Outros módulos'}>
+      {ant ? <a href={href(`${OPM_SLUG}${ant.id}/`, lang)}>← {ant.codigo} {ant.titulo[k]}</a> : <span />}
+      <a href={href(OPM_SLUG, lang)}>{opm}</a>
+      {prox ? <a href={href(`${OPM_SLUG}${prox.id}/`, lang)}>{prox.codigo} {prox.titulo[k]} →</a> : <span />}
+    </nav>
+  </div>
+</Base>
+<style>
+  .principio { max-width: var(--measure); margin: var(--s-4) 0 0; padding-left: var(--s-3); border-left: 3px solid var(--sky); }
+  .graficos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+  .graficos__item { min-width: 0; }
+  .graficos__item :global(.chart-card) { display: block; }
+  .graficos__item.is-wide { grid-column: 1 / -1; }
+  .dessaz { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .inds { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: var(--s-4); }
+  .modnav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-3); padding: var(--s-4) 0 var(--s-6); border-top: var(--hairline); font-size: var(--step--1); }
+  @media (max-width: 64rem) { .graficos, .dessaz { grid-template-columns: minmax(0, 1fr); } }
+</style>

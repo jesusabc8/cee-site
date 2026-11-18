@@ -1,0 +1,68 @@
+# Estado de partida (especificação v1.1, Anexo B): valores publicados pelo BCB que a 1ª edição deve reproduzir ou
+# mostrar como referência. `cee`: chave do valor calculado pelo CEE para a conferência (nulo = só referência do BCB).
+- id: selic_281
+  rotulo: { pt: 'Meta Selic após a 281ª reunião (15–16/9/2026)', en: 'Selic target after the 281st meeting (15–16 Sep 2026)' }
+  bcb: 13.75
+  unidade: '% a.a.'
+  fonte: Comunicado da 281ª reunião do Copom
+  cee: selic_281
+- id: selic_282
+  rotulo: { pt: 'Meta Selic após a 282ª reunião (3–4/11/2026), por unanimidade', en: 'Selic target after the 282nd meeting (3–4 Nov 2026), unanimous' }
+  bcb: 13.75
+  unidade: '% a.a.'
+  fonte: Comunicado e ata da 282ª reunião do Copom
+  cee: selic_282
+- id: ipca_ago
+  rotulo: { pt: 'IPCA em 12 meses, agosto de 2026', en: '12-month IPCA, August 2026' }
+  bcb: 4.22
+  unidade: '%'
+  fonte: RPM set./2026, p. 35
+  cee: ipca12_2026_08
+- id: nucleos_ago
+  rotulo: { pt: 'Média dos núcleos em 12 meses, agosto de 2026', en: 'Core average over 12 months, August 2026' }
+  bcb: 4.35
+  unidade: '%'
+  fonte: RPM set./2026, p. 35
+  cee: nucleos12_2026_08
+- id: saar_ipca_ago
+  rotulo: { pt: 'IPCA dessazonalizado anualizado, 3 meses até agosto de 2026', en: 'Seasonally adjusted annualised IPCA, 3 months to August 2026' }
+  bcb: 2.9
+  unidade: '%'
+  fonte: RPM set./2026, p. 35
+  cee: saar_ipca_2026_08
+- id: saar_nucleos_ago
+  rotulo: { pt: 'Média dos núcleos dessazonalizada anualizada, 3 meses até agosto de 2026', en: 'Seasonally adjusted annualised core average, 3 months to August 2026' }
+  bcb: 3.9
+  unidade: '%'
+  fonte: RPM set./2026, p. 35
+  cee: saar_nucleos_2026_08
+- id: focus_2026
+  rotulo: { pt: 'Focus IPCA 2026 antes da 282ª reunião', en: 'Focus IPCA 2026 before the 282nd meeting' }
+  bcb: 5.2
+  unidade: '%'
+  fonte: Ata da 282ª reunião do Copom
+  cee: focus_2026_pre282
+- id: focus_2027
+  rotulo: { pt: 'Focus IPCA 2027 antes da 282ª reunião', en: 'Focus IPCA 2027 before the 282nd meeting' }
+  bcb: 4.8
+  unidade: '%'
+  fonte: Ata da 282ª reunião do Copom
+  cee: focus_2027_pre282
+- id: neutro_bcb
+  rotulo: { pt: 'Juro real neutro do cenário de referência do BCB', en: 'BCB reference-scenario neutral real rate' }
+  bcb: 5.00
+  unidade: '%'
+  fonte: RPM set./2026, p. 80
+  cee: null
+- id: hiato_bcb
+  rotulo: { pt: 'Hiato do produto estimado pelo BCB, 3º trimestre de 2026', en: 'BCB output-gap estimate, Q3 2026' }
+  bcb: 0.4
+  unidade: '% do produto potencial'
+  fonte: RPM set./2026, p. 83
+  cee: null
+- id: projecao_282
+  rotulo: { pt: 'Projeção do IPCA no horizonte relevante (2º trimestre de 2028), 282ª reunião', en: 'IPCA projection at the relevant horizon (Q2 2028), 282nd meeting' }
+  bcb: 3.5
+  unidade: '%'
+  fonte: Comunicado da 282ª reunião do Copom
+  cee: null

@@ -1,0 +1,10 @@
+---
+import ModuloPage from '../../../components/opm/ModuloPage.astro';
+import { MODULOS } from '../../../lib/opm-dados';
+
+export function getStaticPaths() {
+  return MODULOS.map((modulo) => ({ params: { modulo: modulo.id }, props: { modulo } }));
+}
+const { modulo } = Astro.props;
+---
+<ModuloPage modulo={modulo} lang="pt-BR" />

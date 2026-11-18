@@ -45,6 +45,7 @@
     "pagefind": "1.6.0",
     "read-excel-file": "9.3.14",
     "simple-icons": "16.36.0",
+    "temml": "0.14.0",
     "typescript": "6.0.3"
   },
   "private": true,
