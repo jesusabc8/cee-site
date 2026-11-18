@@ -1,0 +1,14 @@
+{
+  "serie": "pib_volume_sa",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil)",
+  "extraido_em": "2026-11-18T14:15:08.473Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/1621/periodos/all/variaveis/584?localidades=N1%5Ball%5D&classificacao=11255%5B90707%5D",
+      "sha256": "00394c993d425b64c1b30030bfc078e159718a125f708dd981b2dd1b00130bd2",
+      "bytes": 2573
+    }
+  ]
+}

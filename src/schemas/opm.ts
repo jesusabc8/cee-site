@@ -14,16 +14,18 @@ export const indicadorSchema = z.object({
   codigo: z.string().regex(/^I\.(?:[1-9]|1\d|2[01])$/),
   modulo: z.string(),
   camada: z.union([z.literal(1), z.literal(2), z.literal(3)]),
-  /** publicado = camada 1 com dados; camada-2 / camada-3 = previstos (camada 3 leva o selo "experimental"). */
-  estado: z.enum(['publicado', 'camada-2', 'camada-3']),
+  /** publicado = com dados no sítio; em-construcao = sem cifras. A camada 3 publicada leva o selo "experimental". */
+  estado: z.enum(['publicado', 'em-construcao']),
   nome: bi,
   formula: z.string().min(3),
   descricao: bi,
   convencao: bi.optional(),
   /** Caminho em data/processed/opm/ (obrigatório quando publicado). */
   arquivo: z.string().regex(/^indicadores\/[a-z0-9_]+\.csv$/).optional(),
+  /** Pendência que impede a publicação (obrigatória quando em construção). */
+  pendencia: bi.optional(),
 }).strict().refine((i) => i.estado !== 'publicado' || Boolean(i.arquivo), { message: 'indicador publicado precisa de arquivo' })
-  .refine((i) => (i.estado === 'publicado' ? i.camada === 1 : i.estado === `camada-${i.camada}`), { message: 'estado incoerente com a camada' });
+  .refine((i) => i.estado !== 'em-construcao' || Boolean(i.pendencia), { message: 'indicador em construção precisa de pendência' });
 
 export const estadoPartidaSchema = z.object({
   id: z.string(),

@@ -248,6 +248,32 @@ export function seriesOpm(): Serie[] {
     fred('dolar_global', 'DTWEXBGS', 'Índice amplo nominal do dólar americano', 'índice (jan./2006 = 100)', 'Nominal Broad U.S. Dollar Index, Index Jan 2006=100, Daily, Not Seasonally Adjusted', FRED_LIC_FED, 'Board of Governors of the Federal Reserve System, H.10 (via FRED)'),
     fred('brent', 'DCOILBRENTEU', 'Petróleo Brent — preço à vista (Europa)', 'US$ por barril', 'Crude Oil Prices: Brent - Europe, Dollars per Barrel, Daily, Not Seasonally Adjusted', FRED_LIC_EIA, 'U.S. Energy Information Administration (via FRED)'),
 
+    // ——— Camada 2: curvas (Tesouro Direto) e PIB trimestral dessazonalizado ———
+    {
+      id: 'tesouro_direto', painel: 'opm', fonte: 'tesouro', instituicao: 'Tesouro Nacional (Tesouro Transparente)',
+      nome: 'Taxas e preços dos títulos ofertados pelo Tesouro Direto', codigo: 'Tesouro Transparente (CKAN), conjunto "Taxas dos Títulos Ofertados pelo Tesouro Direto", arquivo precotaxatesourodireto.csv',
+      unidade: '% a.a. (base 252) e R$', frequencia: 'diária (dias úteis)', url_publica: 'https://www.tesourotransparente.gov.br/ckan/dataset/taxas-dos-titulos-ofertados-pelo-tesouro-direto',
+      licenca_fonte: 'Open Data Commons Open Database License (ODbL): uso e redistribuição com atribuição; bases derivadas publicadas sob a mesma licença',
+      formato: 'csv', cabecalho_csv: 'Tipo Titulo;',
+      requisicoes: () => [{ url: 'https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv', arquivo: 'precotaxatesourodireto.csv' }],
+      verificacao: {
+        data: VERIF_DATA, metodo: 'API CKAN do Tesouro Transparente (package_show: título, licença e recursos) e leitura do arquivo',
+        nome_oficial: 'Taxas dos Títulos Ofertados pelo Tesouro Direto; colunas: Tipo Titulo; Data Vencimento; Data Base; Taxa Compra Manha; Taxa Venda Manha; PU Compra Manha; PU Venda Manha; PU Base Manha',
+        observacoes: 'Licença ODbL (permite redistribuição; exige atribuição e que as bases derivadas — as curvas NSS do CEE — sejam publicadas sob ODbL). Tipos usados: Tesouro Prefixado (LTN) e Tesouro IPCA+ (NTN-B Principal), sem cupom; os títulos com juros semestrais ficam no CSV, fora do ajuste.',
+      },
+    },
+    {
+      id: 'pib_volume_sa', painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+      nome: 'PIB — índice de volume trimestral com ajuste sazonal', codigo: 'SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil)',
+      unidade: 'índice (média de 1995 = 100)', frequencia: 'trimestral', url_publica: 'https://sidra.ibge.gov.br/tabela/1621', licenca_fonte: LIC_IBGE,
+      requisicoes: () => [{ url: sidra(1621, 'all', [584], '&classificacao=11255%5B90707%5D'), alternativa: sidraValores(1621, 'all', [584], [11255, 90707]), arquivo: 'resposta.json' }],
+      verificacao: {
+        data: VERIF_DATA, metodo: 'GET /api/v3/agregados/1621/metadados (API de agregados do IBGE)',
+        nome_oficial: 'Série encadeada do índice de volume trimestral com ajuste sazonal (Base: média 1995 = 100); var. 584; categoria 90707 "PIB a preços de mercado"',
+        observacoes: 'Já dessazonalizado pela fonte: o CEE não reajusta (ADR-023). Base do hiato do produto (I.15).',
+      },
+    },
+
     // ——— A2.8 Moeda, reservas bancárias e agregados ———
     sgsOpm('base_restrita', 1788, 'Base monetária restrita (saldo em final de período)', 'R$ mil', 'BM - Base monetária restrita (saldo em final de período)', { unidadeFonte: 'u.m.c. (mil)' }),
     sgsOpm('papel_moeda_circulacao', 1786, 'Papel-moeda em circulação (emitido), componente da base (saldo em final de período)', 'R$ mil', 'BM - Papel moeda em circulação (saldo em final de período)', { unidadeFonte: 'u.m.c. (mil)', observacoes: 'É o papel-moeda emitido (fora do BCB) da identidade da base: SGS 1788 = 1786 + 1787 com diferença de no máximo R$ 1 mil (jul.–set./2026).' }),

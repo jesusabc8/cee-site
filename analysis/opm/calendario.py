@@ -35,3 +35,24 @@ def regressor_carnaval(inicio: int, fim: int) -> list[tuple[int, int, float]]:
             bruto[(d.year, d.month)] += 0.5
     medias = {m: sum(v for (a, mm), v in bruto.items() if mm == m) / (fim - inicio + 1) for m in range(1, 13)}
     return [(a, m, round(v - medias[m], 6)) for (a, m), v in sorted(bruto.items())]
+
+
+def feriados(ano: int) -> set[dt.date]:
+    """Feriados nacionais sem expediente bancário (mesma regra de scripts/data/opm/calendario.ts)."""
+    p = pascoa(ano)
+    fixos = [(1, 1), (4, 21), (5, 1), (9, 7), (10, 12), (11, 2), (11, 15), (12, 25)] + ([(11, 20)] if ano >= 2024 else [])
+    moveis = [p - dt.timedelta(days=48), p - dt.timedelta(days=47), p - dt.timedelta(days=2), p + dt.timedelta(days=60)]
+    return {dt.date(ano, m, d) for m, d in fixos} | set(moveis)
+
+
+def dias_uteis(inicio: dt.date, fim: dt.date) -> int:
+    """Dias úteis em (inicio, fim] — convenção de contagem dos títulos públicos (base 252)."""
+    if fim <= inicio:
+        return 0
+    cache: dict[int, set[dt.date]] = {}
+    n, d = 0, inicio
+    while d < fim:
+        d += dt.timedelta(days=1)
+        if d.weekday() < 5 and d not in cache.setdefault(d.year, feriados(d.year)):
+            n += 1
+    return n

@@ -102,3 +102,13 @@ O sítio segue a ordem de precedência Estatuto > Regimento > Manual, salvo inst
   porque é a única que reproduz os dois valores publicados (RPM set./2026, p. 35). A nota 31 do RPM não descreve o cálculo.
 - **I.4, faixa com três métodos na camada 1:** os quartis são pontos médios entre três estimativas. A faixa é indicativa
   e ganha métodos nas camadas 2 e 3.
+
+### Camada 2 (ADR-027)
+- **I.12, curto prazo (Araujo e Vicente, 2017):** o método corrige a defasagem de indexação da NTN-B e a sazonalidade
+  da inflação. Não foi implementado sem o texto do trabalho no repositório; enquanto isso, só se publicam 2, 3 e 5 anos.
+- **I.21, alíquota efetiva dos compulsórios:** faltam séries mensais verificadas de recolhimentos e bases por
+  modalidade. O conjunto aberto "Recolhimentos Compulsórios – Quadro Resumo" (BCB, ODbL) traz só as alíquotas legais.
+- **Títulos com cupom (NTN-F, NTN-B):** estão no CSV, mas fora do ajuste das curvas. Ajustá-los exigiria precificar os
+  fluxos (preço, não taxa).
+- **Taxa do Tesouro Direto:** a taxa de compra inclui o spread do programa. Uma curva de mercado secundário (ANBIMA)
+  está excluída por licença (ADR-024).

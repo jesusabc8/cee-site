@@ -40,7 +40,7 @@ const jsonld = {
   creator: { '@type': 'Organization', name: 'Centro de Estudos Econômicos (CEE)' },
   distribution: INDICADORES.filter((i) => i.arquivo).map((i) => ({ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: new URL(href(`/dados/opm/${i.arquivo}`), Astro.site).href })),
 };
-const selo = (e: string) => (e === 'publicado' ? (en ? 'Published' : 'Publicado') : e === 'camada-2' ? (en ? 'Layer 2' : 'Camada 2') : (en ? 'Layer 3 · experimental' : 'Camada 3 · experimental'));
+const selo = (i: { estado: string; camada: number }) => `${en ? 'Layer' : 'Camada'} ${i.camada} · ${i.estado === 'publicado' ? (i.camada === 3 ? 'experimental' : (en ? 'published' : 'publicado')) : (en ? 'in construction' : 'em construção')}`;
 ---
 <Base title={`${p.linha}. ${opm}`} description={p.resumo[k]} lang={lang} ogImage="/og/painel-politica-monetaria.png">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonld)} />
@@ -128,7 +128,7 @@ const selo = (e: string) => (e === 'publicado' ? (en ? 'Published' : 'Publicado'
           <thead><tr><th scope="col">Nº</th><th scope="col">{en ? 'Indicator' : 'Indicador'}</th><th scope="col">{en ? 'Module' : 'Módulo'}</th><th scope="col">{en ? 'Status' : 'Situação'}</th></tr></thead>
           <tbody>{INDICADORES.map((i) => {
             const m = MODULOS.find((x) => x.id === i.modulo)!;
-            return <tr><th scope="row" class="mono">{i.codigo}</th><td><a href={href(`${OPM_SLUG}${m.id}/#ind-${i.codigo.replace('.', '-')}`, lang)}>{i.nome[k]}</a></td><td>{m.codigo}</td><td><span class:list={['chip', `chip--${i.estado}`]}>{selo(i.estado)}</span></td></tr>;
+            return <tr><th scope="row" class="mono">{i.codigo}</th><td><a href={href(`${OPM_SLUG}${m.id}/#ind-${i.codigo.replace('.', '-')}`, lang)}>{i.nome[k]}</a></td><td>{m.codigo}</td><td><span class:list={['chip', `chip--${i.estado}`, { 'chip--exp': i.camada === 3 }]}>{selo(i)}</span></td></tr>;
           })}</tbody>
         </table>
       </div>
@@ -191,7 +191,7 @@ const selo = (e: string) => (e === 'publicado' ? (en ? 'Published' : 'Publicado'
   .tab .num { text-align: right; font-variant-numeric: tabular-nums; }
   .chip { display: inline-block; font: 500 10px / 1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 6px; border: 1px solid var(--line-strong); white-space: nowrap; }
   .chip--publicado { background: var(--navy); color: #fff; border-color: var(--navy); }
-  .chip--camada-3 { border-style: dashed; }
+  .chip--exp { border-style: dashed; }
   .metodo summary { cursor: pointer; color: var(--petrol); }
   .dl { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); font-family: var(--mono); font-size: var(--step--1); overflow-wrap: anywhere; }
   .cite { overflow-wrap: anywhere; font-family: var(--serif); background: var(--paper); border: var(--hairline); padding: var(--s-3); max-width: var(--measure); }

@@ -59,6 +59,8 @@ const LIM_OPM: [RegExp, Record<string, [number, number]>][] = [
   [/^copom_comunicados$/, { caracteres: [100, 200000] }],
   [/^copom_atas$/, { caracteres: [0, 400000] }],
   [/^copom_calendario$/, {}],
+  [/^tesouro_direto$/, { taxa_compra: [-10, 30], taxa_venda: [-10, 30] }], // juro real de NTN-B perto do vencimento pode ser negativo
+  [/^pib_volume_sa$/, { indice: [50, 400] }],
 ];
 for (const s of SERIES) if (s.painel === 'opm') LIMITES[s.id] = LIM_OPM.find(([re]) => re.test(s.id))?.[1] ?? (() => { throw new Error(`Sem intervalo plausível para ${s.id}`); })();
 
@@ -108,6 +110,7 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
       focus_top5_mensais: (l) => `${l.data}|${l.mes_referencia}|${l.tipo_calculo}`,
       ipca_itens: (l) => `${l.periodo}|${l.codigo}`,
       copom_decisoes: (l) => `${l.reuniao}|${l.inicio_vigencia}`,
+      tesouro_direto: (l) => `${l.data}|${l.titulo}|${l.vencimento}`,
     };
     const chaves = linhas.map((l) => (chaveComp[id] ?? ((x) => x[chave]!))(l));
     expect(new Set(chaves).size).toBe(chaves.length);

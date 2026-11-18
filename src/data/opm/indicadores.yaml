@@ -1,5 +1,5 @@
 # Indicadores do OPM (especificação v1.1, seção 5). Fonte única das fichas; fórmulas em LaTeX, convertidas em MathML
-# no build (temml), sem JavaScript no navegador. `estado`: publicado (camada 1) | camada-2 | camada-3 (experimental).
+# no build (temml), sem JavaScript no navegador. `estado`: publicado | em-construcao (com `pendencia`); camada 3 publicada = experimental.
 - codigo: I.1
   modulo: a2-2-juro-real
   camada: 1
@@ -40,11 +40,11 @@
   nome: { pt: 'Faixa de juro neutro', en: 'Neutral-rate band' }
   formula: 'r^{*}_t = \{Q_1,\ \mathrm{mediana},\ Q_3\}\ \text{de}\ \{r^{*,a}_t,\ r^{*,b\text{-}HP}_t,\ r^{*,b\text{-}H}_t,\ \dots\}'
   descricao:
-    pt: "Distribuição de estimativas por métodos independentes. Camada 1: (a) juro real esperado para t+4 pela Focus anual; (b) tendência do juro real ex ante por HP unilateral (λ = 14.400) e por Hamilton (2018; h = 24, p = 12), ambos em tempo real. Métodos (c), (d) e (e) entram nas camadas 2 e 3. O valor do BCB aparece ao lado, nunca dentro da distribuição."
-    en: "Distribution of estimates from independent methods. Layer 1: (a) expected real rate for t+4 from the annual Focus; (b) trend of the ex ante real rate by one-sided HP (λ = 14,400) and by Hamilton (2018; h = 24, p = 12), both in real time. Methods (c), (d) and (e) come in layers 2 and 3. The BCB value is shown beside, never inside, the distribution."
+    pt: "Distribuição de estimativas por métodos independentes. Camada 1: (a) juro real esperado para t+4 pela Focus anual; (b) tendência do juro real ex ante por HP unilateral (λ = 14.400) e por Hamilton (2018; h = 24, p = 12), ambos em tempo real. Camada 2: (c) juro real da NTN-B de 10 anos (curva NSS) menos um prêmio a termo aproximado pela diferença entre a NTN-B de 4 anos e o juro real Focus no mesmo horizonte. Métodos (d) e (e) entram na camada 3. O valor do BCB aparece ao lado, nunca dentro da distribuição."
+    en: "Distribution of estimates from independent methods. Layer 1: (a) expected real rate for t+4 from the annual Focus; (b) trend of the ex ante real rate by one-sided HP (λ = 14,400) and by Hamilton (2018; h = 24, p = 12), both in real time. Layer 2: (c) 10-year NTN-B real yield (NSS curve) minus a term premium approximated by the gap between the 4-year NTN-B and the Focus real rate over the same horizon. Methods (d) and (e) come in layer 3. The BCB value is shown beside, never inside, the distribution."
   convencao:
-    pt: Com três métodos, os quartis são pontos médios entre estimativas; a faixa é indicativa.
-    en: With three methods, the quartiles are midpoints between estimates; the band is indicative.
+    pt: Com poucos métodos, os quartis são interpolações entre estimativas; a faixa é indicativa.
+    en: With few methods, the quartiles are interpolations between estimates; the band is indicative.
   arquivo: indicadores/i4_faixa_neutro.csv
 - codigo: I.5
   modulo: a2-1-copom
@@ -59,12 +59,13 @@
 - codigo: I.6
   modulo: a2-2-juro-real
   camada: 2
-  estado: camada-2
+  estado: publicado
   nome: { pt: 'Envelope de regras de Taylor', en: 'Taylor-rule envelope' }
   formula: 'i^{T1}_t = r^{*} + \pi_t + 0{,}5(\pi_t-\pi^{*}) + 0{,}5\,h_t'
   descricao:
-    pt: Três regras (original, prospectiva e inercial) calculadas para toda a faixa de juro neutro e de hiato; referências descritivas, nunca prescrição.
-    en: Three rules (original, forward-looking and inertial) computed over the whole neutral-rate and gap bands; descriptive references, never prescriptions.
+    pt: 'T1 (Taylor, 1993, inflação corrente), T2 (prospectiva, Focus 12 meses) e T3 (inercial; θ e φ estimados por MQO em 2012–2019, amostra declarada, com φ = b/(1−θ) muito impreciso porque θ ≈ 1), cada uma calculada para os quartis da faixa de juro neutro e para o mínimo e o máximo do hiato (IBC-Br). O envelope é o mínimo e o máximo do conjunto. Referências descritivas, sensíveis a r* e a h, nunca prescrição.'
+    en: 'T1 (Taylor, 1993, current inflation), T2 (forward-looking, Focus 12 months) and T3 (inertial; θ and φ estimated by OLS over 2012–2019, a declared sample, with φ = b/(1−θ) very imprecise because θ ≈ 1), each computed for the quartiles of the neutral-rate band and the minimum and maximum of the gap (IBC-Br). The envelope is the minimum and maximum of the set. Descriptive references, sensitive to r* and h, never prescriptions.'
+  arquivo: indicadores/i6_taylor.csv
 - codigo: I.7
   modulo: a2-4-expectativas
   camada: 1
@@ -91,12 +92,13 @@
 - codigo: I.9
   modulo: a2-3-inflacao
   camada: 2
-  estado: camada-2
+  estado: publicado
   nome: { pt: 'IPCA e núcleos dessazonalizados, anualizados', en: 'Seasonally adjusted, annualised IPCA and core measures' }
   formula: 'x^{SAAR}_t = 100\left[\prod_{j=0}^{2}\left(1+\frac{x^{sa}_{t-j}}{100}\right)^{4}-1\right]'
   descricao:
-    pt: Variação de três meses anualizada sobre as séries dessazonalizadas pelo CEE com X-13 (ADR-023). A dessazonalização já está validada contra o RPM; a publicação do indicador entra na camada 2.
-    en: Annualised three-month change on the series seasonally adjusted by CEE with X-13 (ADR-023). The adjustment is already validated against the MPR; publication of the indicator comes in layer 2.
+    pt: 'Variação de três meses anualizada sobre as séries dessazonalizadas pelo CEE com X-13 (ADR-023): IPCA, grupos, EX3 serviços e industriais e média dos núcleos (média mensal dos cinco núcleos ajustados). Validada contra o RPM de set./2026 (±0,5 p.p.).'
+    en: 'Annualised three-month change on the series seasonally adjusted by CEE with X-13 (ADR-023): IPCA, groups, EX3 services and goods and the core average (monthly mean of the five adjusted cores). Validated against the Sep/2026 MPR (±0.5 p.p.).'
+  arquivo: indicadores/i9_saar.csv
 - codigo: I.10
   modulo: a2-3-inflacao
   camada: 1
@@ -110,66 +112,79 @@
 - codigo: I.11
   modulo: a2-3-inflacao
   camada: 2
-  estado: camada-2
+  estado: publicado
   nome: { pt: 'Fração dos subitens acima do teto da meta', en: 'Share of sub-items above the target ceiling' }
   formula: 'F_t = \sum_{j} w_{j,t}\,\mathbf{1}\{x^{SAAR}_{j,t} > 4{,}5\}'
   descricao:
-    pt: Parcela, ponderada pelos pesos do IPCA (SIDRA 7060), dos subitens com variação dessazonalizada anualizada acima de 4,5 %.
-    en: IPCA-weighted share (SIDRA 7060) of sub-items with seasonally adjusted annualised change above 4.5%.
+    pt: 'Parcela, ponderada pelos pesos do IPCA (SIDRA 7060), dos subitens com variação dessazonalizada anualizada acima de 4,5 %. Cada subitem é ajustado com X-13 (airline); subitens em que o ajuste falha ficam fora e o peso coberto é publicado ao lado.'
+    en: 'IPCA-weighted share (SIDRA 7060) of sub-items with seasonally adjusted annualised change above 4.5%. Each sub-item is adjusted with X-13 (airline); sub-items where the adjustment fails are excluded and the weight covered is published alongside.'
+  arquivo: indicadores/i11_subitens_acima_teto.csv
 - codigo: I.12
   modulo: a2-4-expectativas
   camada: 2
-  estado: camada-2
+  estado: publicado
   nome: { pt: 'Inflação implícita', en: 'Breakeven inflation' }
   formula: '\pi^{BE}_n = \frac{1+y^{pre}_n}{1+y^{real}_n}-1'
   descricao:
-    pt: Curvas Nelson-Siegel-Svensson ajustadas às taxas do Tesouro Direto (longo prazo) e método de Araujo e Vicente (2017) no curto prazo. Contém prêmios de risco e de liquidez; é "inflação implícita", nunca "expectativa do mercado".
-    en: Nelson-Siegel-Svensson curves fitted to Tesouro Direto rates (long end) and the Araujo and Vicente (2017) method at the short end. It contains risk and liquidity premia; it is "breakeven inflation", never "market expectation".
+    pt: 'Longo prazo (2, 3 e 5 anos): curvas Nelson-Siegel(-Svensson) ajustadas às taxas dos títulos sem cupom do Tesouro Direto (LTN e NTN-B Principal; taxa de compra, que inclui o spread do Tesouro Direto). Contém prêmios de risco inflacionário e de liquidez: é "inflação implícita", nunca "expectativa do mercado". O curto prazo (Araujo e Vicente, 2017) segue em construção.'
+    en: 'Long end (2, 3 and 5 years): Nelson-Siegel(-Svensson) curves fitted to zero-coupon Tesouro Direto rates (LTN and NTN-B Principal; purchase rate, which includes the Tesouro Direto spread). It contains inflation-risk and liquidity premia: it is "breakeven inflation", never "market expectation". The short end (Araujo and Vicente, 2017) is still under construction.'
+  arquivo: indicadores/i12_inflacao_implicita.csv
 - codigo: I.13
   modulo: a2-5-transmissao
   camada: 2
-  estado: camada-2
+  estado: publicado
   nome: { pt: 'Repasse da Selic ao custo do crédito', en: 'Pass-through of the Selic to lending rates' }
   formula: '\Delta_h \ell_{t+h} = \alpha_h + \beta_h\,\Delta i_t + \Gamma_h^{\prime} X_t + u_{t+h},\quad h=1,\dots,12'
   descricao:
-    pt: Projeções locais (Jordà, 2005); associações condicionais, não efeitos causais identificados.
-    en: Local projections (Jordà, 2005); conditional associations, not identified causal effects.
+    pt: 'Projeções locais (Jordà, 2005), mensais, h = 1…12, com três defasagens de Δℓ e Δi como controles e erros de Newey-West; ℓ = taxa média total, PJ e PF livres. β_h é o repasse acumulado (p.p. por p.p. de Selic). Associações condicionais, não efeitos causais identificados.'
+    en: 'Monthly local projections (Jordà, 2005), h = 1…12, with three lags of Δℓ and Δi as controls and Newey-West errors; ℓ = average rate, total, firms and households (non-earmarked). β_h is the cumulative pass-through (p.p. per p.p. of Selic). Conditional associations, not identified causal effects.'
+  arquivo: indicadores/i13_repasse_lp.csv
 - codigo: I.14
   modulo: a2-1-copom
   camada: 3
-  estado: camada-3
+  estado: em-construcao
   nome: { pt: 'Índice de tom das comunicações do Copom', en: 'Copom communication tone index' }
   formula: 'T_k = \frac{N^{hawk}_k - N^{dove}_k}{N^{hawk}_k + N^{dove}_k}'
   descricao:
     pt: Léxico aplicado aos comunicados e atas, validado por dupla codificação humana (kappa de Cohen). Não é publicado sem validação.
     en: Lexicon applied to statements and minutes, validated by double human coding (Cohen's kappa). Not published without validation.
+  pendencia:
+    pt: 'Camada 3 (experimental), com Texto para Discussão.'
+    en: 'Layer 3 (experimental), with a Discussion Paper.'
 - codigo: I.15
   modulo: a2-5-transmissao
   camada: 2
-  estado: camada-2
+  estado: publicado
   nome: { pt: 'Hiato do produto multimétodo', en: 'Multi-method output gap' }
   formula: 'h_t \in \{h^{HP\text{-}unilateral}_t,\ h^{Hamilton}_t,\ h^{UC}_t\}'
   descricao:
-    pt: Faixa de HP unilateral e Hamilton (camada 2) e componentes não observados com curva de Phillips (camada 3), sobre o PIB trimestral dessazonalizado e o IBC-Br.
-    en: Band from one-sided HP and Hamilton (layer 2) and unobserved components with a Phillips curve (layer 3), on seasonally adjusted quarterly GDP and the IBC-Br.
+    pt: 'Faixa entre o HP unilateral (λ = 1.600) e o filtro de Hamilton (h = 8, p = 4) sobre o PIB trimestral dessazonalizado (SIDRA 1621), em tempo real; versão mensal com o IBC-Br no CSV. Componentes não observados com curva de Phillips entram na camada 3. O hiato do BCB aparece como referência ao lado.'
+    en: 'Band between one-sided HP (λ = 1,600) and the Hamilton filter (h = 8, p = 4) on seasonally adjusted quarterly GDP (SIDRA 1621), in real time; monthly version with the IBC-Br in the CSV. Unobserved components with a Phillips curve come in layer 3. The BCB gap is shown beside as a reference.'
+  arquivo: indicadores/i15_hiato_produto_trimestral.csv
 - codigo: I.16
   modulo: a2-5-transmissao
   camada: 3
-  estado: camada-3
+  estado: em-construcao
   nome: { pt: 'Prêmio a termo da curva prefixada', en: 'Term premium on the nominal curve' }
   formula: 'TP_{t}^{(n)} = y_t^{(n)} - \frac{1}{n}\sum_{j=0}^{n-1}\mathbb{E}_t\, y_{t+j}^{(1)}'
   descricao:
     pt: Modelo de Adrian, Crump e Moench (2013) sobre a curva NSS do Tesouro Direto.
     en: Adrian, Crump and Moench (2013) model on the Tesouro Direto NSS curve.
+  pendencia:
+    pt: 'Camada 3 (experimental), com Texto para Discussão.'
+    en: 'Layer 3 (experimental), with a Discussion Paper.'
 - codigo: I.17
   modulo: a2-5-transmissao
   camada: 3
-  estado: camada-3
+  estado: em-construcao
   nome: { pt: 'Índice de condições financeiras', en: 'Financial conditions index' }
   formula: 'ICF_t = \sum_{j} \lambda_{1j}\, z_{j,t}'
   descricao:
     pt: Primeiro componente principal de variáveis padronizadas de fontes abertas (juros, crédito, câmbio, commodities).
     en: First principal component of standardised variables from open sources (rates, credit, exchange rate, commodities).
+  pendencia:
+    pt: 'Camada 3 (experimental), com Texto para Discussão.'
+    en: 'Layer 3 (experimental), with a Discussion Paper.'
 - codigo: I.18
   modulo: a2-8-moeda
   camada: 1
@@ -203,9 +218,12 @@
 - codigo: I.21
   modulo: a2-8-moeda
   camada: 2
-  estado: camada-2
+  estado: em-construcao
   nome: { pt: 'Alíquota efetiva dos compulsórios', en: 'Effective reserve-requirement rate' }
   formula: 'a_t = \frac{\text{Recolhimentos}_t}{\text{Base de depósitos}_t}'
   descricao:
     pt: Recolhimentos compulsórios sobre a base de depósitos correspondente; séries mensais por modalidade ainda a enumerar.
     en: Reserve requirements over the corresponding deposit base; monthly series by type still to be enumerated.
+  pendencia:
+    pt: 'Recolhimentos e bases de depósitos por modalidade ainda não enumerados em séries mensais verificadas; o conjunto aberto do BCB traz só as alíquotas legais (docs/PENDIENTES.md).'
+    en: 'Reserve collections and deposit bases by type not yet enumerated as verified monthly series; the BCB open dataset only carries statutory rates (docs/PENDIENTES.md).'

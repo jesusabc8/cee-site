@@ -76,6 +76,8 @@
 | Rendimento real do Tesouro americano de 5 anos (TIPS) | opm | FRED DFII5 | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-16 |
 | Índice amplo nominal do dólar americano | opm | FRED DTWEXBGS | índice (jan./2006 = 100) | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-13 |
 | Petróleo Brent — preço à vista (Europa) | opm | FRED DCOILBRENTEU | US$ por barril | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-11 |
+| Taxas e preços dos títulos ofertados pelo Tesouro Direto | opm | Tesouro Transparente (CKAN), conjunto "Taxas dos Títulos Ofertados pelo Tesouro Direto", arquivo precotaxatesourodireto.csv | % a.a. (base 252) e R$ | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-17 |
+| PIB — índice de volume trimestral com ajuste sazonal | opm | SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil) | índice (média de 1995 = 100) | trimestral | 2026-11-18 | 2026-11-18 | 1996-T1 → 2026-T2 |
 | Base monetária restrita (saldo em final de período) | opm | SGS 1788 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
 | Papel-moeda em circulação (emitido), componente da base (saldo em final de período) | opm | SGS 1786 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
 | Reservas bancárias (saldo em final de período) | opm | SGS 1787 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
@@ -1021,6 +1023,30 @@
 - **Observações:** A nota de copyright da página da série no FRED não pôde ser lida deste ambiente (a página não responde a clientes automatizados); conferência visual registrada em docs/PENDIENTES.md.
 - **Requisições da extração:**
   - `https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU&cosd=2012-01-01`
+
+## tesouro_direto — Taxas e preços dos títulos ofertados pelo Tesouro Direto
+
+- **Instituição:** Tesouro Nacional (Tesouro Transparente)
+- **Código:** Tesouro Transparente (CKAN), conjunto "Taxas dos Títulos Ofertados pelo Tesouro Direto", arquivo precotaxatesourodireto.csv
+- **Consulta pública:** https://www.tesourotransparente.gov.br/ckan/dataset/taxas-dos-titulos-ofertados-pelo-tesouro-direto
+- **Termos de uso:** Open Data Commons Open Database License (ODbL): uso e redistribuição com atribuição; bases derivadas publicadas sob a mesma licença
+- **Verificação (2026-11-18):** API CKAN do Tesouro Transparente (package_show: título, licença e recursos) e leitura do arquivo
+- **Nome oficial retornado pela fonte:** Taxas dos Títulos Ofertados pelo Tesouro Direto; colunas: Tipo Titulo; Data Vencimento; Data Base; Taxa Compra Manha; Taxa Venda Manha; PU Compra Manha; PU Venda Manha; PU Base Manha
+- **Observações:** Licença ODbL (permite redistribuição; exige atribuição e que as bases derivadas — as curvas NSS do CEE — sejam publicadas sob ODbL). Tipos usados: Tesouro Prefixado (LTN) e Tesouro IPCA+ (NTN-B Principal), sem cupom; os títulos com juros semestrais ficam no CSV, fora do ajuste.
+- **Requisições da extração:**
+  - `https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv`
+
+## pib_volume_sa — PIB — índice de volume trimestral com ajuste sazonal
+
+- **Instituição:** IBGE
+- **Código:** SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil)
+- **Consulta pública:** https://sidra.ibge.gov.br/tabela/1621
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** GET /api/v3/agregados/1621/metadados (API de agregados do IBGE)
+- **Nome oficial retornado pela fonte:** Série encadeada do índice de volume trimestral com ajuste sazonal (Base: média 1995 = 100); var. 584; categoria 90707 "PIB a preços de mercado"
+- **Observações:** Já dessazonalizado pela fonte: o CEE não reajusta (ADR-023). Base do hiato do produto (I.15).
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/1621/periodos/all/variaveis/584?localidades=N1%5Ball%5D&classificacao=11255%5B90707%5D`
 
 ## base_restrita — Base monetária restrita (saldo em final de período)
 

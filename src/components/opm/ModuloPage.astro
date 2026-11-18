@@ -15,7 +15,7 @@ interface Props { modulo: Modulo; lang: Lang }
 const { modulo, lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
 const en = k === 'en';
-const { graficos, dessaz } = graficosModulo(modulo.id, lang);
+const { graficos, dessaz, tabelas } = graficosModulo(modulo.id, lang);
 const inds = INDICADORES.filter((i) => i.modulo === modulo.id);
 const pos = MODULOS.findIndex((m) => m.id === modulo.id);
 const ant = MODULOS[pos - 1], prox = MODULOS[pos + 1];
@@ -35,6 +35,20 @@ const titulo = `${modulo.codigo} ${modulo.titulo[k]}`;
         {graficos.map((g) => <div class:list={['graficos__item', { 'is-wide': g.largo }]}><ChartCard g={g} lang={lang} nivel="h2" /></div>)}
       </div>
     )}
+
+    {tabelas?.map((t) => (
+      <section class="section tabela" aria-labelledby={`${t.id}-t`} id={t.id}>
+        <h2 id={`${t.id}-t`} class="section__title">{t.titulo}</h2>
+        <p class="meta">{t.descricao}</p>
+        <div class="table-scroll" role="region" aria-label={`${en ? 'Table' : 'Tabela'}: ${t.titulo}`} tabindex="0">
+          <table class="tab">
+            <thead><tr>{t.colunas.map((c, i) => <th scope="col" class={i ? 'num' : undefined}>{c}</th>)}</tr></thead>
+            <tbody>{t.linhas.map((l) => <tr>{l.map((v, i) => (i === 0 ? <th scope="row">{v}</th> : <td class="num">{v}</td>))}</tr>)}</tbody>
+          </table>
+        </div>
+        <p class="meta">{en ? 'Source' : 'Fonte'}: {t.fontes.map((f, i) => <>{i > 0 && ' · '}<a href={f.url}>{f.instituicao}</a>, {f.codigo} ({en ? 'extracted' : 'extração'} {f.extraido_em})</>)} · {en ? 'Data' : 'Dados'}: {t.csv.map((c) => <a href={c.href} download>{c.rotulo}</a>)}</p>
+      </section>
+    ))}
 
     {dessaz && dessaz.length > 0 && (
       <section class="section" aria-labelledby="dessaz-t">
@@ -77,6 +91,10 @@ const titulo = `${modulo.codigo} ${modulo.titulo[k]}`;
   .graficos__item.is-wide { grid-column: 1 / -1; }
   .dessaz { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
   .inds { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: var(--s-4); }
+  .tab { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
+  .tab th, .tab td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-top: var(--hairline); }
+  .tab thead th { border-top: 0; border-bottom: 1px solid var(--line-strong); }
+  .tab .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .modnav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-3); padding: var(--s-4) 0 var(--s-6); border-top: var(--hairline); font-size: var(--step--1); }
   @media (max-width: 64rem) { .graficos, .dessaz { grid-template-columns: minmax(0, 1fr); } }
 </style>
