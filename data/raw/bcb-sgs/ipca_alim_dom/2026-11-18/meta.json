@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_alim_dom",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27864",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "9a52b36b2ae9d5de9018175093fabee2d74d949af08f7b02b06b7f37f7568ab3",
+      "bytes": 2235
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "aa4708eb17885e9003f1a59e301d66a67edbccc7da80db18edd1667ee04d4b29",
+      "bytes": 2240
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "05a55c8964c59cfe0f3d21f3046514923c51aed4d4c1a46aa7e89ab29b0c076f",
+      "bytes": 2164
+    }
+  ]
+}

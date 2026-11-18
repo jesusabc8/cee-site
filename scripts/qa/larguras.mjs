@@ -1,7 +1,7 @@
 // Rolagem horizontal da página em 360/768/1024/1440/1920 px: node scripts/qa/larguras.mjs <baseURL> [rotas...]
 import { chromium } from 'playwright';
 const [base = 'http://localhost:4321', ...arg] = process.argv.slice(2);
-const rotas = arg.length ? arg : ['/', '/en/', '/observatorio/', '/observatorio/panorama/', '/observatorio/conjuntura/', '/observatorio/catalogo/', '/pesquisa/', '/pesquisa/a/', '/publicacoes/', '/publicacoes/demo-nota-tecnica/', '/metodologia/', '/sobre/', '/participe/', '/404.html'];
+const rotas = arg.length ? arg : ['/', '/en/', '/observatorio/', '/observatorio/panorama/', '/observatorio/politica-monetaria/', '/observatorio/politica-monetaria/a2-2-juro-real/', '/observatorio/catalogo/', '/pesquisa/', '/pesquisa/a/', '/publicacoes/', '/publicacoes/demo-nota-tecnica/', '/metodologia/', '/sobre/', '/participe/', '/404.html'];
 const b = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 let falhas = 0;
 for (const w of [360, 768, 1024, 1440, 1920]) {

@@ -1,0 +1,14 @@
+# Especificação X-13 (ADR-023): M2 (SGS 27810). Saldo de fim de período (nível), ajuste multiplicativo.
+serie: m2
+entrada: opm/m2.csv
+coluna: valor
+tipo: nivel
+transformacao: log
+arima: auto
+regressores: []
+teste_aic: [td]
+carnaval: true
+outliers:
+  tipos: [ao, ls]
+inicio: "2012-01"
+revisado_em: "2026-11-18"

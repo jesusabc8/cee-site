@@ -34,8 +34,8 @@ Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publ
 - **SIDRA 5877 / 5817 (ODS 1.2.1 e 1.1.1)**: valores diferentes dos da SIS (26,5 % e 4,7 % em 2024) e linha não documentada. Não usadas (ADR-013).
 
 ## Observatório (arquitetura de 2026-10)
-- **TODO — slug de A2.** Renomear `/observatorio/conjuntura/` para `/observatorio/politica-monetaria/` numa edição futura, com
-  redirecionamento 301 (e `/en/`). O slug foi mantido por causa dos vintages arquivados (data e hash) e de eventuais citações externas.
+- ~~**TODO — slug de A2.**~~ Resolvido pelo ADR-026 (edição 2.0, OPM): `/observatorio/politica-monetaria/` com 301 a partir de
+  `/observatorio/conjuntura/` (e `/en/`). Os dados derivados de `data/processed/conjuntura/` ficam no mesmo caminho.
 - **TODO — desocupação (SIDRA 6381)** continua na página de A2. É indicador de ciclo e provavelmente migrará para A1 quando A1 for publicado.
 - **A1 e setor externo:** os indicadores ainda não foram definidos. O setor externo como programa é o D (em formação); o Manual não atribui indicadores a A1.
 - **Perguntas por painel:** o Manual não associa perguntas a painéis; as linhas mostram só código e nome. Se a coordenação quiser essa associação, ela precisa constar do plano anual (Regimento, art. 44).
@@ -65,3 +65,40 @@ O sítio segue a ordem de precedência Estatuto > Regimento > Manual, salvo inst
   representam a posição da Pontifícia Universidade Católica de Minas Gerais". O sítio usa o texto do Manual, como pedido.
 - **Relatório de Projeto.** O Regimento restringe recomendações aos RP de Pesquisa em Destaque; o esquema do sítio não distingue
   RP de Pesquisa em Destaque de RP de projetos conjuntos.
+
+## Observatório de Política Monetária — edição 2.0 (ADR-022 a ADR-026)
+
+### Séries não incluídas ou a verificar (camada 1)
+- **Swaps DI × pré (SGS):** não incluídos. As taxas referenciais são calculadas pela B3 (BM&F) e a licença de
+  redistribuição não foi conferida. Pelo ADR-024, ficam fora até verificação; códigos ainda não conferidos.
+- **Crédito (saldo e concessões, "credito_a4"):** a definir com o painel A4. O OPM usa só as taxas (20714, 20715, 20740,
+  20783, 25351).
+- **Fatores condicionantes da base, haveres de não residentes e compulsórios por tipo:** o SGS publica os fatores em
+  saldo diário (1789–1795, alguns descontinuados). Séries mensais de fluxo e recolhimentos por modalidade ainda não
+  enumeradas; necessárias para I.21 (camada 2).
+- **Firmus (A2.4):** pesquisa do BCB com empresas; endpoint aberto não localizado.
+- **FRED — conferência visual da nota de copyright:** as páginas de série do FRED não respondem a clientes
+  automatizados deste ambiente. Títulos conferidos no arquivo oficial (fredgraph.xlsx) e licença conferida no órgão de
+  origem (Federal Reserve Board e EIA: domínio público). Falta confirmar, na página de cada série (DFEDTARU, DGS10,
+  DFII5, DTWEXBGS, DCOILBRENTEU), que não há aviso de copyright de terceiros. **VIXCLS** fica fora (Cboe; ADR-024).
+- **Decreto nº 12.079/2024 — texto integral:** o sítio do Planalto redireciona clientes automatizados. A regra dos seis
+  meses consecutivos foi conferida em duas fontes oficiais do BCB (página "Meta para a inflação" e RPM set./2026, p. 3,
+  que cita o decreto). A legenda do I.10 cita essas fontes; conferir o artigo do decreto antes da publicação.
+- **Focus Top 5:** só o ranking de curto prazo (tipoCalculo C). Os de médio e longo prazo triplicariam o volume sem uso
+  nos indicadores.
+- **Calendário do Copom:** acrescentar em `CALENDARIOS_COPOM` (`scripts/data/series-opm.ts`) o número do comunicado do
+  ano seguinte, publicado até junho. Sem ele, I.1 marca `trajetoria_completa = 0` a partir de ~dezembro.
+- **Atas antigas sem texto:** a API de conteúdo devolve `textoAta` nulo para atas antigas (só PDF). Para o índice de tom
+  (I.14, camada 3), extrair o texto do PDF oficial com hash.
+
+### Convenções e limites declarados
+- **Tempo real (ADR-025):** as safras começam em 18/11/2026. Revisões anteriores do SGS e do PIB não podem ser
+  reconstruídas com o arquivo atual.
+- **I.7, horizonte t+3:** usa a meta afinal fixada para o ano, não a conhecida na data da coleta (antes de 2017 o CMN
+  fixava a meta com dois anos de antecedência).
+- **I.1:** compõe a meta Selic esperada (a Focus projeta a meta). A Selic efetiva fica cerca de 0,10 p.p. abaixo. O BCB
+  usa médias trimestrais e quatro trimestres à frente (RPM set./2026, p. 80), convenção diferente.
+- **Média dos núcleos:** a convenção adotada (média mensal arredondada a duas casas, composta em 12 meses) foi inferida
+  porque é a única que reproduz os dois valores publicados (RPM set./2026, p. 35). A nota 31 do RPM não descreve o cálculo.
+- **I.4, faixa com três métodos na camada 1:** os quartis são pontos médios entre três estimativas. A faixa é indicativa
+  e ganha métodos nas camadas 2 e 3.

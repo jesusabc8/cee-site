@@ -1,0 +1,14 @@
+{
+  "serie": "copom_decisoes",
+  "fonte": "bcb-site",
+  "codigo": "API de conteúdo do BCB: /api/servico/sitebcb/historicotaxasjuros",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/historicotaxasjuros",
+      "sha256": "3b8bee1210fb078d28508c25950010647791d580712cb96b3b3e6724239d6fce",
+      "bytes": 102633
+    }
+  ]
+}

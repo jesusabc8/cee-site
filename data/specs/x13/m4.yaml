@@ -1,0 +1,14 @@
+# Especificação X-13 (ADR-023): M4 (SGS 27815). Saldo de fim de período (nível), ajuste multiplicativo.
+serie: m4
+entrada: opm/m4.csv
+coluna: valor
+tipo: nivel
+transformacao: log
+arima: auto
+regressores: []
+teste_aic: [td]
+carnaval: true
+outliers:
+  tipos: [ao, ls]
+inicio: "2012-01"
+revisado_em: "2026-11-18"

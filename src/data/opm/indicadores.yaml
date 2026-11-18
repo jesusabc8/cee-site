@@ -1,0 +1,211 @@
+# Indicadores do OPM (especificação v1.1, seção 5). Fonte única das fichas; fórmulas em LaTeX, convertidas em MathML
+# no build (temml), sem JavaScript no navegador. `estado`: publicado (camada 1) | camada-2 | camada-3 (experimental).
+- codigo: I.1
+  modulo: a2-2-juro-real
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Juro real ex ante em 12 meses', en: '12-month ex ante real rate' }
+  formula: '\begin{aligned} r^{ea}_t &= 100\left[\frac{1+i^{e}_{t,t+12}/100}{1+\pi^{e}_{t,t+12}/100}-1\right]\\ 1+\frac{i^{e}_{t,t+12}}{100} &= \prod_{d=1}^{252}\left(1+\frac{i_{k(d)}}{100}\right)^{1/252} \end{aligned}'
+  descricao:
+    pt: Selic esperada nos próximos 252 dias úteis, composta com a mediana Focus de cada reunião do Copom (cada meta vigora até a reunião seguinte), deflacionada pela mediana Focus do IPCA para 12 meses (série suavizada), pela equação de Fisher exata.
+    en: Expected Selic over the next 252 business days, compounded with the Focus median for each Copom meeting (each target holds until the next meeting), deflated by the Focus median for 12-month IPCA (smoothed series), using the exact Fisher equation.
+  convencao:
+    pt: O BCB usa médias trimestrais e quatro trimestres à frente (RPM set./2026, p. 80); os níveis não são diretamente comparáveis. Compõe-se a meta Selic esperada; a Selic efetiva fica cerca de 0,10 p.p. abaixo.
+    en: The BCB uses quarterly averages four quarters ahead (MPR Sep/2026, p. 80); levels are not directly comparable. The expected Selic target is compounded; the effective rate is about 0.10 p.p. lower.
+  arquivo: indicadores/i1_juro_real_ex_ante.csv
+- codigo: I.2
+  modulo: a2-2-juro-real
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Juro real ex post em 12 meses', en: '12-month ex post real rate' }
+  formula: 'r^{ep}_t = 100\left[\frac{\prod_{d=t-251}^{t}(1+i^{ef}_d/100)^{1/252}}{1+\pi_{t-11,t}/100}-1\right]'
+  descricao:
+    pt: Selic efetiva (SGS 1178) composta nos últimos 252 dias úteis, deflacionada pelo IPCA acumulado em 12 meses.
+    en: Effective Selic (SGS 1178) compounded over the last 252 business days, deflated by 12-month IPCA inflation.
+  arquivo: indicadores/i2_juro_real_ex_post.csv
+- codigo: I.3
+  modulo: a2-2-juro-real
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Hiato de juros', en: 'Interest-rate gap' }
+  formula: 'h^{r}_t = r^{ea}_t - r^{*}_t,\quad r^{*}_t \in [Q_1, Q_3]'
+  descricao:
+    pt: Juro real ex ante menos a faixa de juro neutro (mediana e quartis). A política é inequivocamente restritiva só quando o juro real supera o terceiro quartil da faixa.
+    en: Ex ante real rate minus the neutral-rate band (median and quartiles). Policy is unambiguously restrictive only when the real rate exceeds the band's third quartile.
+  arquivo: indicadores/i3_hiato_juros.csv
+- codigo: I.4
+  modulo: a2-2-juro-real
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Faixa de juro neutro', en: 'Neutral-rate band' }
+  formula: 'r^{*}_t = \{Q_1,\ \mathrm{mediana},\ Q_3\}\ \text{de}\ \{r^{*,a}_t,\ r^{*,b\text{-}HP}_t,\ r^{*,b\text{-}H}_t,\ \dots\}'
+  descricao:
+    pt: "Distribuição de estimativas por métodos independentes. Camada 1: (a) juro real esperado para t+4 pela Focus anual; (b) tendência do juro real ex ante por HP unilateral (λ = 14.400) e por Hamilton (2018; h = 24, p = 12), ambos em tempo real. Métodos (c), (d) e (e) entram nas camadas 2 e 3. O valor do BCB aparece ao lado, nunca dentro da distribuição."
+    en: "Distribution of estimates from independent methods. Layer 1: (a) expected real rate for t+4 from the annual Focus; (b) trend of the ex ante real rate by one-sided HP (λ = 14,400) and by Hamilton (2018; h = 24, p = 12), both in real time. Methods (c), (d) and (e) come in layers 2 and 3. The BCB value is shown beside, never inside, the distribution."
+  convencao:
+    pt: Com três métodos, os quartis são pontos médios entre estimativas; a faixa é indicativa.
+    en: With three methods, the quartiles are midpoints between estimates; the band is indicative.
+  arquivo: indicadores/i4_faixa_neutro.csv
+- codigo: I.5
+  modulo: a2-1-copom
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Surpresa de política monetária', en: 'Monetary policy surprise' }
+  formula: 'S_k = i_k - \tilde{\imath}_k,\qquad S^{n}_k = S_k/\sigma_k'
+  descricao:
+    pt: Meta decidida na reunião k menos a mediana Focus para essa reunião na última coleta anterior a ela; também contra o Top 5 (ranking de curto prazo) e normalizada pelo desvio-padrão das respostas. A medida de mercado (DI de um mês, Kuttner, 2001) exige dados da B3 e fica fora (ADR-024).
+    en: Target decided at meeting k minus the Focus median for that meeting in the last survey before it; also against the Top 5 (short-term ranking) and normalised by the standard deviation of responses. The market measure (one-month DI, Kuttner, 2001) needs B3 data and is excluded (ADR-024).
+  arquivo: indicadores/i5_surpresa.csv
+- codigo: I.6
+  modulo: a2-2-juro-real
+  camada: 2
+  estado: camada-2
+  nome: { pt: 'Envelope de regras de Taylor', en: 'Taylor-rule envelope' }
+  formula: 'i^{T1}_t = r^{*} + \pi_t + 0{,}5(\pi_t-\pi^{*}) + 0{,}5\,h_t'
+  descricao:
+    pt: Três regras (original, prospectiva e inercial) calculadas para toda a faixa de juro neutro e de hiato; referências descritivas, nunca prescrição.
+    en: Three rules (original, forward-looking and inertial) computed over the whole neutral-rate and gap bands; descriptive references, never prescriptions.
+- codigo: I.7
+  modulo: a2-4-expectativas
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Índice de credibilidade', en: 'Credibility index' }
+  formula: 'IC_t=\begin{cases}1, & \pi^{e}_t=\pi^{*}\\ 1-\dfrac{|\pi^{e}_t-\pi^{*}|}{\delta}, & 0<|\pi^{e}_t-\pi^{*}|<\delta\\ 0, & |\pi^{e}_t-\pi^{*}|\ge\delta\end{cases}\qquad \delta=1{,}5'
+  descricao:
+    pt: Cecchetti e Krause (2002), adaptado por de Mendonça (2007), em três horizontes da Focus (12 meses, ano t+1 e ano t+3). O horizonte longo é o mais informativo sobre ancoragem.
+    en: Cecchetti and Krause (2002), as adapted by de Mendonça (2007), at three Focus horizons (12 months, year t+1 and year t+3). The long horizon is the most informative about anchoring.
+  convencao:
+    pt: A meta de t+3 é a afinal fixada para o ano, não a conhecida na data da coleta.
+    en: The t+3 target is the one eventually set for that year, not the one known at the survey date.
+  arquivo: indicadores/i7_i8_credibilidade_desancoragem.csv
+- codigo: I.8
+  modulo: a2-4-expectativas
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Desancoragem e dispersão das expectativas', en: 'De-anchoring and dispersion of expectations' }
+  formula: 'D_t = \pi^{e}_{t,T+3} - \pi^{*},\qquad CV_t = \sigma_t/\pi^{e}_t'
+  descricao:
+    pt: Distância da mediana Focus para t+3 à meta e dispersão das respostas (desvio-padrão e coeficiente de variação).
+    en: Distance of the Focus median for t+3 from the target, and dispersion of responses (standard deviation and coefficient of variation).
+  arquivo: indicadores/i7_i8_credibilidade_desancoragem.csv
+- codigo: I.9
+  modulo: a2-3-inflacao
+  camada: 2
+  estado: camada-2
+  nome: { pt: 'IPCA e núcleos dessazonalizados, anualizados', en: 'Seasonally adjusted, annualised IPCA and core measures' }
+  formula: 'x^{SAAR}_t = 100\left[\prod_{j=0}^{2}\left(1+\frac{x^{sa}_{t-j}}{100}\right)^{4}-1\right]'
+  descricao:
+    pt: Variação de três meses anualizada sobre as séries dessazonalizadas pelo CEE com X-13 (ADR-023). A dessazonalização já está validada contra o RPM; a publicação do indicador entra na camada 2.
+    en: Annualised three-month change on the series seasonally adjusted by CEE with X-13 (ADR-023). The adjustment is already validated against the MPR; publication of the indicator comes in layer 2.
+- codigo: I.10
+  modulo: a2-3-inflacao
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Contador do regime de meta contínua', en: 'Continuous-target regime counter' }
+  formula: 'C_t = \begin{cases} C_{t-1}+1, & \pi_{t-11,t}\notin[\pi^{*}-1{,}5;\ \pi^{*}+1{,}5]\ \text{(mesmo lado)}\\ 0, & \text{caso contrário}\end{cases}'
+  descricao:
+    pt: Meses consecutivos com o IPCA em 12 meses fora do intervalo de tolerância (1,5 % a 4,5 %). A meta é considerada descumprida após seis meses consecutivos, o que obriga nota e carta públicas do BCB (Decreto nº 12.079/2024, conforme BCB, "Meta para a inflação", e RPM set./2026, p. 3).
+    en: Consecutive months with 12-month IPCA outside the tolerance band (1.5% to 4.5%). The target is deemed missed after six consecutive months, which requires a public note and letter from the BCB (Decree 12,079/2024, as stated by the BCB, "Inflation target", and MPR Sep/2026, p. 3).
+  arquivo: indicadores/i10_regime_meta_continua.csv
+- codigo: I.11
+  modulo: a2-3-inflacao
+  camada: 2
+  estado: camada-2
+  nome: { pt: 'Fração dos subitens acima do teto da meta', en: 'Share of sub-items above the target ceiling' }
+  formula: 'F_t = \sum_{j} w_{j,t}\,\mathbf{1}\{x^{SAAR}_{j,t} > 4{,}5\}'
+  descricao:
+    pt: Parcela, ponderada pelos pesos do IPCA (SIDRA 7060), dos subitens com variação dessazonalizada anualizada acima de 4,5 %.
+    en: IPCA-weighted share (SIDRA 7060) of sub-items with seasonally adjusted annualised change above 4.5%.
+- codigo: I.12
+  modulo: a2-4-expectativas
+  camada: 2
+  estado: camada-2
+  nome: { pt: 'Inflação implícita', en: 'Breakeven inflation' }
+  formula: '\pi^{BE}_n = \frac{1+y^{pre}_n}{1+y^{real}_n}-1'
+  descricao:
+    pt: Curvas Nelson-Siegel-Svensson ajustadas às taxas do Tesouro Direto (longo prazo) e método de Araujo e Vicente (2017) no curto prazo. Contém prêmios de risco e de liquidez; é "inflação implícita", nunca "expectativa do mercado".
+    en: Nelson-Siegel-Svensson curves fitted to Tesouro Direto rates (long end) and the Araujo and Vicente (2017) method at the short end. It contains risk and liquidity premia; it is "breakeven inflation", never "market expectation".
+- codigo: I.13
+  modulo: a2-5-transmissao
+  camada: 2
+  estado: camada-2
+  nome: { pt: 'Repasse da Selic ao custo do crédito', en: 'Pass-through of the Selic to lending rates' }
+  formula: '\Delta_h \ell_{t+h} = \alpha_h + \beta_h\,\Delta i_t + \Gamma_h^{\prime} X_t + u_{t+h},\quad h=1,\dots,12'
+  descricao:
+    pt: Projeções locais (Jordà, 2005); associações condicionais, não efeitos causais identificados.
+    en: Local projections (Jordà, 2005); conditional associations, not identified causal effects.
+- codigo: I.14
+  modulo: a2-1-copom
+  camada: 3
+  estado: camada-3
+  nome: { pt: 'Índice de tom das comunicações do Copom', en: 'Copom communication tone index' }
+  formula: 'T_k = \frac{N^{hawk}_k - N^{dove}_k}{N^{hawk}_k + N^{dove}_k}'
+  descricao:
+    pt: Léxico aplicado aos comunicados e atas, validado por dupla codificação humana (kappa de Cohen). Não é publicado sem validação.
+    en: Lexicon applied to statements and minutes, validated by double human coding (Cohen's kappa). Not published without validation.
+- codigo: I.15
+  modulo: a2-5-transmissao
+  camada: 2
+  estado: camada-2
+  nome: { pt: 'Hiato do produto multimétodo', en: 'Multi-method output gap' }
+  formula: 'h_t \in \{h^{HP\text{-}unilateral}_t,\ h^{Hamilton}_t,\ h^{UC}_t\}'
+  descricao:
+    pt: Faixa de HP unilateral e Hamilton (camada 2) e componentes não observados com curva de Phillips (camada 3), sobre o PIB trimestral dessazonalizado e o IBC-Br.
+    en: Band from one-sided HP and Hamilton (layer 2) and unobserved components with a Phillips curve (layer 3), on seasonally adjusted quarterly GDP and the IBC-Br.
+- codigo: I.16
+  modulo: a2-5-transmissao
+  camada: 3
+  estado: camada-3
+  nome: { pt: 'Prêmio a termo da curva prefixada', en: 'Term premium on the nominal curve' }
+  formula: 'TP_{t}^{(n)} = y_t^{(n)} - \frac{1}{n}\sum_{j=0}^{n-1}\mathbb{E}_t\, y_{t+j}^{(1)}'
+  descricao:
+    pt: Modelo de Adrian, Crump e Moench (2013) sobre a curva NSS do Tesouro Direto.
+    en: Adrian, Crump and Moench (2013) model on the Tesouro Direto NSS curve.
+- codigo: I.17
+  modulo: a2-5-transmissao
+  camada: 3
+  estado: camada-3
+  nome: { pt: 'Índice de condições financeiras', en: 'Financial conditions index' }
+  formula: 'ICF_t = \sum_{j} \lambda_{1j}\, z_{j,t}'
+  descricao:
+    pt: Primeiro componente principal de variáveis padronizadas de fontes abertas (juros, crédito, câmbio, commodities).
+    en: First principal component of standardised variables from open sources (rates, credit, exchange rate, commodities).
+- codigo: I.18
+  modulo: a2-8-moeda
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Crescimento nominal e real dos agregados', en: 'Nominal and real growth of aggregates' }
+  formula: 'g^{M}_t = 100\left(\frac{M_t}{M_{t-12}}-1\right),\qquad g^{M,real}_t = 100\left[\frac{1+g^{M}_t/100}{1+\pi_{t-11,t}/100}-1\right]'
+  descricao:
+    pt: Base restrita e M1 a M4 ("Novo"), em 12 meses e deflacionados pelo IPCA; variação mensal sobre a série dessazonalizada pelo CEE. Variações de M1 refletem sobretudo demanda por moeda (juros, Pix) e não são, por si, sinal de política frouxa.
+    en: Narrow base and M1 to M4 ("New"), over 12 months and deflated by the IPCA; monthly change on the series seasonally adjusted by CEE. Changes in M1 mainly reflect money demand (interest rates, Pix) and are not, by themselves, a sign of loose policy.
+  arquivo: indicadores/i18_agregados.csv
+- codigo: I.19
+  modulo: a2-8-moeda
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Multiplicador e coeficientes de comportamento', en: 'Multiplier and behavioural ratios' }
+  formula: 'm = \frac{M1}{B},\qquad c = \frac{PMPP}{DV},\qquad r = \frac{R}{DV}'
+  descricao:
+    pt: Multiplicador de M1 sobre a base restrita; papel-moeda em poder do público e reservas bancárias em relação aos depósitos à vista.
+    en: M1 multiplier on the narrow base; currency held by the public and bank reserves relative to demand deposits.
+  arquivo: indicadores/i19_multiplicador_coeficientes.csv
+- codigo: I.20
+  modulo: a2-8-moeda
+  camada: 1
+  estado: publicado
+  nome: { pt: 'Velocidade-renda e grau de monetização', en: 'Income velocity and monetisation' }
+  formula: 'V_t = \frac{PIB^{nominal}_{12m}}{\overline{M}_t},\qquad \frac{\overline{M}_t}{PIB^{nominal}_{12m}}'
+  descricao:
+    pt: Para M1 e M2, com o PIB nominal acumulado em 12 meses (SGS 4382, em reais) e a média dos saldos dos últimos 12 meses.
+    en: For M1 and M2, using 12-month nominal GDP (SGS 4382, in reais) and the average of the last 12 month-end balances.
+  arquivo: indicadores/i20_velocidade_monetizacao.csv
+- codigo: I.21
+  modulo: a2-8-moeda
+  camada: 2
+  estado: camada-2
+  nome: { pt: 'Alíquota efetiva dos compulsórios', en: 'Effective reserve-requirement rate' }
+  formula: 'a_t = \frac{\text{Recolhimentos}_t}{\text{Base de depósitos}_t}'
+  descricao:
+    pt: Recolhimentos compulsórios sobre a base de depósitos correspondente; séries mensais por modalidade ainda a enumerar.
+    en: Reserve requirements over the corresponding deposit base; monthly series by type still to be enumerated.

@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_administrados",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 4449",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "798c0aa3d10f47059e7320f004f649c2baf0e877c5016a58c2681da48755491f",
+      "bytes": 2228
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "911090f8194dc0f96b37ee4f94ec873f329df51ec9fd6fb193a8b0c73bac1782",
+      "bytes": 2232
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "f655aa1c73ae50c60f12a6f596b879129ea5d52fa0c6e20024074dcfabb69ab9",
+      "bytes": 2162
+    }
+  ]
+}

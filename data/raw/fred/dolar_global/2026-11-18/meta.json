@@ -1,0 +1,14 @@
+{
+  "serie": "dolar_global",
+  "fonte": "fred",
+  "codigo": "FRED DTWEXBGS",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "DTWEXBGS.csv",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2012-01-01",
+      "sha256": "559fbb7bf9ecacb5aa43e1bf65769237ef2e18374ea2d73af97c376c58f060fd",
+      "bytes": 75475
+    }
+  ]
+}

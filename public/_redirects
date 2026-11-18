@@ -23,3 +23,9 @@
 /publicacoes/tipo/edicao-especial /publicacoes/ 301
 /en/publicacoes/tipo/edicao-especial/* /en/publicacoes/ 301
 /en/publicacoes/tipo/edicao-especial /en/publicacoes/ 301
+
+# ADR-026 — o painel A2 virou o Observatório de Política Monetária (edição 2.0). As safras continuam em /dados/.
+/observatorio/conjuntura/* /observatorio/politica-monetaria/:splat 301
+/observatorio/conjuntura /observatorio/politica-monetaria/ 301
+/en/observatorio/conjuntura/* /en/observatorio/politica-monetaria/:splat 301
+/en/observatorio/conjuntura /en/observatorio/politica-monetaria/ 301

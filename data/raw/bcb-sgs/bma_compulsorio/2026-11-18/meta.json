@@ -1,0 +1,26 @@
+{
+  "serie": "bma_compulsorio",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 1828",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "417b49862d368f9f85b7a60365067ec1ccf88bc9f9884ea56529a68913f20c06",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "8f0e95c62c03a50619bdd69678d3131eb45827ab25b879020653edc2b4be7f9f",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "e5f82513ee512cd643d49b9e0505c46adfe9a2ba81dae70d55a95447e94c7c4c",
+      "bytes": 2395
+    }
+  ]
+}

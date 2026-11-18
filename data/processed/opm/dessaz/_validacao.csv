@@ -1,0 +1,5 @@
+serie,periodo,saar_cee,saar_bcb,diferenca_pp,dentro_tolerancia
+ipca,2026-05,7.5,7.2,0.3,1
+ipca,2026-08,3.1,2.9,0.2,1
+media_nucleos,2026-05,5.25,5.4,-0.15,1
+media_nucleos,2026-08,3.94,3.9,0.04,1

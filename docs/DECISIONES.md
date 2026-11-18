@@ -238,3 +238,163 @@ nominal, por medir competitividade externa e ser comparável no tempo. A PTAX pe
 - jul/2011 71,76. Fica fora do pipeline, que começa em 2012; conferido só na API.
 - set/2015 129,34; mai/2020 149,83; ago/2025 127,44; jul/2026 119,67; ago/2026 123,23.
 - Variação em 12 meses de ago/2026: −3,3 %.
+
+## ADR-021 — Exceção temporária no npm audit para GHSA-fc5q-39xc-vjpf (picomatch) (2026-11-18)
+
+**Contexto.** Desde 17/11/2026 o `npm audit --audit-level=high` falha em todos os PRs por um único aviso alto:
+GHSA-fc5q-39xc-vjpf (picomatch ≤ 4.0.7, ReDoS em extglobs de ramo único, CVSS 7,5). Não há versão corrigida
+publicada: a última é a 4.0.7. Os 23 pacotes "high" do relatório são todos efeitos desse mesmo aviso
+(astro, vite, vitest, tinyglobby, fdir, anymatch, micromatch, stylelint e outros).
+
+**Verificação do alcance (18/11/2026).**
+- `npm ls picomatch`: só entra por astro/vite, @astrojs/internal-helpers, tinyglobby, fdir, unstorage→anymatch,
+  stylelint→micromatch e vitest. São ferramentas de build, de desenvolvimento e de teste.
+- `npm run build` seguido de busca em `dist/` por `picomatch`, `micromatch` e `POSIX_REGEX_SOURCE`: nenhuma ocorrência.
+  O sítio é estático e não tem servidor, logo o código vulnerável não chega ao que se publica.
+- O ataque exige padrões glob controlados por terceiros; no build os padrões vêm do próprio repositório.
+
+**Decisão.**
+- O passo de auditoria do CI passa a ser `npm run qa:audit` (`scripts/qa/audit.mjs`), equivalente a
+  `npm audit --audit-level=high`. O nível não muda: qualquer aviso high ou critical falha, salvo exceção.
+- A exceção, em `scripts/qa/audit-excecoes.json`, vale só para o ID GHSA-fc5q-39xc-vjpf e o pacote picomatch.
+- **Vencimento:** 18/12/2026 ou a publicação de versão de picomatch fora do intervalo afetado, o que vier primeiro.
+  O script consulta `npm view picomatch version` e, se a última versão corrigir o aviso, a exceção deixa de valer e o
+  CI falha até a atualização.
+- Qualquer outro aviso high ou critical continua a falhar o CI. Os testes estão em `tests/audit.test.ts`.
+
+**Consequências.** O CI volta a ficar verde sem relaxar o critério geral. Ao vencer, ou se o aviso passar a atingir
+`dist/`, a exceção é retirada: atualiza-se a dependência ou abre-se novo ADR.
+
+## ADR-022 — Observatório de Política Monetária (OPM): edição 2.0 do painel A2 (2026-11-18)
+
+**Fonte.** Especificação `CEE_Observatorio_Politica_Monetaria.tex` v1.1 (em `docs/fuentes/normas/`, fora do git), que
+prevalece sobre qualquer instrução divergente. Divergências encontradas são registradas em `docs/PENDIENTES.md`.
+
+**Decisão.**
+- O painel A2 Política Monetária passa à **edição 2.0**, com o nome de produto "Observatório de Política Monetária"
+  (OPM). Continua sendo um painel do Observatório CEE, ligado à linha A2 do Programa A (subprograma A.1).
+- **Oito módulos:** A2.1 Decisões e comunicação do Copom; A2.2 Juro real, neutro e regras; A2.3 Inflação, grupos e
+  núcleos; A2.4 Expectativas e credibilidade; A2.5 Transmissão (juros, crédito, câmbio, ativos e atividade);
+  A2.6 Ambiente externo e fiscal; A2.7 Projeções e cenários; A2.8 Moeda, reservas bancárias e agregados.
+- **21 indicadores (I.1–I.21)**, com fórmula pública num único arquivo-fonte (`src/data/opm/indicadores.yaml`), de onde
+  saem as fichas e as fórmulas em MathML.
+- **Três camadas de construção**, em três PRs empilhados:
+  1. séries verificadas, indicadores diretos (I.1–I.5 com os métodos a e b de I.4, I.7, I.8, I.10, I.18–I.20) e
+     dessazonalização;
+  2. curvas NSS, filtros e estimação (I.4 c, I.6, I.9, I.11–I.13, I.15, I.21);
+  3. pesquisa: I.4 d e e, I.14, I.16, I.17 e o modelo semiestrutural (A2.7). Leva o selo **"experimental"** até a
+     revisão do Comitê Editorial e um Texto para Discussão em minuta (`docs/td/`).
+- **Princípio.** O OPM descreve e mede; **não recomenda a Selic** nem diz o que o Copom deveria decidir. Juro neutro,
+  hiatos e regras de Taylor aparecem sempre como **faixas**, com método e data. O valor do BCB vai ao lado da
+  distribuição do CEE, nunca dentro dela.
+- **Fronteiras.** A1 produz as séries de atividade, A3 as fiscais e A4 as de crédito. O OPM usa essas séries sem
+  duplicá-las: o mesmo `id` em `scripts/data/series.ts` serve a todos (por exemplo, `cambio_real`, SGS 11752, ADR-020).
+- **Código.** Cálculos simples em TypeScript (`scripts/data/opm/`, testes Vitest). Econometria em Python
+  (`analysis/opm/`, dependências com hash, pytest), com saída em `data/processed/opm/`.
+
+**Consequências.** O painel deixa de ser um conjunto de quatro gráficos e vira um produto com página por módulo,
+calendário do Copom e conferência com o estado de partida (Anexo B). A edição 1.0 continua no changelog, e suas
+quatro séries são mantidas nos módulos A2.1, A2.3, A2.4 e A2.5.
+
+## ADR-023 — Dessazonalização pelo CEE com X-13ARIMA-SEATS (2026-11-18)
+
+**Revoga** a regra da metodologia do painel A2 segundo a qual "nenhum valor é ajustado sazonalmente pelo CEE"
+(especificação, seção "Dessazonalização").
+
+**Decisão.**
+- **Séries ajustadas:** as mensais cuja leitura de curto prazo depende do ajuste. São o IPCA, seus grupos analíticos e
+  os núcleos, e os agregados monetários.
+- **Método:** X-13ARIMA-SEATS do U.S. Census Bureau, **versão 1.1 build 62**.
+  - Arquivo: `x13as_ascii-v1-1-b62.tar.gz`, binário estático Linux x86-64.
+  - O arquivo é baixado de `www2.census.gov` com SHA-256 fixado:
+    `a91d37bb2fef46237e1eadd7d9b4f1c00a422d58f6b286c9bfe485289e8ac6f5`.
+  - O Census não publica soma de verificação. O hash foi registrado na primeira descarga, em 18/11/2026, e qualquer
+    mudança no arquivo interrompe o pipeline.
+  - **Por que não o pacote R `seasonal`:** chama o mesmo binário (via `x13binary`) e traria um segundo ambiente (R)
+    ao CI. Em Python, o `statsmodels` só gera a especificação e lê a saída, e o binário é o mesmo.
+- **Especificação por série** em `data/specs/x13/<serie>.yaml`:
+  - transformação;
+  - modelo ARIMA, ou seleção automática registrada;
+  - regressores de calendário: dias úteis e Carnaval, este como regressor de usuário;
+  - *outliers*;
+  - testes de sazonalidade residual (QS e espectro).
+  - A especificação é reavaliada uma vez por ano.
+- **Variações percentuais** (IPCA e componentes): o ajuste é feito no número-índice encadeado, e a variação é
+  recalculada a partir do índice ajustado.
+- **Não se reajusta** o que a fonte já publica dessazonalizado: IBC-Br (SGS 24364) e PIB (SIDRA 5932/1621).
+
+**Publicação.**
+- A série original aparece **sempre** ao lado da ajustada: seletor na página e as duas colunas no CSV.
+- Nenhuma série ajustada pelo CEE é apresentada como oficial. O rótulo é "dessazonalizado pelo CEE (X-13)".
+- As revisões da série ajustada a cada novo dado são esperadas. Ficam registradas por safra, em
+  `data/processed/opm/safras/`, com a data da estimação.
+
+**Validação** (especificação, seção "Dessazonalização"). O SAAR de três meses até ago/2026 deve aproximar o do BCB
+(RPM set/2026, p. 35): IPCA 2,9 % e média dos núcleos 3,9 %; em maio, 7,2 % e 5,4 %. A tolerância é de 0,5 p.p.;
+acima disso, a especificação é explicada antes da publicação.
+
+**Consequências.** O texto de metodologia do A2 (`src/data/paineis.yaml`) muda. O CI passa a depender de um binário
+externo de versão fixa.
+
+## ADR-024 — Exclusão temporária de dados com restrição de redistribuição (2026-11-18)
+
+**Decisão.** Ficam fora do sítio, do repositório e do pipeline, até licença escrita que permita uso e publicação:
+- futuros de DI1 (B3);
+- estrutura a termo da ANBIMA (ETTJ e IMA);
+- EMBI e EMBI+ (J.P. Morgan);
+- NUCI e demais sondagens da FGV;
+- CDS soberano (qualquer provedor);
+- índice Bovespa (B3);
+- qualquer fonte de licença duvidosa até ser verificada.
+
+Nas séries do FRED, a licença é conferida **série a série**. Série com aviso de *copyright* de terceiros (por exemplo,
+VIXCLS, da Cboe, ou índices ICE BofA) não entra sem licença. O mesmo vale para as estimativas HLW do Federal Reserve de
+Nova York, que só entram depois de conferidos os termos de uso.
+
+**Consequências** (especificação, seção "Construção").
+- As curvas de juros nominal e real usam os dados abertos do **Tesouro Direto** (Tesouro Transparente).
+- A surpresa de política monetária (I.5) é medida pela **Focus**. A medida de mercado de Kuttner (2001), com DI de
+  um mês, fica para pesquisa licenciada.
+- O método (d) do juro neutro usa só o juro real americano (TIPS de cinco anos, DFII5, ou HLW). Sem medida aberta de
+  risco soberano, é mostrado **sem prêmio de risco**, com essa limitação explícita, ou omitido.
+- O índice de condições financeiras (I.17) só usa componentes abertos.
+
+**Reentrada.** Cada fonte excluída só volta com licença escrita arquivada pela coordenação e um ADR novo. Ainda assim, o
+produto publicado mostra apenas os resultados agregados que a licença permitir.
+
+## ADR-025 — Dados em tempo real: safras da Focus e dos insumos (2026-11-18)
+
+**Contexto.** Hiatos, taxas neutras e regras de política avaliados com dados revisados atribuem ao banco central uma
+informação que ele não tinha (Orphanides, 2001, *AER* 91(4)).
+
+**Decisão.**
+- Toda extração continua arquivada sem alteração em `data/raw/<fonte>/<id>/<data>/`, com URL, data e hora e SHA-256.
+  É a regra atual, que passa a valer também para a Focus, o Tesouro Direto, o FRED e os textos do Copom.
+- O OPM monta uma **tabela de safras** (`data/processed/opm/safras/`): para cada data de edição, o valor de cada insumo
+  tal como conhecido naquela data. A Focus já é uma série em tempo real (data da coleta × horizonte). PIB, IBC-Br e as
+  séries revisáveis do SGS acumulam safras a partir de agora: o arquivo anterior a esta data não permite reconstruir
+  as revisões passadas, e isso é declarado.
+- Indicadores que dependem de estimação (filtros, hiato, neutro, regras) são calculados **com os dados de cada data**
+  e guardados por safra. O gráfico mostra a última estimativa; o CSV traz a estimativa em tempo real de cada data.
+- A surpresa (I.5) usa a **última coleta Focus anterior** à reunião, nunca uma posterior.
+
+**Consequências.** O volume de `data/raw/` cresce a cada atualização (texto comprimível, da ordem de MB por mês).
+Nenhuma safra é apagada (CLAUDE.md, "Dados brutos em `data/raw/` são imutáveis").
+
+## ADR-026 — Slug `/observatorio/politica-monetaria/` com 301 a partir de `/observatorio/conjuntura/` (2026-11-18)
+
+**Decisão.**
+- O painel A2 muda de `id` (`conjuntura` → `politica-monetaria`), e com ele o slug público, em português e em inglês.
+  Encerra o item correspondente de `docs/PENDIENTES.md`.
+- Redirecionamentos 301 em `public/_redirects`, com e sem barra final e com `:splat` para subpáginas:
+  - `/observatorio/conjuntura/` → `/observatorio/politica-monetaria/`;
+  - `/en/observatorio/conjuntura/` → `/en/observatorio/politica-monetaria/`.
+- Cada módulo tem página própria em `/observatorio/politica-monetaria/<modulo>/` (por exemplo, `a2-3-inflacao/`).
+- **Safras acessíveis.** A página `/observatorio/politica-monetaria/safras/` lista as extrações arquivadas que
+  alimentam o OPM: série, data, hash e link para o CSV em `/dados/`. O changelog do painel preserva a edição 1.0.
+- O diretório de dados derivados `data/processed/conjuntura/` é mantido. Mudar o caminho dos CSV publicados em
+  `/dados/` quebraria citações. Os novos CSV vão para `data/processed/opm/`.
+
+**Consequências.** Links internos passam a usar o novo slug via `href()`. O GitHub Pages (transitório) não lê
+`_redirects`; o 301 só vale na Cloudflare. Enquanto isso, uma página de transição em `/observatorio/conjuntura/`
+(meta refresh e `rel=canonical`, sem JavaScript) aponta para o novo endereço.

@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_industriais",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27863",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "c6cab9961631ed8478966b197fbf25ec2232f7b371c68556604df8f1df060938",
+      "bytes": 2228
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "ee5fcc15847c84ae96b69bf155d2d8207cf8cac611b66de4a6128937e062b61a",
+      "bytes": 2232
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "8a3cdfc796e96d14b4c1b874e88b3720f4a995ab838b867a14dc0de8ab538d54",
+      "bytes": 2155
+    }
+  ]
+}

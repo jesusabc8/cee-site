@@ -11,7 +11,9 @@ import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const k = lang === 'en' ? 'en' : 'pt';
-const vint = { ...lerVintage('conjuntura'), ...lerVintage('panorama') };
+const vint = { ...lerVintage('conjuntura'), ...lerVintage('panorama'), ...lerVintage('opm') };
+// Diretório de dados → página do Observatório (conjuntura e opm alimentam o A2, ADR-026).
+const PAGINA: Record<string, string> = { conjuntura: 'politica-monetaria', opm: 'politica-monetaria', panorama: 'panorama' };
 const L = {
   pt: { t: 'Catálogo de dados e fontes', lede: 'Séries mantidas pelo Observatório, com a verificação de cada código contra a fonte oficial. Séries não verificadas não são publicadas.',
     cod: 'Código', un: 'Unidade', freq: 'Frequência', painel: 'Painel', licenca: 'Termos de uso da fonte', verif: 'Verificação', metodo: 'Método', nome: 'Nome oficial', obs: 'Observações', ultima: 'Última extração', cobertura: 'Cobertura', csv: 'CSV', consulta: 'Consulta pública' },
@@ -47,7 +49,7 @@ const L = {
             <dt>{L.cod}</dt><dd><code>{s.codigo}</code></dd>
             <dt>{L.un}</dt><dd>{s.unidade}</dd>
             <dt>{L.freq}</dt><dd>{s.frequencia}</dd>
-            <dt>{L.painel}</dt><dd><a href={href(`/observatorio/${s.painel}/`, lang)}>{s.painel}</a></dd>
+            <dt>{L.painel}</dt><dd><a href={href(`/observatorio/${PAGINA[s.painel] ?? s.painel}/`, lang)}>{PAGINA[s.painel] ?? s.painel}</a></dd>
             {v && <><dt>{L.ultima}</dt><dd>{fmtDate(new Date(v.extraido_em), lang)}{v.desatualizado && ' ⚠'}</dd><dt>{L.cobertura}</dt><dd>{v.primeiro} → {v.ultimo} ({v.linhas})</dd></>}
             <dt>{L.csv}</dt><dd><a href={href(`/dados/${s.painel}/${s.id}.csv`)}>{s.id}.csv</a> · <a href={s.url_publica}>{L.consulta}</a></dd>
             <dt>{L.licenca}</dt><dd>{s.licenca_fonte}</dd>

@@ -12,6 +12,7 @@ import readXlsxFile from 'read-excel-file/node';
 import { strFromU8, unzipSync } from 'fflate';
 import { SERIES, type Serie } from './series.ts';
 import { csv, type Linha } from './csv.ts';
+import { genericos, processadoresOpm } from './process-opm.ts';
 
 const RAW = 'data/raw';
 const OUT = 'data/processed';
@@ -208,7 +209,7 @@ const vintages: Record<string, Record<string, unknown>> = {};
 for (const s of SERIES) {
   const { dir, meta, corpos } = await ultimoVintage(s);
   const extraido = new Date(meta.extraido_em);
-  const proc = processadores[s.id];
+  const proc = processadores[s.id] ?? processadoresOpm[s.id] ?? (s.generico ? genericos[s.generico] : undefined);
   if (!proc) throw new Error(`Sem processador para ${s.id}`);
   const linhas = await proc(corpos, extraido);
   if (linhas.length === 0) throw new Error(`${s.id}: processamento sem linhas.`);

@@ -1,0 +1,26 @@
+{
+  "serie": "pib_nominal_12m",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 4382",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "1e6eaaf6912b4b58c03513e9e3d756bd344fbf02db02b3c62382bf53d5023000",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "4d5ed06d87b04688f83edab771220597c5049d3e18f421fab3b646d94a587a27",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "78a89c5004b1147d9afa4c273e6e49cb709dd3a4859a49a072bf093c8cad9919",
+      "bytes": 2484
+    }
+  ]
+}

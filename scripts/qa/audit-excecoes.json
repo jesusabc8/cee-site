@@ -1,0 +1,12 @@
+{
+  "_comentario": "Exceções temporárias ao npm audit (ADR-021). Uma por aviso, pelo ID. Sem rebaixar --audit-level. Vencida ou com parche publicado, a exceção deixa de valer e o CI falha.",
+  "excecoes": [
+    {
+      "id": "GHSA-fc5q-39xc-vjpf",
+      "pacote": "picomatch",
+      "vence": "2026-12-18",
+      "adr": "ADR-021",
+      "motivo": "ReDoS em extglobs; picomatch só é usado por ferramentas de build e desenvolvimento (astro/vite, vitest, stylelint) e não chega a dist/ (verificado em 18/11/2026). Sem versão corrigida publicada (última: 4.0.7)."
+    }
+  ]
+}

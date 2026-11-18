@@ -25,3 +25,9 @@ docs/seguranca/nomes-proibidos.txt
 # Cloudflare Wrangler (estado local de wrangler dev)
 .wrangler/
 .dev.vars
+
+# Pacote Python do OPM (ADR-022): binário X-13 baixado com hash e ambientes virtuais
+analysis/.cache/
+.venv/
+__pycache__/
+.pytest_cache/

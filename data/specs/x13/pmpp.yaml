@@ -1,0 +1,14 @@
+# Especificação X-13 (ADR-023): Papel-moeda em poder do público (SGS 27789). Saldo de fim de período (nível), ajuste multiplicativo.
+serie: pmpp
+entrada: opm/pmpp.csv
+coluna: valor
+tipo: nivel
+transformacao: log
+arima: auto
+regressores: []
+teste_aic: [td]
+carnaval: true
+outliers:
+  tipos: [ao, ls]
+inicio: "2012-01"
+revisado_em: "2026-11-18"

@@ -1,0 +1,26 @@
+{
+  "serie": "icc",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 25351",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2013.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2013&dataFinal=31/12/2017",
+      "sha256": "4d0118ddfea64e3cc5013ea158ff3455abc271e1a70b81757e9ff535fc5975ca",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2018.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2018&dataFinal=31/12/2022",
+      "sha256": "99753bcbbccd2412021ea64fa3fe7e3a314057663f8b96fab45285aa03837753",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2023.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2023&dataFinal=18/11/2026",
+      "sha256": "80af9996158b2b1f0d1335a3093ed337870aafa669de0c0b3001cffc4ccde323",
+      "bytes": 1711
+    }
+  ]
+}

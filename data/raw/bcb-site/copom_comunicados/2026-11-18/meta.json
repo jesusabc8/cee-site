@@ -1,0 +1,518 @@
+{
+  "serie": "copom_comunicados",
+  "fonte": "bcb-site",
+  "codigo": "API de conteúdo do BCB: /api/servico/sitebcb/copom/comunicados_detalhes",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "200.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=200",
+      "sha256": "55bf06ece5b0c376f0ab55b2b31e422f5118803f4c7e60fa89f2db21d3c04d07",
+      "bytes": 2832
+    },
+    {
+      "arquivo": "201.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=201",
+      "sha256": "c8b3573235d13fd89d4c1c60a76f8209475a0d051126cd07e3176eef63d40b80",
+      "bytes": 4173
+    },
+    {
+      "arquivo": "202.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=202",
+      "sha256": "e457ff59030f369f5fcb68879321fcce007c9d5788e6f7cf5cbb4e4225cc4d23",
+      "bytes": 5407
+    },
+    {
+      "arquivo": "203.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=203",
+      "sha256": "d73c6d1efedddcc7cfd3fd2ec25fcc816256eda8b0db4a8f377fb8179bf5f921",
+      "bytes": 4834
+    },
+    {
+      "arquivo": "204.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=204",
+      "sha256": "9ba3bef9bb158338104a5758558691b830443458491bc2fddf56681e1dd8518f",
+      "bytes": 5057
+    },
+    {
+      "arquivo": "205.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=205",
+      "sha256": "4d03403a3691280fdaaf233a1373ec8b9b19d4733cf98afac849f396d52ae393",
+      "bytes": 4220
+    },
+    {
+      "arquivo": "206.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=206",
+      "sha256": "f46296b7e0be604f40a6cab2403c7b06f0bc4b661455ee770b250ff573f143bb",
+      "bytes": 4937
+    },
+    {
+      "arquivo": "207.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=207",
+      "sha256": "7846239ea546c84c7c89dd9a5297a6e7af1b53d98f6a18736f778bb5f2b0f865",
+      "bytes": 4229
+    },
+    {
+      "arquivo": "208.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=208",
+      "sha256": "b8bd115f065d3b63bbbf4e422480a143ac187c6254b81cf7378b7943a28667a9",
+      "bytes": 4491
+    },
+    {
+      "arquivo": "209.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=209",
+      "sha256": "df4bc4ff509f46c7659585a18701ba951cc535c9f9f87c8c2f5d5aedebd5e3c6",
+      "bytes": 4731
+    },
+    {
+      "arquivo": "210.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=210",
+      "sha256": "a07c27a57dc9d4a0054ad8cf7d47f7d4cbdccbacabcd8d5c6e30aa40e4595af3",
+      "bytes": 4863
+    },
+    {
+      "arquivo": "211.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=211",
+      "sha256": "7060a87249e586449946654a16d87d7c4215a3c80c3a4d7b91113b8ccc6a2f60",
+      "bytes": 4837
+    },
+    {
+      "arquivo": "212.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=212",
+      "sha256": "df8c960e9e3a06d4565f17f1ab458b48cb36f15d9b5d944f1834e43020d1af15",
+      "bytes": 5005
+    },
+    {
+      "arquivo": "213.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=213",
+      "sha256": "ecd6b5a8a75f4dd25259271ae7699e4bdbee61a32d56752579fdb7ebf1637241",
+      "bytes": 4686
+    },
+    {
+      "arquivo": "214.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=214",
+      "sha256": "53aad4c504c742cbe885082483cc8e7272c0366bb4d321f6ee2e5aa113470988",
+      "bytes": 5266
+    },
+    {
+      "arquivo": "215.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=215",
+      "sha256": "407073f1366e479384125367ee99465b7231fc5dfdbaf7a8c4e8cc78082106cd",
+      "bytes": 6305
+    },
+    {
+      "arquivo": "216.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=216",
+      "sha256": "0cbe54c3fdd1e0f0dae97cc4370d6be985389b07166e8e9874250acb6fd592e0",
+      "bytes": 6168
+    },
+    {
+      "arquivo": "217.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=217",
+      "sha256": "937f3b96b9637cad52bb05e7bc9316fff78a0bbd2f14e32e8c9aa07f80c10b4b",
+      "bytes": 5892
+    },
+    {
+      "arquivo": "218.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=218",
+      "sha256": "ca9b9f8277d9cd5072ee31a3625cb2a1990f04a107d4b7f848dbd09f8743054d",
+      "bytes": 5772
+    },
+    {
+      "arquivo": "219.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=219",
+      "sha256": "96f25efaa2f8ed3b73185cb31df6750bf6467577a58945fc17149afadec770fc",
+      "bytes": 5084
+    },
+    {
+      "arquivo": "220.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=220",
+      "sha256": "7c213ad034d925f1fdee4f328ab274a6fbeb6858b684193a0a8a6c782c539b8d",
+      "bytes": 5052
+    },
+    {
+      "arquivo": "221.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=221",
+      "sha256": "148594289fe85cd6eaaa970babea6307c61adfce564fe132b872287153768dc6",
+      "bytes": 5601
+    },
+    {
+      "arquivo": "222.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=222",
+      "sha256": "0727ae95b6e583a1952e3b766fb822a8eb2ebe5c285f3b3989f6320d3936d08f",
+      "bytes": 5741
+    },
+    {
+      "arquivo": "223.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=223",
+      "sha256": "2e142e9389ee6bb6b7a070df6be4202bc53c62c656a1571d6074a78e02a4c7db",
+      "bytes": 5262
+    },
+    {
+      "arquivo": "224.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=224",
+      "sha256": "6ef54431a6e194c0025ec84f81b7eb8c3f280007bd3dc7b84a94805f8bf32149",
+      "bytes": 5392
+    },
+    {
+      "arquivo": "225.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=225",
+      "sha256": "07b5cbc0e0cfa213355f250058ad5d5358335e1952fa3ae05742a99f5c3375fd",
+      "bytes": 5635
+    },
+    {
+      "arquivo": "226.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=226",
+      "sha256": "b6fcb4a001c8ec75d5b0eef891493acb8a211d50294768e5daf2688d6507e1fb",
+      "bytes": 5846
+    },
+    {
+      "arquivo": "227.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=227",
+      "sha256": "869003704165cfe2a29db91dbbd2c03be7ff8fe315b837140e3350f6b5e9dc99",
+      "bytes": 5256
+    },
+    {
+      "arquivo": "228.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=228",
+      "sha256": "a32cf92a1fa2300518cf86fc0c34e1ed036fead5e6eb4738d5aa63c07060ac00",
+      "bytes": 5201
+    },
+    {
+      "arquivo": "229.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=229",
+      "sha256": "28e1951fa642605cd42f1b2e950769b3dfe64a912ad7be259c17b59b87aa1685",
+      "bytes": 5455
+    },
+    {
+      "arquivo": "230.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=230",
+      "sha256": "e80744a39a401b6e0a364a5db33a1c489fb09bfdda60d0f6454872028ed9a8a6",
+      "bytes": 6691
+    },
+    {
+      "arquivo": "231.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=231",
+      "sha256": "1ddf582a482eaad81e7e971fa64854c651604d409c71366c07706d1aa4364e86",
+      "bytes": 6285
+    },
+    {
+      "arquivo": "232.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=232",
+      "sha256": "b7a6522382b270d54259b0088851fd45908bf5638668081b4c2282582b61c219",
+      "bytes": 6282
+    },
+    {
+      "arquivo": "233.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=233",
+      "sha256": "bfefb106d1e9369972e9d31d0d973bb32e7f53467739004737a0ced936f614ae",
+      "bytes": 7300
+    },
+    {
+      "arquivo": "234.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=234",
+      "sha256": "9aeb467b622838b56381a4ddb1f33b22afa22df6ce667cfdbd68117cd03c4a01",
+      "bytes": 6811
+    },
+    {
+      "arquivo": "235.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=235",
+      "sha256": "6f7b1a6e31182f2ec62bd6d6300057a666db26ba90e12a8deccf1c467d55cae4",
+      "bytes": 7678
+    },
+    {
+      "arquivo": "236.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=236",
+      "sha256": "a0a9c8c35bc28379135d8277840f9fa69ebc915a656eca283a6be012c0e637e9",
+      "bytes": 6465
+    },
+    {
+      "arquivo": "237.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=237",
+      "sha256": "245e9d32bb0384520190cbd88efc0761fd09e5b7aacbb5ddbcfe182ff8e80369",
+      "bytes": 7274
+    },
+    {
+      "arquivo": "238.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=238",
+      "sha256": "8b56e204b1969dd5289c515f729de0cf7fc14778db2d7ffcb5b71b465396d2f9",
+      "bytes": 6182
+    },
+    {
+      "arquivo": "239.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=239",
+      "sha256": "be9f17d7660b9c57c20e77152f4c0547438cf771ef04bb1ab922414167619dd5",
+      "bytes": 6696
+    },
+    {
+      "arquivo": "240.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=240",
+      "sha256": "f8146cec3ced630d11c4ef6b764d3d4563dd0729896d4e30cfa34a1f348e8b43",
+      "bytes": 6790
+    },
+    {
+      "arquivo": "241.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=241",
+      "sha256": "9d78f2205c2c82677aba647d1954b7dcbd338f46615dd3ebd51dc846b1668430",
+      "bytes": 7055
+    },
+    {
+      "arquivo": "242.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=242",
+      "sha256": "9d30aaffdcc12beb4473d50fd3de8daf98dc0340d00b7b99d95e64d25133276c",
+      "bytes": 5498
+    },
+    {
+      "arquivo": "243.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=243",
+      "sha256": "11f27de640eefb02be86e3e0759fd6e569d9dba66305d23fd4440d712abe4bd7",
+      "bytes": 5801
+    },
+    {
+      "arquivo": "244.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=244",
+      "sha256": "6d5d742c1743f692217a7f234029d0a6b0bcd9824a77f04306ee06b67c820585",
+      "bytes": 5957
+    },
+    {
+      "arquivo": "245.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=245",
+      "sha256": "b871d7f18dcb3168a0cd659a3e033681e23fd3e5c383d02402d333fef43a95c9",
+      "bytes": 7062
+    },
+    {
+      "arquivo": "246.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=246",
+      "sha256": "120784172eff2b75adedffb9f40d98aaf29d5b9f318ad0255ad9c520e25439d2",
+      "bytes": 5859
+    },
+    {
+      "arquivo": "247.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=247",
+      "sha256": "cf9b98a2a5e9e6bd8552fd8212436dbd91c92f14ce93593727fa03d9514c545f",
+      "bytes": 6560
+    },
+    {
+      "arquivo": "248.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=248",
+      "sha256": "85d4f1582885d74a3b19e96a88ab7bb11e2211f7d86d3056e4ca269756c1cb95",
+      "bytes": 7161
+    },
+    {
+      "arquivo": "249.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=249",
+      "sha256": "5a158c5a7c0f564115904595b0106d0ebf2af28c3122a1d1828466967da28f61",
+      "bytes": 5996
+    },
+    {
+      "arquivo": "250.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=250",
+      "sha256": "42fd42e24575a9de2d2ed79f059d690682937a8cec4c4270096acaf491c3b7e8",
+      "bytes": 6081
+    },
+    {
+      "arquivo": "251.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=251",
+      "sha256": "4c7413c68f22a911ade6fa020d2229f9922d37d981827b47d86345bed524e022",
+      "bytes": 6193
+    },
+    {
+      "arquivo": "252.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=252",
+      "sha256": "a5c1feb7f5e89aaf8b4267dde8db843e72be4e815b386799545fb71efcf71d44",
+      "bytes": 6538
+    },
+    {
+      "arquivo": "253.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=253",
+      "sha256": "a39cb90f0133c2b6a48e6c5313f3012531e7e75648b3e21710d4cacb81e04285",
+      "bytes": 6217
+    },
+    {
+      "arquivo": "254.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=254",
+      "sha256": "f34b339122a8ead91e36d7e16e25d7dea47cc83372a70623e90ffce363e102d5",
+      "bytes": 6148
+    },
+    {
+      "arquivo": "255.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=255",
+      "sha256": "87f04bae3b9e6b685c6e7c1a541134cb56c7e5b989e1341a2e8db69991e5a272",
+      "bytes": 5842
+    },
+    {
+      "arquivo": "256.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=256",
+      "sha256": "147c8b3c9d4c2c86b40efd3ddad9be18351952a86f05c7b830186223f349d7bb",
+      "bytes": 6280
+    },
+    {
+      "arquivo": "257.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=257",
+      "sha256": "1e9cd0e702b6212261de0fd889e170af0aafc19f5a3bbb799af506825d218c07",
+      "bytes": 5754
+    },
+    {
+      "arquivo": "258.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=258",
+      "sha256": "90c35e8b84c186256acf88b127e4126f6b6571c53da29a94b68c7dde03ee1778",
+      "bytes": 6048
+    },
+    {
+      "arquivo": "259.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=259",
+      "sha256": "7164b8fc9fa4f035117ac07e850b094248376b026af176b35a162f9e7f7f7010",
+      "bytes": 5989
+    },
+    {
+      "arquivo": "260.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=260",
+      "sha256": "ca325de4daa424269ede146f8bf1391f79ecf8d3e1c3aefe521d172822b2ec29",
+      "bytes": 5872
+    },
+    {
+      "arquivo": "261.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=261",
+      "sha256": "2997e3cee9803c646030072221c790e7020555d83b948a55cb3dccd476cdbc8c",
+      "bytes": 6096
+    },
+    {
+      "arquivo": "262.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=262",
+      "sha256": "d3532e32782043559a37d449151e8fea54635d494c92e6d8e642f963185b0ea3",
+      "bytes": 5718
+    },
+    {
+      "arquivo": "263.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=263",
+      "sha256": "3f6d435f8bc33311921b911f4c67c00449eea0bb95ef922e80cbaf4f9f2b8e70",
+      "bytes": 5890
+    },
+    {
+      "arquivo": "264.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=264",
+      "sha256": "6ebf99ecefba393c0b4f3525fb1dfada8c97a55c47c0acea0ca8e94949cbee4e",
+      "bytes": 6898
+    },
+    {
+      "arquivo": "265.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=265",
+      "sha256": "b8fb33127e3005c4fabc13225a7caf6401cfae2c277466d24ff5c995d14501ce",
+      "bytes": 7165
+    },
+    {
+      "arquivo": "266.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=266",
+      "sha256": "3659d3b199dbb79e9137784501916cdce16be289fe631f78673f282aa0af752c",
+      "bytes": 7181
+    },
+    {
+      "arquivo": "267.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=267",
+      "sha256": "16848974e3f862cb4931252bf443bb8f117c6a59c795d12327182e988141b38e",
+      "bytes": 6804
+    },
+    {
+      "arquivo": "268.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=268",
+      "sha256": "479c6a6cc22a8828db7de229e72bceab0020d86b8a904536a9445dd41bce2b8d",
+      "bytes": 6362
+    },
+    {
+      "arquivo": "269.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=269",
+      "sha256": "a5bb81c4ae78a2dcfa3b4715632fff26bc3d73bf1ee379619b4a677dd37fd9aa",
+      "bytes": 6636
+    },
+    {
+      "arquivo": "270.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=270",
+      "sha256": "6cb5e706316411f9be755560ab8495155154525b4a251eb5e9e6ca6411f191f9",
+      "bytes": 6873
+    },
+    {
+      "arquivo": "271.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=271",
+      "sha256": "50e7175b636f0e1e30480a12d7b6a80cdb16560319c7309dbb7f2f3a1b95b5b1",
+      "bytes": 6195
+    },
+    {
+      "arquivo": "272.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=272",
+      "sha256": "75db5dbbc8bd2269def4727b876a9da41bc6c27b37fdb5d86de304d5f0a9093b",
+      "bytes": 6707
+    },
+    {
+      "arquivo": "273.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=273",
+      "sha256": "0faced70d603f45cbb07365c6590ae2b3740fd4a1853f13c7cbf4104dc0694d9",
+      "bytes": 6413
+    },
+    {
+      "arquivo": "274.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=274",
+      "sha256": "443f815609b684b3eae685a23158ae8e21251099d60290ddc2aaa9bab9f2217d",
+      "bytes": 6268
+    },
+    {
+      "arquivo": "275.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=275",
+      "sha256": "2ec29990e12530499626dbbfa65e95da209354cf790cf57eee9858b5a698cff0",
+      "bytes": 6365
+    },
+    {
+      "arquivo": "276.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=276",
+      "sha256": "727990f8feac1bb8724a61df11fef03ff2dcee025b3429104c76b35748876690",
+      "bytes": 6171
+    },
+    {
+      "arquivo": "277.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=277",
+      "sha256": "b867df1caddb089703066415fc8a1842bec6bcbc2c33765d4947ee588bfe3012",
+      "bytes": 7052
+    },
+    {
+      "arquivo": "278.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=278",
+      "sha256": "ad534f3af9201a68ba9b12d1d6d550a6892e598f893802fc37a5ab477b8a28ee",
+      "bytes": 7314
+    },
+    {
+      "arquivo": "279.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=279",
+      "sha256": "3d564e110b92ff6ce9aadc2a1d1667282918ce339dbb8f756ba854acd94d1cfa",
+      "bytes": 8214
+    },
+    {
+      "arquivo": "280.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=280",
+      "sha256": "5dc1742da02be038f6ac77b04c22a99b4a0a19626f5816daf97960c8fa566c59",
+      "bytes": 6832
+    },
+    {
+      "arquivo": "281.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=281",
+      "sha256": "c32e5fccaba8d550544472f72f03222eb880fbb543674f77eb89d565d4dc9b66",
+      "bytes": 6503
+    },
+    {
+      "arquivo": "282.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=282",
+      "sha256": "2cc9c6fcf03f7281cf2881b8741fad7b7906906f9103123363be85bce423a060",
+      "bytes": 6569
+    },
+    {
+      "arquivo": "283.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=283",
+      "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819",
+      "bytes": 15
+    },
+    {
+      "arquivo": "284.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=284",
+      "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819",
+      "bytes": 15
+    }
+  ]
+}

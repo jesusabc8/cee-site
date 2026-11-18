@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_duraveis",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 10843",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "43e082ef73ab77df0eaeb86a9d6f95f4953ceb9af1623f31465e4adaac9412a7",
+      "bytes": 2239
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "2044b031b14440e1bd9ca236e8269c43c489de6080745329632a960f03e0975b",
+      "bytes": 2237
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "db2c5fa44a0abf94074c0653adbf7ec686b894d049bd00c8e3364a69389111ef",
+      "bytes": 2168
+    }
+  ]
+}

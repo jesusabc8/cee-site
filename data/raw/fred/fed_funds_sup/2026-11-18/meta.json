@@ -1,0 +1,14 @@
+{
+  "serie": "fed_funds_sup",
+  "fonte": "fred",
+  "codigo": "FRED DFEDTARU",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "DFEDTARU.csv",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFEDTARU&cosd=2012-01-01",
+      "sha256": "4e9921e1e609b35ddd69514d11e40b6d41447d19df7c4424dbcd19f6c46cf58e",
+      "bytes": 86986
+    }
+  ]
+}

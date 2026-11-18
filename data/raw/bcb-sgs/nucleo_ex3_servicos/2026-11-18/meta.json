@@ -1,0 +1,26 @@
+{
+  "serie": "nucleo_ex3_servicos",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 29683",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "abdf3faa58a47308907aaa61c482b5dfa6d6332d6dce2a9a916a583330fdc486",
+      "bytes": 2221
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "99454b53ebd99f48e179a5e061b0e9a5d020e22d436e573fbc0602cb73399486",
+      "bytes": 2223
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "865a79913e2acfa86633615857df90cececda184fecc271ca7cb856e93186a85",
+      "bytes": 2147
+    }
+  ]
+}

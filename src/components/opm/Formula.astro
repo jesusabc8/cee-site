@@ -1,0 +1,15 @@
+---
+/** Fórmula em MathML gerada no build (temml), sem JavaScript e sem estilos inline (CSP). */
+import { mathml } from '../../lib/opm-dados';
+interface Props { latex: string; rotulo: string }
+const { latex, rotulo } = Astro.props;
+---
+<div class="formula" role="group" aria-label={rotulo} tabindex="0"><Fragment set:html={mathml(latex, rotulo)} /></div>
+<style>
+  .formula { overflow-x: auto; padding: var(--s-3) var(--s-2); background: var(--paper); border-left: 3px solid var(--sky, #C0E0F0); font-size: 1.08rem; }
+  .formula :global(math) { display: block math; font-family: 'STIX Two Math', 'Cambria Math', 'Latin Modern Math', math; }
+  .formula :global(mtd[data-pad='0']) { padding-left: 0; padding-right: 0; }
+  .formula :global(mtd[data-pad='1']) { padding-left: 1em; padding-right: 0; }
+  .formula :global(.tml-d0) { math-depth: 0; }
+  .formula:focus-visible { outline: 2px solid var(--azure); outline-offset: 2px; }
+</style>

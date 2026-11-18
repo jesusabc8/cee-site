@@ -1,0 +1,26 @@
+{
+  "serie": "papel_moeda_circulacao",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 1786",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "a7724ed6f10277593d2990ef59f560c7675318db7e937db30572da4a13d9680e",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "dab0792be718816d59b940e1e8d9d76ca3665b120095246f6109fca4422cf374",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "90d98fa7c5ee9e76d3ffb1145f63b6516af4d204a3d43e76d1d3e2f333ff7ee1",
+      "bytes": 2395
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_difusao",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 21379",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "f05bb96e73d7ba5703673c147b02bdcae1ef1044607d55807477634164e94b55",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "069aaf39072ad32decc96010643c11a1a5a92940e8d880e18a4524365c27867a",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "26a07fba46939d2769f5552085147e3193497f8568501537ac35e800e5f813c2",
+      "bytes": 2205
+    }
+  ]
+}

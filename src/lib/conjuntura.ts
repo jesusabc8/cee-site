@@ -1,5 +1,6 @@
 /**
- * Gráficos do painel A2 Política Monetária (página /observatorio/conjuntura/), no mesmo renderizador e na mesma ficha do Panorama
+ * Gráficos das séries da edição 1.0 do painel A2 (IPCA, meta Selic, desocupação, Focus), reutilizados na portada; a página do A2
+ * é hoje o Observatório de Política Monetária (src/lib/opm.ts, ADR-022). Mesmo renderizador e mesma ficha do Panorama
  * (src/lib/viz/render.ts, ChartCard). Todo texto com número é gerado a partir do dado
  * processado — nunca escrito à mão.
  */

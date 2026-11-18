@@ -24,6 +24,69 @@
 | PIB acumulado dos últimos 12 meses, em US$ milhões | panorama | SGS 4192 | US$ milhões (12 meses) | mensal | 2026-10-20 | 2026-11-16 | 2014-01 → 2026-10 |
 | Exportações e importações brasileiras de bens, total mensal | panorama | ComexStat API /general: flow export e import, monthDetail, metricFOB | US$ FOB | mensal | 2026-10-20 | 2026-11-09 | 2014-01 → 2026-10 |
 | Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18) | panorama | SIS 2025, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia | % da população | anual (2012–) | 2026-10-20 | 2026-10-20 | 2012 → 2024 |
+| Taxa Selic efetiva, anualizada base 252 | opm | SGS 1178 | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-17 |
+| Histórico das taxas de juros fixadas pelo Copom | opm | API de conteúdo do BCB: /api/servico/sitebcb/historicotaxasjuros | % a.a. | por reunião | 2026-11-18 | 2026-11-18 | 1 → 99 |
+| Histórico de votações das reuniões do Copom | opm | historico-votacoes-Copom.xlsx (sítio do BCB, página do Copom) | placar e votos (p.p.) | por reunião | 2026-11-18 | 2026-11-18 | 100 → 99 |
+| Calendário das reuniões ordinárias do Copom | opm | Comunicados BCB nº 43383, 45452 (API de normativos) | datas | anual | 2026-11-18 | 2026-11-18 | R1/2026 → R8/2027 |
+| Comunicados das decisões do Copom (texto integral) | opm | API de conteúdo do BCB: /api/servico/sitebcb/copom/comunicados_detalhes | texto (HTML) | por reunião | 2026-11-18 | 2026-11-18 | 200 → 282 |
+| Atas das reuniões do Copom (texto integral) | opm | API de conteúdo do BCB: /api/servico/sitebcb/copom/atas_detalhes | texto (HTML) | por reunião | 2026-11-18 | 2026-11-18 | 200 → 282 |
+| Focus — Selic por reunião do Copom | opm | Olinda Expectativas v1, ExpectativasMercadoSelic, baseCalculo=0 | % a.a. | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| Focus Top 5 (curto prazo) — Selic por reunião do Copom | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Selic, tipoCalculo='C' | % a.a. | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| Focus — indicadores anuais (IPCA, Selic, PIB, câmbio), todas as estatísticas | opm | Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0, Indicador ∈ {IPCA; Selic; PIB Total; Câmbio} | conforme o indicador | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| Focus — IPCA mensal, todas as estatísticas | opm | Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 | % (variação no mês) | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| Focus — IPCA nos 12 meses seguintes (suavizada e não suavizada), todas as estatísticas | opm | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| Focus Top 5 (curto prazo) — IPCA e Selic anuais | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Anuais, tipoCalculo='C', Indicador ∈ {IPCA; Selic} | conforme o indicador | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| Focus Top 5 (curto prazo) — IPCA mensal | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Mensais, Indicador='IPCA', tipoCalculo='C' | % (variação no mês) | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| IPCA — preços livres | opm | SGS 11428 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — preços administrados (monitorados) | opm | SGS 4449 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — serviços | opm | SGS 10844 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — bens industriais | opm | SGS 27863 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — alimentação no domicílio | opm | SGS 27864 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — comercializáveis | opm | SGS 4447 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — não comercializáveis | opm | SGS 4448 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — bens duráveis | opm | SGS 10843 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — bens semiduráveis | opm | SGS 10842 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — bens não duráveis | opm | SGS 10841 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — EX0 | opm | SGS 11427 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — EX1 | opm | SGS 16121 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — EX2 | opm | SGS 27838 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — EX3 | opm | SGS 27839 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — EX-FE (ex-alimentação e energia) | opm | SGS 28751 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — médias aparadas com suavização (MS) | opm | SGS 4466 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — médias aparadas sem suavização (MA) | opm | SGS 11426 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — dupla ponderação (DP) | opm | SGS 16122 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — percentil 55 (P55) | opm | SGS 28750 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — EX3 serviços | opm | SGS 29683 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Núcleo do IPCA — EX3 industriais | opm | SGS 29684 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — índice de difusão | opm | SGS 21379 | % dos subitens com variação positiva | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IPCA — variação mensal e peso de grupos, subgrupos, itens e subitens | opm | SIDRA 7060, variáveis 63 e 66, classificação 315 (todas as categorias), Brasil | % (variação mensal) e % (peso) | mensal (desde jan./2020) | 2026-11-18 | 2026-11-18 | 2020-01 → 2026-10 |
+| Taxa média de juros das operações de crédito — total | opm | SGS 20714 | % a.a. | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Taxa média de juros das operações de crédito — pessoas jurídicas | opm | SGS 20715 | % a.a. | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Taxa média de juros do crédito livre — pessoas físicas | opm | SGS 20740 | % a.a. | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Spread médio das operações de crédito — total | opm | SGS 20783 | p.p. | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Indicador de Custo do Crédito (ICC) — total | opm | SGS 25351 | % a.a. | mensal | 2026-11-18 | 2026-11-18 | 2013-01 → 2026-09 |
+| Índice de Commodities — Brasil (IC-Br) | opm | SGS 27574 | índice | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IC-Br — agropecuária | opm | SGS 27575 | índice | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IC-Br — metal | opm | SGS 27576 | índice | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IC-Br — energia | opm | SGS 27577 | índice | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| IBC-Br com ajuste sazonal | opm | SGS 24364 | índice (2002 = 100) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| PIB acumulado dos últimos 12 meses, valores correntes | opm | SGS 4382 | R$ milhões | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
+| Fed funds — limite superior do intervalo-alvo | opm | FRED DFEDTARU | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-01 → 2026-11-17 |
+| Rendimento do Tesouro americano de 10 anos | opm | FRED DGS10 | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-16 |
+| Rendimento real do Tesouro americano de 5 anos (TIPS) | opm | FRED DFII5 | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-16 |
+| Índice amplo nominal do dólar americano | opm | FRED DTWEXBGS | índice (jan./2006 = 100) | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-13 |
+| Petróleo Brent — preço à vista (Europa) | opm | FRED DCOILBRENTEU | US$ por barril | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-11 |
+| Base monetária restrita (saldo em final de período) | opm | SGS 1788 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Papel-moeda em circulação (emitido), componente da base (saldo em final de período) | opm | SGS 1786 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Reservas bancárias (saldo em final de período) | opm | SGS 1787 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Base monetária ampliada (saldo em final de período) | opm | SGS 1833 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Base ampliada — depósitos compulsórios em espécie (saldo em final de período) | opm | SGS 1828 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
+| Papel-moeda em poder do público (saldo em final de período) — Novo | opm | SGS 27789 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2002-01 → 2026-09 |
+| Depósitos à vista (saldo em final de período) — Novo | opm | SGS 27790 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2002-01 → 2026-09 |
+| M1 (saldo em final de período) — Novo | opm | SGS 27791 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2002-01 → 2026-09 |
+| M2 (saldo em final de período) — Novo | opm | SGS 27810 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2002-01 → 2026-09 |
+| M3 (saldo em final de período) — Novo | opm | SGS 27813 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2002-01 → 2026-09 |
+| M4 (saldo em final de período) — Novo | opm | SGS 27815 | R$ mil | mensal | 2026-11-18 | 2026-11-18 | 2002-01 → 2026-09 |
 
 ## ipca — IPCA — variação mensal e acumulada em 12 meses
 
@@ -114,7 +177,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2022&dataFinal=17/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
 
 ## conta_corrente — Transações correntes acumuladas em 12 meses em relação ao PIB
 
@@ -127,7 +190,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=17/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
 
 ## primario — NFSP — resultado primário do setor público consolidado, acumulado em 12 meses
 
@@ -141,7 +204,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=17/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
 
 ## dbgg — Dívida bruta do governo geral (DBGG)
 
@@ -154,7 +217,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=17/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
 
 ## dlsp — Dívida líquida do setor público (DLSP)
 
@@ -167,7 +230,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=17/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
 
 ## focus_anual — Expectativas de mercado (Focus) — indicadores anuais, mediana
 
@@ -179,9 +242,9 @@
 - **Nome oficial retornado pela fonte:** IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário
 - **Observações:** IPCA anual vem da série focus_ipca (painel Conjuntura).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-20'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-20'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-20'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-21'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-21'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-21'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
   - … (6 requisições, uma por ano)
 
 ## focus_mensal_ipca — Expectativas de mercado (Focus) — IPCA mensal, mediana
@@ -194,7 +257,7 @@
 - **Nome oficial retornado pela fonte:** ExpectativaMercadoMensais: Indicador, Data, DataReferencia (MM/AAAA), Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
 - **Observações:** Horizonte observado em 16/10/2026: até 10/2028. Usado para compor a trajetória do IPCA em 12 meses (cálculo do CEE).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-10-03'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-10-04'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
 
 ## focus_12m_ipca — Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana
 
@@ -241,7 +304,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2018`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2019&dataFinal=31/12/2023`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=17/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=18/11/2026`
 
 ## comercio — Exportações e importações brasileiras de bens, total mensal
 
@@ -267,3 +330,844 @@
 - **Observações:** PNAD Contínua, acumulado de primeiras visitas. Conversão PPC para consumo privado (R$ 2,3273771 por US$ 1,00 PPC 2017), valores mensais inflacionados pelo IPCA. A tabela SIDRA 5877 (ODS 1.2.1) não foi usada: dá valores diferentes (26,5 % em 2024) e a linha não está documentada na API.
 - **Requisições da extração:**
   - `https://ftp.ibge.gov.br/Indicadores_Sociais/Sintese_de_Indicadores_Sociais/Sintese_de_Indicadores_Sociais_2025/Tabelas/ods/2_Distribuicao_Renda_ods.zip`
+
+## selic_efetiva — Taxa Selic efetiva, anualizada base 252
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 1178
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1178
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Taxa de juros - Selic anualizada base 252 (unidade: % a.a.; periodicidade: D)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2012`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=json&dataInicial=01/01/2013&dataFinal=31/12/2013`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2014`
+  - … (15 requisições, uma por ano)
+
+## copom_decisoes — Histórico das taxas de juros fixadas pelo Copom
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** API de conteúdo do BCB: /api/servico/sitebcb/historicotaxasjuros
+- **Consulta pública:** https://www.bcb.gov.br/controleinflacao/historicotaxasjuros
+- **Termos de uso:** Conteúdo público do sítio do Banco Central do Brasil
+- **Verificação (2026-11-18):** Consulta à API que alimenta a página "Histórico das taxas de juros"; conferida contra os comunicados das reuniões 281 e 282
+- **Nome oficial retornado pela fonte:** Campos: NumeroReuniaoCopom, ReuniaoExtraordinaria, DataReuniaoCopom, Vies, MetaSelic, DataInicioVigencia, DataFimVigencia, TaxaSelicEfetivaVigencia, TaxaSelicEfetivaAnualizada
+- **Observações:** 281ª (16/9/2026) e 282ª (4/11/2026): meta de 13,75 % a.a.
+- **Requisições da extração:**
+  - `https://www.bcb.gov.br/api/servico/sitebcb/historicotaxasjuros`
+
+## copom_votos — Histórico de votações das reuniões do Copom
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** historico-votacoes-Copom.xlsx (sítio do BCB, página do Copom)
+- **Consulta pública:** https://www.bcb.gov.br/controleinflacao/copom
+- **Termos de uso:** Banco Central do Brasil: "Sua reprodução e edição é autorizada, desde que citada a fonte: Histórico de votações das reuniões do Copom"
+- **Verificação (2026-11-18):** Arquivo oficial vinculado na página do Copom; cabeçalhos e notas lidos
+- **Nome oficial retornado pela fonte:** Histórico de votações do Copom: Reunião, Data, Decisão Selic (% a.a.), Variação Selic (p.p.), Placar, Votante, Voto variação Selic (p.p.), Voto menos decisão (p.p.)
+- **Observações:** O sítio publica só o placar e a contagem de votos divergentes, sem nomes. 282ª: Unanimidade (7 votantes).
+- **Requisições da extração:**
+  - `https://www.bcb.gov.br/content/controleinflacao/controleinflacao_docs/votacoes-copom/historico-votacoes-Copom.xlsx`
+
+## copom_calendario — Calendário das reuniões ordinárias do Copom
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Comunicados BCB nº 43383, 45452 (API de normativos)
+- **Consulta pública:** https://www.bcb.gov.br/controleinflacao/copom
+- **Termos de uso:** Ato normativo público do Banco Central do Brasil
+- **Verificação (2026-11-18):** Texto dos comunicados lido pela API de normativos (exibeoutrasnormas)
+- **Nome oficial retornado pela fonte:** Comunicado nº 43.383 (24/6/2025) e nº 45.452 (23/6/2026): "Divulga o Calendário das Reuniões Ordinárias do Comitê de Política Monetária (Copom)"
+- **Observações:** 2026: 27–28/1, 17–18/3, 28–29/4, 16–17/6, 4–5/8, 15–16/9, 3–4/11, 8–9/12. 2027: 26–27/1, 16–17/3, 27–28/4, 15–16/6, 3–4/8, 21–22/9, 26–27/10, 7–8/12.
+- **Requisições da extração:**
+  - `https://www.bcb.gov.br/api/conteudo/app/normativos/exibeoutrasnormas?p1=Comunicado&p2=43383`
+  - `https://www.bcb.gov.br/api/conteudo/app/normativos/exibeoutrasnormas?p1=Comunicado&p2=45452`
+
+## copom_comunicados — Comunicados das decisões do Copom (texto integral)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** API de conteúdo do BCB: /api/servico/sitebcb/copom/comunicados_detalhes
+- **Consulta pública:** https://www.bcb.gov.br/controleinflacao/comunicadoscopom
+- **Termos de uso:** Conteúdo público do sítio do Banco Central do Brasil
+- **Verificação (2026-11-18):** Consulta à API que alimenta a página de comunicados (reuniões 200, 281, 282 e 283, esta ainda vazia)
+- **Nome oficial retornado pela fonte:** Campos: nro_reuniao, dataReferencia, titulo, textoComunicado (HTML)
+- **Observações:** Guardado em bruto, com hash, para o índice de tom (I.14, camada 3). Reuniões ainda não realizadas retornam {"conteudo":[]}.
+- **Requisições da extração:**
+  - `https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=200`
+  - `https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=201`
+  - `https://www.bcb.gov.br/api/servico/sitebcb/copom/comunicados_detalhes?nro_reuniao=202`
+  - … (85 requisições, uma por ano)
+
+## copom_atas — Atas das reuniões do Copom (texto integral)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** API de conteúdo do BCB: /api/servico/sitebcb/copom/atas_detalhes
+- **Consulta pública:** https://www.bcb.gov.br/publicacoes/atascopom
+- **Termos de uso:** Conteúdo público do sítio do Banco Central do Brasil
+- **Verificação (2026-11-18):** Consulta à API que alimenta a página de atas (reuniões 200 e 282)
+- **Nome oficial retornado pela fonte:** Campos: nroReuniao, dataReferencia, dataPublicacao, titulo, urlPdfAta, textoAta (HTML; nulo nas atas antigas, que só têm PDF)
+- **Observações:** Guardado em bruto, com hash. Atas sem texto (textoAta nulo) ficam fora do índice de tom até a extração do PDF.
+- **Requisições da extração:**
+  - `https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=200`
+  - `https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=201`
+  - `https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=202`
+  - … (85 requisições, uma por ano)
+
+## focus_selic — Focus — Selic por reunião do Copom
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Olinda Expectativas v1, ExpectativasMercadoSelic, baseCalculo=0
+- **Consulta pública:** https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** OData $metadata do serviço Expectativas v1 (Olinda) e consulta de amostra (30/10/2026)
+- **Nome oficial retornado pela fonte:** ExpectativaMercadoSelic: Indicador, Data, Reuniao (Rk/AAAA), Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
+- **Observações:** A 282ª reunião (3–4/11/2026) é R7/2026; mediana na coleta de 30/10/2026: 13,50 % (139 respondentes).
+- **Requisições da extração:**
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoSelic?$filter=baseCalculo%20eq%200%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2CReuniao%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoSelic?$filter=baseCalculo%20eq%200%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2CReuniao%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoSelic?$filter=baseCalculo%20eq%200%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2CReuniao%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - … (15 requisições, uma por ano)
+
+## focus_selic_top5 — Focus Top 5 (curto prazo) — Selic por reunião do Copom
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Olinda Expectativas v1, ExpectativasMercadoTop5Selic, tipoCalculo='C'
+- **Consulta pública:** https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** OData $metadata do serviço Expectativas v1 (Olinda) e consulta de amostra (30/10/2026)
+- **Nome oficial retornado pela fonte:** ExpectativasMercadoSelicTop5: indicador, Data, reuniao, tipoCalculo (C curto, M médio, L longo prazo), media, mediana, desvioPadrao, coeficienteVariacao, minimo, maximo
+- **Observações:** Os campos desta entidade vêm em minúsculas e sem número de respondentes. Só o ranking de curto prazo (tipoCalculo C), o usado na surpresa (I.5): os rankings de médio e longo prazo triplicariam o volume sem uso nos indicadores.
+- **Requisições da extração:**
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - … (15 requisições, uma por ano)
+
+## focus_anuais — Focus — indicadores anuais (IPCA, Selic, PIB, câmbio), todas as estatísticas
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0, Indicador ∈ {IPCA; Selic; PIB Total; Câmbio}
+- **Consulta pública:** https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** OData $metadata do serviço Expectativas v1 (Olinda) e consulta de amostra (30/10/2026)
+- **Nome oficial retornado pela fonte:** ExpectativaMercadoAnual: Indicador, IndicadorDetalhe, Data, DataReferencia, Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
+- **Observações:** Difere de focus_ipca e focus_anual (Panorama), que guardam só a mediana numa janela curta. Na coleta de 30/10/2026: IPCA 2026 = 5,2166 e 2027 = 4,7646 (medianas).
+- **Requisições da extração:**
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - … (15 requisições, uma por ano)
+
+## focus_mensais — Focus — IPCA mensal, todas as estatísticas
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0
+- **Consulta pública:** https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** OData $metadata do serviço Expectativas v1 (Olinda) e consulta de amostra (30/10/2026)
+- **Nome oficial retornado pela fonte:** ExpectativaMercadoMensal: Indicador, Data, DataReferencia (MM/AAAA), Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
+- **Requisições da extração:**
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - … (15 requisições, uma por ano)
+
+## focus_inflacao_12m — Focus — IPCA nos 12 meses seguintes (suavizada e não suavizada), todas as estatísticas
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', baseCalculo=0
+- **Consulta pública:** https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** OData $metadata do serviço Expectativas v1 (Olinda) e consulta de amostra (30/10/2026)
+- **Nome oficial retornado pela fonte:** ExpectativaMercadoInflacao12Meses: Indicador, Data, Suavizada (S/N), Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
+- **Requisições da extração:**
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - … (15 requisições, uma por ano)
+
+## focus_top5_anuais — Focus Top 5 (curto prazo) — IPCA e Selic anuais
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Olinda Expectativas v1, ExpectativasMercadoTop5Anuais, tipoCalculo='C', Indicador ∈ {IPCA; Selic}
+- **Consulta pública:** https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** OData $metadata do serviço Expectativas v1 (Olinda) e consulta de amostra (30/10/2026)
+- **Nome oficial retornado pela fonte:** ExpectativasMercadoTop5Anual: Indicador, Data, DataReferencia, tipoCalculo (C, M, L), Media, Mediana, DesvioPadrao, Minimo, Maximo
+- **Observações:** Só o ranking de curto prazo (tipoCalculo C).
+- **Requisições da extração:**
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - … (15 requisições, uma por ano)
+
+## focus_top5_mensais — Focus Top 5 (curto prazo) — IPCA mensal
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** Olinda Expectativas v1, ExpectativasMercadoTop5Mensais, Indicador='IPCA', tipoCalculo='C'
+- **Consulta pública:** https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** OData $metadata do serviço Expectativas v1 (Olinda) e consulta de amostra (30/10/2026)
+- **Nome oficial retornado pela fonte:** ExpectativasMercadoTop5Mensal: Indicador, Data, DataReferencia (MM/AAAA), tipoCalculo (C, M, L), Media, Mediana, DesvioPadrao, Minimo, Maximo
+- **Observações:** Só o ranking de curto prazo (tipoCalculo C).
+- **Requisições da extração:**
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000`
+  - … (15 requisições, uma por ano)
+
+## ipca_livres — IPCA — preços livres
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 11428
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=11428
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Itens livres (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_administrados — IPCA — preços administrados (monitorados)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 4449
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4449
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Administrados (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_servicos — IPCA — serviços
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 10844
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10844
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Serviços (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_industriais — IPCA — bens industriais
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27863
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27863
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Industriais (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_alim_dom — IPCA — alimentação no domicílio
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27864
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27864
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Alimentação no domicílio (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_comercializaveis — IPCA — comercializáveis
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 4447
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4447
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Comercializáveis (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_nao_comercializaveis — IPCA — não comercializáveis
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 4448
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4448
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Não comercializáveis (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_duraveis — IPCA — bens duráveis
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 10843
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10843
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Duráveis (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_semiduraveis — IPCA — bens semiduráveis
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 10842
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10842
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Bens semiduráveis (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_nao_duraveis — IPCA — bens não duráveis
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 10841
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10841
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Bens não duráveis (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ex0 — Núcleo do IPCA — EX0
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 11427
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=11427
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo por exclusão - EX0 (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11427/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11427/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11427/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ex1 — Núcleo do IPCA — EX1
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 16121
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=16121
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo por exclusão - EX1 (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ex2 — Núcleo do IPCA — EX2
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27838
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27838
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo por exclusão - EX2 (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ex3 — Núcleo do IPCA — EX3
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27839
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27839
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo por exclusão - EX3 (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27839/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27839/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27839/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_exfe — Núcleo do IPCA — EX-FE (ex-alimentação e energia)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 28751
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=28751
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo Ex-alimentação e energia (EX-FE) (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ms — Núcleo do IPCA — médias aparadas com suavização (MS)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 4466
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4466
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo médias aparadas com suavização (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4466/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4466/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4466/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ma — Núcleo do IPCA — médias aparadas sem suavização (MA)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 11426
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=11426
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo médias aparadas sem suavização (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_dp — Núcleo do IPCA — dupla ponderação (DP)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 16122
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=16122
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo de dupla ponderação (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16122/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16122/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16122/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_p55 — Núcleo do IPCA — percentil 55 (P55)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 28750
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=28750
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Núcleo Percentil 55 (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28750/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28750/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28750/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ex3_servicos — Núcleo do IPCA — EX3 serviços
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 29683
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=29683
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - EX3 Serviços (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## nucleo_ex3_industriais — Núcleo do IPCA — EX3 industriais
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 29684
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=29684
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - EX3 Industriais (unidade: Var. % mensal; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_difusao — IPCA — índice de difusão
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 21379
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=21379
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice Nacional de Preços ao Consumidor Amplo (IPCA) - Índice de difusão (unidade: %; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ipca_itens — IPCA — variação mensal e peso de grupos, subgrupos, itens e subitens
+
+- **Instituição:** IBGE
+- **Código:** SIDRA 7060, variáveis 63 e 66, classificação 315 (todas as categorias), Brasil
+- **Consulta pública:** https://sidra.ibge.gov.br/tabela/7060
+- **Termos de uso:** Dados públicos do IBGE; reutilização com citação da fonte
+- **Verificação (2026-11-18):** GET /api/v3/agregados/7060/metadados (API de agregados do IBGE)
+- **Nome oficial retornado pela fonte:** IPCA - Variação mensal, acumulada no ano, acumulada em 12 meses e peso mensal, para o índice geral, grupos, subgrupos, itens e subitens de produtos e serviços (a partir de janeiro/2020); var. 63 "IPCA - Variação mensal" (%); var. 66 "IPCA - Peso mensal" (%); classificação 315 "Geral, grupo, subgrupo, item e subitem" (457 categorias, níveis 0–4; subitens = nível 4)
+- **Observações:** Usada no indicador I.11 (camada 2).
+- **Requisições da extração:**
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202001-202012/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D`
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202101-202112/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D`
+  - `https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202201-202212/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D`
+  - … (7 requisições, uma por ano)
+
+## juros_credito — Taxa média de juros das operações de crédito — total
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 20714
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20714
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Taxa média de juros das operações de crédito - Total (unidade: % a.a.; periodicidade: M)
+- **Observações:** Série compartilhada com o painel A4 (Crédito e Estabilidade Financeira), ainda não publicado.
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## juros_pj — Taxa média de juros das operações de crédito — pessoas jurídicas
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 20715
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20715
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Taxa média de juros das operações de crédito - Pessoas jurídicas - Total (unidade: % a.a.; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## juros_pf_livres — Taxa média de juros do crédito livre — pessoas físicas
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 20740
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20740
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Taxa média de juros das operações de crédito com recursos livres - Pessoas físicas - Total (unidade: % a.a.; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## spread_credito — Spread médio das operações de crédito — total
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 20783
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20783
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Spread médio das operações de crédito - Total (unidade: p.p.; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## icc — Indicador de Custo do Crédito (ICC) — total
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 25351
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=25351
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Indicador de Custo do Crédito - ICC - Total (unidade: % a.a.; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2013&dataFinal=31/12/2017`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2018&dataFinal=31/12/2022`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2023&dataFinal=18/11/2026`
+
+## icbr — Índice de Commodities — Brasil (IC-Br)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27574
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27574
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice de Commodities - Brasil (unidade: Índice; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27574/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27574/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27574/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## icbr_agro — IC-Br — agropecuária
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27575
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27575
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice de Commodities - Brasil - Agropecuária (unidade: Índice; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## icbr_metal — IC-Br — metal
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27576
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27576
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice de Commodities - Brasil - Metal (unidade: Índice; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## icbr_energia — IC-Br — energia
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27577
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27577
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice de Commodities - Brasil - Energia (unidade: Índice; periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## ibcbr — IBC-Br com ajuste sazonal
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 24364
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=24364
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Índice de Atividade Econômica do Banco Central (IBC-Br) - com ajuste sazonal (unidade: Índice; periodicidade: M)
+- **Observações:** Já dessazonalizado pela fonte: o CEE não reajusta (ADR-023).
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## pib_nominal_12m — PIB acumulado dos últimos 12 meses, valores correntes
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 4382
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4382
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** PIB acumulado dos últimos 12 meses - Valores correntes (R$ milhões) (unidade: R$ (milhões); periodicidade: M)
+- **Observações:** Denominador da velocidade e do grau de monetização (I.20), em reais como os agregados. A série SGS 4192 (Panorama) está em US$ e não serve para M/PIB.
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## fed_funds_sup — Fed funds — limite superior do intervalo-alvo
+
+- **Instituição:** Board of Governors of the Federal Reserve System (via FRED)
+- **Código:** FRED DFEDTARU
+- **Consulta pública:** https://fred.stlouisfed.org/series/DFEDTARU
+- **Termos de uso:** Domínio público (Board of Governors of the Federal Reserve System: "Unless otherwise indicated, information on Board's website is in the public domain and may be copied and distributed without permission"); citar a fonte. Obtida via FRED (Federal Reserve Bank of St. Louis)
+- **Verificação (2026-11-18):** Cabeçalho do arquivo oficial fredgraph.xlsx (título da série); termos de uso do órgão de origem lidos no sítio oficial
+- **Nome oficial retornado pela fonte:** Federal Funds Target Range - Upper Limit, Percent, Daily, Not Seasonally Adjusted
+- **Observações:** A nota de copyright da página da série no FRED não pôde ser lida deste ambiente (a página não responde a clientes automatizados); conferência visual registrada em docs/PENDIENTES.md.
+- **Requisições da extração:**
+  - `https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFEDTARU&cosd=2012-01-01`
+
+## ust10 — Rendimento do Tesouro americano de 10 anos
+
+- **Instituição:** Board of Governors of the Federal Reserve System, H.15 (via FRED)
+- **Código:** FRED DGS10
+- **Consulta pública:** https://fred.stlouisfed.org/series/DGS10
+- **Termos de uso:** Domínio público (Board of Governors of the Federal Reserve System: "Unless otherwise indicated, information on Board's website is in the public domain and may be copied and distributed without permission"); citar a fonte. Obtida via FRED (Federal Reserve Bank of St. Louis)
+- **Verificação (2026-11-18):** Cabeçalho do arquivo oficial fredgraph.xlsx (título da série); termos de uso do órgão de origem lidos no sítio oficial
+- **Nome oficial retornado pela fonte:** Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity, Quoted on an Investment Basis, Percent, Daily, Not Seasonally Adjusted
+- **Observações:** A nota de copyright da página da série no FRED não pôde ser lida deste ambiente (a página não responde a clientes automatizados); conferência visual registrada em docs/PENDIENTES.md.
+- **Requisições da extração:**
+  - `https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2012-01-01`
+
+## tips5 — Rendimento real do Tesouro americano de 5 anos (TIPS)
+
+- **Instituição:** Board of Governors of the Federal Reserve System, H.15 (via FRED)
+- **Código:** FRED DFII5
+- **Consulta pública:** https://fred.stlouisfed.org/series/DFII5
+- **Termos de uso:** Domínio público (Board of Governors of the Federal Reserve System: "Unless otherwise indicated, information on Board's website is in the public domain and may be copied and distributed without permission"); citar a fonte. Obtida via FRED (Federal Reserve Bank of St. Louis)
+- **Verificação (2026-11-18):** Cabeçalho do arquivo oficial fredgraph.xlsx (título da série); termos de uso do órgão de origem lidos no sítio oficial
+- **Nome oficial retornado pela fonte:** Market Yield on U.S. Treasury Securities at 5-Year Constant Maturity, Quoted on an Investment Basis, Inflation-Indexed, Percent, Daily, Not Seasonally Adjusted
+- **Observações:** Insumo do método (d) do juro neutro (I.4, camada 3), sem prêmio de risco soberano (ADR-024). A nota de copyright da página da série no FRED não pôde ser lida deste ambiente (a página não responde a clientes automatizados); conferência visual registrada em docs/PENDIENTES.md.
+- **Requisições da extração:**
+  - `https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII5&cosd=2012-01-01`
+
+## dolar_global — Índice amplo nominal do dólar americano
+
+- **Instituição:** Board of Governors of the Federal Reserve System, H.10 (via FRED)
+- **Código:** FRED DTWEXBGS
+- **Consulta pública:** https://fred.stlouisfed.org/series/DTWEXBGS
+- **Termos de uso:** Domínio público (Board of Governors of the Federal Reserve System: "Unless otherwise indicated, information on Board's website is in the public domain and may be copied and distributed without permission"); citar a fonte. Obtida via FRED (Federal Reserve Bank of St. Louis)
+- **Verificação (2026-11-18):** Cabeçalho do arquivo oficial fredgraph.xlsx (título da série); termos de uso do órgão de origem lidos no sítio oficial
+- **Nome oficial retornado pela fonte:** Nominal Broad U.S. Dollar Index, Index Jan 2006=100, Daily, Not Seasonally Adjusted
+- **Observações:** A nota de copyright da página da série no FRED não pôde ser lida deste ambiente (a página não responde a clientes automatizados); conferência visual registrada em docs/PENDIENTES.md.
+- **Requisições da extração:**
+  - `https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2012-01-01`
+
+## brent — Petróleo Brent — preço à vista (Europa)
+
+- **Instituição:** U.S. Energy Information Administration (via FRED)
+- **Código:** FRED DCOILBRENTEU
+- **Consulta pública:** https://fred.stlouisfed.org/series/DCOILBRENTEU
+- **Termos de uso:** Domínio público (U.S. Energy Information Administration: "U.S. government publications are in the public domain and are not subject to copyright protection"); citar a fonte. Obtida via FRED (Federal Reserve Bank of St. Louis)
+- **Verificação (2026-11-18):** Cabeçalho do arquivo oficial fredgraph.xlsx (título da série); termos de uso do órgão de origem lidos no sítio oficial
+- **Nome oficial retornado pela fonte:** Crude Oil Prices: Brent - Europe, Dollars per Barrel, Daily, Not Seasonally Adjusted
+- **Observações:** A nota de copyright da página da série no FRED não pôde ser lida deste ambiente (a página não responde a clientes automatizados); conferência visual registrada em docs/PENDIENTES.md.
+- **Requisições da extração:**
+  - `https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU&cosd=2012-01-01`
+
+## base_restrita — Base monetária restrita (saldo em final de período)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 1788
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1788
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** BM - Base monetária restrita (saldo em final de período) (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1788/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1788/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1788/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## papel_moeda_circulacao — Papel-moeda em circulação (emitido), componente da base (saldo em final de período)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 1786
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1786
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** BM - Papel moeda em circulação (saldo em final de período) (unidade: u.m.c. (mil); periodicidade: M)
+- **Observações:** É o papel-moeda emitido (fora do BCB) da identidade da base: SGS 1788 = 1786 + 1787 com diferença de no máximo R$ 1 mil (jul.–set./2026).
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## reservas_bancarias — Reservas bancárias (saldo em final de período)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 1787
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1787
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** BM - Reservas bancárias (saldo em final de período) (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## base_ampliada — Base monetária ampliada (saldo em final de período)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 1833
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1833
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Base Monetária Ampliada (saldo em final de período) (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## bma_compulsorio — Base ampliada — depósitos compulsórios em espécie (saldo em final de período)
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 1828
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1828
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Base monetária ampliada - Depósitos compulsórios em espécie (saldo em final de período) (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+
+## pmpp — Papel-moeda em poder do público (saldo em final de período) — Novo
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27789
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27789
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Meios de pagamento - Papel moeda em poder do público (saldo em final de período) - Novo (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27789/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27789/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27789/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - … (5 requisições, uma por ano)
+
+## depositos_vista — Depósitos à vista (saldo em final de período) — Novo
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27790
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27790
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Meios de pagamento - Depósitos à vista (saldo em final de período) - Novo (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - … (5 requisições, uma por ano)
+
+## m1 — M1 (saldo em final de período) — Novo
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27791
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27791
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Meios de pagamento - M1 (saldo em final de período) - Novo (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27791/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27791/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27791/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - … (5 requisições, uma por ano)
+
+## m2 — M2 (saldo em final de período) — Novo
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27810
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27810
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Meios de pagamento amplos - M2 (saldo em final de período) - Novo (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - … (5 requisições, uma por ano)
+
+## m3 — M3 (saldo em final de período) — Novo
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27813
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27813
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Meios de pagamento amplos - M3 (saldo em final de período) - Novo (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27813/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27813/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27813/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - … (5 requisições, uma por ano)
+
+## m4 — M4 (saldo em final de período) — Novo
+
+- **Instituição:** Banco Central do Brasil
+- **Código:** SGS 27815
+- **Consulta pública:** https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27815
+- **Termos de uso:** Dados abertos do Banco Central do Brasil
+- **Verificação (2026-11-18):** Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS
+- **Nome oficial retornado pela fonte:** Meios de pagamento amplos - M4 (saldo em final de periodo) - Novo (unidade: u.m.c. (mil); periodicidade: M)
+- **Requisições da extração:**
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27815/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27815/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27815/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
+  - … (5 requisições, uma por ano)

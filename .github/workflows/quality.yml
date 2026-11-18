@@ -41,10 +41,16 @@ jobs:
           cache: npm
       # Sem scripts de instalação. Exceção documentada: o navegador do Playwright é baixado por comando próprio abaixo.
       - run: npm ci --ignore-scripts
-      - run: npm audit --audit-level=high
+      # Equivale a npm audit --audit-level=high, com exceções temporárias por ID e vencimento (ADR-021).
+      - run: npm run qa:audit
       - run: npx playwright install --with-deps chromium
       - run: npm run check
       - run: npm run lint
+      # Testes do pacote Python do OPM sobre os dados versionados (dependências só com hash).
+      - run: python3 -m venv .venv && .venv/bin/pip install --require-hashes -r analysis/requirements.txt
+      - run: npm run test:py
+        env:
+          PYTHON: ${{ github.workspace }}/.venv/bin/python
       - run: npm test
       - name: Build (versão preliminar, como publicada)
         run: npm run build

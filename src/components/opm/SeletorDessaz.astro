@@ -1,0 +1,39 @@
+---
+/**
+ * Seletor "original / dessazonalizado" sem JavaScript: dois botões de rádio e CSS (`:has`). As duas fichas existem no
+ * HTML; sem suporte a :has, ambas aparecem (degradação segura). Série original sempre disponível (ADR-023).
+ */
+import ChartCard from '../charts/ChartCard.astro';
+import type { Grafico } from '../../lib/panorama';
+import type { Lang } from '../../i18n/ui';
+interface Props { id: string; titulo: string; original: Grafico; ajustada: Grafico; lang: Lang }
+const { id, titulo, original, ajustada, lang } = Astro.props;
+const en = lang === 'en';
+---
+<section class="sel" aria-labelledby={`${id}-t`}>
+  <div class="sel__head">
+    <h3 id={`${id}-t`} class="sel__title">{titulo}</h3>
+    <fieldset class="sel__opts">
+      <legend class="visually-hidden">{en ? 'Series shown' : 'Série exibida'}</legend>
+      <input type="radio" name={id} id={`${id}-sa`} value="ajustada" checked />
+      <label for={`${id}-sa`}>{en ? 'Seasonally adjusted' : 'Dessazonalizada'}</label>
+      <input type="radio" name={id} id={`${id}-or`} value="original" />
+      <label for={`${id}-or`}>{en ? 'Original' : 'Original'}</label>
+    </fieldset>
+  </div>
+  <div class="sel__a"><ChartCard g={ajustada} lang={lang} nivel="h4" /></div>
+  <div class="sel__o"><ChartCard g={original} lang={lang} nivel="h4" /></div>
+</section>
+<style>
+  .sel { min-width: 0; }
+  .sel__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-2); }
+  .sel__title { margin: 0; font-size: var(--step-1); }
+  .sel__opts { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 2px; padding: 0; margin: 0; }
+  .sel__opts input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .sel__opts label { cursor: pointer; padding: 6px 12px; font: 500 var(--step--1) / 1.2 var(--sans); color: var(--petrol); }
+  .sel__opts input:checked + label { background: var(--navy); color: #fff; }
+  .sel__opts input:focus-visible + label { outline: 2px solid var(--azure, #3C8DCB); outline-offset: 2px; }
+  .sel:has(input[value='ajustada']:checked) .sel__o { display: none; }
+  .sel:has(input[value='original']:checked) .sel__a { display: none; }
+  .sel :global(.chart-card) { display: block; }
+</style>

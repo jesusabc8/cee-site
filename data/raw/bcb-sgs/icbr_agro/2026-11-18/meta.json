@@ -1,0 +1,26 @@
+{
+  "serie": "icbr_agro",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27575",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "df857ba1455133a0365977755a406943d8a0f59fb7d63aa393850f037984a8fe",
+      "bytes": 2341
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "378918677d5b148c5e6b2d36ff5fa82d08932f473d464969aed21e8e9cb6a0df",
+      "bytes": 2341
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "b9ebac2234f448fdf26080d4e85142d0cb488d53fa42169493222bc43c0e5c2d",
+      "bytes": 2263
+    }
+  ]
+}

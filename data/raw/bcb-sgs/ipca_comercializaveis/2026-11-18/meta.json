@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_comercializaveis",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 4447",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "fcf0dcd37dd199ec110012a225c517ecb3694e3a4e496b640be26a329439dfb8",
+      "bytes": 2225
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "e369baa8d528f4d141875f9ef907e75a91d694edb84a150e6ffb5d88910e2a92",
+      "bytes": 2234
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "7691001b0ecc2e16bd122c9a55e4397999ab2a4f027425b4aec820887e8373c7",
+      "bytes": 2158
+    }
+  ]
+}

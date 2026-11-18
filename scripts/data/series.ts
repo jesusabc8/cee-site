@@ -14,11 +14,12 @@ export interface Requisicao {
   alternativa?: string;
 }
 
-export type Fonte = 'bcb-sgs' | 'ibge-sidra' | 'ibge-sis' | 'mdic-comexstat' | 'bcb-olinda' | 'bcb-site' | 'pwt';
+export type Fonte = 'bcb-sgs' | 'ibge-sidra' | 'ibge-sis' | 'mdic-comexstat' | 'bcb-olinda' | 'bcb-site' | 'pwt' | 'fred';
 
 export interface Serie {
   id: string;
-  painel: 'conjuntura' | 'panorama';
+  /** Diretório de saída em data/processed/ ('opm' = Observatório de Política Monetária, ADR-022). */
+  painel: 'conjuntura' | 'panorama' | 'opm';
   fonte: Fonte;
   instituicao: string;
   nome: string;
@@ -28,8 +29,12 @@ export interface Serie {
   /** Página pública de consulta (para leitores humanos). */
   url_publica: string;
   licenca_fonte: string;
-  /** 'json' (padrão): a resposta precisa ser JSON válido. 'binario': arquivo (ex.: xlsx) conferido por SHA-1. */
-  formato?: 'json' | 'binario';
+  /** 'json' (padrão): a resposta precisa ser JSON válido. 'binario': arquivo (ex.: xlsx) conferido por SHA-1.
+   *  'csv': texto CSV cujo cabeçalho deve começar por `cabecalho_csv`. */
+  formato?: 'json' | 'binario' | 'csv';
+  cabecalho_csv?: string;
+  /** Processamento genérico (séries do OPM sem processador próprio): SGS mensal → periodo,valor; diária → data,valor. */
+  generico?: 'sgs-mensal' | 'sgs-diaria' | 'fred';
   /** SHA-1 oficial publicado pela fonte (para arquivos binários). */
   sha1_oficial?: string;
   /** Requisições que compõem uma extração (uma série pode exigir várias, ex.: janelas anuais do SGS). */
@@ -38,21 +43,21 @@ export interface Serie {
 }
 
 const pad = (n: number) => String(n).padStart(2, '0');
-const brDate = (d: Date) => `${pad(d.getUTCDate())}/${pad(d.getUTCMonth() + 1)}/${d.getUTCFullYear()}`;
-const isoDia = (d: Date) => d.toISOString().slice(0, 10);
+export const brDate = (d: Date) => `${pad(d.getUTCDate())}/${pad(d.getUTCMonth() + 1)}/${d.getUTCFullYear()}`;
+export const isoDia = (d: Date) => d.toISOString().slice(0, 10);
 
 const SIDRA = 'https://servicodados.ibge.gov.br/api/v3/agregados';
 /** `inicio` = AAAAMM (intervalo até 209912) ou 'all' (a tabela 5932 retorna erro 500 com intervalo aberto). */
-const sidra = (tabela: number, inicio: string, variaveis: number[], classificacao = '') =>
+export const sidra = (tabela: number, inicio: string, variaveis: number[], classificacao = '') =>
   `${SIDRA}/${tabela}/periodos/${inicio === 'all' ? 'all' : `${inicio}-209912`}/variaveis/${variaveis.join('%7C')}?localidades=N1%5Ball%5D${classificacao}`;
 // Reserva: mesma tabela pela API de valores do SIDRA (apisidra), que respondeu quando a API v3 falhou a partir do
 // GitHub Actions (out./2026). A resposta bruta é arquivada como veio; process.ts reconhece os dois formatos.
 const APISIDRA = 'https://apisidra.ibge.gov.br/values/t';
-const sidraValores = (tabela: number, inicio: string, variaveis: number[], classificacao: [number, number] | null = null) =>
+export const sidraValores = (tabela: number, inicio: string, variaveis: number[], classificacao: [number, number] | null = null) =>
   `${APISIDRA}/${tabela}/n1/all/v/${variaveis.join(',')}/p/${inicio === 'all' ? 'all' : `${inicio}-209912`}${classificacao ? `/c${classificacao[0]}/${classificacao[1]}` : ''}`;
 
 const OLINDA = 'https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata';
-const odata = (entidade: string, filtro: string, campos: string) =>
+export const odata = (entidade: string, filtro: string, campos: string) =>
   `${OLINDA}/${entidade}?${[
     `$filter=${encodeURIComponent(filtro)}`,
     `$select=${encodeURIComponent(campos)}`,
@@ -65,7 +70,7 @@ const odata = (entidade: string, filtro: string, campos: string) =>
 export const ANO_INICIAL = 2012;
 
 /** SGS em janelas: anuais para séries diárias (a API rejeita janelas longas), quinquenais para mensais. */
-function sgs(codigo: number, desde: number, passo: number) {
+export function sgs(codigo: number, desde: number, passo: number) {
   return (hoje: Date): Requisicao[] => {
     const out: Requisicao[] = [];
     for (let ano = desde; ano <= hoje.getUTCFullYear(); ano += passo) {
@@ -91,16 +96,20 @@ const comexstat = (desde: number) => (hoje: Date): Requisicao[] => (['export', '
 const SIS_EDICAO = 2025;
 const SIS_RENDA = `https://ftp.ibge.gov.br/Indicadores_Sociais/Sintese_de_Indicadores_Sociais/Sintese_de_Indicadores_Sociais_${SIS_EDICAO}/Tabelas/ods/2_Distribuicao_Renda_ods.zip`;
 
-const LIC_BCB = 'Dados abertos do Banco Central do Brasil';
-const LIC_IBGE = 'Dados públicos do IBGE; reutilização com citação da fonte';
-const sgsPublica = (c: number) => `https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=${c}`;
-const VERIF_SGS = 'Portal de dados abertos do BCB (CKAN package_search pelo código da série)';
+export const LIC_BCB = 'Dados abertos do Banco Central do Brasil';
+export const LIC_IBGE = 'Dados públicos do IBGE; reutilização com citação da fonte';
+export const sgsPublica = (c: number) => `https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=${c}`;
+export const VERIF_SGS = 'Portal de dados abertos do BCB (CKAN package_search pelo código da série)';
 
 /** Indicadores anuais do Focus usados no painel (nomes exatamente como retornados pela API). */
 export const FOCUS_ANUAIS = [
   'IPCA', 'Selic', 'PIB Total', 'Câmbio',
   'Dívida bruta do governo geral', 'Dívida líquida do setor público', 'Resultado primário',
 ] as const;
+
+// As séries do OPM ficam em módulo próprio; a função é chamada aqui, depois de inicializados os auxiliares acima (evita
+// a zona morta temporal do ciclo de importação series.ts ↔ series-opm.ts).
+import { seriesOpm } from './series-opm.ts';
 
 export const SERIES: Serie[] = [
   // ——— Conjuntura (A1) ———
@@ -462,4 +471,5 @@ export const SERIES: Serie[] = [
       observacoes: 'PNAD Contínua, acumulado de primeiras visitas. Conversão PPC para consumo privado (R$ 2,3273771 por US$ 1,00 PPC 2017), valores mensais inflacionados pelo IPCA. A tabela SIDRA 5877 (ODS 1.2.1) não foi usada: dá valores diferentes (26,5 % em 2024) e a linha não está documentada na API.',
     },
   },
+  ...seriesOpm(),
 ];

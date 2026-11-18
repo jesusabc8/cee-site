@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_nao_comercializaveis",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 4448",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "be104af008e7326f310899e499e66b1f2eb899292821f86127fc89092b3d8f48",
+      "bytes": 2223
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "7c485f7b72e6793aa1e60de55958c274cbde8d9ba3cf6e2292e95f8d68003032",
+      "bytes": 2235
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "7125d85ccb59024c46bb069910e6267de5af3a6af75d30985245c4201e5b78f6",
+      "bytes": 2152
+    }
+  ]
+}

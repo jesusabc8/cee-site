@@ -1,0 +1,26 @@
+{
+  "serie": "nucleo_ex3_industriais",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 29684",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "caed245619972edfd6f61dda54826be664e367c361b0342f8ec2296f9bf7a4ac",
+      "bytes": 2223
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "76fcd333de81370dc2412e63636236d86d7cab5d7d7cd808c8823d3787f5ba3a",
+      "bytes": 2233
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "ede39d8620d2f2e9d1280a99ac4e3585fdd90657b622421000a7a6697554e4d8",
+      "bytes": 2155
+    }
+  ]
+}

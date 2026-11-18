@@ -1,0 +1,309 @@
+{
+  "base_restrita": {
+    "modelo": "(3 1 0)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/base_restrita.yaml",
+    "sha256_especificacao": "46feb6d0d4ee864a7046f7716765c44fbfca7b4857ffd2aab8ad548cee9e03d1"
+  },
+  "depositos_vista": {
+    "modelo": "(1 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/depositos_vista.yaml",
+    "sha256_especificacao": "1e812da4bb59850d4c2df4b2817532c6e7ff8aa7638940b12d429479184da04d"
+  },
+  "ipca": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca.yaml",
+    "sha256_especificacao": "368577355b2966bbb6e3e1a9e4eb88a31e8dbce4fe15ed6a6fdc5e5f3dfee8ad"
+  },
+  "ipca_administrados": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_administrados.yaml",
+    "sha256_especificacao": "8796a629b591c1c068bf84b4efdd52efb5be4a1eb61865783e4666879112a160"
+  },
+  "ipca_alim_dom": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_alim_dom.yaml",
+    "sha256_especificacao": "755c7b74204c54b1c0b117f404aacb1e1d98d838c297e32e5c33a9a452efaa87"
+  },
+  "ipca_comercializaveis": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_comercializaveis.yaml",
+    "sha256_especificacao": "026013a743484ffabcdef813fa20f444a54679c18bd410b649af12320dc0773c"
+  },
+  "ipca_duraveis": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_duraveis.yaml",
+    "sha256_especificacao": "14b79a168540dde3356faa86069c2b74736a39b162560e71204b10a25087f03e"
+  },
+  "ipca_industriais": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_industriais.yaml",
+    "sha256_especificacao": "2c0b633fd0eae9691577d2e2817f827070bdaa7517309ca6e7d1e9c644874bcc"
+  },
+  "ipca_livres": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_livres.yaml",
+    "sha256_especificacao": "4d8614295efdc48def92cd7de9c4ae94be4e9ddf513968f2f1941c4dba3995d1"
+  },
+  "ipca_nao_comercializaveis": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_nao_comercializaveis.yaml",
+    "sha256_especificacao": "526a725f1f39acb703d1ca885f7a6ec540ce7c18ae9a58b84305d7ea85012fb4"
+  },
+  "ipca_nao_duraveis": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_nao_duraveis.yaml",
+    "sha256_especificacao": "860c157ef072bec13a4cc17f89ab7a56519fa618fea1cfaacef19f0d9112c7da"
+  },
+  "ipca_semiduraveis": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_semiduraveis.yaml",
+    "sha256_especificacao": "ef2e10a517400ee4c0d6798332d312c844d0bd3eaa0138d2a06ef69f9c9e310f"
+  },
+  "ipca_servicos": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/ipca_servicos.yaml",
+    "sha256_especificacao": "946b548184e7f6dec8996a2524474d1409eb03e941510912c715320d9577913a"
+  },
+  "m1": {
+    "modelo": "(2 1 2)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/m1.yaml",
+    "sha256_especificacao": "0a291fdefe0f6161f598727dc6dc9fd7f0a747c1712473d989186a9d23f20b58"
+  },
+  "m2": {
+    "modelo": "(1 1 1)(1 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/m2.yaml",
+    "sha256_especificacao": "0a0129affadc7a9c386887418c0b9f24c291a151f737aed80e03be45c8411bbe"
+  },
+  "m3": {
+    "modelo": "(0 1 0)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been",
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/m3.yaml",
+    "sha256_especificacao": "da8d708e2caaa944dadacffd30650d44485ef4328efc7fcd5b54e72b681fc1bb"
+  },
+  "m4": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/m4.yaml",
+    "sha256_especificacao": "6e3dac8571c4252f778a164ea3a07c760e5615bf36158d72bfd276994bc45cc2"
+  },
+  "nucleo_dp": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_dp.yaml",
+    "sha256_especificacao": "e9f7e8de7d3ab7cdbf19740dec1d57672b7e35c13d248e1367d6c729eb5f39f9"
+  },
+  "nucleo_ex0": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ex0.yaml",
+    "sha256_especificacao": "6365ede8e434fd13237a99ff0aa968f02814ae23348aaec15c59d1030c62f5bb"
+  },
+  "nucleo_ex1": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ex1.yaml",
+    "sha256_especificacao": "82142a55a7db8593c9ca492f8ad8e4dd467339338e15b3dbf1f067a0f792a767"
+  },
+  "nucleo_ex2": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ex2.yaml",
+    "sha256_especificacao": "c2e18791a43de1b6ee47ca4887decea895278f2bdbafce07919e889ebcd91b00"
+  },
+  "nucleo_ex3": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ex3.yaml",
+    "sha256_especificacao": "405ff65ac47d1cdeb3cea45079118bcee4af96e831cbe1d49e0f2cebc62adda1"
+  },
+  "nucleo_ex3_industriais": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ex3_industriais.yaml",
+    "sha256_especificacao": "b220ccd516bf8209fa264ddc6f679204f9baaf8b4da32ab8b4efdf3cd1a2253e"
+  },
+  "nucleo_ex3_servicos": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ex3_servicos.yaml",
+    "sha256_especificacao": "4d2da5f1f786604a467347742ef7aad4af49c00e5272ed46a6717936acaede1e"
+  },
+  "nucleo_exfe": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_exfe.yaml",
+    "sha256_especificacao": "5d1cdbbdc6fc4a0a3ce1fbe4464721502189f5ef658ef7130430e17adb53a9b6"
+  },
+  "nucleo_ma": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ma.yaml",
+    "sha256_especificacao": "6286b9a4dc8226c8d0f12b80a0439fa2fa49237a16677aa2da30842f738e0424"
+  },
+  "nucleo_ms": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_ms.yaml",
+    "sha256_especificacao": "97d336a85a9f925a1d52fc70dc570cb10b54cfd3026d1364d870eb07d4441cea"
+  },
+  "nucleo_p55": {
+    "modelo": "(0 1 1)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/nucleo_p55.yaml",
+    "sha256_especificacao": "ccbbb386e6abb22cbb0f180909c0bf3113d1f7941a098ac9c98aad7a6147e397"
+  },
+  "pmpp": {
+    "modelo": "(2 1 2)(0 1 1)",
+    "transformacao": "log",
+    "avisos": [
+      "WARNING: At least one visually significant trading day peak has been"
+    ],
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "programa": "X-13ARIMA-SEATS 1.1 build 62",
+    "especificacao": "data/specs/x13/pmpp.yaml",
+    "sha256_especificacao": "5ac38087b8ae894058f0d8aeb63b9dcb1d02ed1e21cfce7f8179e9f496496a38"
+  }
+}

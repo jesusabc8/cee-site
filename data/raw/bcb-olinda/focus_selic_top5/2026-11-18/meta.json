@@ -1,0 +1,98 @@
+{
+  "serie": "focus_selic_top5",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativasMercadoTop5Selic, tipoCalculo='C'",
+  "extraido_em": "2026-11-18T02:13:32.833Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "33633d2952cfe42054a74f84023d10979e5d6e82c2ddfa0485019029064791e0",
+      "bytes": 445550
+    },
+    {
+      "arquivo": "2013.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "ec6842f517ebfb261aa07427a80b6094d91d59cb89a40ebe87377d7eee77842d",
+      "bytes": 444594
+    },
+    {
+      "arquivo": "2014.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "e0d499380912f6f3dd9762880913eee3a18394e05ecfa2add9a4866099b2d466",
+      "bytes": 453912
+    },
+    {
+      "arquivo": "2015.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2015-01-01'%20and%20Data%20le%20'2015-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "7f9c3719a08f2c3c7827ea27f10dc418e08ff4a98f896a9714fb2c513025aad3",
+      "bytes": 453330
+    },
+    {
+      "arquivo": "2016.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2016-01-01'%20and%20Data%20le%20'2016-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "5cac723dadf938dcc5eb60149e6ea7500cb4a6483d04257bfcd5b31ba07d3103",
+      "bytes": 450151
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2017-01-01'%20and%20Data%20le%20'2017-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "424cfe0639b4aa7870dc6d162e8cf1bfc640bdc5fbc6e1b36ada127970430f18",
+      "bytes": 432746
+    },
+    {
+      "arquivo": "2018.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2018-01-01'%20and%20Data%20le%20'2018-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "e31669b60a23f679a9aeb6fa1ca289c80fc941168e933ba58bf422b3954efe38",
+      "bytes": 443231
+    },
+    {
+      "arquivo": "2019.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2019-01-01'%20and%20Data%20le%20'2019-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "7c54cdbde49d97d0f78efecfa42d3f3ad79ca16788cd5afb2e1a8a14af514c6b",
+      "bytes": 451642
+    },
+    {
+      "arquivo": "2020.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2020-01-01'%20and%20Data%20le%20'2020-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "21b3d34819385ecb8da5d0f51370cb101a24040de5948bd810c59581df170d98",
+      "bytes": 442736
+    },
+    {
+      "arquivo": "2021.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2021-01-01'%20and%20Data%20le%20'2021-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "1ea0d1be06a1b970f5abe67d8638795616461bd4015210cb8f6dcf26195de3f8",
+      "bytes": 580845
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2022-01-01'%20and%20Data%20le%20'2022-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "945b419f0610b08390fd5231d8691d5b605c0f56f59991e46bec69bdeb84c95a",
+      "bytes": 598380
+    },
+    {
+      "arquivo": "2023.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2023-01-01'%20and%20Data%20le%20'2023-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "4a43b2074a878149a13a03fe6de7fdbf40ac86f65d12e7f16fe0b99b1ba7c744",
+      "bytes": 590258
+    },
+    {
+      "arquivo": "2024.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2024-01-01'%20and%20Data%20le%20'2024-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "331bc86a15b92a1ab32e64182d47327e19a85cd58c0c9619304736b0404f3879",
+      "bytes": 599983
+    },
+    {
+      "arquivo": "2025.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2025-01-01'%20and%20Data%20le%20'2025-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "5c25f64e6c3991af9c6118320bc97f135c82be953755dffa5d990be967eb97fd",
+      "bytes": 602430
+    },
+    {
+      "arquivo": "2026.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Selic?$filter=indicador%20eq%20'Selic'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2026-01-01'%20and%20Data%20le%20'2026-12-31'&$select=Data%2Creuniao%2CtipoCalculo%2Cmedia%2Cmediana%2CdesvioPadrao%2Cminimo%2Cmaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "3d563f52441c152942a363d8afe690e6464d541576becda5aa5ad10ad0793362",
+      "bytes": 519528
+    }
+  ]
+}

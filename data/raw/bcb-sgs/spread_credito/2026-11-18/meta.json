@@ -1,0 +1,26 @@
+{
+  "serie": "spread_credito",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 20783",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "570ffbfd1b598b4ea34dca31afa4f653e9b057e465b307c94c021cc57dcc8f42",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "18146bdcd0933f5ad642510b0380df72672dc475785f668135e79aac99d427e2",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "1ede267df1969a48f291b13fc063f4e9cd276b26031bedd7540346f8a119af9b",
+      "bytes": 2167
+    }
+  ]
+}

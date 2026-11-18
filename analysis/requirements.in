@@ -1,0 +1,9 @@
+# Dependências do pacote analysis/opm (ADR-022/023). Compilar com:
+#   uv pip compile requirements.in --generate-hashes --python-version 3.12 --universal --exclude-newer 2026-11-01 -o requirements.txt
+# Instalar com: pip install --require-hashes -r requirements.txt
+numpy
+pandas
+scipy
+statsmodels
+pyyaml
+pytest

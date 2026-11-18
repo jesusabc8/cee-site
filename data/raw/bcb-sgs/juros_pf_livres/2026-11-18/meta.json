@@ -1,0 +1,26 @@
+{
+  "serie": "juros_pf_livres",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 20740",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "260df297940e57000f5b72cb7efac2141661cdc92dabe9e3094646f1b04eeba2",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "805b56af1257fdad839a58ed188d81174a2022d28b46ca676af487dc708ae0ae",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "8efc785dfe235f6f6f4c6653cb33e19edabaf352ac279214be52764b2a12f615",
+      "bytes": 2167
+    }
+  ]
+}
