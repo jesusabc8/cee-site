@@ -1,6 +1,9 @@
 /**
  * Inflação ampliada e regional (A2.3; ADR-030). Lê data/processed/{conjuntura,opm}/ e escreve data/processed/opm/indicadores/:
  *  - inflacao_medidas.csv: IPCA, IPCA-15, INPC (consumidor) e IPP (produtor), variação em 12 meses e mensal;
+ *  - inflacao_classificacoes.csv: classificações do BCB (livres/administrados, serviços/industriais/alimentação, comercializáveis),
+ *    núcleos de médias aparadas (MA) e percentil 55 (P55), em 12 meses, e índice de difusão;
+ *  - ipca_grupos.csv: grupos e subgrupos do IPCA no último mês (variação mensal, 12 meses, peso e contribuição);
  *  - regional_ultimo.csv: por área do IPCA, último mês: variação mensal, 12 meses, grupos, peso regional e coordenadas;
  *  - regional_12m.csv: trajetória em 12 meses do índice geral por área e do Brasil;
  *  - regional_dispersao.csv: dispersão entre áreas (desvio-padrão e intervalo interquartil ponderados pelos pesos regionais);
@@ -12,6 +15,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { csv, lerCsvTexto, type Linha } from './csv.ts';
 import { CAPITAIS } from './opm/areas.ts';
 import { desvioPonderado, quantilPonderado } from './opm/estat.ts';
+import { acumula } from './opm/inflacao.ts';
 
 const P = 'data/processed';
 const OUT = `${P}/opm/indicadores`;
@@ -40,6 +44,50 @@ await grava('inflacao_medidas', ipca.filter((r) => r.periodo! >= '2014-01').map(
     ipp_geral_12m: n(ipp.get(p)?.geral_12m),
   };
 }));
+
+// ——— Classificações e núcleos (séries mensais do SGS acumuladas em 12 meses: Π(1 + π/100) − 1) ———
+const CLASS = ['ipca_livres', 'ipca_administrados', 'ipca_servicos', 'ipca_industriais', 'ipca_alim_dom', 'ipca_comercializaveis', 'ipca_nao_comercializaveis', 'nucleo_ma', 'nucleo_p55'] as const;
+const mensais = Object.fromEntries(await Promise.all(CLASS.map(async (id) => [id, new Map((await ler(`opm/${id}.csv`)).map((r) => [r.periodo!, Number(r.valor)]))] as const)));
+const difusao = await ler('opm/ipca_difusao.csv');
+const anteriores = (p: string, k: number) => { const [a, m] = p.split('-').map(Number); const out: string[] = []; for (let i = k - 1; i >= 0; i--) { const d = new Date(Date.UTC(a!, m! - 1 - i, 1)); out.push(d.toISOString().slice(0, 7)); } return out; };
+await grava('inflacao_classificacoes', difusao.filter((r) => r.periodo! >= '2013-01').map((r) => {
+  const p = r.periodo!;
+  const l: Linha = { periodo: p };
+  for (const id of CLASS) {
+    const vs = anteriores(p, 12).map((q) => mensais[id]!.get(q));
+    l[`${id.replace(/^ipca_/, '')}_12m`] = vs.every((v) => v !== undefined && Number.isFinite(v)) ? r4(acumula(vs as number[])) : null;
+  }
+  const d12 = anteriores(p, 12).map((q) => difusao.find((x) => x.periodo === q)?.valor);
+  l.difusao = n(r.valor);
+  l.difusao_media_12m = d12.every((v) => v !== undefined && v !== '') ? r4(d12.reduce((s2, v) => s2 + Number(v), 0) / 12) : null;
+  return l;
+}));
+
+// ——— Grupos e subgrupos (SIDRA 7060, Brasil), último mês ———
+const itens = await ler('opm/ipca_itens.csv');
+const pItens = [...new Set(itens.map((r) => r.periodo!))].sort();
+const uItens = pItens.at(-1)!;
+const porCod = new Map<string, Map<string, number>>();
+for (const r of itens) if (r.variacao_mensal !== '' && (r.nivel === '1' || r.nivel === '2')) {
+  if (!porCod.has(r.codigo!)) porCod.set(r.codigo!, new Map());
+  porCod.get(r.codigo!)!.set(r.periodo!, Number(r.variacao_mensal));
+}
+// Grupo de cada subgrupo: o maior código de grupo ≤ o código do subgrupo, salvo os subgrupos criados com a POF 2017-2018,
+// cujos códigos (classificação 315 do SIDRA) ficam fora da sequência. O teste "pesos dos subgrupos somam o peso do grupo"
+// acusa qualquer atribuição errada.
+const FORA_DA_SEQUENCIA: Record<string, string> = { '47656': '7712' }; // Recreação e fumo → Despesas pessoais
+const gruposCod = [...new Set(itens.filter((r) => r.nivel === '1').map((r) => Number(r.codigo)))].sort((a, b) => a - b);
+const paiDe = (c: string) => FORA_DA_SEQUENCIA[c] ?? String(gruposCod.filter((g) => g <= Number(c)).at(-1));
+await grava('ipca_grupos', itens.filter((r) => r.periodo === uItens && (r.nivel === '1' || r.nivel === '2')).map((r) => {
+  const pai = r.nivel === '1' ? r.codigo! : paiDe(r.codigo!);
+  const vs = anteriores(uItens, 12).map((q) => porCod.get(r.codigo!)?.get(q));
+  const v = n(r.variacao_mensal), w = n(r.peso);
+  return {
+    periodo: uItens, codigo: Number(r.codigo), nivel: Number(r.nivel), grupo: Number(pai), nome: r.nome!.trim(), peso: w, variacao_mensal: v,
+    variacao_12m: vs.every((x) => x !== undefined) ? r4(acumula(vs as number[])) : null,
+    contribuicao_mes_pp: v === null || w === null ? null : r4((w * v) / 100),
+  };
+}).sort((a, b) => a.grupo - b.grupo || a.nivel - b.nivel || a.codigo - b.codigo));
 
 // ——— Regional ———
 const reg = await ler('opm/ipca_regional.csv');

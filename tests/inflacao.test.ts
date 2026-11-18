@@ -102,6 +102,37 @@ describe('indicadores derivados (derive-inflacao)', () => {
   });
 });
 
+describe('classificações, núcleos e grupos', () => {
+  const cl = ler(`${IND}/inflacao_classificacoes.csv`);
+  const gr = ler(`${IND}/ipca_grupos.csv`);
+  it('alimentação no domicílio do SGS (1635) acumulada em 12 meses = subgrupo 7171 do SIDRA 7060', () => {
+    const u = cl.at(-1)!;
+    expect(gr.find((g) => g.codigo === '7171')!.periodo).toBe(u.periodo);
+    expect(Math.abs(Number(u.alim_dom_12m) - Number(gr.find((g) => g.codigo === '7171')!.variacao_12m))).toBeLessThan(0.02);
+  });
+  it('contribuições dos 9 grupos somam o IPCA do mês e os pesos somam 100 % (|dif| < 0,02)', () => {
+    const g1 = gr.filter((g) => g.nivel === '1');
+    expect(g1).toHaveLength(9);
+    expect(Math.abs(g1.reduce((s, g) => s + Number(g.peso), 0) - 100)).toBeLessThan(0.01);
+    const m = Number(ipca.get(g1[0]!.periodo!)!.variacao_mensal);
+    expect(Math.abs(g1.reduce((s, g) => s + Number(g.contribuicao_mes_pp), 0) - m)).toBeLessThan(0.02);
+  });
+  it('pesos dos subgrupos somam o peso do grupo', () => {
+    for (const g of gr.filter((x) => x.nivel === '1')) {
+      const s = gr.filter((x) => x.nivel === '2' && x.grupo === g.codigo).reduce((a, x) => a + Number(x.peso), 0);
+      expect(Math.abs(s - Number(g.peso)), g.nome).toBeLessThan(0.01);
+    }
+  });
+  it('medidas: IPCA-15 e INPC presentes e em faixa plausível perto do IPCA', () => {
+    const md = ler(`${IND}/inflacao_medidas.csv`).filter((r) => r.ipca15_12m && r.inpc_12m && r.ipca_12m);
+    expect(md.length).toBeGreaterThan(100);
+    for (const r of md) {
+      expect(Math.abs(Number(r.inpc_12m) - Number(r.ipca_12m)), r.periodo).toBeLessThan(3);
+      expect(Math.abs(Number(r.ipca15_12m) - Number(r.ipca_12m)), r.periodo).toBeLessThan(2);
+    }
+  });
+});
+
 describe('estatísticas ponderadas', () => {
   it('quantil ponderado', () => {
     expect(quantilPonderado([1, 2, 3, 4], [1, 1, 1, 1], 0.5)).toBe(2);
