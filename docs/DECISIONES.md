@@ -398,3 +398,38 @@ Nenhuma safra é apagada (CLAUDE.md, "Dados brutos em `data/raw/` são imutávei
 **Consequências.** Links internos passam a usar o novo slug via `href()`. O GitHub Pages (transitório) não lê
 `_redirects`; o 301 só vale na Cloudflare. Enquanto isso, uma página de transição em `/observatorio/conjuntura/`
 (meta refresh e `rel=canonical`, sem JavaScript) aponta para o novo endereço.
+
+## ADR-027 — Camada 2 do OPM: curvas, filtros e estimação (2026-11-18)
+
+**Decisão.** A camada 2 publica I.4 (c), I.6, I.9, I.11, I.12 (longo prazo), I.13 e I.15. Seguem em construção o curto
+prazo de I.12 (Araujo e Vicente, 2017) e I.21 (alíquota efetiva dos compulsórios).
+
+**Convenções declaradas.**
+- **Curvas (I.12, I.4 c):**
+  - Fonte: Tesouro Direto (Tesouro Transparente, ODbL; as curvas do CEE são base derivada sob ODbL).
+  - Títulos sem cupom (LTN e NTN-B Principal), taxa de compra da manhã, que inclui o spread do Tesouro Direto.
+  - Prazo em dias úteis/252.
+  - Modelo: Nelson-Siegel-Svensson com 7 ou mais títulos; Nelson-Siegel com menos.
+  - Ajuste: grade de λ com β por MQO, sem extrapolar além do prazo máximo + 6 meses.
+  - NTN-B a menos de 6 meses do vencimento ficam fora, por causa da defasagem de indexação.
+  - Erro médio absoluto publicado por data (mediana de 0,6 bp).
+- **I.4 (c):** NTN-B de 10 anos menos [NTN-B de 4 anos − juro real Focus médio dos anos t+1…t+4], este pela média
+  geométrica de Fisher das medianas anuais da Selic e do IPCA.
+- **I.15:**
+  - Trimestral: HP unilateral (λ = 1.600) e Hamilton (h = 8, p = 4) sobre o PIB dessazonalizado pelo IBGE (SIDRA 1621).
+  - Mensal: o mesmo sobre o IBC-Br (λ = 129.600; h = 24, p = 12).
+  - Faixa: mínimo e máximo entre os métodos.
+- **I.6:**
+  - T3 estimada por MQO em 2012–2019 (antes da pandemia e da meta contínua).
+  - θ ≈ 0,96 torna φ = b/(1 − θ) muito impreciso, o que se declara na ficha.
+  - O envelope cobre os quartis de r* e o mínimo e o máximo do hiato mensal.
+  - O envelope é referência descritiva, nunca prescrição.
+- **I.11:** X-13 (airline, sem regressores) por subitem do SIDRA 7060.
+  - Subitens em que o ajuste falha ficam fora: 20 de 377 em 18/11/2026.
+  - A parcela é calculada sobre o peso coberto, que é publicado (cerca de 92 %).
+- **I.13:** projeções locais mensais com três defasagens de Δℓ e Δi e erros de Newey-West. É associação condicional, não
+  efeito causal; o resultado vai em tabela, porque o eixo é o horizonte, não o tempo.
+
+**Consequências.** O pipeline Python passa a rodar `curvas → neutro → hiato → taylor → repasse → subitens` depois dos
+indicadores em TypeScript (`npm run data:neutro`). O arquivo do Tesouro Direto (cerca de 15 MB, crescendo por cima) é
+guardado inteiro a cada safra; o git armazena as versões por delta.

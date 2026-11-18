@@ -2503,6 +2503,48 @@
     "desatualizado": false,
     "falha": null
   },
+  "tesouro_direto": {
+    "nome": "Taxas e preços dos títulos ofertados pelo Tesouro Direto",
+    "instituicao": "Tesouro Nacional (Tesouro Transparente)",
+    "codigo": "Tesouro Transparente (CKAN), conjunto \"Taxas dos Títulos Ofertados pelo Tesouro Direto\", arquivo precotaxatesourodireto.csv",
+    "unidade": "% a.a. (base 252) e R$",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www.tesourotransparente.gov.br/ckan/dataset/taxas-dos-titulos-ofertados-pelo-tesouro-direto",
+    "extraido_em": "2026-11-18T14:15:08.473Z",
+    "vintage_dir": "data/raw/tesouro/tesouro_direto/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "precotaxatesourodireto.csv",
+        "sha256": "f5da737a615dab61a812d557eb8e6c18c8acaae32f83d91db4a0b1ddccf83137"
+      }
+    ],
+    "linhas": 79454,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-17",
+    "desatualizado": false,
+    "falha": null
+  },
+  "pib_volume_sa": {
+    "nome": "PIB — índice de volume trimestral com ajuste sazonal",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil)",
+    "unidade": "índice (média de 1995 = 100)",
+    "frequencia": "trimestral",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/1621",
+    "extraido_em": "2026-11-18T14:15:08.473Z",
+    "vintage_dir": "data/raw/ibge-sidra/pib_volume_sa/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "00394c993d425b64c1b30030bfc078e159718a125f708dd981b2dd1b00130bd2"
+      }
+    ],
+    "linhas": 122,
+    "primeiro": "1996-T1",
+    "ultimo": "2026-T2",
+    "desatualizado": false,
+    "falha": null
+  },
   "base_restrita": {
     "nome": "Base monetária restrita (saldo em final de período)",
     "instituicao": "Banco Central do Brasil",

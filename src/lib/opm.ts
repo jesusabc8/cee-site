@@ -127,7 +127,9 @@ export function resumoOpm() {
 }
 
 /** Gráficos de cada módulo. `dessaz`: pares [original, ajustada] para o seletor. */
-export interface ModuloGraficos { graficos: Grafico[]; dessaz?: { titulo: string; original: Grafico; ajustada: Grafico }[] }
+export interface Tabela { id: string; titulo: string; descricao: string; colunas: string[]; linhas: (string | number | null)[][]; fontes: Fonte[]; csv: { rotulo: string; href: string }[] }
+export interface ModuloGraficos { graficos: Grafico[]; dessaz?: { titulo: string; original: Grafico; ajustada: Grafico }[]; tabelas?: Tabela[] }
+const tri = (t: string) => Date.UTC(Number(t.slice(0, 4)), (Number(t.slice(6)) - 1) * 3, 1);
 
 export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
   const en = lang === 'en';
@@ -206,20 +208,32 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
             : 'O juro neutro não é observável e é estimado com elevada incerteza; aparece sempre como faixa, com método e data, nunca como recomendação. BCB: médias trimestrais quatro trimestres à frente (RPM set./2026, p. 80), convenção diferente.',
         }, lang),
         monta({
-          id: 'opm-neutro-metodos', icone: 'git-compare', rotulo: 'I.4',
-          titulo: en ? 'Neutral-rate estimates by method' : 'Estimativas de juro neutro por método',
-          subtitulo: en ? `In ${fm(mes(uf.periodo!))}: Focus t+4 ${n2(Number(uf.a_focus_t4))}%, one-sided HP ${n2(Number(uf.b_hp_unilateral))}%, Hamilton ${n2(Number(uf.b_hamilton))}%.`
-            : `Em ${fm(mes(uf.periodo!))}: Focus t+4 ${n2(Number(uf.a_focus_t4))}%, HP unilateral ${n2(Number(uf.b_hp_unilateral))}%, Hamilton ${n2(Number(uf.b_hamilton))}%.`,
-          unidade: en ? '% a year, real' : '% ao ano, real',
-          descricao: en ? 'Three layer-1 methods, each computed in real time (only data available at each date).' : 'Três métodos da camada 1, cada um calculado em tempo real (só com os dados disponíveis em cada data).',
-          xFormat: 'month', yDigits: 2, yUnit: '%', zero: true,
+          id: 'opm-neutro-mercado', icone: 'git-compare', rotulo: 'I.4 (a) · (c)',
+          titulo: en ? 'Neutral-rate estimates from market prices and surveys' : 'Estimativas de juro neutro a partir de preços e pesquisas',
+          subtitulo: en ? `In ${fm(mes(uf.periodo!))}: (a) Focus t+4 ${n2(Number(uf.a_focus_t4))}%; (c) long NTN-B net of the term premium ${uf.c_ntnb_longa ? n2(Number(uf.c_ntnb_longa)) + '%' : '—'}.`
+            : `Em ${fm(mes(uf.periodo!))}: (a) Focus t+4 ${n2(Number(uf.a_focus_t4))}%; (c) NTN-B longa líquida do prêmio a termo ${uf.c_ntnb_longa ? n2(Number(uf.c_ntnb_longa)) + '%' : '—'}.`,
+          unidade: en ? '% a year, real' : '% ao ano, real', xFormat: 'month', yDigits: 2, yUnit: '%', zero: true,
+          descricao: en ? '(a) expected real rate for t+4 (annual Focus); (c) 10-year NTN-B real yield minus the 4-year NTN-B net of the Focus real rate (month end).' : '(a) juro real esperado para t+4 (Focus anual); (c) juro real da NTN-B de 10 anos menos a NTN-B de 4 anos líquida do juro real Focus (fim de mês).',
           series: [
-            { id: 'a', label: en ? '(a) Focus, t+4' : '(a) Focus, t+4', color: COR.navy, width: 2, points: pts(f, 'periodo', 'a_focus_t4') },
-            { id: 'hp', label: en ? '(b) One-sided HP' : '(b) HP unilateral', color: COR.azure, dash: '6 3', points: pts(f, 'periodo', 'b_hp_unilateral') },
-            { id: 'h', label: '(b) Hamilton', color: COR.steel, markers: 'square', points: pts(f, 'periodo', 'b_hamilton') },
+            { id: 'a', label: '(a) Focus, t+4', color: COR.navy, width: 2, points: pts(f, 'periodo', 'a_focus_t4') },
+            { id: 'c', label: '(c) NTN-B', color: COR.azure, dash: '6 3', points: pts(f, 'periodo', 'c_ntnb_longa') },
           ],
-          legenda: [{ id: 'a', label: '(a) Focus, t+4', color: COR.navy, style: 'line' }, { id: 'hp', label: en ? '(b) One-sided HP' : '(b) HP unilateral', color: COR.azure, style: 'dash' }, { id: 'h', label: '(b) Hamilton (2018)', color: COR.steel, style: 'marker' }],
-          fontes: [fonte('focus_anuais'), fonte('focus_selic'), fonte('focus_inflacao_12m')], csv: [csvInd('indicadores/i4_faixa_neutro.csv'), csvInd('indicadores/i4a_neutro_focus_t4.csv')],
+          legenda: [{ id: 'a', label: '(a) Focus, t+4', color: COR.navy, style: 'line' }, { id: 'c', label: en ? '(c) Long NTN-B net of term premium' : '(c) NTN-B longa líquida do prêmio a termo', color: COR.azure, style: 'dash' }],
+          fontes: [fonte('focus_anuais'), fonte('tesouro_direto')], csv: [csvInd('indicadores/i4_faixa_neutro.csv'), csvInd('indicadores/curvas_nss.csv')],
+          nota: en ? 'Tesouro Direto data under ODbL; the CEE curves (curvas_nss.csv) are a derived database published under the same licence.' : 'Dados do Tesouro Direto sob ODbL; as curvas do CEE (curvas_nss.csv) são base derivada publicada sob a mesma licença.',
+        }, lang),
+        monta({
+          id: 'opm-neutro-filtros', icone: 'git-compare', rotulo: 'I.4 (b)',
+          titulo: en ? 'Neutral-rate estimates from trend filters' : 'Estimativas de juro neutro por filtros de tendência',
+          subtitulo: en ? `In ${fm(mes(uf.periodo!))}: one-sided HP ${n2(Number(uf.b_hp_unilateral))}%, Hamilton ${n2(Number(uf.b_hamilton))}%.` : `Em ${fm(mes(uf.periodo!))}: HP unilateral ${n2(Number(uf.b_hp_unilateral))}%, Hamilton ${n2(Number(uf.b_hamilton))}%.`,
+          unidade: en ? '% a year, real' : '% ao ano, real', xFormat: 'month', yDigits: 2, yUnit: '%', zero: true,
+          descricao: en ? 'Trend of the ex ante real rate, each point computed only with data available at its date.' : 'Tendência do juro real ex ante, cada ponto calculado só com os dados disponíveis na sua data.',
+          series: [
+            { id: 'hp', label: en ? '(b) One-sided HP' : '(b) HP unilateral', color: COR.navy, width: 2, points: pts(f, 'periodo', 'b_hp_unilateral') },
+            { id: 'h', label: '(b) Hamilton', color: COR.azure, dash: '6 3', points: pts(f, 'periodo', 'b_hamilton') },
+          ],
+          legenda: [{ id: 'hp', label: en ? '(b) One-sided HP (λ = 14,400)' : '(b) HP unilateral (λ = 14.400)', color: COR.navy, style: 'line' }, { id: 'h', label: '(b) Hamilton (2018)', color: COR.azure, style: 'dash' }],
+          fontes: [fonte('focus_selic'), fonte('focus_inflacao_12m')], csv: [csvInd('indicadores/i4_faixa_neutro.csv')],
         }, lang),
         monta({
           id: 'opm-hiato-juros', icone: 'move-vertical', rotulo: 'I.3',
@@ -233,6 +247,25 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           legenda: [{ id: 'hm', label: en ? 'Gap against the median' : 'Hiato contra a mediana', color: COR.navy, style: 'line' }, { id: 'hb', label: en ? 'Gap against Q1–Q3' : 'Hiato contra Q1–Q3', color: COR.sky, style: 'band' }],
           fontes: [fonte('focus_selic'), fonte('focus_inflacao_12m'), fonte('focus_anuais')], csv: [csvInd('indicadores/i3_hiato_juros.csv')],
         }, lang),
+        (() => {
+          const t = ler('opm/indicadores/i6_taylor.csv');
+          const ut = t.at(-1)!;
+          const par = ler('opm/indicadores/i6_taylor_t3_parametros.csv')[0]!;
+          return monta({
+            id: 'opm-taylor', icone: 'scale', rotulo: 'I.6', largo: true,
+            titulo: en ? 'Selic target and the envelope of Taylor rules' : 'Meta Selic e envelope de regras de Taylor',
+            subtitulo: en ? `In ${fm(mes(ut.periodo!))}, the Selic target was ${n2(Number(ut.selic))}%; the three rules, over the neutral-rate and output-gap bands, ranged from ${n2(Number(ut.envelope_min))}% to ${n2(Number(ut.envelope_max))}%.`
+              : `Em ${fm(mes(ut.periodo!))}, a meta Selic era de ${n2(Number(ut.selic))}%; as três regras, sobre as faixas de juro neutro e de hiato, iam de ${n2(Number(ut.envelope_min))}% a ${n2(Number(ut.envelope_max))}%.`,
+            unidade: en ? '% a year, nominal' : '% ao ano, nominal', xFormat: 'month', yDigits: 2, yUnit: '%', zero: true, defaultRange: 'tudo',
+            descricao: en ? 'Line: Selic target at month end. Shaded area: minimum and maximum of rules T1, T2 and T3 over the neutral-rate quartiles and the output-gap range.' : 'Linha: meta Selic no fim do mês. Área sombreada: mínimo e máximo das regras T1, T2 e T3 sobre os quartis do juro neutro e a faixa do hiato.',
+            series: [{ id: 's', label: en ? 'Selic target' : 'Meta Selic', color: COR.navy, kind: 'step', width: 2.2, points: pts(t, 'periodo', 'selic') }],
+            bandas: [{ id: 'env', label: en ? 'Taylor-rule envelope' : 'Envelope das regras de Taylor', fill: COR.sky, lo: pts(t, 'periodo', 'envelope_min'), hi: pts(t, 'periodo', 'envelope_max') }],
+            legenda: [{ id: 's', label: en ? 'Selic target' : 'Meta Selic', color: COR.navy, style: 'step' }, { id: 'env', label: en ? 'Envelope of rules T1–T3' : 'Envelope das regras T1–T3', color: COR.sky, style: 'band' }],
+            fontes: [fonte('selic_meta'), fonte('ipca'), fonte('focus_inflacao_12m'), fonte('ibcbr')], csv: [csvInd('indicadores/i6_taylor.csv'), csvInd('indicadores/i6_taylor_t3_parametros.csv')],
+            nota: en ? `Descriptive references, never prescriptions: the rules are sensitive to r* and to the output gap and are evaluated with the data of each vintage (Orphanides, 2001). T3 parameters estimated over ${par.amostra}: θ = ${n2(Number(par.theta))}, φ = ${n2(Number(par.phi))}; with θ close to 1, φ is very imprecise.`
+              : `Referências descritivas, nunca prescrição: as regras são sensíveis a r* e ao hiato e são avaliadas com os dados de cada safra (Orphanides, 2001). Parâmetros de T3 estimados em ${par.amostra}: θ = ${n2(Number(par.theta))}, φ = ${n2(Number(par.phi))}; com θ próximo de 1, φ é muito impreciso.`,
+          }, lang);
+        })(),
       ] };
     }
     case 'a2-3-inflacao': {
@@ -295,6 +328,42 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
             fontes: [fonte('ipca'), fonte('metas_inflacao')], csv: [csvInd('indicadores/i10_regime_meta_continua.csv')],
             nota: en ? 'Rule of Decree 12,079/2024 as stated by the BCB ("Inflation target" page) and in the MPR Sep/2026 (p. 3). The full text of the Decree is to be re-checked (docs/PENDIENTES.md).' : 'Regra do Decreto nº 12.079/2024 conforme o BCB (página "Meta para a inflação") e o RPM set./2026 (p. 3). O texto integral do Decreto será reconferido (docs/PENDIENTES.md).',
           }, lang),
+          (() => {
+            const q = ler('opm/indicadores/i9_saar.csv').filter((r) => r.ipca_saar);
+            const uq = q.at(-1)!;
+            return monta({
+              id: 'opm-saar', icone: 'activity', rotulo: 'I.9',
+              titulo: en ? 'Seasonally adjusted, annualised three-month inflation' : 'Inflação de três meses, dessazonalizada e anualizada',
+              subtitulo: en ? `Three months to ${fm(mes(uq.periodo!))}: IPCA ${n1(Number(uq.ipca_saar))}% and core average ${n1(Number(uq.media_nucleos_saar))}% (SAAR).` : `Três meses até ${fm(mes(uq.periodo!))}: IPCA ${n1(Number(uq.ipca_saar))}% e média dos núcleos ${n1(Number(uq.media_nucleos_saar))}% (SAAR).`,
+              unidade: en ? '% annualised' : '% anualizado', xFormat: 'month', yDigits: 1, yUnit: '%', zero: true, defaultRange: '5a',
+              descricao: en ? 'Lines: SAAR of the IPCA and of the core average, on series seasonally adjusted by CEE. Dashed line: 3.0% target.' : 'Linhas: SAAR do IPCA e da média dos núcleos, sobre séries dessazonalizadas pelo CEE. Tracejada: meta de 3,0%.',
+              series: [
+                { id: 'i', label: 'IPCA', color: COR.navy, width: 2.2, points: pts(q, 'periodo', 'ipca_saar') },
+                { id: 'n', label: en ? 'Core average' : 'Média dos núcleos', color: COR.azure, dash: '6 3', points: pts(q, 'periodo', 'media_nucleos_saar') },
+              ],
+              refs: [{ y: 3, label: en ? 'Target 3.0%' : 'Meta 3,0%', dash: '2 3', color: COR.steel }],
+              legenda: [{ id: 'i', label: en ? 'IPCA, SAAR' : 'IPCA, SAAR', color: COR.navy, style: 'line' }, { id: 'n', label: en ? 'Core average, SAAR' : 'Média dos núcleos, SAAR', color: COR.azure, style: 'dash' }],
+              fontes: [fonte('ipca'), ...['nucleo_ex0', 'nucleo_ex3', 'nucleo_ms', 'nucleo_dp', 'nucleo_p55'].map(fonte)], csv: [csvInd('indicadores/i9_saar.csv'), csvInd('dessaz/_validacao.csv')],
+              nota: en ? 'Validated against the Sep/2026 MPR (p. 35): within 0.5 p.p. in May and August 2026. Groups and EX3 services/goods are in the CSV.' : 'Validado contra o RPM de set./2026 (p. 35): dentro de 0,5 p.p. em maio e agosto de 2026. Grupos e EX3 serviços/industriais estão no CSV.',
+            }, lang);
+          })(),
+          (() => {
+            const q = ler('opm/indicadores/i11_subitens_acima_teto.csv');
+            const uq = q.at(-1)!;
+            return monta({
+              id: 'opm-subitens', icone: 'layers', rotulo: 'I.11',
+              titulo: en ? 'Share of IPCA sub-items above the target ceiling' : 'Parcela dos subitens do IPCA acima do teto da meta',
+              subtitulo: en ? `In ${fm(mes(uq.periodo!))}, ${n1(Number(uq.parcela_acima_4_5))}% of the weight covered (${n1(Number(uq.peso_incluido))}% of the IPCA) had seasonally adjusted annualised inflation above 4.5%.`
+                : `Em ${fm(mes(uq.periodo!))}, ${n1(Number(uq.parcela_acima_4_5))}% do peso coberto (${n1(Number(uq.peso_incluido))}% do IPCA) tinha inflação dessazonalizada anualizada acima de 4,5%.`,
+              unidade: en ? '% of the IPCA weight covered' : '% do peso coberto do IPCA', xFormat: 'month', yDigits: 1, yUnit: '%', zero: true, ranges: false,
+              descricao: en ? 'Weighted share of sub-items (SIDRA 7060) with three-month SAAR above 4.5%.' : 'Parcela ponderada dos subitens (SIDRA 7060) com SAAR de três meses acima de 4,5%.',
+              series: [{ id: 'p', label: en ? 'Share above 4.5%' : 'Parcela acima de 4,5%', color: COR.navy, width: 2.2, points: pts(q, 'periodo', 'parcela_acima_4_5') }],
+              colunasExtra: [{ titulo: en ? 'Weight covered (%)' : 'Peso coberto (%)', pontos: pts(q, 'periodo', 'peso_incluido') }],
+              legenda: [{ id: 'p', label: en ? 'Share of weight above 4.5% (SAAR)' : 'Parcela do peso acima de 4,5% (SAAR)', color: COR.navy, style: 'line' }],
+              fontes: [fonte('ipca_itens')], csv: [csvInd('indicadores/i11_subitens_acima_teto.csv')],
+              nota: en ? 'Sub-items where X-13 fails are excluded; the share is computed over the weight covered, published alongside.' : 'Subitens em que o X-13 falha ficam fora; a parcela é calculada sobre o peso coberto, publicado ao lado.',
+            }, lang);
+          })(),
         ],
         dessaz: [par('ipca-mensal', 'ipca', 'IPCA'), par('ex3-mensal', 'nucleo_ex3', en ? 'Core EX3' : 'Núcleo EX3')],
       };
@@ -332,6 +401,27 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           legenda: [{ id: 'd', label: en ? 'Median minus target, t+3' : 'Mediana menos meta, t+3', color: COR.navy, style: 'line' }, { id: 'dp', label: en ? 'Standard deviation of responses, t+3' : 'Desvio-padrão das respostas, t+3', color: COR.azure, style: 'dash' }],
           fontes: [fonte('focus_anuais'), fonte('metas_inflacao')], csv: [csvInd('indicadores/i7_i8_credibilidade_desancoragem.csv')],
         }, lang),
+        (() => {
+          const b = ler('opm/indicadores/i12_inflacao_implicita.csv');
+          const ub = b.at(-1)!;
+          return monta({
+            id: 'opm-implicita', icone: 'line-chart', rotulo: 'I.12', largo: true,
+            titulo: en ? 'Breakeven inflation from Tesouro Direto curves' : 'Inflação implícita nas curvas do Tesouro Direto',
+            subtitulo: en ? `On ${fd(dia(ub.data!))}: ${n2(Number(ub.implicita_2a))}% (2 years), ${n2(Number(ub.implicita_3a))}% (3 years), ${n2(Number(ub.implicita_5a))}% (5 years).`
+              : `Em ${fd(dia(ub.data!))}: ${n2(Number(ub.implicita_2a))}% (2 anos), ${n2(Number(ub.implicita_3a))}% (3 anos), ${n2(Number(ub.implicita_5a))}% (5 anos).`,
+            unidade: en ? '% a year; month end' : '% ao ano; fim de mês', xFormat: 'month', yDigits: 2, yUnit: '%', zero: true,
+            descricao: en ? 'Breakeven inflation at three maturities, from NSS curves fitted to zero-coupon LTN and NTN-B Principal rates.' : 'Inflação implícita em três prazos, das curvas NSS ajustadas às taxas de LTN e NTN-B Principal.',
+            series: [
+              { id: 'b2', label: en ? '2 years' : '2 anos', color: COR.navy, width: 2.2, points: pts(b, 'data', 'implicita_2a', (d) => mes(d.slice(0, 7))) },
+              { id: 'b3', label: en ? '3 years' : '3 anos', color: COR.azure, dash: '6 3', points: pts(b, 'data', 'implicita_3a', (d) => mes(d.slice(0, 7))) },
+              { id: 'b5', label: en ? '5 years' : '5 anos', color: COR.steel, markers: 'circle', points: pts(b, 'data', 'implicita_5a', (d) => mes(d.slice(0, 7))) },
+            ],
+            legenda: [{ id: 'b2', label: en ? '2 years' : '2 anos', color: COR.navy, style: 'line' }, { id: 'b3', label: en ? '3 years' : '3 anos', color: COR.azure, style: 'dash' }, { id: 'b5', label: en ? '5 years' : '5 anos', color: COR.steel, style: 'marker' }],
+            fontes: [fonte('tesouro_direto')], csv: [csvInd('indicadores/i12_inflacao_implicita.csv'), csvInd('indicadores/curvas_nss.csv')],
+            nota: en ? 'Breakeven inflation contains inflation-risk and liquidity premia and the Tesouro Direto spread: it is not a market expectation. The short end (Araujo and Vicente, 2017) is still under construction. Curves under ODbL (derived from Tesouro Transparente).'
+              : 'A inflação implícita contém prêmios de risco inflacionário e de liquidez e o spread do Tesouro Direto: não é expectativa do mercado. O curto prazo (Araujo e Vicente, 2017) segue em construção. Curvas sob ODbL (derivadas do Tesouro Transparente).',
+          }, lang);
+        })(),
       ] };
     }
     case 'a2-5-transmissao': {
@@ -354,7 +444,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           ],
           legenda: [{ id: 'j', label: en ? 'Average lending rate (total)' : 'Taxa média do crédito (total)', color: COR.navy, style: 'line' }, { id: 's', label: en ? 'Average spread' : 'Spread médio', color: COR.azure, style: 'dash' }, { id: 'm', label: en ? 'Selic target' : 'Meta Selic', color: COR.steel, style: 'marker' }],
           fontes: [fonte('juros_credito'), fonte('spread_credito'), fonte('selic_meta')], csv: [csvSerie('juros_credito'), csvSerie('spread_credito'), csvSerie('juros_pj'), csvSerie('juros_pf_livres'), csvSerie('icc')],
-          nota: en ? 'The pass-through of the Selic to lending rates (I.13, local projections) comes in layer 2. These series are shared with panel A4.' : 'O repasse da Selic ao crédito (I.13, projeções locais) entra na camada 2. Estas séries são compartilhadas com o painel A4.',
+          nota: en ? 'The pass-through of the Selic to lending rates (I.13) is in the table below. These series are shared with panel A4.' : 'O repasse da Selic ao crédito (I.13) está na tabela abaixo. Estas séries são compartilhadas com o painel A4.',
         }, lang),
         monta({
           id: 'opm-icbr', icone: 'wheat', rotulo: 'A2.5',
@@ -376,7 +466,38 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           legenda: [{ id: 'b', label: 'IBC-Br', color: COR.navy, style: 'line' }],
           fontes: [fonte('ibcbr')], csv: [csvSerie('ibcbr')],
         }, lang),
-      ] };
+        (() => {
+          const h = ler('opm/indicadores/i15_hiato_produto_trimestral.csv').filter((r) => r.minimo);
+          const uh = h.at(-1)!;
+          return monta({
+            id: 'opm-hiato-produto', icone: 'gauge', rotulo: 'I.15', largo: true,
+            titulo: en ? 'Output gap: band between methods' : 'Hiato do produto: faixa entre métodos',
+            subtitulo: en ? `In ${uh.trimestre}: one-sided HP ${n2(Number(uh.hp_unilateral))}% and Hamilton ${n2(Number(uh.hamilton))}% of potential output. The BCB estimates 0.5% (Q2) and 0.4% (Q3 2026) (MPR Sep/2026, p. 83).`
+              : `Em ${uh.trimestre}: HP unilateral ${n2(Number(uh.hp_unilateral))}% e Hamilton ${n2(Number(uh.hamilton))}% do produto potencial. O BCB estima 0,5% (2º tri) e 0,4% (3º tri de 2026) (RPM set./2026, p. 83).`,
+            unidade: en ? '% of potential output' : '% do produto potencial', xFormat: 'quarter', yDigits: 1, yUnit: '%', zero: true,
+            descricao: en ? 'Two quarterly real-time estimates and the band between them, on seasonally adjusted GDP.' : 'Duas estimativas trimestrais em tempo real e a faixa entre elas, sobre o PIB dessazonalizado.',
+            series: [
+              { id: 'hp', label: en ? 'One-sided HP' : 'HP unilateral', color: COR.navy, width: 2, points: pts(h, 'trimestre', 'hp_unilateral', tri) },
+              { id: 'ha', label: 'Hamilton', color: COR.azure, dash: '6 3', points: pts(h, 'trimestre', 'hamilton', tri) },
+            ],
+            bandas: [{ id: 'f', label: en ? 'Range between methods' : 'Faixa entre métodos', fill: COR.sky, lo: pts(h, 'trimestre', 'minimo', tri), hi: pts(h, 'trimestre', 'maximo', tri) }],
+            legenda: [{ id: 'hp', label: en ? 'One-sided HP (λ = 1,600)' : 'HP unilateral (λ = 1.600)', color: COR.navy, style: 'line' }, { id: 'ha', label: 'Hamilton (h = 8, p = 4)', color: COR.azure, style: 'dash' }, { id: 'f', label: en ? 'Range between methods' : 'Faixa entre métodos', color: COR.sky, style: 'band' }],
+            fontes: [fonte('pib_volume_sa'), fonte('ibcbr')], csv: [csvInd('indicadores/i15_hiato_produto_trimestral.csv'), csvInd('indicadores/i15_hiato_ibcbr_mensal.csv')],
+          }, lang);
+        })(),
+      ], tabelas: [(() => {
+        const r = ler('opm/indicadores/i13_repasse_lp.csv');
+        const nomes: Record<string, string> = en ? { total: 'Total', pj: 'Firms', pf_livres: 'Households (non-earmarked)' } : { total: 'Total', pj: 'Pessoas jurídicas', pf_livres: 'Pessoas físicas (livres)' };
+        const series = ['total', 'pj', 'pf_livres'];
+        return {
+          id: 'opm-repasse', titulo: en ? 'I.13 — Cumulative pass-through of the Selic to lending rates (local projections)' : 'I.13 — Repasse acumulado da Selic ao custo do crédito (projeções locais)',
+          descricao: en ? 'β_h in p.p. of the average lending rate per 1 p.p. of Selic, h months after the change; 90% interval (Newey-West) in brackets. Conditional associations, not identified causal effects.'
+            : 'β_h em p.p. da taxa média do crédito por 1 p.p. de Selic, h meses após a mudança; intervalo de 90% (Newey-West) entre colchetes. Associações condicionais, não efeitos causais identificados.',
+          colunas: [en ? 'Horizon (months)' : 'Horizonte (meses)', ...series.map((x) => nomes[x]!)],
+          linhas: Array.from({ length: 12 }, (_, k) => [String(k + 1), ...series.map((x) => { const l = r.find((y) => y.serie === x && y.h === String(k + 1))!; return `${n2(Number(l.beta))} [${n2(Number(l.ic90_inf))}; ${n2(Number(l.ic90_sup))}]`; })]),
+          fontes: [fonte('juros_credito'), fonte('juros_pj'), fonte('juros_pf_livres'), fonte('selic_meta')], csv: [csvInd('indicadores/i13_repasse_lp.csv')],
+        };
+      })()] };
     }
     case 'a2-6-externo-fiscal': {
       const ff = fimDeMes(ler('opm/fed_funds_sup.csv') as (Record<string, string> & { data: string })[]);

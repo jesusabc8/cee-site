@@ -141,6 +141,31 @@ export const processadoresOpm: Record<string, Proc> = {
     data: String(r.Data), mes_referencia: mesRef(String(r.DataReferencia)), tipo_calculo: String(r.tipoCalculo), ...stats(r),
   })).sort((a, b) => a.data.localeCompare(b.data) || a.mes_referencia.localeCompare(b.mes_referencia) || a.tipo_calculo.localeCompare(b.tipo_calculo)),
 
+  // Tesouro Direto: CSV com ";" e vírgula decimal; desde 2012, títulos prefixados e IPCA+ (com e sem cupom).
+  tesouro_direto: (c) => {
+    const txt = c['precotaxatesourodireto.csv']!.toString('utf8').replace(/^\uFEFF/, '').replace(/\r/g, '');
+    const [cab, ...linhas] = txt.split('\n').filter(Boolean);
+    const cols = cab!.split(';');
+    const i = (n: string) => { const k = cols.indexOf(n); if (k < 0) throw new Error(`Tesouro Direto: coluna ausente: ${n}`); return k; };
+    const [kT, kV, kD, kC, kVd, kP] = ['Tipo Titulo', 'Data Vencimento', 'Data Base', 'Taxa Compra Manha', 'Taxa Venda Manha', 'PU Base Manha'].map(i);
+    const TIPOS: Record<string, string> = { 'Tesouro Prefixado': 'LTN', 'Tesouro Prefixado com Juros Semestrais': 'NTN-F', 'Tesouro IPCA+': 'NTN-B Principal', 'Tesouro IPCA+ com Juros Semestrais': 'NTN-B' };
+    const dec = (x: string | undefined) => num(x?.replace(/\./g, '').replace(',', '.'));
+    const out: Linha[] = [];
+    for (const l of linhas) {
+      const f = l.split(';');
+      const titulo = TIPOS[f[kT!]!];
+      if (!titulo) continue;
+      const data = brParaIso(f[kD!]!);
+      if (data < '2012-01-01') continue;
+      out.push({ data, titulo, vencimento: brParaIso(f[kV!]!), taxa_compra: dec(f[kC!]), taxa_venda: dec(f[kVd!]), pu_base: dec(f[kP!]) });
+    }
+    return out.sort((a, b) => String(a.data).localeCompare(String(b.data)) || String(a.titulo).localeCompare(String(b.titulo)) || String(a.vencimento).localeCompare(String(b.vencimento)));
+  },
+  pib_volume_sa: (c) => {
+    const s = sidraSeriesDe(json(c['resposta.json']));
+    return Object.keys(s['584']!).sort().map((p) => ({ trimestre: `${p.slice(0, 4)}-T${Number(p.slice(4, 6))}`, indice: num(s['584']![p]) }));
+  },
+
   // SIDRA 7060: formato longo (período × categoria), com o nível hierárquico tirado do código "1.", "11.", "1101."…
   ipca_itens: (c) => {
     const out: Linha[] = [];

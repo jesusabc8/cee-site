@@ -9,7 +9,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { csv, lerCsvTexto, type Linha } from './csv.ts';
 import { somaDias } from './opm/calendario.ts';
 import { credibilidade, metaHorizonte12m, surpresa, ultimaAntes } from './opm/expectativas.ts';
-import { acumula, contadorRegime, media, NUCLEOS_MEDIA } from './opm/inflacao.ts';
+import { acumula, contadorRegime, media, NUCLEOS_MEDIA, saar3m } from './opm/inflacao.ts';
 import { fisher, selicAcumulada252, selicEsperada12m, vigenciaDe, type ReuniaoFutura } from './opm/juros.ts';
 import { coeficientes, cresc12, real, velocidade } from './opm/moeda.ts';
 
@@ -232,3 +232,21 @@ for (const p of mesesAg) {
 await grava('i18_agregados', i18);
 await grava('i19_multiplicador_coeficientes', i19);
 await grava('i20_velocidade_monetizacao', i20);
+
+// ——— Camada 2 — I.9: SAAR de 3 meses sobre as séries dessazonalizadas pelo CEE (X-13; ADR-023) ———
+const SAAR_SERIES = ['ipca', 'ipca_livres', 'ipca_administrados', 'ipca_servicos', 'ipca_industriais', 'ipca_alim_dom', 'nucleo_ex3_servicos', 'nucleo_ex3_industriais'] as const;
+const saMensal = async (id: string) => new Map((await ler(`opm/dessaz/${id}.csv`)).map((r) => [r.periodo!, Number(r.ajustada)]));
+if (existsSync(`${P}/opm/dessaz/ipca.csv`)) {
+  const sa = Object.fromEntries(await Promise.all(SAAR_SERIES.map(async (id) => [id, await saMensal(id)] as const)));
+  const nucSa = await Promise.all(NUCLEOS_MEDIA.map(saMensal));
+  const meses = [...sa.ipca!.keys()].sort();
+  const i9: Linha[] = [];
+  for (let k = 2; k < meses.length; k++) {
+    const jan = meses.slice(k - 2, k + 1);
+    const linha: Linha = { periodo: meses[k]! };
+    for (const id of SAAR_SERIES) linha[`${id}_saar`] = jan.every((p) => sa[id]!.has(p)) ? r2(saar3m(jan.map((p) => sa[id]!.get(p)!))) : null;
+    linha.media_nucleos_saar = jan.every((p) => nucSa.every((m) => m.has(p))) ? r2(saar3m(jan.map((p) => media(nucSa.map((m) => m.get(p)!))))) : null;
+    i9.push(linha);
+  }
+  await grava('i9_saar', i9);
+}

@@ -14,7 +14,7 @@ export interface Requisicao {
   alternativa?: string;
 }
 
-export type Fonte = 'bcb-sgs' | 'ibge-sidra' | 'ibge-sis' | 'mdic-comexstat' | 'bcb-olinda' | 'bcb-site' | 'pwt' | 'fred';
+export type Fonte = 'bcb-sgs' | 'ibge-sidra' | 'ibge-sis' | 'mdic-comexstat' | 'bcb-olinda' | 'bcb-site' | 'pwt' | 'fred' | 'tesouro';
 
 export interface Serie {
   id: string;
