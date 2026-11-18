@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-// @ts-expect-error módulo JS sem tipos
 import { avaliar, avisos, corrige } from '../scripts/qa/audit-lib.mjs';
 
 const ex = [{ id: 'GHSA-fc5q-39xc-vjpf', pacote: 'picomatch', vence: '2026-12-18', adr: 'ADR-021' }];
