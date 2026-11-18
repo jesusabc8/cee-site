@@ -53,8 +53,12 @@ não invente: registre em `docs/PENDIENTES.md`. A Proposta v3.0 está superada.
   F Energia, Clima e Recursos Naturais; T Transversal — Métodos e Dados. Lentes: Minas Gerais e Desenvolvimento
   Regional; Brasil Comparado. A, B, C e T ativos; D, E e F `em-formacao` (rótulo derivado de `situacao`).
 - O Observatório CEE — Economia Brasileira em Dados é **produto**; seus painéis (`src/data/paineis.yaml`) seguem os
-  programas e cada um tem a linha de mesmo código e nome (`src/data/linhas.yaml`). A2 Política Monetária = página
-  `/observatorio/conjuntura/` (Edição 1.0; slug mantido). Programas em formação não têm painel.
+  programas e cada um tem a linha de mesmo código e nome (`src/data/linhas.yaml`). A2 Política Monetária = **Observatório de
+  Política Monetária** (edição 2.0; ADR-022 a ADR-026), em `/observatorio/politica-monetaria/` (301 a partir de
+  `/observatorio/conjuntura/`): oito módulos, 21 indicadores (`src/data/opm/`), camadas 1–3 (3 = "experimental").
+  Descreve e mede; não recomenda a Selic; juro neutro e regras sempre como faixa. O CEE dessazonaliza com X-13 (ADR-023;
+  original sempre ao lado). Dados em `data/processed/opm/`; econometria em `analysis/opm/` (Python, hashes, pytest).
+  Programas em formação não têm painel.
 - O ano vem do campo `ano`; rótulos ("Previsto · ano N") e contagens são derivados, nunca escritos à mão.
 - "Brasil em números" (portada) e "Panorama da economia brasileira" (`/observatorio/panorama/`) não são painéis.
 
@@ -79,7 +83,8 @@ Identificador `CEE-NT 2027/03 v1.0`. Recomendações só em NT, TD, RP e PB. Val
 
 ## Comandos
 - `npm ci` · `npm run dev` · `npm run build` (inclui Pagefind) · `npm run check` · `npm run lint` · `npm test`
-- `npm run data` (extração + processamento + derivados + catálogo + testes; requer rede)
+- `npm run data` (extração + processamento + derivados + X-13 + indicadores do OPM + catálogo + testes; requer rede e
+  Python com `pip install --require-hashes -r analysis/requirements.txt`; `PYTHON=` aponta o interpretador)
 - QA: `npm run qa:links`, `npm run qa:seguranca`; `scripts/qa/axe.mjs`, `lighthouse.mjs`, `teclado.mjs`, `larguras.mjs`,
   `movimento.mjs`, `interacao.mjs`, `frame.mjs` — com `npm run preview`. Cabeçalhos: `npx wrangler dev`.
 - Neste ambiente de nuvem: `CHROMIUM_PATH=/opt/pw-browsers/chromium` e `CHROME_PATH=/opt/pw-browsers/chromium`;

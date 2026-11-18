@@ -1,0 +1,23 @@
+---
+/**
+ * Endereço antigo do painel A2 (edição 1.0). O 301 está em public/_redirects (Cloudflare, ADR-026); esta página de
+ * transição atende hospedagens que não leem _redirects (GitHub Pages, transitório): meta refresh, sem JavaScript.
+ */
+import { href } from '../../../../i18n/routing';
+const destino = href('/observatorio/politica-monetaria/', 'en');
+const abs = new URL(destino, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${destino}`} />
+    <link rel="canonical" href={abs} />
+    <title>Monetary Policy — new address</title>
+  </head>
+  <body>
+    <p>This dashboard has moved: <a href={destino}>{abs}</a></p>
+  </body>
+</html>
