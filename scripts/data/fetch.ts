@@ -33,7 +33,7 @@ async function baixar(r: Requisicao, s: Serie, tentativas = 4): Promise<Buffer> 
     try {
       const res = await fetch(url, {
         method: r.metodo ?? 'GET',
-        headers: { Accept: s.formato === 'binario' ? '*/*' : 'application/json', ...(r.corpo ? { 'Content-Type': 'application/json' } : {}) },
+        headers: { Accept: s.formato === 'binario' ? '*/*' : s.formato === 'csv' ? 'text/csv' : 'application/json', ...(r.corpo ? { 'Content-Type': 'application/json' } : {}) },
         ...(r.corpo ? { body: r.corpo } : {}),
         signal: AbortSignal.timeout(180_000),
       });
@@ -45,6 +45,10 @@ async function baixar(r: Requisicao, s: Serie, tentativas = 4): Promise<Buffer> 
         // Arquivo publicado com checksum oficial: só aceitamos o arquivo idêntico.
         const sha1 = createHash('sha1').update(body).digest('hex');
         if (s.sha1_oficial && sha1 !== s.sha1_oficial) throw new Error(`SHA-1 ${sha1} difere do oficial ${s.sha1_oficial}`);
+      } else if (s.formato === 'csv') {
+        // CSV: o cabeçalho tem de ser o esperado (uma página de erro HTML não passa).
+        const inicio = body.subarray(0, 200).toString('utf8').replace(/^\uFEFF/, '');
+        if (!s.cabecalho_csv || !inicio.startsWith(s.cabecalho_csv)) throw new Error(`CSV com cabeçalho inesperado: ${inicio.slice(0, 60)}`);
       } else {
         // Algumas APIs respondem 200 com página de erro HTML: só aceitamos JSON válido.
         JSON.parse(body.toString('utf8'));

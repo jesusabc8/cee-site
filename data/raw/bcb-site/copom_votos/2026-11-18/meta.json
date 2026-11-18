@@ -1,0 +1,15 @@
+{
+  "serie": "copom_votos",
+  "fonte": "bcb-site",
+  "codigo": "historico-votacoes-Copom.xlsx (sítio do BCB, página do Copom)",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "historico-votacoes-Copom.xlsx",
+      "url": "https://www.bcb.gov.br/content/controleinflacao/controleinflacao_docs/votacoes-copom/historico-votacoes-Copom.xlsx",
+      "sha256": "ecae7d399bc4139dc86c22d1ba5cafe21bba460a344c8ca808930b24b8c2f88c",
+      "bytes": 800307,
+      "sha1": "f8d0e1503395fb6e3b4ccc53520dcbd889c214ef"
+    }
+  ]
+}

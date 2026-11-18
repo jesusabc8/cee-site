@@ -1,0 +1,181 @@
+/**
+ * Processadores das séries do OPM (ADR-022): leem a resposta bruta do vintage e devolvem linhas de CSV.
+ * Os processadores genéricos (SGS mensal/diária, FRED) cobrem as séries marcadas com `generico` em series-opm.ts.
+ */
+import readXlsxFile from 'read-excel-file/node';
+import { lerCsvTexto, type Linha } from './csv.ts';
+import { sidraSeriesDe } from './sidra.ts';
+
+type Corpos = Record<string, Buffer>;
+type Proc = (c: Corpos, extraido: Date) => Linha[] | Promise<Linha[]>;
+
+const num = (v: unknown): number | null => {
+  if (v === null || v === undefined) return null;
+  const s = String(v).trim();
+  const n = Number(s);
+  return s === '' || s === '.' || Number.isNaN(n) ? null : n;
+};
+const json = (b: Buffer | undefined) => JSON.parse(b!.toString('utf8'));
+const brParaIso = (d: string) => `${d.slice(6, 10)}-${d.slice(3, 5)}-${d.slice(0, 2)}`;
+const arquivos = (c: Corpos, re = /\.json$/) => Object.keys(c).filter((k) => re.test(k)).sort();
+
+/** SGS em janelas → lista ordenada sem datas posteriores à extração (a API publica valores futuros da meta). */
+export function sgsLista(c: Corpos, extraido: Date) {
+  const limite = extraido.toISOString().slice(0, 10);
+  const vistos = new Map<string, number | null>();
+  for (const k of arquivos(c)) for (const r of json(c[k]) as { data: string; valor: string }[]) vistos.set(brParaIso(r.data), num(r.valor));
+  return [...vistos.entries()].filter(([d]) => d <= limite).sort(([a], [b]) => a.localeCompare(b)).map(([data, valor]) => ({ data, valor }));
+}
+
+export const genericos: Record<'sgs-mensal' | 'sgs-diaria' | 'fred', Proc> = {
+  'sgs-mensal': (c, e) => sgsLista(c, e).map((r) => ({ periodo: r.data.slice(0, 7), valor: r.valor })),
+  'sgs-diaria': (c, e) => sgsLista(c, e).map((r) => ({ data: r.data, valor: r.valor })),
+  // FRED: "observation_date,<ID>"; dias sem negociação vêm vazios e são omitidos.
+  fred: (c) => {
+    const [k] = arquivos(c, /\.csv$/);
+    return lerCsvTexto(c[k!]!.toString('utf8').replace(/\r/g, '')).map((r) => {
+      const [col] = Object.keys(r).filter((x) => x !== 'observation_date');
+      return { data: r.observation_date!, valor: num(r[col!]) };
+    }).filter((r) => r.valor !== null);
+  },
+};
+
+const odata = (c: Corpos) => arquivos(c).flatMap((k) => json(c[k]).value as Record<string, unknown>[]);
+const mesRef = (mmaaaa: string) => `${mmaaaa.slice(3, 7)}-${mmaaaa.slice(0, 2)}`;
+const stats = (r: Record<string, unknown>, min = false) => min
+  ? { media: num(r.media), mediana: num(r.mediana), desvio_padrao: num(r.desvioPadrao), minimo: num(r.minimo), maximo: num(r.maximo) }
+  : { media: num(r.Media), mediana: num(r.Mediana), desvio_padrao: num(r.DesvioPadrao), minimo: num(r.Minimo), maximo: num(r.Maximo) };
+/** "Rk/AAAA" → chave ordenável "AAAA-Rk". */
+const reuniaoChave = (r: string) => { const m = /^R(\d)\/(\d{4})$/.exec(r); return m ? `${m[2]}-R${m[1]}` : r; };
+const limpaHtml = (h: string) => h.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/[\u200b\u00a0]/g, ' ').replace(/\s+/g, ' ').trim();
+
+const MESES: Record<string, number> = { janeiro: 1, fevereiro: 2, 'março': 3, abril: 4, maio: 5, junho: 6, julho: 7, agosto: 8, setembro: 9, outubro: 10, novembro: 11, dezembro: 12 };
+
+/** Datas das reuniões no texto do comunicado de calendário: "27 e 28 de janeiro", "16 e 17 junho". */
+export function datasCalendario(texto: string, ano: number) {
+  const trecho = texto.slice(texto.indexOf('Datas das Reuniões'), texto.indexOf('2.', texto.indexOf('Datas das Reuniões')));
+  const out: { reuniao_ano: string; inicio: string; fim: string }[] = [];
+  for (const m of trecho.matchAll(/(\d{1,2}) e (\d{1,2}) (?:de )?([a-zç]+)/g)) {
+    const mes = MESES[m[3]!];
+    if (!mes) throw new Error(`Mês desconhecido no calendário do Copom: ${m[3]}`);
+    const d = (dia: string) => `${ano}-${String(mes).padStart(2, '0')}-${dia.padStart(2, '0')}`;
+    out.push({ reuniao_ano: `R${out.length + 1}/${ano}`, inicio: d(m[1]!), fim: d(m[2]!) });
+  }
+  if (out.length !== 8) throw new Error(`Calendário do Copom ${ano}: ${out.length} reuniões lidas (esperadas 8).`);
+  return out;
+}
+
+export const processadoresOpm: Record<string, Proc> = {
+  copom_decisoes: (c) => (json(c['resposta.json']).conteudo as Record<string, unknown>[])
+    .map((r) => ({
+      reuniao: num(r.NumeroReuniaoCopom), extraordinaria: r.ReuniaoExtraordinaria ? 1 : 0, data_reuniao: String(r.DataReuniaoCopom).slice(0, 10),
+      meta_selic: num(r.MetaSelic), vies: r.Vies === 'n/a' ? '' : String(r.Vies ?? ''), inicio_vigencia: String(r.DataInicioVigencia).slice(0, 10),
+      fim_vigencia: r.DataFimVigencia ? String(r.DataFimVigencia).slice(0, 10) : '', selic_efetiva_vigencia: num(r.TaxaSelicEfetivaVigencia),
+      selic_efetiva_anualizada: num(r.TaxaSelicEfetivaAnualizada),
+    }))
+    .sort((a, b) => a.inicio_vigencia.localeCompare(b.inicio_vigencia) || Number(a.reuniao) - Number(b.reuniao)),
+
+  // Planilha oficial de votações: colunas K–R (Reunião, Data, Decisão, Variação, Placar, Votante, Voto var., Voto − decisão).
+  // Publica-se só o placar e a contagem de votos; nomes de votantes não saem do dado bruto.
+  copom_votos: async (c) => {
+    const f = await readXlsxFile(c['historico-votacoes-Copom.xlsx']!) as unknown;
+    const rows = (Array.isArray((f as unknown[])[0]) ? f : (f as { data: unknown[][] }[])[0]!.data) as unknown[][];
+    const cab = rows.findIndex((r) => r[10] === 'Reunião' && r[14] === 'Placar');
+    if (cab < 0) throw new Error('Cabeçalho da planilha de votações não encontrado (colunas K–R).');
+    const por = new Map<number, { data: string; meta: number | null; variacao: number | null; placar: string; votantes: number; divergentes: number; soma_div: number }>();
+    for (const r of rows.slice(cab + 1)) {
+      const n = num(r[10]);
+      if (n === null || !(r[11] instanceof Date || typeof r[11] === 'string')) continue;
+      const m = por.get(n) ?? { data: new Date(r[11] as string).toISOString().slice(0, 10), meta: num(r[12]), variacao: num(r[13]), placar: String(r[14] ?? ''), votantes: 0, divergentes: 0, soma_div: 0 };
+      if (r[15]) {
+        m.votantes += 1;
+        const dif = num(r[17]);
+        if (dif !== null && dif !== 0) { m.divergentes += 1; m.soma_div += dif; }
+      }
+      por.set(n, m);
+    }
+    return [...por.entries()].sort(([a], [b]) => a - b).map(([reuniao, m]) => ({
+      reuniao, data: m.data, meta_selic: m.meta, variacao_pp: m.variacao, placar: m.placar,
+      votantes: m.votantes || null, votos_divergentes: m.votantes ? m.divergentes : null,
+      divergencia_media_pp: m.divergentes ? Math.round((m.soma_div / m.divergentes) * 100) / 100 : null,
+      unanime: m.placar === 'Unanimidade' ? 1 : m.votantes && m.divergentes === 0 ? 1 : 0,
+    }));
+  },
+
+  copom_calendario: (c) => arquivos(c).flatMap((k) => {
+    const ano = Number(/calendario-(\d{4})\.json/.exec(k)![1]);
+    const reg = (json(c[k]).conteudo as { Titulo: string; Texto: string }[])[0];
+    if (!reg) throw new Error(`Comunicado do calendário ${ano} vazio.`);
+    return datasCalendario(limpaHtml(reg.Texto), ano).map((d) => ({ ...d, comunicado: reg.Titulo }));
+  }),
+
+  // Índice dos textos (o texto integral fica no dado bruto, com hash): uma linha por reunião com texto.
+  copom_comunicados: (c) => arquivos(c).flatMap((k) => (json(c[k]).conteudo as Record<string, string | number>[]).map((r) => ({
+    reuniao: Number(r.nro_reuniao), data: String(r.dataReferencia).slice(0, 10), titulo: limpaHtml(String(r.titulo)),
+    caracteres: limpaHtml(String(r.textoComunicado ?? '')).length, arquivo_bruto: k,
+  }))).sort((a, b) => a.reuniao - b.reuniao),
+  copom_atas: (c) => arquivos(c).flatMap((k) => (json(c[k]).conteudo as Record<string, string | number | null>[]).map((r) => ({
+    reuniao: Number(r.nroReuniao), data: String(r.dataReferencia).slice(0, 10), publicacao: String(r.dataPublicacao ?? '').slice(0, 10),
+    caracteres: r.textoAta ? limpaHtml(String(r.textoAta)).length : 0, pdf: String(r.urlPdfAta ?? ''), arquivo_bruto: k,
+  }))).sort((a, b) => a.reuniao - b.reuniao),
+
+  focus_selic: (c) => odata(c).map((r) => ({
+    data: String(r.Data), reuniao: String(r.Reuniao), reuniao_chave: reuniaoChave(String(r.Reuniao)), ...stats(r), respondentes: num(r.numeroRespondentes),
+  })).sort((a, b) => a.data.localeCompare(b.data) || a.reuniao_chave.localeCompare(b.reuniao_chave)),
+  focus_selic_top5: (c) => odata(c).map((r) => ({
+    data: String(r.Data), reuniao: String(r.reuniao), reuniao_chave: reuniaoChave(String(r.reuniao)), tipo_calculo: String(r.tipoCalculo), ...stats(r, true),
+  })).sort((a, b) => a.data.localeCompare(b.data) || a.reuniao_chave.localeCompare(b.reuniao_chave) || a.tipo_calculo.localeCompare(b.tipo_calculo)),
+  focus_anuais: (c) => odata(c).map((r) => ({
+    data: String(r.Data), indicador: String(r.Indicador), ano_referencia: Number(r.DataReferencia), ...stats(r), respondentes: num(r.numeroRespondentes),
+  })).sort((a, b) => a.data.localeCompare(b.data) || a.indicador.localeCompare(b.indicador) || a.ano_referencia - b.ano_referencia),
+  focus_mensais: (c) => odata(c).map((r) => ({
+    data: String(r.Data), mes_referencia: mesRef(String(r.DataReferencia)), ...stats(r), respondentes: num(r.numeroRespondentes),
+  })).sort((a, b) => a.data.localeCompare(b.data) || a.mes_referencia.localeCompare(b.mes_referencia)),
+  focus_inflacao_12m: (c) => odata(c).map((r) => ({
+    data: String(r.Data), suavizada: String(r.Suavizada), ...stats(r), respondentes: num(r.numeroRespondentes),
+  })).sort((a, b) => a.data.localeCompare(b.data) || a.suavizada.localeCompare(b.suavizada)),
+  focus_top5_anuais: (c) => odata(c).map((r) => ({
+    data: String(r.Data), indicador: String(r.Indicador), ano_referencia: Number(r.DataReferencia), tipo_calculo: String(r.tipoCalculo), ...stats(r),
+  })).sort((a, b) => a.data.localeCompare(b.data) || a.indicador.localeCompare(b.indicador) || a.ano_referencia - b.ano_referencia || a.tipo_calculo.localeCompare(b.tipo_calculo)),
+  focus_top5_mensais: (c) => odata(c).map((r) => ({
+    data: String(r.Data), mes_referencia: mesRef(String(r.DataReferencia)), tipo_calculo: String(r.tipoCalculo), ...stats(r),
+  })).sort((a, b) => a.data.localeCompare(b.data) || a.mes_referencia.localeCompare(b.mes_referencia) || a.tipo_calculo.localeCompare(b.tipo_calculo)),
+
+  // SIDRA 7060: formato longo (período × categoria), com o nível hierárquico tirado do código "1.", "11.", "1101."…
+  ipca_itens: (c) => {
+    const out: Linha[] = [];
+    for (const k of arquivos(c)) {
+      const dados = json(c[k]);
+      if (Array.isArray(dados) && dados[0] && 'NC' in dados[0]) {
+        const cab = dados[0] as Record<string, string>;
+        const dim = (re: RegExp) => Object.keys(cab).find((x) => /^D\dC$/.test(x) && re.test(cab[x]!))!;
+        const kV = dim(/^Variável \(Código\)$/); const kP = dim(/^Mês \(Código\)$/); const kC = dim(/^Geral, grupo/);
+        const kN = kC.replace(/C$/, 'N');
+        for (const l of dados.slice(1) as Record<string, string>[]) out.push({ periodo: `${l[kP]!.slice(0, 4)}-${l[kP]!.slice(4)}`, var: l[kV]!, codigo: l[kC]!, nome: l[kN]!, valor: num(l.V) });
+      } else {
+        for (const v of dados as { id: string; resultados: { classificacoes: { categoria: Record<string, string> }[]; series: { serie: Record<string, string> }[] }[] }[]) {
+          for (const res of v.resultados) {
+            const [codigo, nome] = Object.entries(res.classificacoes[0]!.categoria)[0]!;
+            for (const [p, val] of Object.entries(res.series[0]!.serie)) out.push({ periodo: `${p.slice(0, 4)}-${p.slice(4)}`, var: v.id, codigo, nome, valor: num(val) });
+          }
+        }
+      }
+    }
+    // Junta variação (63) e peso (66) por período e categoria.
+    const m = new Map<string, Linha>();
+    for (const r of out) {
+      const chave = `${r.periodo}|${r.codigo}`;
+      const nome = String(r.nome);
+      // Código no nome: grupo "1.", subgrupo "11.", item "1101.", subitem "1101002." (1, 2, 4 e 7 dígitos).
+      const digitos = /^(\d+)\./.exec(nome)?.[1]?.length ?? 0;
+      const nivel = ({ 0: 0, 1: 1, 2: 2, 4: 3, 7: 4 } as Record<number, number>)[digitos];
+      if (nivel === undefined) throw new Error(`SIDRA 7060: categoria com código inesperado: ${nome}`);
+      const l: Linha = m.get(chave) ?? { periodo: r.periodo ?? null, codigo: Number(r.codigo), nivel, nome: nome.replace(/^\d+\./, ''), variacao_mensal: null, peso: null };
+      if (r.var === "63") l.variacao_mensal = r.valor ?? null; else if (r.var === "66") l.peso = r.valor ?? null;
+      m.set(chave, l);
+    }
+    return [...m.values()].sort((a, b) => String(a.periodo).localeCompare(String(b.periodo)) || Number(a.codigo) - Number(b.codigo));
+  },
+};
+
+export { sidraSeriesDe };

@@ -1,0 +1,26 @@
+{
+  "serie": "reservas_bancarias",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 1787",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "4ac6c47c43b323ffae97a27811bb5805cfe0be31514c45097903a85eceff50c6",
+      "bytes": 2461
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "c44ce1b9a679301f68cbd9afd2dc5eb98081caed4df4e1fa57d1b0cb772daad4",
+      "bytes": 2461
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "eb4dcfdea892d45200b4a239cd5b35a509706b4019e6194359fd286852b46524",
+      "bytes": 2338
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "serie": "nucleo_ma",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 11426",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "91fb30a4a74cb83fa6fd4c0e625a0c7bee565bf46f261e16bd68bc9796dc8c36",
+      "bytes": 2221
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "60a3104917fc3dba111ce2ffa4a461c88cd0c83837d175086b49a9b9666a38dd",
+      "bytes": 2222
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "21b9964bff302deeb8f2eb09c125f28e951523dbe9f2af6a26498bfab454d6c6",
+      "bytes": 2147
+    }
+  ]
+}

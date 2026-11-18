@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_nao_duraveis",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 10841",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "966d7cf88eaf7cc213d917d6c3e0c13da21e1269d2cf574b88b9567acf632b9c",
+      "bytes": 2232
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "fe07b34535cd634797382c7508cccc733304e6c7f2b5229598f03d2c805f75c4",
+      "bytes": 2239
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "6e81ac591f9c97952b2538eadd7b251de5f21af5e253ac3b441a188cfda6d145",
+      "bytes": 2162
+    }
+  ]
+}

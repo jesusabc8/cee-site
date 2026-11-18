@@ -1,0 +1,518 @@
+{
+  "serie": "copom_atas",
+  "fonte": "bcb-site",
+  "codigo": "API de conteúdo do BCB: /api/servico/sitebcb/copom/atas_detalhes",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "200.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=200",
+      "sha256": "2742c2a61ea16ef9e51259ab38ed8571478d72b20fa4c5298d01ad71abb26183",
+      "bytes": 224
+    },
+    {
+      "arquivo": "201.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=201",
+      "sha256": "9cbe136c200737aca8621bbdd9359cdeefb388a415ac8c3ac61c4d431af94a6a",
+      "bytes": 224
+    },
+    {
+      "arquivo": "202.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=202",
+      "sha256": "76408352bf5f9ed72359765ab07f26d326e40da1c1f3df7312f1bd233974d5d3",
+      "bytes": 224
+    },
+    {
+      "arquivo": "203.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=203",
+      "sha256": "16526ed71696ee24e3108e52dd547da8cd6cdff923499785f54bb90b9adf6dd3",
+      "bytes": 224
+    },
+    {
+      "arquivo": "204.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=204",
+      "sha256": "8737851417568840649dfd6979b10336e9b8a34f3f49df6b7f340cc40dd9353b",
+      "bytes": 224
+    },
+    {
+      "arquivo": "205.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=205",
+      "sha256": "bfee2158ce85363973fc76c735a2d371069d7c9ce8d46cc62c042fb1642aef1a",
+      "bytes": 224
+    },
+    {
+      "arquivo": "206.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=206",
+      "sha256": "c6c9791c57c4ece1acaa74b452a06765a6b4c517370129e4c97db5aa82a69764",
+      "bytes": 224
+    },
+    {
+      "arquivo": "207.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=207",
+      "sha256": "0c58a02799482f3aa973577be851225dc1d02a563e9c8a60d92f0da93f31311e",
+      "bytes": 224
+    },
+    {
+      "arquivo": "208.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=208",
+      "sha256": "010d12c23e807384e7ef48a6b39726083828732268a14957fc0af5a2ae0556c1",
+      "bytes": 224
+    },
+    {
+      "arquivo": "209.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=209",
+      "sha256": "1f14e7c9bde21cb413a35763185c41ba8584ab5ec92ed3804dcfba3eb2d2b32e",
+      "bytes": 224
+    },
+    {
+      "arquivo": "210.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=210",
+      "sha256": "ad9ef4f219033568a94374e71f8fc8a76c82d4f014abfbb545a1b49d5a119c85",
+      "bytes": 224
+    },
+    {
+      "arquivo": "211.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=211",
+      "sha256": "c5ac0dacedc0833072777bd96356ee6da224a26abf4aa1cefaa9643434c08024",
+      "bytes": 224
+    },
+    {
+      "arquivo": "212.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=212",
+      "sha256": "9e4e94c1ac5ff47bcc4c9a986ac1c01962b1d00f098c6943dc356b228a0668d0",
+      "bytes": 224
+    },
+    {
+      "arquivo": "213.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=213",
+      "sha256": "032a994f6425abb39d503358baf56f291c06d7ba50c8d67d5d06a223196c07f3",
+      "bytes": 224
+    },
+    {
+      "arquivo": "214.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=214",
+      "sha256": "d8c687dc0a4d2eccc4f3fb545b42a0caf2dda55bca20a0608b5184f416ab3104",
+      "bytes": 224
+    },
+    {
+      "arquivo": "215.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=215",
+      "sha256": "247fbd7bb113067a51fa2f67d8e88ba8929b19910a1544f036f23d190f4c490a",
+      "bytes": 224
+    },
+    {
+      "arquivo": "216.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=216",
+      "sha256": "00d10b8ff2fad2a72857e9896e281ace6389552956af73712cc368f7ece2c22b",
+      "bytes": 224
+    },
+    {
+      "arquivo": "217.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=217",
+      "sha256": "ba64b36791fa204efdd386be99525855164b3b4a37bc67e0beb1807761b6896e",
+      "bytes": 224
+    },
+    {
+      "arquivo": "218.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=218",
+      "sha256": "ab1d2d2bf5c6b292e93ebd5ea46c8f0620e1ebd48eef3e97401c45f1c7a47705",
+      "bytes": 224
+    },
+    {
+      "arquivo": "219.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=219",
+      "sha256": "1c215fb2362d3b6101143cc2a141a7a4e43576f0824dd648f5bfb0e5f5a041aa",
+      "bytes": 224
+    },
+    {
+      "arquivo": "220.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=220",
+      "sha256": "c648e24fc6614d2bc6c6c5f61809518e8627cebfa2aa6cbdee927d2a2f9be048",
+      "bytes": 224
+    },
+    {
+      "arquivo": "221.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=221",
+      "sha256": "6ce71fd979da6d024b1867dbd618f7cfaa726a686d92424ac76f9a7ba4d2551d",
+      "bytes": 224
+    },
+    {
+      "arquivo": "222.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=222",
+      "sha256": "9867e5e8cbd4232af7243f3d045badaa1e463b849ccdc204f159dab20d8030ff",
+      "bytes": 224
+    },
+    {
+      "arquivo": "223.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=223",
+      "sha256": "da8553f99fe17af4c227345d700366dff6458be01f5786b750911a24a62c694f",
+      "bytes": 224
+    },
+    {
+      "arquivo": "224.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=224",
+      "sha256": "adfe785e742bf20cc78523597199418c67c1f4434d6aa0f47fdd671c43cd58fe",
+      "bytes": 224
+    },
+    {
+      "arquivo": "225.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=225",
+      "sha256": "8c599cb40e1d0ae338fcc6aef7144f9a74a5b355ae47b50ae6b143a583564d38",
+      "bytes": 224
+    },
+    {
+      "arquivo": "226.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=226",
+      "sha256": "d7581867c38d4937137348ef74ada8dadbdf561055a4bbb4d03fdb3c2d57ab32",
+      "bytes": 224
+    },
+    {
+      "arquivo": "227.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=227",
+      "sha256": "e88d0e357a641edf4be994334f4deaf63e95b455574edc77e0bc7f48a44edc90",
+      "bytes": 224
+    },
+    {
+      "arquivo": "228.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=228",
+      "sha256": "3d3975096de930a8f65f2d7858b8a9e2e00433eb782991a6a847a05ed56a824e",
+      "bytes": 224
+    },
+    {
+      "arquivo": "229.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=229",
+      "sha256": "2e684e73cdefed9e08373a4748e2486b45435f789219d226fe7a864ef1616671",
+      "bytes": 224
+    },
+    {
+      "arquivo": "230.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=230",
+      "sha256": "5b933bd029ccae85a38dc527fc5a1a1732ba3064eaedf6c385b1d1e7ff1e9063",
+      "bytes": 224
+    },
+    {
+      "arquivo": "231.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=231",
+      "sha256": "c4e8bdbc0b3211379559ba2dd3a6ef3319cb860fa27519fa2d6a585165dc2e96",
+      "bytes": 224
+    },
+    {
+      "arquivo": "232.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=232",
+      "sha256": "0cef11e9485cdf968c103028fa36f38d550f3addd0f242c4770dc93379445d1f",
+      "bytes": 18380
+    },
+    {
+      "arquivo": "233.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=233",
+      "sha256": "1db6e9d3561ae5141e748001611053763eb9932669bb2c2c6513efb39c085daf",
+      "bytes": 18190
+    },
+    {
+      "arquivo": "234.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=234",
+      "sha256": "78cf32d1f58bae4d8adb3e49c6662e338c0d37581c3c5f1fad5748ed106eed8f",
+      "bytes": 16863
+    },
+    {
+      "arquivo": "235.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=235",
+      "sha256": "1a6be962a1a85bdf79682cb5265f625a43e66e8e635fb0a9366367add0bf3854",
+      "bytes": 16861
+    },
+    {
+      "arquivo": "236.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=236",
+      "sha256": "f53d3bc2210fc28fe7d34f81ba3503681d7bcc0893fa188189d9aa7e04d6e797",
+      "bytes": 16513
+    },
+    {
+      "arquivo": "237.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=237",
+      "sha256": "1ba44dc64a05aee2058e7096b568e9f550da24f52910d4e6cf221144c3a74e18",
+      "bytes": 17507
+    },
+    {
+      "arquivo": "238.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=238",
+      "sha256": "422093fe0fe14b87c043e26217ccd6924655645fd8589dc9f228121e5b05b7d0",
+      "bytes": 14144
+    },
+    {
+      "arquivo": "239.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=239",
+      "sha256": "40bb054be902794fa3d65c9056d36339cd38cf43c5750160c9bff5ccc7ee8989",
+      "bytes": 16336
+    },
+    {
+      "arquivo": "240.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=240",
+      "sha256": "d5fb0558ed4120f8e010261e1e0eb398d7e5c755e4c644ef9d02a640e29223fe",
+      "bytes": 15811
+    },
+    {
+      "arquivo": "241.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=241",
+      "sha256": "e84959a73dcf25fb8261e06555d287c69fd27c77069c4e95be3a3f94c603bc3c",
+      "bytes": 15728
+    },
+    {
+      "arquivo": "242.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=242",
+      "sha256": "0f7c69168fa2c51570b4643d0887f13644e1231dc266343a4faaa7a7cb945573",
+      "bytes": 15106
+    },
+    {
+      "arquivo": "243.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=243",
+      "sha256": "d8382223756288759c8362de1273726def17f98af12f5aca00a2f2d596231b33",
+      "bytes": 14726
+    },
+    {
+      "arquivo": "244.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=244",
+      "sha256": "7c2d9238d895cac4b799a2497f52eb5ebd0a4456698c26acd90943294aae8c67",
+      "bytes": 15818
+    },
+    {
+      "arquivo": "245.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=245",
+      "sha256": "5c4193e112a7c9db262da7737b118fa8e55f70a1095522e5b49ec4fcf93e422f",
+      "bytes": 19287
+    },
+    {
+      "arquivo": "246.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=246",
+      "sha256": "d9cc279000478ba739ce497d0261dd04084a37b0428482002afb0d5e24c0195f",
+      "bytes": 17394
+    },
+    {
+      "arquivo": "247.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=247",
+      "sha256": "136395a497dcd0a46f9a659539ca6da3d1f6b95d5ceae8db1789e733e36f66cb",
+      "bytes": 18631
+    },
+    {
+      "arquivo": "248.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=248",
+      "sha256": "42bcff7abe5438670a9641fedbf0760381e0a9a4ae9d89fa1207db24c7441e38",
+      "bytes": 21713
+    },
+    {
+      "arquivo": "249.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=249",
+      "sha256": "659fc3bd18359d7952b79ae06dce907fa0ae87ca5a2afca36a2e9084f23065ec",
+      "bytes": 22296
+    },
+    {
+      "arquivo": "250.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=250",
+      "sha256": "8d9c1f8b18e681479ca34f720106b4a6f9fa4de500e7b2ac16be47ef92be452c",
+      "bytes": 20297
+    },
+    {
+      "arquivo": "251.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=251",
+      "sha256": "8aaf1d2543e01977448ece1dbc1e17458580740c98e87c94cfd52c5d219bd44e",
+      "bytes": 22694
+    },
+    {
+      "arquivo": "252.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=252",
+      "sha256": "d00496453d9a1fea0b9af02ba9464fa205910dc1a3980464eef16fc3f958ca5c",
+      "bytes": 26294
+    },
+    {
+      "arquivo": "253.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=253",
+      "sha256": "ffb74198c8998dbcfe31ae1caa36a511a8de98cf1326ba058f63af72fc6dcdaa",
+      "bytes": 27413
+    },
+    {
+      "arquivo": "254.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=254",
+      "sha256": "0b14f63aa46982e3ca26c0c96bee74f21ed695b91d16a4120cd90b7fd2dcdef0",
+      "bytes": 25457
+    },
+    {
+      "arquivo": "255.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=255",
+      "sha256": "b3857e6f59545a47aedc7a979994c8327b522a8738f5eef7ac071c5b9a80ff22",
+      "bytes": 24447
+    },
+    {
+      "arquivo": "256.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=256",
+      "sha256": "41ead039786d40598a3b685985e7be9eedd635c6abc8ea854d002b9f948c2858",
+      "bytes": 28516
+    },
+    {
+      "arquivo": "257.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=257",
+      "sha256": "8bbdb638c85a598a8262c923f928b8e6ba33dfabcb8458d95c638c454039846f",
+      "bytes": 28015
+    },
+    {
+      "arquivo": "258.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=258",
+      "sha256": "1577d7981e20c5536701d1ab1662c662ffe90f3267873aaa1d42d9be787a0ec8",
+      "bytes": 26733
+    },
+    {
+      "arquivo": "259.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=259",
+      "sha256": "8d713b1d962828cee5db37de9d902b22a87779d57514930be37b9ab7cd85b3bb",
+      "bytes": 22863
+    },
+    {
+      "arquivo": "260.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=260",
+      "sha256": "20d2af07c14db7a58858949254b771c58268f5882e5a18b82c407f16aa815237",
+      "bytes": 23982
+    },
+    {
+      "arquivo": "261.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=261",
+      "sha256": "a25ee92c175b6c8e295c833d160df880dad2c3c32eb74ea4b62a8e88c654b7c9",
+      "bytes": 29129
+    },
+    {
+      "arquivo": "262.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=262",
+      "sha256": "be2afb661c4c0006421745a62e79633c8250f34b791bb17f44af06861a3b2f70",
+      "bytes": 24849
+    },
+    {
+      "arquivo": "263.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=263",
+      "sha256": "1b314b8c1b3c061e1adb89f7dc16ef16fcf6ceb33f18aeda208c2e20ee855f4a",
+      "bytes": 22624
+    },
+    {
+      "arquivo": "264.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=264",
+      "sha256": "0d90593c6e860da483ced27de1a5cb6fe4fbd96815535453a1a4d20845bf4706",
+      "bytes": 23683
+    },
+    {
+      "arquivo": "265.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=265",
+      "sha256": "b5524e20f305068fc1a93a2fc082563d4342b27df863ecc63891706383b344f2",
+      "bytes": 24200
+    },
+    {
+      "arquivo": "266.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=266",
+      "sha256": "da0b4d677250c5291264f9ac4ec40bfe542cc9bbb27c50111efd8c95ce0f9557",
+      "bytes": 23025
+    },
+    {
+      "arquivo": "267.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=267",
+      "sha256": "3626f4db2c4d00bb78468f48a0e12ba6550eb9dd78ac479df9019c1b41dec4ce",
+      "bytes": 23973
+    },
+    {
+      "arquivo": "268.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=268",
+      "sha256": "a11e7769d4a4ec149e9f882a7c0836fc60c5cfbc8d967b8189c748d3c8b19f79",
+      "bytes": 25175
+    },
+    {
+      "arquivo": "269.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=269",
+      "sha256": "1375c141fb404384786cd07de1fc1ff30a3af1c14945e6c19bba2c88982af9e2",
+      "bytes": 24592
+    },
+    {
+      "arquivo": "270.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=270",
+      "sha256": "9ab144038bb9a643f17466226fbdaddec0c365dd687bfd920aa418c1b4045c04",
+      "bytes": 27385
+    },
+    {
+      "arquivo": "271.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=271",
+      "sha256": "ed3c6c8e773b738bef3ee21360ec31a9195da9ddec8e3ce391e5839874d1d15a",
+      "bytes": 25663
+    },
+    {
+      "arquivo": "272.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=272",
+      "sha256": "e9d0d24241f83fbda67359fd861d01408e8329bba0d273ee8f49c425c444f3a7",
+      "bytes": 23938
+    },
+    {
+      "arquivo": "273.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=273",
+      "sha256": "c34ad9043b9d6fb862daa55106e1b351f5282e965129b8695a9926477c834fed",
+      "bytes": 23414
+    },
+    {
+      "arquivo": "274.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=274",
+      "sha256": "ca36acd965458a422c6e20769a9afe269addb4d2a90cea297f12112353efabf5",
+      "bytes": 21292
+    },
+    {
+      "arquivo": "275.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=275",
+      "sha256": "ef3f05275ab3c769097f435c1e24c00c1cbffcbc226b280d866b64d2edef1350",
+      "bytes": 20659
+    },
+    {
+      "arquivo": "276.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=276",
+      "sha256": "b4c2da99ab3e42c1e0eea1faac084b329100371b87cf2548ae70f6474f921929",
+      "bytes": 20671
+    },
+    {
+      "arquivo": "277.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=277",
+      "sha256": "26e4aaf41c5d17c5cb777d7ad505fca19288e75f56f96af1cf5369d95e9ca948",
+      "bytes": 19663
+    },
+    {
+      "arquivo": "278.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=278",
+      "sha256": "69f2e20b2eeb91a46307f264233c64026d2411a317ace254e9e1358278528fbc",
+      "bytes": 21677
+    },
+    {
+      "arquivo": "279.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=279",
+      "sha256": "afeabe53b0551cd7eea2917b539597e97ef8e69198adfb3794f5d8137660cd25",
+      "bytes": 22724
+    },
+    {
+      "arquivo": "280.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=280",
+      "sha256": "4594121bac5103d28d499adf4769cad8610a6fc4aba926e8da093be00dce5c6a",
+      "bytes": 19735
+    },
+    {
+      "arquivo": "281.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=281",
+      "sha256": "fa402b27a6424c01d96fccce81f58347cc35dcb390e23d1fa31f2207792eba98",
+      "bytes": 19791
+    },
+    {
+      "arquivo": "282.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=282",
+      "sha256": "60163aeb9fa0a03f7b23ced90d68f54d27ffdac9457e22cdccc16b68f6ec85e8",
+      "bytes": 20695
+    },
+    {
+      "arquivo": "283.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=283",
+      "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819",
+      "bytes": 15
+    },
+    {
+      "arquivo": "284.json",
+      "url": "https://www.bcb.gov.br/api/servico/sitebcb/copom/atas_detalhes?nro_reuniao=284",
+      "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819",
+      "bytes": 15
+    }
+  ]
+}

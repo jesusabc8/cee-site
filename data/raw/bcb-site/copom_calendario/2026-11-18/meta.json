@@ -1,0 +1,20 @@
+{
+  "serie": "copom_calendario",
+  "fonte": "bcb-site",
+  "codigo": "Comunicados BCB nº 43383, 45452 (API de normativos)",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "calendario-2026.json",
+      "url": "https://www.bcb.gov.br/api/conteudo/app/normativos/exibeoutrasnormas?p1=Comunicado&p2=43383",
+      "sha256": "13a3738730bacd2938c3761d788733e6c281298242fd6f17a2813997cb0064c5",
+      "bytes": 2240
+    },
+    {
+      "arquivo": "calendario-2027.json",
+      "url": "https://www.bcb.gov.br/api/conteudo/app/normativos/exibeoutrasnormas?p1=Comunicado&p2=45452",
+      "sha256": "bf2fcb1d7c1c47ea50b96b4361672848eecbe035e7324d54c8ac2596552acba0",
+      "bytes": 2505
+    }
+  ]
+}

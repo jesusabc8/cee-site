@@ -1,0 +1,98 @@
+{
+  "serie": "focus_anuais",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0, Indicador ∈ {IPCA; Selic; PIB Total; Câmbio}",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "0fe294454b2ec0240279e5ed89f4b6d66dfc4604cff7dc8b3b3d17f57c3bb7b0",
+      "bytes": 901367
+    },
+    {
+      "arquivo": "2013.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "7050dcf4e8f98cfda5f5f0ba2d3742ec7fb292aaff4cab1de22be30bf635507a",
+      "bytes": 908582
+    },
+    {
+      "arquivo": "2014.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "3f0fed65976682b914987b80a426088907ce776c90d32313b03ea8650e9e28ac",
+      "bytes": 901707
+    },
+    {
+      "arquivo": "2015.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2015-01-01'%20and%20Data%20le%20'2015-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "1cc2141997fc629690a4ee0fe468b7a037c09f22883728af47107669c5541ed6",
+      "bytes": 893154
+    },
+    {
+      "arquivo": "2016.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2016-01-01'%20and%20Data%20le%20'2016-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "40649a9e3df3a55fd0ffa1479b2c1f51eae8cc338d95cdb862c064b89bc4bd9f",
+      "bytes": 896474
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2017-01-01'%20and%20Data%20le%20'2017-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "5c19c0f85c1422ed0986905a8346b298b54392ef984db85974e4f157dd197750",
+      "bytes": 886103
+    },
+    {
+      "arquivo": "2018.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2018-01-01'%20and%20Data%20le%20'2018-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "01a9b7b91f6b2ababe83f145fc6066de8f954747177e626ac9c47c27628a6d6c",
+      "bytes": 888046
+    },
+    {
+      "arquivo": "2019.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2019-01-01'%20and%20Data%20le%20'2019-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "8df87e293f255a792517fbcfda75112844531fb7f40e9da2820d40d4432f460b",
+      "bytes": 898159
+    },
+    {
+      "arquivo": "2020.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2020-01-01'%20and%20Data%20le%20'2020-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "5ceb172fbd7d803c80d752448128ecc91bc16f7c33652687fcb10bc55fa9dd4c",
+      "bytes": 891958
+    },
+    {
+      "arquivo": "2021.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2021-01-01'%20and%20Data%20le%20'2021-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "2c3fb497d3f86c547b9c2d19a1998a83c863056dcf9a3cd6ebe6e36611681506",
+      "bytes": 892343
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2022-01-01'%20and%20Data%20le%20'2022-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "78f8d4d36cf83c3bacb55af909df0769b67d6c42c97dce44e607647cf12b0170",
+      "bytes": 894876
+    },
+    {
+      "arquivo": "2023.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2023-01-01'%20and%20Data%20le%20'2023-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "67ef5ddb168af30d81fbd9f6b290f307888998f81a7a2fe2d7781ffb16778189",
+      "bytes": 888312
+    },
+    {
+      "arquivo": "2024.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2024-01-01'%20and%20Data%20le%20'2024-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "c82e24b1d3669a47db1a7dad78fb9fb34757dd03313fa0a1203e28414eada5fc",
+      "bytes": 902432
+    },
+    {
+      "arquivo": "2025.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2025-01-01'%20and%20Data%20le%20'2025-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "ce837422aa2d39dc0d5454fa5e29d0cae10a53c9908fdb451dd6dac74a4ccfbb",
+      "bytes": 899834
+    },
+    {
+      "arquivo": "2026.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=baseCalculo%20eq%200%20and%20(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic'%20or%20Indicador%20eq%20'PIB%20Total'%20or%20Indicador%20eq%20'C%C3%A2mbio')%20and%20Data%20ge%20'2026-01-01'%20and%20Data%20le%20'2026-12-31'&$select=Indicador%2CData%2CDataReferencia%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "91276684372fcd2fcc8f5dbf21b3d3eba8fde35c9fa4a849c24e4ea8333b01f8",
+      "bytes": 775329
+    }
+  ]
+}

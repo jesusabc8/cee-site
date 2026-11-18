@@ -1,0 +1,50 @@
+{
+  "serie": "ipca_itens",
+  "fonte": "ibge-sidra",
+  "codigo": "SIDRA 7060, variáveis 63 e 66, classificação 315 (todas as categorias), Brasil",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2020.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202001-202012/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D",
+      "sha256": "0d359d35c649282b578cce1099d6f59de833cd32f3d5c07b10773d8e5a79a1ff",
+      "bytes": 397177
+    },
+    {
+      "arquivo": "2021.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202101-202112/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D",
+      "sha256": "7b949a2f5c477ecd5b63ba2d3dd648e4c47bf4ea38d1bc46449c0a1c7d79f8ce",
+      "bytes": 396673
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202201-202212/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D",
+      "sha256": "fbb3428e80dba933ef673ec7101986d2ce86f0ec8aba86bd878e55e8d936b933",
+      "bytes": 396607
+    },
+    {
+      "arquivo": "2023.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202301-202312/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D",
+      "sha256": "d2da3f4e897f432e8ceff1ca98bbff1a103c58192e34a1093de5265322743f96",
+      "bytes": 397253
+    },
+    {
+      "arquivo": "2024.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202401-202412/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D",
+      "sha256": "f5a1890e72559f4fd93cdd90e337d76f28e39c80a2d59152b88a4942c6857d1e",
+      "bytes": 397168
+    },
+    {
+      "arquivo": "2025.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202501-202512/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D",
+      "sha256": "6950f4e0e34daefeaf8f5b20ea6e7ba48f8412f0381b1ae0a186b331f5211360",
+      "bytes": 397176
+    },
+    {
+      "arquivo": "2026.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/agregados/7060/periodos/202601-202612/variaveis/63%7C66?localidades=N1%5Ball%5D&classificacao=315%5Ball%5D",
+      "sha256": "af87658b3d3141d69581aac9953f29118fd75453f98969be87849cbdf9960ff9",
+      "bytes": 365659
+    }
+  ]
+}

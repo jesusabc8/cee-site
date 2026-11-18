@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_semiduraveis",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 10842",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "dbea8105b388ce1ac58f89c62aaf398b6de80144e599db7fab3235f2d3c79626",
+      "bytes": 2234
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "a881f0ab074a6e60908fe276d77ed5def41a530ad25386352c7a8f16a065e785",
+      "bytes": 2240
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "6783d9e16841d7292768ce0dd0eb4f92e1477806fd3e3d38ca6be31a2a4bba29",
+      "bytes": 2157
+    }
+  ]
+}

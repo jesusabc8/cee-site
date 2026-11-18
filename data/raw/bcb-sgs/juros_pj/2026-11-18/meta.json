@@ -1,0 +1,26 @@
+{
+  "serie": "juros_pj",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 20715",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "e2c9659f132cc96d1a39b59d53e02a17e329c018eb4cf95ffd78008674eadadc",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "908995bd4fbdbe3cc49d88a5d32c8bb9161e6d44db4b27e4dd1e673169b9985f",
+      "bytes": 2280
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "65536a74fb3c4a6448f4846cbc8ec140e1a9f8c1ed600575e14a7ffe6f102926",
+      "bytes": 2167
+    }
+  ]
+}

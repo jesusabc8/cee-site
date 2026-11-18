@@ -1,0 +1,38 @@
+{
+  "serie": "depositos_vista",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27790",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2002.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006",
+      "sha256": "7763f494718176b86dcc02b1d1927ac0c1dcc358a9fe0cf5c4fbdb0f57ccec6b",
+      "bytes": 2462
+    },
+    {
+      "arquivo": "2007.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011",
+      "sha256": "7f5ad3c251eaccf21b0a8f56718965efd4d76741837641283697c4c4ec4ffdb7",
+      "bytes": 2518
+    },
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "21637286302d318250e9cbcac8fc1b0b1a0939e6e705f5b6877e10bdce1cb455",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "c92219ffc4fcd5e87cc5875c96f6bd0ddb57ae748d8e81c4c3a15f52c535b411",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27790/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "aab45714f06707d4a2be91a0e4447e4d87d45be5cf65db43b0ae68424d506c5c",
+      "bytes": 2395
+    }
+  ]
+}

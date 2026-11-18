@@ -1,0 +1,26 @@
+{
+  "serie": "nucleo_ex2",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27838",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "be6f4945c7a0b697df4d4b4ae94fe31edefa0a9f211fffdac441ef7440d4f98f",
+      "bytes": 2221
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "62df22d211df5f25b32a1cd18be8782a10f08e642ccc26c9c9d5d8a0e73822a7",
+      "bytes": 2226
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "17dafd06ee8da705bd5f5b4ed27bde40d2e9d9015f8f641c2ec1a3ed2aa79289",
+      "bytes": 2148
+    }
+  ]
+}

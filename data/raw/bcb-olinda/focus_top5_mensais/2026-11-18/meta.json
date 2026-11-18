@@ -1,0 +1,98 @@
+{
+  "serie": "focus_top5_mensais",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativasMercadoTop5Mensais, Indicador='IPCA', tipoCalculo='C'",
+  "extraido_em": "2026-11-18T02:13:32.833Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "b5894d0ec852160dba911c29299ef6f53331ef83f647e03d0fc74e2ef229ea3e",
+      "bytes": 684233
+    },
+    {
+      "arquivo": "2013.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "09905372485ec04b1b20611c09337b69a6661647996790101201205aa88abe93",
+      "bytes": 692107
+    },
+    {
+      "arquivo": "2014.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "5e0caec64a1285356864aa575ab52fd084f092305bb64f5ab1fe610d530232f2",
+      "bytes": 683211
+    },
+    {
+      "arquivo": "2015.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2015-01-01'%20and%20Data%20le%20'2015-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "eb466fd1ed4bab9e6ee44b457a9116301ee69f457bad7cca2d5b7c33a7afef68",
+      "bytes": 667452
+    },
+    {
+      "arquivo": "2016.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2016-01-01'%20and%20Data%20le%20'2016-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "b01ce4d1e56c54ce4580d8917291e80a9e3fdaeb2a5e292d25540fc5485c817c",
+      "bytes": 686431
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2017-01-01'%20and%20Data%20le%20'2017-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "9380ff65dbd7b2d4c79ef41f235cffc10a53b1e32190b2b826dd5967cf8c6d9f",
+      "bytes": 682881
+    },
+    {
+      "arquivo": "2018.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2018-01-01'%20and%20Data%20le%20'2018-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "f7f591d4f36f71dfb398f8dbd150d45dcdcfceeaea76bf015dd0d121eefb94bc",
+      "bytes": 684538
+    },
+    {
+      "arquivo": "2019.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2019-01-01'%20and%20Data%20le%20'2019-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "6f610c36d5c4a781eed85158db48d0977745ba2fa0ee6b8e3ef1a4d1f1bfda5f",
+      "bytes": 695286
+    },
+    {
+      "arquivo": "2020.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2020-01-01'%20and%20Data%20le%20'2020-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "21828ffd0fd2309ab63d4251c23fb40f3f1f6f321c2fff05c000ebf9d94bc1fc",
+      "bytes": 688156
+    },
+    {
+      "arquivo": "2021.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2021-01-01'%20and%20Data%20le%20'2021-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "0ecbc78155950461459156dc673bc8c6a5d210c3a7e473f8b997bd78bc3f14be",
+      "bytes": 945707
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2022-01-01'%20and%20Data%20le%20'2022-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "313bcdd65b1be9d6f8397d1d00f4fd9fbc4d8e3a66f85fbe72cba82fd3e0fab7",
+      "bytes": 954957
+    },
+    {
+      "arquivo": "2023.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2023-01-01'%20and%20Data%20le%20'2023-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "f04212843d143951cb272cd5a37dc388cbcff92b06cce77f372a8c3189df1a8d",
+      "bytes": 948042
+    },
+    {
+      "arquivo": "2024.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2024-01-01'%20and%20Data%20le%20'2024-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "b4b9e86273394e0b8231561ca04ca2b4f681bddf19c2e4f3dd581f89f129b278",
+      "bytes": 964568
+    },
+    {
+      "arquivo": "2025.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2025-01-01'%20and%20Data%20le%20'2025-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "7fda6b9ece32c60803af4ebf635896d82f8c856986588beddab1939fca415d59",
+      "bytes": 959864
+    },
+    {
+      "arquivo": "2026.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Mensais?$filter=Indicador%20eq%20'IPCA'%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2026-01-01'%20and%20Data%20le%20'2026-12-31'&$select=Data%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "e0e9dcaadef81b437a6e6e7cea4db6018ea3db6d3be2e3bf0fda7f17666be8ce",
+      "bytes": 816388
+    }
+  ]
+}

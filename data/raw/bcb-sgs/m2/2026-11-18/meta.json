@@ -1,0 +1,38 @@
+{
+  "serie": "m2",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27810",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2002.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2002&dataFinal=31/12/2006",
+      "sha256": "5399a9cc9376f42c44357f6880c6ea67da7f6a8d77075253cbed66c033c464b4",
+      "bytes": 2521
+    },
+    {
+      "arquivo": "2007.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2007&dataFinal=31/12/2011",
+      "sha256": "9d95aee6968273a69661c6036777fd44b6b173f29ec330439c2072e3d3af29c5",
+      "bytes": 2561
+    },
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "e8f850f30fd760f4a26ec3fd3219b76991a63e636bf777f5d92022b4dc7ac795",
+      "bytes": 2581
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "8badfccf2189634db3f614b0b9b73071d938a784091c71c7e860affcdd59a5af",
+      "bytes": 2581
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27810/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "ca43a7737df124ceb2b98451a4e754afb164b289e51af7c8436276a414e7ea4f",
+      "bytes": 2452
+    }
+  ]
+}

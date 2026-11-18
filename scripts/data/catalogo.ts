@@ -6,7 +6,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { SERIES } from './series.ts';
 
 const vint = Object.assign({},
-  ...(await Promise.all(['conjuntura', 'panorama'].map((p) => readFile(`data/processed/${p}/vintage.json`, 'utf8').then(JSON.parse)))));
+  ...(await Promise.all(['conjuntura', 'panorama', 'opm'].map((p) => readFile(`data/processed/${p}/vintage.json`, 'utf8').then(JSON.parse)))));
 const linhas = [
   '# Catálogo de dados e fontes',
   '',

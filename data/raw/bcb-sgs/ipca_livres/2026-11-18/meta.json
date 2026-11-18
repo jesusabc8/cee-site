@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_livres",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 11428",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "5c3229a7326e27531a69b6637900dd6baf510d7c227d63b4c4368b8a25965808",
+      "bytes": 2223
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "2b4f25dcb54bc6d0a23cfb6f7d52dd0ca52b38a4533719b753e604a6970fe85e",
+      "bytes": 2231
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "af86f155a3df16f811816b719a4f7d122d3a34a9834cc23aa62400651aab8cad",
+      "bytes": 2151
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "serie": "base_ampliada",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 1833",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "aa89b6322aa0171200310a34af122ff2c40b3b76483dadcc2c8d979d391d1b35",
+      "bytes": 2581
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "e46124f229d23c08efaf7110bb3ac751ce175bdecbc580b90db77fff48d6e493",
+      "bytes": 2581
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "c9c6de864663392381cf8f17a5f127320adf3091c02e1e3b726dc7d7664199c3",
+      "bytes": 2467
+    }
+  ]
+}

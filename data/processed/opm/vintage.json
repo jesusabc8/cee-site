@@ -1,0 +1,2873 @@
+{
+  "selic_efetiva": {
+    "nome": "Taxa Selic efetiva, anualizada base 252",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 1178",
+    "unidade": "% a.a.",
+    "frequencia": "diária",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1178",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/selic_efetiva/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "a13f00a211809265d8b8f6c47793d5308eb6b26a72c8fcf499809484ba214d92"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "4c72beb95da6df6efa5dac0ea76a79c3f162a3027a09ab5bb125caf3277a34fe"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "2d6d66e3e30a2a259e02c639c4af442c4cc5798a647bf6ea44d93cdc2df07e6d"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "447b1cb1a34e4f4cf81481d9cd030a32d3d80d474cadd5f98335b38d45a6a34a"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "c9461e5dbae7529c9357c53debd3e3589e1603bb94fe30e818d6757f412af414"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "66a6e125a2ba6a48951884162debcf5600fbf90a2c0feb96bc5483f7ec9c6db2"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "b43e343e55f1cb4848817a74654db87d7d5208ad51880f7d4457dd1337d2ac58"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "3ad4ee4732c029b2af4be47d4ef308c85abdebe015185bccc27d51c26f34b561"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "90357ac5e66680a492aee12aeae7f9c2a8a672a86c9208b0c876f7d3b41b354f"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "26884daa20360ac06f5f6867896ccd10a12aac6ab711a90c8fb0d4dad73a59b4"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "f0702abbb1f920ccdcf052efad65f992a77fc96f1f10f8b688d6f4229fa01ed1"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "48bae039247dd527a0c11b7dcbb2ba670a7ab93953650fc10502e587a4307649"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "4f1acb43449592a1982db7166c4d6f2bf868d8e87a92f8bf1bcb805f64ac134b"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "7e8f49b70652290ea9f6a15e0332a3f51da9410121405949814399a8f02160e5"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "89b9bd202be210eedba407e19841f6dd0d45311f2ec0ae8f4e29ee5ec6edca4d"
+      }
+    ],
+    "linhas": 3736,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-17",
+    "desatualizado": false,
+    "falha": null
+  },
+  "copom_decisoes": {
+    "nome": "Histórico das taxas de juros fixadas pelo Copom",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "API de conteúdo do BCB: /api/servico/sitebcb/historicotaxasjuros",
+    "unidade": "% a.a.",
+    "frequencia": "por reunião",
+    "url_publica": "https://www.bcb.gov.br/controleinflacao/historicotaxasjuros",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-site/copom_decisoes/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "resposta.json",
+        "sha256": "3b8bee1210fb078d28508c25950010647791d580712cb96b3b3e6724239d6fce"
+      }
+    ],
+    "linhas": 290,
+    "primeiro": "1",
+    "ultimo": "99",
+    "desatualizado": false,
+    "falha": null
+  },
+  "copom_votos": {
+    "nome": "Histórico de votações das reuniões do Copom",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "historico-votacoes-Copom.xlsx (sítio do BCB, página do Copom)",
+    "unidade": "placar e votos (p.p.)",
+    "frequencia": "por reunião",
+    "url_publica": "https://www.bcb.gov.br/controleinflacao/copom",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-site/copom_votos/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "historico-votacoes-Copom.xlsx",
+        "sha256": "ecae7d399bc4139dc86c22d1ba5cafe21bba460a344c8ca808930b24b8c2f88c"
+      }
+    ],
+    "linhas": 262,
+    "primeiro": "100",
+    "ultimo": "99",
+    "desatualizado": false,
+    "falha": null
+  },
+  "copom_calendario": {
+    "nome": "Calendário das reuniões ordinárias do Copom",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Comunicados BCB nº 43383, 45452 (API de normativos)",
+    "unidade": "datas",
+    "frequencia": "anual",
+    "url_publica": "https://www.bcb.gov.br/controleinflacao/copom",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-site/copom_calendario/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "calendario-2026.json",
+        "sha256": "13a3738730bacd2938c3761d788733e6c281298242fd6f17a2813997cb0064c5"
+      },
+      {
+        "arquivo": "calendario-2027.json",
+        "sha256": "bf2fcb1d7c1c47ea50b96b4361672848eecbe035e7324d54c8ac2596552acba0"
+      }
+    ],
+    "linhas": 16,
+    "primeiro": "R1/2026",
+    "ultimo": "R8/2027",
+    "desatualizado": false,
+    "falha": null
+  },
+  "copom_comunicados": {
+    "nome": "Comunicados das decisões do Copom (texto integral)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "API de conteúdo do BCB: /api/servico/sitebcb/copom/comunicados_detalhes",
+    "unidade": "texto (HTML)",
+    "frequencia": "por reunião",
+    "url_publica": "https://www.bcb.gov.br/controleinflacao/comunicadoscopom",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-site/copom_comunicados/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "200.json",
+        "sha256": "55bf06ece5b0c376f0ab55b2b31e422f5118803f4c7e60fa89f2db21d3c04d07"
+      },
+      {
+        "arquivo": "201.json",
+        "sha256": "c8b3573235d13fd89d4c1c60a76f8209475a0d051126cd07e3176eef63d40b80"
+      },
+      {
+        "arquivo": "202.json",
+        "sha256": "e457ff59030f369f5fcb68879321fcce007c9d5788e6f7cf5cbb4e4225cc4d23"
+      },
+      {
+        "arquivo": "203.json",
+        "sha256": "d73c6d1efedddcc7cfd3fd2ec25fcc816256eda8b0db4a8f377fb8179bf5f921"
+      },
+      {
+        "arquivo": "204.json",
+        "sha256": "9ba3bef9bb158338104a5758558691b830443458491bc2fddf56681e1dd8518f"
+      },
+      {
+        "arquivo": "205.json",
+        "sha256": "4d03403a3691280fdaaf233a1373ec8b9b19d4733cf98afac849f396d52ae393"
+      },
+      {
+        "arquivo": "206.json",
+        "sha256": "f46296b7e0be604f40a6cab2403c7b06f0bc4b661455ee770b250ff573f143bb"
+      },
+      {
+        "arquivo": "207.json",
+        "sha256": "7846239ea546c84c7c89dd9a5297a6e7af1b53d98f6a18736f778bb5f2b0f865"
+      },
+      {
+        "arquivo": "208.json",
+        "sha256": "b8bd115f065d3b63bbbf4e422480a143ac187c6254b81cf7378b7943a28667a9"
+      },
+      {
+        "arquivo": "209.json",
+        "sha256": "df4bc4ff509f46c7659585a18701ba951cc535c9f9f87c8c2f5d5aedebd5e3c6"
+      },
+      {
+        "arquivo": "210.json",
+        "sha256": "a07c27a57dc9d4a0054ad8cf7d47f7d4cbdccbacabcd8d5c6e30aa40e4595af3"
+      },
+      {
+        "arquivo": "211.json",
+        "sha256": "7060a87249e586449946654a16d87d7c4215a3c80c3a4d7b91113b8ccc6a2f60"
+      },
+      {
+        "arquivo": "212.json",
+        "sha256": "df8c960e9e3a06d4565f17f1ab458b48cb36f15d9b5d944f1834e43020d1af15"
+      },
+      {
+        "arquivo": "213.json",
+        "sha256": "ecd6b5a8a75f4dd25259271ae7699e4bdbee61a32d56752579fdb7ebf1637241"
+      },
+      {
+        "arquivo": "214.json",
+        "sha256": "53aad4c504c742cbe885082483cc8e7272c0366bb4d321f6ee2e5aa113470988"
+      },
+      {
+        "arquivo": "215.json",
+        "sha256": "407073f1366e479384125367ee99465b7231fc5dfdbaf7a8c4e8cc78082106cd"
+      },
+      {
+        "arquivo": "216.json",
+        "sha256": "0cbe54c3fdd1e0f0dae97cc4370d6be985389b07166e8e9874250acb6fd592e0"
+      },
+      {
+        "arquivo": "217.json",
+        "sha256": "937f3b96b9637cad52bb05e7bc9316fff78a0bbd2f14e32e8c9aa07f80c10b4b"
+      },
+      {
+        "arquivo": "218.json",
+        "sha256": "ca9b9f8277d9cd5072ee31a3625cb2a1990f04a107d4b7f848dbd09f8743054d"
+      },
+      {
+        "arquivo": "219.json",
+        "sha256": "96f25efaa2f8ed3b73185cb31df6750bf6467577a58945fc17149afadec770fc"
+      },
+      {
+        "arquivo": "220.json",
+        "sha256": "7c213ad034d925f1fdee4f328ab274a6fbeb6858b684193a0a8a6c782c539b8d"
+      },
+      {
+        "arquivo": "221.json",
+        "sha256": "148594289fe85cd6eaaa970babea6307c61adfce564fe132b872287153768dc6"
+      },
+      {
+        "arquivo": "222.json",
+        "sha256": "0727ae95b6e583a1952e3b766fb822a8eb2ebe5c285f3b3989f6320d3936d08f"
+      },
+      {
+        "arquivo": "223.json",
+        "sha256": "2e142e9389ee6bb6b7a070df6be4202bc53c62c656a1571d6074a78e02a4c7db"
+      },
+      {
+        "arquivo": "224.json",
+        "sha256": "6ef54431a6e194c0025ec84f81b7eb8c3f280007bd3dc7b84a94805f8bf32149"
+      },
+      {
+        "arquivo": "225.json",
+        "sha256": "07b5cbc0e0cfa213355f250058ad5d5358335e1952fa3ae05742a99f5c3375fd"
+      },
+      {
+        "arquivo": "226.json",
+        "sha256": "b6fcb4a001c8ec75d5b0eef891493acb8a211d50294768e5daf2688d6507e1fb"
+      },
+      {
+        "arquivo": "227.json",
+        "sha256": "869003704165cfe2a29db91dbbd2c03be7ff8fe315b837140e3350f6b5e9dc99"
+      },
+      {
+        "arquivo": "228.json",
+        "sha256": "a32cf92a1fa2300518cf86fc0c34e1ed036fead5e6eb4738d5aa63c07060ac00"
+      },
+      {
+        "arquivo": "229.json",
+        "sha256": "28e1951fa642605cd42f1b2e950769b3dfe64a912ad7be259c17b59b87aa1685"
+      },
+      {
+        "arquivo": "230.json",
+        "sha256": "e80744a39a401b6e0a364a5db33a1c489fb09bfdda60d0f6454872028ed9a8a6"
+      },
+      {
+        "arquivo": "231.json",
+        "sha256": "1ddf582a482eaad81e7e971fa64854c651604d409c71366c07706d1aa4364e86"
+      },
+      {
+        "arquivo": "232.json",
+        "sha256": "b7a6522382b270d54259b0088851fd45908bf5638668081b4c2282582b61c219"
+      },
+      {
+        "arquivo": "233.json",
+        "sha256": "bfefb106d1e9369972e9d31d0d973bb32e7f53467739004737a0ced936f614ae"
+      },
+      {
+        "arquivo": "234.json",
+        "sha256": "9aeb467b622838b56381a4ddb1f33b22afa22df6ce667cfdbd68117cd03c4a01"
+      },
+      {
+        "arquivo": "235.json",
+        "sha256": "6f7b1a6e31182f2ec62bd6d6300057a666db26ba90e12a8deccf1c467d55cae4"
+      },
+      {
+        "arquivo": "236.json",
+        "sha256": "a0a9c8c35bc28379135d8277840f9fa69ebc915a656eca283a6be012c0e637e9"
+      },
+      {
+        "arquivo": "237.json",
+        "sha256": "245e9d32bb0384520190cbd88efc0761fd09e5b7aacbb5ddbcfe182ff8e80369"
+      },
+      {
+        "arquivo": "238.json",
+        "sha256": "8b56e204b1969dd5289c515f729de0cf7fc14778db2d7ffcb5b71b465396d2f9"
+      },
+      {
+        "arquivo": "239.json",
+        "sha256": "be9f17d7660b9c57c20e77152f4c0547438cf771ef04bb1ab922414167619dd5"
+      },
+      {
+        "arquivo": "240.json",
+        "sha256": "f8146cec3ced630d11c4ef6b764d3d4563dd0729896d4e30cfa34a1f348e8b43"
+      },
+      {
+        "arquivo": "241.json",
+        "sha256": "9d78f2205c2c82677aba647d1954b7dcbd338f46615dd3ebd51dc846b1668430"
+      },
+      {
+        "arquivo": "242.json",
+        "sha256": "9d30aaffdcc12beb4473d50fd3de8daf98dc0340d00b7b99d95e64d25133276c"
+      },
+      {
+        "arquivo": "243.json",
+        "sha256": "11f27de640eefb02be86e3e0759fd6e569d9dba66305d23fd4440d712abe4bd7"
+      },
+      {
+        "arquivo": "244.json",
+        "sha256": "6d5d742c1743f692217a7f234029d0a6b0bcd9824a77f04306ee06b67c820585"
+      },
+      {
+        "arquivo": "245.json",
+        "sha256": "b871d7f18dcb3168a0cd659a3e033681e23fd3e5c383d02402d333fef43a95c9"
+      },
+      {
+        "arquivo": "246.json",
+        "sha256": "120784172eff2b75adedffb9f40d98aaf29d5b9f318ad0255ad9c520e25439d2"
+      },
+      {
+        "arquivo": "247.json",
+        "sha256": "cf9b98a2a5e9e6bd8552fd8212436dbd91c92f14ce93593727fa03d9514c545f"
+      },
+      {
+        "arquivo": "248.json",
+        "sha256": "85d4f1582885d74a3b19e96a88ab7bb11e2211f7d86d3056e4ca269756c1cb95"
+      },
+      {
+        "arquivo": "249.json",
+        "sha256": "5a158c5a7c0f564115904595b0106d0ebf2af28c3122a1d1828466967da28f61"
+      },
+      {
+        "arquivo": "250.json",
+        "sha256": "42fd42e24575a9de2d2ed79f059d690682937a8cec4c4270096acaf491c3b7e8"
+      },
+      {
+        "arquivo": "251.json",
+        "sha256": "4c7413c68f22a911ade6fa020d2229f9922d37d981827b47d86345bed524e022"
+      },
+      {
+        "arquivo": "252.json",
+        "sha256": "a5c1feb7f5e89aaf8b4267dde8db843e72be4e815b386799545fb71efcf71d44"
+      },
+      {
+        "arquivo": "253.json",
+        "sha256": "a39cb90f0133c2b6a48e6c5313f3012531e7e75648b3e21710d4cacb81e04285"
+      },
+      {
+        "arquivo": "254.json",
+        "sha256": "f34b339122a8ead91e36d7e16e25d7dea47cc83372a70623e90ffce363e102d5"
+      },
+      {
+        "arquivo": "255.json",
+        "sha256": "87f04bae3b9e6b685c6e7c1a541134cb56c7e5b989e1341a2e8db69991e5a272"
+      },
+      {
+        "arquivo": "256.json",
+        "sha256": "147c8b3c9d4c2c86b40efd3ddad9be18351952a86f05c7b830186223f349d7bb"
+      },
+      {
+        "arquivo": "257.json",
+        "sha256": "1e9cd0e702b6212261de0fd889e170af0aafc19f5a3bbb799af506825d218c07"
+      },
+      {
+        "arquivo": "258.json",
+        "sha256": "90c35e8b84c186256acf88b127e4126f6b6571c53da29a94b68c7dde03ee1778"
+      },
+      {
+        "arquivo": "259.json",
+        "sha256": "7164b8fc9fa4f035117ac07e850b094248376b026af176b35a162f9e7f7f7010"
+      },
+      {
+        "arquivo": "260.json",
+        "sha256": "ca325de4daa424269ede146f8bf1391f79ecf8d3e1c3aefe521d172822b2ec29"
+      },
+      {
+        "arquivo": "261.json",
+        "sha256": "2997e3cee9803c646030072221c790e7020555d83b948a55cb3dccd476cdbc8c"
+      },
+      {
+        "arquivo": "262.json",
+        "sha256": "d3532e32782043559a37d449151e8fea54635d494c92e6d8e642f963185b0ea3"
+      },
+      {
+        "arquivo": "263.json",
+        "sha256": "3f6d435f8bc33311921b911f4c67c00449eea0bb95ef922e80cbaf4f9f2b8e70"
+      },
+      {
+        "arquivo": "264.json",
+        "sha256": "6ebf99ecefba393c0b4f3525fb1dfada8c97a55c47c0acea0ca8e94949cbee4e"
+      },
+      {
+        "arquivo": "265.json",
+        "sha256": "b8fb33127e3005c4fabc13225a7caf6401cfae2c277466d24ff5c995d14501ce"
+      },
+      {
+        "arquivo": "266.json",
+        "sha256": "3659d3b199dbb79e9137784501916cdce16be289fe631f78673f282aa0af752c"
+      },
+      {
+        "arquivo": "267.json",
+        "sha256": "16848974e3f862cb4931252bf443bb8f117c6a59c795d12327182e988141b38e"
+      },
+      {
+        "arquivo": "268.json",
+        "sha256": "479c6a6cc22a8828db7de229e72bceab0020d86b8a904536a9445dd41bce2b8d"
+      },
+      {
+        "arquivo": "269.json",
+        "sha256": "a5bb81c4ae78a2dcfa3b4715632fff26bc3d73bf1ee379619b4a677dd37fd9aa"
+      },
+      {
+        "arquivo": "270.json",
+        "sha256": "6cb5e706316411f9be755560ab8495155154525b4a251eb5e9e6ca6411f191f9"
+      },
+      {
+        "arquivo": "271.json",
+        "sha256": "50e7175b636f0e1e30480a12d7b6a80cdb16560319c7309dbb7f2f3a1b95b5b1"
+      },
+      {
+        "arquivo": "272.json",
+        "sha256": "75db5dbbc8bd2269def4727b876a9da41bc6c27b37fdb5d86de304d5f0a9093b"
+      },
+      {
+        "arquivo": "273.json",
+        "sha256": "0faced70d603f45cbb07365c6590ae2b3740fd4a1853f13c7cbf4104dc0694d9"
+      },
+      {
+        "arquivo": "274.json",
+        "sha256": "443f815609b684b3eae685a23158ae8e21251099d60290ddc2aaa9bab9f2217d"
+      },
+      {
+        "arquivo": "275.json",
+        "sha256": "2ec29990e12530499626dbbfa65e95da209354cf790cf57eee9858b5a698cff0"
+      },
+      {
+        "arquivo": "276.json",
+        "sha256": "727990f8feac1bb8724a61df11fef03ff2dcee025b3429104c76b35748876690"
+      },
+      {
+        "arquivo": "277.json",
+        "sha256": "b867df1caddb089703066415fc8a1842bec6bcbc2c33765d4947ee588bfe3012"
+      },
+      {
+        "arquivo": "278.json",
+        "sha256": "ad534f3af9201a68ba9b12d1d6d550a6892e598f893802fc37a5ab477b8a28ee"
+      },
+      {
+        "arquivo": "279.json",
+        "sha256": "3d564e110b92ff6ce9aadc2a1d1667282918ce339dbb8f756ba854acd94d1cfa"
+      },
+      {
+        "arquivo": "280.json",
+        "sha256": "5dc1742da02be038f6ac77b04c22a99b4a0a19626f5816daf97960c8fa566c59"
+      },
+      {
+        "arquivo": "281.json",
+        "sha256": "c32e5fccaba8d550544472f72f03222eb880fbb543674f77eb89d565d4dc9b66"
+      },
+      {
+        "arquivo": "282.json",
+        "sha256": "2cc9c6fcf03f7281cf2881b8741fad7b7906906f9103123363be85bce423a060"
+      },
+      {
+        "arquivo": "283.json",
+        "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819"
+      },
+      {
+        "arquivo": "284.json",
+        "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819"
+      }
+    ],
+    "linhas": 83,
+    "primeiro": "200",
+    "ultimo": "282",
+    "desatualizado": false,
+    "falha": null
+  },
+  "copom_atas": {
+    "nome": "Atas das reuniões do Copom (texto integral)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "API de conteúdo do BCB: /api/servico/sitebcb/copom/atas_detalhes",
+    "unidade": "texto (HTML)",
+    "frequencia": "por reunião",
+    "url_publica": "https://www.bcb.gov.br/publicacoes/atascopom",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-site/copom_atas/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "200.json",
+        "sha256": "2742c2a61ea16ef9e51259ab38ed8571478d72b20fa4c5298d01ad71abb26183"
+      },
+      {
+        "arquivo": "201.json",
+        "sha256": "9cbe136c200737aca8621bbdd9359cdeefb388a415ac8c3ac61c4d431af94a6a"
+      },
+      {
+        "arquivo": "202.json",
+        "sha256": "76408352bf5f9ed72359765ab07f26d326e40da1c1f3df7312f1bd233974d5d3"
+      },
+      {
+        "arquivo": "203.json",
+        "sha256": "16526ed71696ee24e3108e52dd547da8cd6cdff923499785f54bb90b9adf6dd3"
+      },
+      {
+        "arquivo": "204.json",
+        "sha256": "8737851417568840649dfd6979b10336e9b8a34f3f49df6b7f340cc40dd9353b"
+      },
+      {
+        "arquivo": "205.json",
+        "sha256": "bfee2158ce85363973fc76c735a2d371069d7c9ce8d46cc62c042fb1642aef1a"
+      },
+      {
+        "arquivo": "206.json",
+        "sha256": "c6c9791c57c4ece1acaa74b452a06765a6b4c517370129e4c97db5aa82a69764"
+      },
+      {
+        "arquivo": "207.json",
+        "sha256": "0c58a02799482f3aa973577be851225dc1d02a563e9c8a60d92f0da93f31311e"
+      },
+      {
+        "arquivo": "208.json",
+        "sha256": "010d12c23e807384e7ef48a6b39726083828732268a14957fc0af5a2ae0556c1"
+      },
+      {
+        "arquivo": "209.json",
+        "sha256": "1f14e7c9bde21cb413a35763185c41ba8584ab5ec92ed3804dcfba3eb2d2b32e"
+      },
+      {
+        "arquivo": "210.json",
+        "sha256": "ad9ef4f219033568a94374e71f8fc8a76c82d4f014abfbb545a1b49d5a119c85"
+      },
+      {
+        "arquivo": "211.json",
+        "sha256": "c5ac0dacedc0833072777bd96356ee6da224a26abf4aa1cefaa9643434c08024"
+      },
+      {
+        "arquivo": "212.json",
+        "sha256": "9e4e94c1ac5ff47bcc4c9a986ac1c01962b1d00f098c6943dc356b228a0668d0"
+      },
+      {
+        "arquivo": "213.json",
+        "sha256": "032a994f6425abb39d503358baf56f291c06d7ba50c8d67d5d06a223196c07f3"
+      },
+      {
+        "arquivo": "214.json",
+        "sha256": "d8c687dc0a4d2eccc4f3fb545b42a0caf2dda55bca20a0608b5184f416ab3104"
+      },
+      {
+        "arquivo": "215.json",
+        "sha256": "247fbd7bb113067a51fa2f67d8e88ba8929b19910a1544f036f23d190f4c490a"
+      },
+      {
+        "arquivo": "216.json",
+        "sha256": "00d10b8ff2fad2a72857e9896e281ace6389552956af73712cc368f7ece2c22b"
+      },
+      {
+        "arquivo": "217.json",
+        "sha256": "ba64b36791fa204efdd386be99525855164b3b4a37bc67e0beb1807761b6896e"
+      },
+      {
+        "arquivo": "218.json",
+        "sha256": "ab1d2d2bf5c6b292e93ebd5ea46c8f0620e1ebd48eef3e97401c45f1c7a47705"
+      },
+      {
+        "arquivo": "219.json",
+        "sha256": "1c215fb2362d3b6101143cc2a141a7a4e43576f0824dd648f5bfb0e5f5a041aa"
+      },
+      {
+        "arquivo": "220.json",
+        "sha256": "c648e24fc6614d2bc6c6c5f61809518e8627cebfa2aa6cbdee927d2a2f9be048"
+      },
+      {
+        "arquivo": "221.json",
+        "sha256": "6ce71fd979da6d024b1867dbd618f7cfaa726a686d92424ac76f9a7ba4d2551d"
+      },
+      {
+        "arquivo": "222.json",
+        "sha256": "9867e5e8cbd4232af7243f3d045badaa1e463b849ccdc204f159dab20d8030ff"
+      },
+      {
+        "arquivo": "223.json",
+        "sha256": "da8553f99fe17af4c227345d700366dff6458be01f5786b750911a24a62c694f"
+      },
+      {
+        "arquivo": "224.json",
+        "sha256": "adfe785e742bf20cc78523597199418c67c1f4434d6aa0f47fdd671c43cd58fe"
+      },
+      {
+        "arquivo": "225.json",
+        "sha256": "8c599cb40e1d0ae338fcc6aef7144f9a74a5b355ae47b50ae6b143a583564d38"
+      },
+      {
+        "arquivo": "226.json",
+        "sha256": "d7581867c38d4937137348ef74ada8dadbdf561055a4bbb4d03fdb3c2d57ab32"
+      },
+      {
+        "arquivo": "227.json",
+        "sha256": "e88d0e357a641edf4be994334f4deaf63e95b455574edc77e0bc7f48a44edc90"
+      },
+      {
+        "arquivo": "228.json",
+        "sha256": "3d3975096de930a8f65f2d7858b8a9e2e00433eb782991a6a847a05ed56a824e"
+      },
+      {
+        "arquivo": "229.json",
+        "sha256": "2e684e73cdefed9e08373a4748e2486b45435f789219d226fe7a864ef1616671"
+      },
+      {
+        "arquivo": "230.json",
+        "sha256": "5b933bd029ccae85a38dc527fc5a1a1732ba3064eaedf6c385b1d1e7ff1e9063"
+      },
+      {
+        "arquivo": "231.json",
+        "sha256": "c4e8bdbc0b3211379559ba2dd3a6ef3319cb860fa27519fa2d6a585165dc2e96"
+      },
+      {
+        "arquivo": "232.json",
+        "sha256": "0cef11e9485cdf968c103028fa36f38d550f3addd0f242c4770dc93379445d1f"
+      },
+      {
+        "arquivo": "233.json",
+        "sha256": "1db6e9d3561ae5141e748001611053763eb9932669bb2c2c6513efb39c085daf"
+      },
+      {
+        "arquivo": "234.json",
+        "sha256": "78cf32d1f58bae4d8adb3e49c6662e338c0d37581c3c5f1fad5748ed106eed8f"
+      },
+      {
+        "arquivo": "235.json",
+        "sha256": "1a6be962a1a85bdf79682cb5265f625a43e66e8e635fb0a9366367add0bf3854"
+      },
+      {
+        "arquivo": "236.json",
+        "sha256": "f53d3bc2210fc28fe7d34f81ba3503681d7bcc0893fa188189d9aa7e04d6e797"
+      },
+      {
+        "arquivo": "237.json",
+        "sha256": "1ba44dc64a05aee2058e7096b568e9f550da24f52910d4e6cf221144c3a74e18"
+      },
+      {
+        "arquivo": "238.json",
+        "sha256": "422093fe0fe14b87c043e26217ccd6924655645fd8589dc9f228121e5b05b7d0"
+      },
+      {
+        "arquivo": "239.json",
+        "sha256": "40bb054be902794fa3d65c9056d36339cd38cf43c5750160c9bff5ccc7ee8989"
+      },
+      {
+        "arquivo": "240.json",
+        "sha256": "d5fb0558ed4120f8e010261e1e0eb398d7e5c755e4c644ef9d02a640e29223fe"
+      },
+      {
+        "arquivo": "241.json",
+        "sha256": "e84959a73dcf25fb8261e06555d287c69fd27c77069c4e95be3a3f94c603bc3c"
+      },
+      {
+        "arquivo": "242.json",
+        "sha256": "0f7c69168fa2c51570b4643d0887f13644e1231dc266343a4faaa7a7cb945573"
+      },
+      {
+        "arquivo": "243.json",
+        "sha256": "d8382223756288759c8362de1273726def17f98af12f5aca00a2f2d596231b33"
+      },
+      {
+        "arquivo": "244.json",
+        "sha256": "7c2d9238d895cac4b799a2497f52eb5ebd0a4456698c26acd90943294aae8c67"
+      },
+      {
+        "arquivo": "245.json",
+        "sha256": "5c4193e112a7c9db262da7737b118fa8e55f70a1095522e5b49ec4fcf93e422f"
+      },
+      {
+        "arquivo": "246.json",
+        "sha256": "d9cc279000478ba739ce497d0261dd04084a37b0428482002afb0d5e24c0195f"
+      },
+      {
+        "arquivo": "247.json",
+        "sha256": "136395a497dcd0a46f9a659539ca6da3d1f6b95d5ceae8db1789e733e36f66cb"
+      },
+      {
+        "arquivo": "248.json",
+        "sha256": "42bcff7abe5438670a9641fedbf0760381e0a9a4ae9d89fa1207db24c7441e38"
+      },
+      {
+        "arquivo": "249.json",
+        "sha256": "659fc3bd18359d7952b79ae06dce907fa0ae87ca5a2afca36a2e9084f23065ec"
+      },
+      {
+        "arquivo": "250.json",
+        "sha256": "8d9c1f8b18e681479ca34f720106b4a6f9fa4de500e7b2ac16be47ef92be452c"
+      },
+      {
+        "arquivo": "251.json",
+        "sha256": "8aaf1d2543e01977448ece1dbc1e17458580740c98e87c94cfd52c5d219bd44e"
+      },
+      {
+        "arquivo": "252.json",
+        "sha256": "d00496453d9a1fea0b9af02ba9464fa205910dc1a3980464eef16fc3f958ca5c"
+      },
+      {
+        "arquivo": "253.json",
+        "sha256": "ffb74198c8998dbcfe31ae1caa36a511a8de98cf1326ba058f63af72fc6dcdaa"
+      },
+      {
+        "arquivo": "254.json",
+        "sha256": "0b14f63aa46982e3ca26c0c96bee74f21ed695b91d16a4120cd90b7fd2dcdef0"
+      },
+      {
+        "arquivo": "255.json",
+        "sha256": "b3857e6f59545a47aedc7a979994c8327b522a8738f5eef7ac071c5b9a80ff22"
+      },
+      {
+        "arquivo": "256.json",
+        "sha256": "41ead039786d40598a3b685985e7be9eedd635c6abc8ea854d002b9f948c2858"
+      },
+      {
+        "arquivo": "257.json",
+        "sha256": "8bbdb638c85a598a8262c923f928b8e6ba33dfabcb8458d95c638c454039846f"
+      },
+      {
+        "arquivo": "258.json",
+        "sha256": "1577d7981e20c5536701d1ab1662c662ffe90f3267873aaa1d42d9be787a0ec8"
+      },
+      {
+        "arquivo": "259.json",
+        "sha256": "8d713b1d962828cee5db37de9d902b22a87779d57514930be37b9ab7cd85b3bb"
+      },
+      {
+        "arquivo": "260.json",
+        "sha256": "20d2af07c14db7a58858949254b771c58268f5882e5a18b82c407f16aa815237"
+      },
+      {
+        "arquivo": "261.json",
+        "sha256": "a25ee92c175b6c8e295c833d160df880dad2c3c32eb74ea4b62a8e88c654b7c9"
+      },
+      {
+        "arquivo": "262.json",
+        "sha256": "be2afb661c4c0006421745a62e79633c8250f34b791bb17f44af06861a3b2f70"
+      },
+      {
+        "arquivo": "263.json",
+        "sha256": "1b314b8c1b3c061e1adb89f7dc16ef16fcf6ceb33f18aeda208c2e20ee855f4a"
+      },
+      {
+        "arquivo": "264.json",
+        "sha256": "0d90593c6e860da483ced27de1a5cb6fe4fbd96815535453a1a4d20845bf4706"
+      },
+      {
+        "arquivo": "265.json",
+        "sha256": "b5524e20f305068fc1a93a2fc082563d4342b27df863ecc63891706383b344f2"
+      },
+      {
+        "arquivo": "266.json",
+        "sha256": "da0b4d677250c5291264f9ac4ec40bfe542cc9bbb27c50111efd8c95ce0f9557"
+      },
+      {
+        "arquivo": "267.json",
+        "sha256": "3626f4db2c4d00bb78468f48a0e12ba6550eb9dd78ac479df9019c1b41dec4ce"
+      },
+      {
+        "arquivo": "268.json",
+        "sha256": "a11e7769d4a4ec149e9f882a7c0836fc60c5cfbc8d967b8189c748d3c8b19f79"
+      },
+      {
+        "arquivo": "269.json",
+        "sha256": "1375c141fb404384786cd07de1fc1ff30a3af1c14945e6c19bba2c88982af9e2"
+      },
+      {
+        "arquivo": "270.json",
+        "sha256": "9ab144038bb9a643f17466226fbdaddec0c365dd687bfd920aa418c1b4045c04"
+      },
+      {
+        "arquivo": "271.json",
+        "sha256": "ed3c6c8e773b738bef3ee21360ec31a9195da9ddec8e3ce391e5839874d1d15a"
+      },
+      {
+        "arquivo": "272.json",
+        "sha256": "e9d0d24241f83fbda67359fd861d01408e8329bba0d273ee8f49c425c444f3a7"
+      },
+      {
+        "arquivo": "273.json",
+        "sha256": "c34ad9043b9d6fb862daa55106e1b351f5282e965129b8695a9926477c834fed"
+      },
+      {
+        "arquivo": "274.json",
+        "sha256": "ca36acd965458a422c6e20769a9afe269addb4d2a90cea297f12112353efabf5"
+      },
+      {
+        "arquivo": "275.json",
+        "sha256": "ef3f05275ab3c769097f435c1e24c00c1cbffcbc226b280d866b64d2edef1350"
+      },
+      {
+        "arquivo": "276.json",
+        "sha256": "b4c2da99ab3e42c1e0eea1faac084b329100371b87cf2548ae70f6474f921929"
+      },
+      {
+        "arquivo": "277.json",
+        "sha256": "26e4aaf41c5d17c5cb777d7ad505fca19288e75f56f96af1cf5369d95e9ca948"
+      },
+      {
+        "arquivo": "278.json",
+        "sha256": "69f2e20b2eeb91a46307f264233c64026d2411a317ace254e9e1358278528fbc"
+      },
+      {
+        "arquivo": "279.json",
+        "sha256": "afeabe53b0551cd7eea2917b539597e97ef8e69198adfb3794f5d8137660cd25"
+      },
+      {
+        "arquivo": "280.json",
+        "sha256": "4594121bac5103d28d499adf4769cad8610a6fc4aba926e8da093be00dce5c6a"
+      },
+      {
+        "arquivo": "281.json",
+        "sha256": "fa402b27a6424c01d96fccce81f58347cc35dcb390e23d1fa31f2207792eba98"
+      },
+      {
+        "arquivo": "282.json",
+        "sha256": "60163aeb9fa0a03f7b23ced90d68f54d27ffdac9457e22cdccc16b68f6ec85e8"
+      },
+      {
+        "arquivo": "283.json",
+        "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819"
+      },
+      {
+        "arquivo": "284.json",
+        "sha256": "82c1bab8b21381b5ef16d13e3f8b2f481a7be98f9bc0108c85b4c56a52071819"
+      }
+    ],
+    "linhas": 83,
+    "primeiro": "200",
+    "ultimo": "282",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_selic": {
+    "nome": "Focus — Selic por reunião do Copom",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoSelic, baseCalculo=0",
+    "unidade": "% a.a.",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_selic/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "a522e826d0c2abfaebd541f290ac97d471ddac8e9e38bc245159daeaef65ceee"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "9a862aa54591644196ce9ee864c8b955e2aace0ee8676a95545129b934ed63b1"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "cafd71c6460f9521be30722fb1e61e07dd2c6bfd7a5169e68a09f84e11e770b5"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "409041d30848ea5f0341160b8fd51c2f2f54d2224718f3e863c3f4f0977519c5"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "71e88803efe158f9c265e3072bc79d879678bf52bf4af711e62cf4709449867f"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "33a7d18a8b5ec84fe50a0d47157f85f7c3ab63ee7dd8ad89dc56f9661b13d5cc"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "05fe0e3a2f6184348a61b8eea072b7edf485ea5fb547aa85241525d4497c7e16"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "f70ed221d085c350b5dd1b4a60f3aa0593021f41f3245869eb6c5ccfa333a0ee"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "d9d69cf5e7e9e95acfbbea53afdc670d83c0ffc9c1f07a4b86a10d9492f13a1d"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "146020a27ee1f73d2daa1ddc4c29a3d2f3d64f774cae7b5a1da7e9fccdd140b7"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "8468da1d0e8253c84cbc0bb96c0e6a7dab6914cb8813ba957a36167c5fd7a1b6"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "7a1476a7f878ecfbbf649bfb67e2334576889ead784e7dc929eb2d639f1fe336"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "70f90c70a0837f4f8bf673bb1f058079b20185243d23330c21ce6350e0511dba"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "375162e6c9415937e8671974ad3a8a6ee10951f9661a0d06121621ef7167aeee"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "f00fc41a156e3e2442cdeaf7b4a9af78e6445303ff0200ffecf3a70b3d6b7cab"
+      }
+    ],
+    "linhas": 50814,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_selic_top5": {
+    "nome": "Focus Top 5 (curto prazo) — Selic por reunião do Copom",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoTop5Selic, tipoCalculo='C'",
+    "unidade": "% a.a.",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-11-18T02:13:32.833Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_selic_top5/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "33633d2952cfe42054a74f84023d10979e5d6e82c2ddfa0485019029064791e0"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "ec6842f517ebfb261aa07427a80b6094d91d59cb89a40ebe87377d7eee77842d"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "e0d499380912f6f3dd9762880913eee3a18394e05ecfa2add9a4866099b2d466"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "7f9c3719a08f2c3c7827ea27f10dc418e08ff4a98f896a9714fb2c513025aad3"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "5cac723dadf938dcc5eb60149e6ea7500cb4a6483d04257bfcd5b31ba07d3103"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "424cfe0639b4aa7870dc6d162e8cf1bfc640bdc5fbc6e1b36ada127970430f18"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "e31669b60a23f679a9aeb6fa1ca289c80fc941168e933ba58bf422b3954efe38"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "7c54cdbde49d97d0f78efecfa42d3f3ad79ca16788cd5afb2e1a8a14af514c6b"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "21b3d34819385ecb8da5d0f51370cb101a24040de5948bd810c59581df170d98"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "1ea0d1be06a1b970f5abe67d8638795616461bd4015210cb8f6dcf26195de3f8"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "945b419f0610b08390fd5231d8691d5b605c0f56f59991e46bec69bdeb84c95a"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "4a43b2074a878149a13a03fe6de7fdbf40ac86f65d12e7f16fe0b99b1ba7c744"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "331bc86a15b92a1ab32e64182d47327e19a85cd58c0c9619304736b0404f3879"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "5c25f64e6c3991af9c6118320bc97f135c82be953755dffa5d990be967eb97fd"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "3d563f52441c152942a363d8afe690e6464d541576becda5aa5ad10ad0793362"
+      }
+    ],
+    "linhas": 50710,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_anuais": {
+    "nome": "Focus — indicadores anuais (IPCA, Selic, PIB, câmbio), todas as estatísticas",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0, Indicador ∈ {IPCA; Selic; PIB Total; Câmbio}",
+    "unidade": "conforme o indicador",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_anuais/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "0fe294454b2ec0240279e5ed89f4b6d66dfc4604cff7dc8b3b3d17f57c3bb7b0"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "7050dcf4e8f98cfda5f5f0ba2d3742ec7fb292aaff4cab1de22be30bf635507a"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "3f0fed65976682b914987b80a426088907ce776c90d32313b03ea8650e9e28ac"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "1cc2141997fc629690a4ee0fe468b7a037c09f22883728af47107669c5541ed6"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "40649a9e3df3a55fd0ffa1479b2c1f51eae8cc338d95cdb862c064b89bc4bd9f"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "5c19c0f85c1422ed0986905a8346b298b54392ef984db85974e4f157dd197750"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "01a9b7b91f6b2ababe83f145fc6066de8f954747177e626ac9c47c27628a6d6c"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "8df87e293f255a792517fbcfda75112844531fb7f40e9da2820d40d4432f460b"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "5ceb172fbd7d803c80d752448128ecc91bc16f7c33652687fcb10bc55fa9dd4c"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "2c3fb497d3f86c547b9c2d19a1998a83c863056dcf9a3cd6ebe6e36611681506"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "78f8d4d36cf83c3bacb55af909df0769b67d6c42c97dce44e607647cf12b0170"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "67ef5ddb168af30d81fbd9f6b290f307888998f81a7a2fe2d7781ffb16778189"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "c82e24b1d3669a47db1a7dad78fb9fb34757dd03313fa0a1203e28414eada5fc"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "ce837422aa2d39dc0d5454fa5e29d0cae10a53c9908fdb451dd6dac74a4ccfbb"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "91276684372fcd2fcc8f5dbf21b3d3eba8fde35c9fa4a849c24e4ea8333b01f8"
+      }
+    ],
+    "linhas": 74675,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_mensais": {
+    "nome": "Focus — IPCA mensal, todas as estatísticas",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0",
+    "unidade": "% (variação no mês)",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_mensais/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "4bc44df63594f163a0e9e0ce9a312b830c699262fd5e660fa11904796f2dbd34"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "90f4f9503e30bdcd4eb9aa7bbbe51a1209f6915250447c5d44d50c5c909cd05c"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "f5b86cfe8ab320baa8635e91361f0568850101a6ee57dc97572e884540febbc8"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "d11279738d08f9be74a506a73c39d0b9f691eb470fe6bfd3bba454d14c5cbf01"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "5acc95d005054cc9bc5fa1967c8e8757081207e873348b30f5f57cb3955ca001"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "c3e15456758841935ec4dbf6dd382bb343f656d2b16411b95c8699e25e8e992e"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "a8b6eff4b3d081cf59f33fb5da9da27b180b0a25213bb5c1c65ed468882bfa47"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "27aae271bce1657c2e7d6eb8e0363ca46366ed084f4b914864e28f791f1f15c6"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "d59079bab9b808a757f511fb4bb2ebd153db68899fb0f5d95f8abfa77a3f3835"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "b5f59ccf9561e042bb58657543ba803ff04c4b833c6915083e4b5cd33813c194"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "836d86cd40d5262665cce184969006d765323b05171a6ab4e103ec54f2d3e2db"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "1738e15769fbbe54af00c4f81048cdb7771f9e6a6333f8d87ca86aed09b5ebd9"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "722ba9b2e6870e80c99ba44404b9a19515e23bbf886b0bbb12fa5d6a13e6faa8"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "9bf3de6c25ec26893376a9e06fefad5c1c68878b8aa139de82379b3dda54b0e6"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "39a42d7b023fcfc99829f99f44ad5c6a4e46a73d245c3de01256418e10b90975"
+      }
+    ],
+    "linhas": 77446,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_inflacao_12m": {
+    "nome": "Focus — IPCA nos 12 meses seguintes (suavizada e não suavizada), todas as estatísticas",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', baseCalculo=0",
+    "unidade": "% (próximos 12 meses)",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_inflacao_12m/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "d58dfce0e54fbd3d5e79eb99e1c68dcab645e355d15422fdd227db457c890dcb"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "65ca5988e7a459a88f5bba122ef08028e46f39f48c039914496ffad11b7071f5"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "ac12f374e26af24127389a9be587dc96c6b7dc310717f50e56c6929089fa9d3d"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "813e44250c70f3ab7edb4299f37ccf0536edc906e311fecd6d5e7094f9c0e2e1"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "239d784cd596fc0b46c8de584879055393f9c22b19e75578d9a17e489a4752aa"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "fc3d8975fdae2858aa5ad6c772f204e4c7fb602f03c0e364ac13fd2458229c70"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "5f68cdc6efb8e84d61400a30e2a2acb279e93e7a0d06701ae6e47d9d3edfad27"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "52d493561773b1e9196447530bea9113836413bd6a573cce727a71c13147276d"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "4d925c36f3fd9ab558f7be8c0f8474ed7d1def854f822102e43bff6ce9e2584b"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "d20ebcaba1980b564eea736f877e681cd9422ab5410ea2889cf089be8a2a1498"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "4532ea0c2311cbeb2c3497b1e7dc9e2364ce1508bda9ee1c7b04eebf976ec6b5"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "1fc6ec9656c07bb41c50c3de782f2837a57fd0e7af76c6bfcf24ceacd0e4840c"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "1ab623bbb66444af7e329f6506125408df1d50ee62e69877f797d1684e5cb2e5"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "800e5924ae45ac798c5896252c8a2246f8e72edce1ee1c261f0da10316314e60"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "44b73fc27c015fb585f35b54466189af608c48863e2ef915673d6c1a4099f40f"
+      }
+    ],
+    "linhas": 7468,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_top5_anuais": {
+    "nome": "Focus Top 5 (curto prazo) — IPCA e Selic anuais",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoTop5Anuais, tipoCalculo='C', Indicador ∈ {IPCA; Selic}",
+    "unidade": "conforme o indicador",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-11-18T02:13:32.833Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_top5_anuais/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "8fbe9f446a216eb82e81ec22dbd21f86a5ecfd6d259a0a31ea8bc4fe8865db9d"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "ac8be5a5abcc636dfac8e833b24879a0d21ee9dae3180758cf41137e5916e9ed"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "45d8be575c8c7b3e8f27a174a62caf81ff1b1007e5e182078a2faa369ffc946d"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "ab369d2b27ac198ca79b7af1970a185d75026d4521a9a429342d38c265e74dd3"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "2ddd4a156f9e1314deee07e48db09120033e326ef3c5a2b0727dd3edbd05d10a"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "9878437ec71b931652f36c3a7846d6d2113efe54c23731b280039423ebee879f"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "e40bce2bdb109f6eaa4b9bb69dfab3e22e9232252b09b8f6019435d841a6e3c1"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "433f0a28db5a2bfd3fe68866ca13712680a1482277f53c5ef70f27e32a5e1b0c"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "a5446328744063993251db3ada6b4228ecff7764f756246ae631627272c33a10"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "eb0dea2e6a2ddd30c4a8ae4c98a24a72ab09c14b07d35212ed454bf8e92a1606"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "fe8f670dfebbf21df9cda8909f69c3301fd523471b496dee232505471c1bd838"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "f1ddd991a2ecdf20d3dbcdf5d20515fac741458b4fe4d562699f02df664fe71f"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "549aacceca545bae4309ed635e50f87060083775880c25660cbf736f58e4ee5f"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "0179131de20c020cd1d496e677d98d60041b020639f2d3a92deeddb8084070ce"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "ffef90e258f31fc8ca4e53ed0053e67760188dd459f0ba4f37cfaa8d98bef49b"
+      }
+    ],
+    "linhas": 37203,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "focus_top5_mensais": {
+    "nome": "Focus Top 5 (curto prazo) — IPCA mensal",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "Olinda Expectativas v1, ExpectativasMercadoTop5Mensais, Indicador='IPCA', tipoCalculo='C'",
+    "unidade": "% (variação no mês)",
+    "frequencia": "diária (dias úteis)",
+    "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
+    "extraido_em": "2026-11-18T02:13:32.833Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_top5_mensais/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "b5894d0ec852160dba911c29299ef6f53331ef83f647e03d0fc74e2ef229ea3e"
+      },
+      {
+        "arquivo": "2013.json",
+        "sha256": "09905372485ec04b1b20611c09337b69a6661647996790101201205aa88abe93"
+      },
+      {
+        "arquivo": "2014.json",
+        "sha256": "5e0caec64a1285356864aa575ab52fd084f092305bb64f5ab1fe610d530232f2"
+      },
+      {
+        "arquivo": "2015.json",
+        "sha256": "eb466fd1ed4bab9e6ee44b457a9116301ee69f457bad7cca2d5b7c33a7afef68"
+      },
+      {
+        "arquivo": "2016.json",
+        "sha256": "b01ce4d1e56c54ce4580d8917291e80a9e3fdaeb2a5e292d25540fc5485c817c"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "9380ff65dbd7b2d4c79ef41f235cffc10a53b1e32190b2b826dd5967cf8c6d9f"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "f7f591d4f36f71dfb398f8dbd150d45dcdcfceeaea76bf015dd0d121eefb94bc"
+      },
+      {
+        "arquivo": "2019.json",
+        "sha256": "6f610c36d5c4a781eed85158db48d0977745ba2fa0ee6b8e3ef1a4d1f1bfda5f"
+      },
+      {
+        "arquivo": "2020.json",
+        "sha256": "21828ffd0fd2309ab63d4251c23fb40f3f1f6f321c2fff05c000ebf9d94bc1fc"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "0ecbc78155950461459156dc673bc8c6a5d210c3a7e473f8b997bd78bc3f14be"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "313bcdd65b1be9d6f8397d1d00f4fd9fbc4d8e3a66f85fbe72cba82fd3e0fab7"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "f04212843d143951cb272cd5a37dc388cbcff92b06cce77f372a8c3189df1a8d"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "b4b9e86273394e0b8231561ca04ca2b4f681bddf19c2e4f3dd581f89f129b278"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "7fda6b9ece32c60803af4ebf635896d82f8c856986588beddab1939fca415d59"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "e0e9dcaadef81b437a6e6e7cea4db6018ea3db6d3be2e3bf0fda7f17666be8ce"
+      }
+    ],
+    "linhas": 76781,
+    "primeiro": "2012-01-02",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_livres": {
+    "nome": "IPCA — preços livres",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 11428",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=11428",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_livres/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "5c3229a7326e27531a69b6637900dd6baf510d7c227d63b4c4368b8a25965808"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "2b4f25dcb54bc6d0a23cfb6f7d52dd0ca52b38a4533719b753e604a6970fe85e"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "af86f155a3df16f811816b719a4f7d122d3a34a9834cc23aa62400651aab8cad"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_administrados": {
+    "nome": "IPCA — preços administrados (monitorados)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 4449",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4449",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_administrados/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "798c0aa3d10f47059e7320f004f649c2baf0e877c5016a58c2681da48755491f"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "911090f8194dc0f96b37ee4f94ec873f329df51ec9fd6fb193a8b0c73bac1782"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "f655aa1c73ae50c60f12a6f596b879129ea5d52fa0c6e20024074dcfabb69ab9"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_servicos": {
+    "nome": "IPCA — serviços",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 10844",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10844",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_servicos/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "5744af8fcb78695958f5b7569e612b62e459ae6bc467ea21e865d36af442e9f5"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "e31f3068039975978a9ee08d829fef7152fe5b24556c0ae0802ecf965202a0ae"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "0255a36784cb1827c61c7c2f15b8e2bb165208adb13cf5044d7153b0e335760f"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_industriais": {
+    "nome": "IPCA — bens industriais",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27863",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27863",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_industriais/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "c6cab9961631ed8478966b197fbf25ec2232f7b371c68556604df8f1df060938"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "ee5fcc15847c84ae96b69bf155d2d8207cf8cac611b66de4a6128937e062b61a"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "8a3cdfc796e96d14b4c1b874e88b3720f4a995ab838b867a14dc0de8ab538d54"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_alim_dom": {
+    "nome": "IPCA — alimentação no domicílio",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27864",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27864",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_alim_dom/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "9a52b36b2ae9d5de9018175093fabee2d74d949af08f7b02b06b7f37f7568ab3"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "aa4708eb17885e9003f1a59e301d66a67edbccc7da80db18edd1667ee04d4b29"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "05a55c8964c59cfe0f3d21f3046514923c51aed4d4c1a46aa7e89ab29b0c076f"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_comercializaveis": {
+    "nome": "IPCA — comercializáveis",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 4447",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4447",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_comercializaveis/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "fcf0dcd37dd199ec110012a225c517ecb3694e3a4e496b640be26a329439dfb8"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "e369baa8d528f4d141875f9ef907e75a91d694edb84a150e6ffb5d88910e2a92"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "7691001b0ecc2e16bd122c9a55e4397999ab2a4f027425b4aec820887e8373c7"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_nao_comercializaveis": {
+    "nome": "IPCA — não comercializáveis",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 4448",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4448",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_nao_comercializaveis/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "be104af008e7326f310899e499e66b1f2eb899292821f86127fc89092b3d8f48"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "7c485f7b72e6793aa1e60de55958c274cbde8d9ba3cf6e2292e95f8d68003032"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "7125d85ccb59024c46bb069910e6267de5af3a6af75d30985245c4201e5b78f6"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_duraveis": {
+    "nome": "IPCA — bens duráveis",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 10843",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10843",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_duraveis/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "43e082ef73ab77df0eaeb86a9d6f95f4953ceb9af1623f31465e4adaac9412a7"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "2044b031b14440e1bd9ca236e8269c43c489de6080745329632a960f03e0975b"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "db2c5fa44a0abf94074c0653adbf7ec686b894d049bd00c8e3364a69389111ef"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_semiduraveis": {
+    "nome": "IPCA — bens semiduráveis",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 10842",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10842",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_semiduraveis/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "dbea8105b388ce1ac58f89c62aaf398b6de80144e599db7fab3235f2d3c79626"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "a881f0ab074a6e60908fe276d77ed5def41a530ad25386352c7a8f16a065e785"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "6783d9e16841d7292768ce0dd0eb4f92e1477806fd3e3d38ca6be31a2a4bba29"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_nao_duraveis": {
+    "nome": "IPCA — bens não duráveis",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 10841",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=10841",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_nao_duraveis/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "966d7cf88eaf7cc213d917d6c3e0c13da21e1269d2cf574b88b9567acf632b9c"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "fe07b34535cd634797382c7508cccc733304e6c7f2b5229598f03d2c805f75c4"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "6e81ac591f9c97952b2538eadd7b251de5f21af5e253ac3b441a188cfda6d145"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ex0": {
+    "nome": "Núcleo do IPCA — EX0",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 11427",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=11427",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ex0/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "654a433010aa83f0d666ffc70278659941075d3e1e80a64f6e28fad5728dea81"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "6e3a2db714c78cfcd34412c298f3f8613e26ca942e36cbe17567ff5974b56fdd"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "f7424d8f71e664a018475bf2463e96fec70d45cbb940f2b4915a00d5d1ffc449"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ex1": {
+    "nome": "Núcleo do IPCA — EX1",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 16121",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=16121",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ex1/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "f0dcd71762c46761d2f929929a1200de3258da21cd20ebbc8e4219353007e9a4"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "2228db28da0587c2dad3baf84a1ca0b87b1a71b96007ec0b4e6da816d32f5520"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "107184ec0cb41a928afff9b107510ee72b64c4ade37975f99a5d2a9d0c9853d6"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ex2": {
+    "nome": "Núcleo do IPCA — EX2",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27838",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27838",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ex2/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "be6f4945c7a0b697df4d4b4ae94fe31edefa0a9f211fffdac441ef7440d4f98f"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "62df22d211df5f25b32a1cd18be8782a10f08e642ccc26c9c9d5d8a0e73822a7"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "17dafd06ee8da705bd5f5b4ed27bde40d2e9d9015f8f641c2ec1a3ed2aa79289"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ex3": {
+    "nome": "Núcleo do IPCA — EX3",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27839",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27839",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ex3/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "73aa7172170da9e5cd6a9e92c618f0d49cf1f9642560030affc8791309662d8f"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "f0776e5cbbdd29fd90cf3e470e495a3f0527d50cdc08d3d0eb5532d118b92042"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "241abf789f50fc7134666503cf44caf6a45f9dd1fde4c4c9e445ec71ad12e893"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_exfe": {
+    "nome": "Núcleo do IPCA — EX-FE (ex-alimentação e energia)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 28751",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=28751",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_exfe/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "ca11021022df279d856ba77f233bff35c4fb8181f8f121ae05b36a5016ecf80f"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "81c34d652b81bd91b4c62488ea1f57b09d1bf59dd775e235c25125e4319ae785"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "239b85fd062c2045a98047c9c9246cf876180d262844acd380c15d7f16bc5bca"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ms": {
+    "nome": "Núcleo do IPCA — médias aparadas com suavização (MS)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 4466",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4466",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ms/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "d579b99816d705c84973485108f7aaefa5552643f13f92851761805dc552c766"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "bb32ad09e867cc30e565f26dbe2bfe2d39c2f566d509e8b0db5dc457777553c9"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "2860cf118cf25f057c3ff0b3cf17c712fe3ec1bdddfdfa80c622da50569ad2cb"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ma": {
+    "nome": "Núcleo do IPCA — médias aparadas sem suavização (MA)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 11426",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=11426",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ma/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "91fb30a4a74cb83fa6fd4c0e625a0c7bee565bf46f261e16bd68bc9796dc8c36"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "60a3104917fc3dba111ce2ffa4a461c88cd0c83837d175086b49a9b9666a38dd"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "21b9964bff302deeb8f2eb09c125f28e951523dbe9f2af6a26498bfab454d6c6"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_dp": {
+    "nome": "Núcleo do IPCA — dupla ponderação (DP)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 16122",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=16122",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_dp/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "2db1388c52ffee1545dcf062dc477ab7ba14f2699dd63ff481827d63280b256d"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "9c9c1895fe4a11e9a4ae5d5fc104e2dbee337e62b33438bfefd8db72a066b669"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "4be16c2b1d584cd97e6662aac43c90bbca9f173760b6630b4d2effab7536542a"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_p55": {
+    "nome": "Núcleo do IPCA — percentil 55 (P55)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 28750",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=28750",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_p55/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "02369305ba774740babe468c382a03b8e3ff6e87b018d3d8f404a4884ed78a29"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "9f1e6f5ecb9f1237492ed8261df6c88566bfb9577bba9e6673ce0d5bacfb7943"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "3ea1bd2238de4a742a345df2026b4f3e55a0df568cb27bc1b3fa29e08413b91d"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ex3_servicos": {
+    "nome": "Núcleo do IPCA — EX3 serviços",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 29683",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=29683",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ex3_servicos/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "abdf3faa58a47308907aaa61c482b5dfa6d6332d6dce2a9a916a583330fdc486"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "99454b53ebd99f48e179a5e061b0e9a5d020e22d436e573fbc0602cb73399486"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "865a79913e2acfa86633615857df90cececda184fecc271ca7cb856e93186a85"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "nucleo_ex3_industriais": {
+    "nome": "Núcleo do IPCA — EX3 industriais",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 29684",
+    "unidade": "% (variação mensal)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=29684",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/nucleo_ex3_industriais/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "caed245619972edfd6f61dda54826be664e367c361b0342f8ec2296f9bf7a4ac"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "76fcd333de81370dc2412e63636236d86d7cab5d7d7cd808c8823d3787f5ba3a"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "ede39d8620d2f2e9d1280a99ac4e3585fdd90657b622421000a7a6697554e4d8"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_difusao": {
+    "nome": "IPCA — índice de difusão",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 21379",
+    "unidade": "% dos subitens com variação positiva",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=21379",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ipca_difusao/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "f05bb96e73d7ba5703673c147b02bdcae1ef1044607d55807477634164e94b55"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "069aaf39072ad32decc96010643c11a1a5a92940e8d880e18a4524365c27867a"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "26a07fba46939d2769f5552085147e3193497f8568501537ac35e800e5f813c2"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ipca_itens": {
+    "nome": "IPCA — variação mensal e peso de grupos, subgrupos, itens e subitens",
+    "instituicao": "IBGE",
+    "codigo": "SIDRA 7060, variáveis 63 e 66, classificação 315 (todas as categorias), Brasil",
+    "unidade": "% (variação mensal) e % (peso)",
+    "frequencia": "mensal (desde jan./2020)",
+    "url_publica": "https://sidra.ibge.gov.br/tabela/7060",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/ibge-sidra/ipca_itens/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2020.json",
+        "sha256": "0d359d35c649282b578cce1099d6f59de833cd32f3d5c07b10773d8e5a79a1ff"
+      },
+      {
+        "arquivo": "2021.json",
+        "sha256": "7b949a2f5c477ecd5b63ba2d3dd648e4c47bf4ea38d1bc46449c0a1c7d79f8ce"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "fbb3428e80dba933ef673ec7101986d2ce86f0ec8aba86bd878e55e8d936b933"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "d2da3f4e897f432e8ceff1ca98bbff1a103c58192e34a1093de5265322743f96"
+      },
+      {
+        "arquivo": "2024.json",
+        "sha256": "f5a1890e72559f4fd93cdd90e337d76f28e39c80a2d59152b88a4942c6857d1e"
+      },
+      {
+        "arquivo": "2025.json",
+        "sha256": "6950f4e0e34daefeaf8f5b20ea6e7ba48f8412f0381b1ae0a186b331f5211360"
+      },
+      {
+        "arquivo": "2026.json",
+        "sha256": "af87658b3d3141d69581aac9953f29118fd75453f98969be87849cbdf9960ff9"
+      }
+    ],
+    "linhas": 37474,
+    "primeiro": "2020-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "juros_credito": {
+    "nome": "Taxa média de juros das operações de crédito — total",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 20714",
+    "unidade": "% a.a.",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20714",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/juros_credito/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "4072c5660f8b172fafd9e401a945c910a9c6b9365f5f14d8234b3d668e6d6cc1"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "8ead6aa8f80cdab865eeb549974107054ac0cbbe744fca568fd301057780897e"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "f59b63e2c7030b50a0b6a4f2076811f2d2cda2cdba78c05ae8555544d7ae6950"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "juros_pj": {
+    "nome": "Taxa média de juros das operações de crédito — pessoas jurídicas",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 20715",
+    "unidade": "% a.a.",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20715",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/juros_pj/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "e2c9659f132cc96d1a39b59d53e02a17e329c018eb4cf95ffd78008674eadadc"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "908995bd4fbdbe3cc49d88a5d32c8bb9161e6d44db4b27e4dd1e673169b9985f"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "65536a74fb3c4a6448f4846cbc8ec140e1a9f8c1ed600575e14a7ffe6f102926"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "juros_pf_livres": {
+    "nome": "Taxa média de juros do crédito livre — pessoas físicas",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 20740",
+    "unidade": "% a.a.",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20740",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/juros_pf_livres/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "260df297940e57000f5b72cb7efac2141661cdc92dabe9e3094646f1b04eeba2"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "805b56af1257fdad839a58ed188d81174a2022d28b46ca676af487dc708ae0ae"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "8efc785dfe235f6f6f4c6653cb33e19edabaf352ac279214be52764b2a12f615"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "spread_credito": {
+    "nome": "Spread médio das operações de crédito — total",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 20783",
+    "unidade": "p.p.",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=20783",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/spread_credito/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "570ffbfd1b598b4ea34dca31afa4f653e9b057e465b307c94c021cc57dcc8f42"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "18146bdcd0933f5ad642510b0380df72672dc475785f668135e79aac99d427e2"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "1ede267df1969a48f291b13fc063f4e9cd276b26031bedd7540346f8a119af9b"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "icc": {
+    "nome": "Indicador de Custo do Crédito (ICC) — total",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 25351",
+    "unidade": "% a.a.",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=25351",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/icc/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2013.json",
+        "sha256": "4d0118ddfea64e3cc5013ea158ff3455abc271e1a70b81757e9ff535fc5975ca"
+      },
+      {
+        "arquivo": "2018.json",
+        "sha256": "99753bcbbccd2412021ea64fa3fe7e3a314057663f8b96fab45285aa03837753"
+      },
+      {
+        "arquivo": "2023.json",
+        "sha256": "80af9996158b2b1f0d1335a3093ed337870aafa669de0c0b3001cffc4ccde323"
+      }
+    ],
+    "linhas": 165,
+    "primeiro": "2013-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "icbr": {
+    "nome": "Índice de Commodities — Brasil (IC-Br)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27574",
+    "unidade": "índice",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27574",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/icbr/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "10601a2d3b9b7742804df56d01d7043710b9250b5e4416cc7f4c3ffd09ce691a"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "6abcc1fd52e9cc396852ca97eda23a0c85d8b7a2b71d6ffdcf66dac36d741af0"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "5f306d61954d7384959749375e2b02b6bfb98ae8ac951f882ac0ebc63f1c6ead"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "icbr_agro": {
+    "nome": "IC-Br — agropecuária",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27575",
+    "unidade": "índice",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27575",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/icbr_agro/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "df857ba1455133a0365977755a406943d8a0f59fb7d63aa393850f037984a8fe"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "378918677d5b148c5e6b2d36ff5fa82d08932f473d464969aed21e8e9cb6a0df"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "b9ebac2234f448fdf26080d4e85142d0cb488d53fa42169493222bc43c0e5c2d"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "icbr_metal": {
+    "nome": "IC-Br — metal",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27576",
+    "unidade": "índice",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27576",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/icbr_metal/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "8db98df2951043de17c9813e06a45943e25381445ae170f7585b96fd05d2c472"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "d4bfee1edc065718996ef0d6d3c2134d0dccfbda47f4e6a7b9cc7157ca330fa7"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "93e89c03e4d056833faf480c59f2df2c45335fca0a07ca7553255b4a28082583"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "icbr_energia": {
+    "nome": "IC-Br — energia",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27577",
+    "unidade": "índice",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27577",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/icbr_energia/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "62c144355ca00f6f7113362f59798f05e4788e233c8aca645aa4ad0f8fbe41a5"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "4864fbef6380c3d9a3d92e075eeace6dd33ef975e65f92f2f2027399339bc3a0"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "68465ef99e82ab0126e1c793a4f76f61cccf71cb963b7ff4cae3602d3fab1849"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ibcbr": {
+    "nome": "IBC-Br com ajuste sazonal",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 24364",
+    "unidade": "índice (2002 = 100)",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=24364",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/ibcbr/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "b6c49c6b9a64d56f75920dc31e492b593b113428a42f532e68740bde110eb12a"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "ad7d5778d0a7c41c35ed87ef6813e906dcc85837137405e2eff7235858c02b92"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "95589afa02339dff4f8f860e2ddfcc6c13181ea14279c4ee5c6990ce490f2a6c"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "pib_nominal_12m": {
+    "nome": "PIB acumulado dos últimos 12 meses, valores correntes",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 4382",
+    "unidade": "R$ milhões",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=4382",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/pib_nominal_12m/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "1e6eaaf6912b4b58c03513e9e3d756bd344fbf02db02b3c62382bf53d5023000"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "4d5ed06d87b04688f83edab771220597c5049d3e18f421fab3b646d94a587a27"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "78a89c5004b1147d9afa4c273e6e49cb709dd3a4859a49a072bf093c8cad9919"
+      }
+    ],
+    "linhas": 178,
+    "primeiro": "2012-01",
+    "ultimo": "2026-10",
+    "desatualizado": false,
+    "falha": null
+  },
+  "fed_funds_sup": {
+    "nome": "Fed funds — limite superior do intervalo-alvo",
+    "instituicao": "Board of Governors of the Federal Reserve System (via FRED)",
+    "codigo": "FRED DFEDTARU",
+    "unidade": "% a.a.",
+    "frequencia": "diária",
+    "url_publica": "https://fred.stlouisfed.org/series/DFEDTARU",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/fred/fed_funds_sup/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "DFEDTARU.csv",
+        "sha256": "4e9921e1e609b35ddd69514d11e40b6d41447d19df7c4424dbcd19f6c46cf58e"
+      }
+    ],
+    "linhas": 5435,
+    "primeiro": "2012-01-01",
+    "ultimo": "2026-11-17",
+    "desatualizado": false,
+    "falha": null
+  },
+  "ust10": {
+    "nome": "Rendimento do Tesouro americano de 10 anos",
+    "instituicao": "Board of Governors of the Federal Reserve System, H.15 (via FRED)",
+    "codigo": "FRED DGS10",
+    "unidade": "% a.a.",
+    "frequencia": "diária",
+    "url_publica": "https://fred.stlouisfed.org/series/DGS10",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/fred/ust10/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "DGS10.csv",
+        "sha256": "bbf43d1247d3fb793f107461bcf31e817e31b7e47e5a67f4e41d42b939f185da"
+      }
+    ],
+    "linhas": 3719,
+    "primeiro": "2012-01-03",
+    "ultimo": "2026-11-16",
+    "desatualizado": false,
+    "falha": null
+  },
+  "tips5": {
+    "nome": "Rendimento real do Tesouro americano de 5 anos (TIPS)",
+    "instituicao": "Board of Governors of the Federal Reserve System, H.15 (via FRED)",
+    "codigo": "FRED DFII5",
+    "unidade": "% a.a.",
+    "frequencia": "diária",
+    "url_publica": "https://fred.stlouisfed.org/series/DFII5",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/fred/tips5/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "DFII5.csv",
+        "sha256": "238f73012a5cb002122290fc4809c81d16a12118c96af850ee17654eb6e2f9ca"
+      }
+    ],
+    "linhas": 3719,
+    "primeiro": "2012-01-03",
+    "ultimo": "2026-11-16",
+    "desatualizado": false,
+    "falha": null
+  },
+  "dolar_global": {
+    "nome": "Índice amplo nominal do dólar americano",
+    "instituicao": "Board of Governors of the Federal Reserve System, H.10 (via FRED)",
+    "codigo": "FRED DTWEXBGS",
+    "unidade": "índice (jan./2006 = 100)",
+    "frequencia": "diária",
+    "url_publica": "https://fred.stlouisfed.org/series/DTWEXBGS",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/fred/dolar_global/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "DTWEXBGS.csv",
+        "sha256": "559fbb7bf9ecacb5aa43e1bf65769237ef2e18374ea2d73af97c376c58f060fd"
+      }
+    ],
+    "linhas": 3703,
+    "primeiro": "2012-01-03",
+    "ultimo": "2026-11-13",
+    "desatualizado": false,
+    "falha": null
+  },
+  "brent": {
+    "nome": "Petróleo Brent — preço à vista (Europa)",
+    "instituicao": "U.S. Energy Information Administration (via FRED)",
+    "codigo": "FRED DCOILBRENTEU",
+    "unidade": "US$ por barril",
+    "frequencia": "diária",
+    "url_publica": "https://fred.stlouisfed.org/series/DCOILBRENTEU",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/fred/brent/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "DCOILBRENTEU.csv",
+        "sha256": "fec74d9515aa392494030775d490eb298a7ddfd7a381f8ce50770a8f551ef19a"
+      }
+    ],
+    "linhas": 3766,
+    "primeiro": "2012-01-03",
+    "ultimo": "2026-11-11",
+    "desatualizado": false,
+    "falha": null
+  },
+  "base_restrita": {
+    "nome": "Base monetária restrita (saldo em final de período)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 1788",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1788",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/base_restrita/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "c0b417d9586c1aa670acf47baa6cd4e5d4b80327913c7e0713d9bb961d56634e"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "31aa99d178ff2f8635e1fd90c037804ff24f65bc80f05698df2fff54479d2426"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "8269cf9d713d40bfed8cd721031723a051588b57b472f0856b2332b8e193a028"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "papel_moeda_circulacao": {
+    "nome": "Papel-moeda em circulação (emitido), componente da base (saldo em final de período)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 1786",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1786",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/papel_moeda_circulacao/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "a7724ed6f10277593d2990ef59f560c7675318db7e937db30572da4a13d9680e"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "dab0792be718816d59b940e1e8d9d76ca3665b120095246f6109fca4422cf374"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "90d98fa7c5ee9e76d3ffb1145f63b6516af4d204a3d43e76d1d3e2f333ff7ee1"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "reservas_bancarias": {
+    "nome": "Reservas bancárias (saldo em final de período)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 1787",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1787",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/reservas_bancarias/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "4ac6c47c43b323ffae97a27811bb5805cfe0be31514c45097903a85eceff50c6"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "c44ce1b9a679301f68cbd9afd2dc5eb98081caed4df4e1fa57d1b0cb772daad4"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "eb4dcfdea892d45200b4a239cd5b35a509706b4019e6194359fd286852b46524"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "base_ampliada": {
+    "nome": "Base monetária ampliada (saldo em final de período)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 1833",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1833",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/base_ampliada/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "aa89b6322aa0171200310a34af122ff2c40b3b76483dadcc2c8d979d391d1b35"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "e46124f229d23c08efaf7110bb3ac751ce175bdecbc580b90db77fff48d6e493"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "c9c6de864663392381cf8f17a5f127320adf3091c02e1e3b726dc7d7664199c3"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "bma_compulsorio": {
+    "nome": "Base ampliada — depósitos compulsórios em espécie (saldo em final de período)",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 1828",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1828",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/bma_compulsorio/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2012.json",
+        "sha256": "417b49862d368f9f85b7a60365067ec1ccf88bc9f9884ea56529a68913f20c06"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "8f0e95c62c03a50619bdd69678d3131eb45827ab25b879020653edc2b4be7f9f"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "e5f82513ee512cd643d49b9e0505c46adfe9a2ba81dae70d55a95447e94c7c4c"
+      }
+    ],
+    "linhas": 177,
+    "primeiro": "2012-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "pmpp": {
+    "nome": "Papel-moeda em poder do público (saldo em final de período) — Novo",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27789",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27789",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/pmpp/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2002.json",
+        "sha256": "e5db9108ca0890de2d85dd858cbff03b55bd59b233beb2234e49a8286e7818ea"
+      },
+      {
+        "arquivo": "2007.json",
+        "sha256": "0c3f3618533108dc57b320cfd4cfd9a680555c851b5f02e91b8e407a8bdea512"
+      },
+      {
+        "arquivo": "2012.json",
+        "sha256": "3e692bfa9dbacd353434e60ef1c5dff345e2a0c84539aa92ee79e94ad42c5420"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "73fac2d65fc30f338ff6f88027e2c1fc791e8a389ab5bb08f6fb707de43c4d99"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "5bd56cbd14b56e2070729b788493102507ca6b2260db7d63d3b20e04bbcef75c"
+      }
+    ],
+    "linhas": 297,
+    "primeiro": "2002-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "depositos_vista": {
+    "nome": "Depósitos à vista (saldo em final de período) — Novo",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27790",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27790",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/depositos_vista/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2002.json",
+        "sha256": "7763f494718176b86dcc02b1d1927ac0c1dcc358a9fe0cf5c4fbdb0f57ccec6b"
+      },
+      {
+        "arquivo": "2007.json",
+        "sha256": "7f5ad3c251eaccf21b0a8f56718965efd4d76741837641283697c4c4ec4ffdb7"
+      },
+      {
+        "arquivo": "2012.json",
+        "sha256": "21637286302d318250e9cbcac8fc1b0b1a0939e6e705f5b6877e10bdce1cb455"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "c92219ffc4fcd5e87cc5875c96f6bd0ddb57ae748d8e81c4c3a15f52c535b411"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "aab45714f06707d4a2be91a0e4447e4d87d45be5cf65db43b0ae68424d506c5c"
+      }
+    ],
+    "linhas": 297,
+    "primeiro": "2002-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "m1": {
+    "nome": "M1 (saldo em final de período) — Novo",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27791",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27791",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/m1/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2002.json",
+        "sha256": "a2c9385e9d692cf9b18301972f30e9f213edf6379c62391a06084d423cf8384b"
+      },
+      {
+        "arquivo": "2007.json",
+        "sha256": "cc879b9fc9a7b1b71aabfcf2e7076dfcee62c30ae4b9948438bc494ed07d024e"
+      },
+      {
+        "arquivo": "2012.json",
+        "sha256": "c405a5369dbc2ddd887cc346a7100ba39ddb46a0adbb2a094b5876b217d2d736"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "2ff11ecdce29dfffa44dbc1be609fc7e67fcac203ba915ec141089882ece2c00"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "97700da3b2ad56cecea5665bc8d68e850ee93dbcbc77ca579f6320573772c798"
+      }
+    ],
+    "linhas": 297,
+    "primeiro": "2002-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "m2": {
+    "nome": "M2 (saldo em final de período) — Novo",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27810",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27810",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/m2/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2002.json",
+        "sha256": "5399a9cc9376f42c44357f6880c6ea67da7f6a8d77075253cbed66c033c464b4"
+      },
+      {
+        "arquivo": "2007.json",
+        "sha256": "9d95aee6968273a69661c6036777fd44b6b173f29ec330439c2072e3d3af29c5"
+      },
+      {
+        "arquivo": "2012.json",
+        "sha256": "e8f850f30fd760f4a26ec3fd3219b76991a63e636bf777f5d92022b4dc7ac795"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "8badfccf2189634db3f614b0b9b73071d938a784091c71c7e860affcdd59a5af"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "ca43a7737df124ceb2b98451a4e754afb164b289e51af7c8436276a414e7ea4f"
+      }
+    ],
+    "linhas": 297,
+    "primeiro": "2002-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "m3": {
+    "nome": "M3 (saldo em final de período) — Novo",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27813",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27813",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/m3/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2002.json",
+        "sha256": "a3c9429fabae521f92d3253ee41c773524b3f3445f271d7f5ecd7f11af17fdcc"
+      },
+      {
+        "arquivo": "2007.json",
+        "sha256": "e6e32ad0655e0ff28686250fd55bab9300237472d17fe2ffbc862555382f5143"
+      },
+      {
+        "arquivo": "2012.json",
+        "sha256": "b37e73d86df47be2429553fac2f62679cbcea6b451c86c6ed17a510021ffc85c"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "ba63f5505ed1137c5564f92bbe3424851821f67d76d8ad1f3c7671627be7f9a5"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "089c09e7b32de9d0eac56ae38217ad01ebf82b40a1283747e024d972826dc871"
+      }
+    ],
+    "linhas": 297,
+    "primeiro": "2002-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  },
+  "m4": {
+    "nome": "M4 (saldo em final de período) — Novo",
+    "instituicao": "Banco Central do Brasil",
+    "codigo": "SGS 27815",
+    "unidade": "R$ mil",
+    "frequencia": "mensal",
+    "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=27815",
+    "extraido_em": "2026-11-18T02:07:32.941Z",
+    "vintage_dir": "data/raw/bcb-sgs/m4/2026-11-18",
+    "arquivos": [
+      {
+        "arquivo": "2002.json",
+        "sha256": "edfe98d089572d7b02774a385733d094ef3baa58f90f053de696d610aab6d5db"
+      },
+      {
+        "arquivo": "2007.json",
+        "sha256": "f7880f4d13e8def4fe4ae16ea7264c631cb4a64821d8e8a219aaeeb5a59a3ec8"
+      },
+      {
+        "arquivo": "2012.json",
+        "sha256": "52370bd045c63e82d47b674faab1f8883be851d71d55844c9fbc653295fcc34f"
+      },
+      {
+        "arquivo": "2017.json",
+        "sha256": "313845335965f70294750cfbd6dc2485d603299cc9c9a91e884d6cddc95e0bbb"
+      },
+      {
+        "arquivo": "2022.json",
+        "sha256": "1af5c5b6ec8c8640204b3efb49a46e0bd9ba7edd34becddd696f7f33d1a3ae62"
+      }
+    ],
+    "linhas": 297,
+    "primeiro": "2002-01",
+    "ultimo": "2026-09",
+    "desatualizado": false,
+    "falha": null
+  }
+}

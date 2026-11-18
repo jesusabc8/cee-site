@@ -1,0 +1,26 @@
+{
+  "serie": "juros_credito",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 20714",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "4072c5660f8b172fafd9e401a945c910a9c6b9365f5f14d8234b3d668e6d6cc1",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "8ead6aa8f80cdab865eeb549974107054ac0cbbe744fca568fd301057780897e",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "f59b63e2c7030b50a0b6a4f2076811f2d2cda2cdba78c05ae8555544d7ae6950",
+      "bytes": 2167
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "serie": "brent",
+  "fonte": "fred",
+  "codigo": "FRED DCOILBRENTEU",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "DCOILBRENTEU.csv",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU&cosd=2012-01-01",
+      "sha256": "fec74d9515aa392494030775d490eb298a7ddfd7a381f8ce50770a8f551ef19a",
+      "bytes": 66229
+    }
+  ]
+}

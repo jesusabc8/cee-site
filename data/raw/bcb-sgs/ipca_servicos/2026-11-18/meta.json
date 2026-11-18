@@ -1,0 +1,26 @@
+{
+  "serie": "ipca_servicos",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 10844",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "5744af8fcb78695958f5b7569e612b62e459ae6bc467ea21e865d36af442e9f5",
+      "bytes": 2222
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "e31f3068039975978a9ee08d829fef7152fe5b24556c0ae0802ecf965202a0ae",
+      "bytes": 2230
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "0255a36784cb1827c61c7c2f15b8e2bb165208adb13cf5044d7153b0e335760f",
+      "bytes": 2148
+    }
+  ]
+}

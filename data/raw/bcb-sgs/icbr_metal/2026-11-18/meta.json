@@ -1,0 +1,26 @@
+{
+  "serie": "icbr_metal",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27576",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "8db98df2951043de17c9813e06a45943e25381445ae170f7585b96fd05d2c472",
+      "bytes": 2341
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "d4bfee1edc065718996ef0d6d3c2134d0dccfbda47f4e6a7b9cc7157ca330fa7",
+      "bytes": 2341
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "93e89c03e4d056833faf480c59f2df2c45335fca0a07ca7553255b4a28082583",
+      "bytes": 2263
+    }
+  ]
+}

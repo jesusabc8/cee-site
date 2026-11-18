@@ -1,0 +1,14 @@
+{
+  "serie": "ust10",
+  "fonte": "fred",
+  "codigo": "FRED DGS10",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "DGS10.csv",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=2012-01-01",
+      "sha256": "bbf43d1247d3fb793f107461bcf31e817e31b7e47e5a67f4e41d42b939f185da",
+      "bytes": 61459
+    }
+  ]
+}

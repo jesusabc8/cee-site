@@ -1,0 +1,26 @@
+{
+  "serie": "nucleo_exfe",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 28751",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "ca11021022df279d856ba77f233bff35c4fb8181f8f121ae05b36a5016ecf80f",
+      "bytes": 2221
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "81c34d652b81bd91b4c62488ea1f57b09d1bf59dd775e235c25125e4319ae785",
+      "bytes": 2225
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "239b85fd062c2045a98047c9c9246cf876180d262844acd380c15d7f16bc5bca",
+      "bytes": 2147
+    }
+  ]
+}

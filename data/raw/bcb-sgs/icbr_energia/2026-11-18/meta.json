@@ -1,0 +1,26 @@
+{
+  "serie": "icbr_energia",
+  "fonte": "bcb-sgs",
+  "codigo": "SGS 27577",
+  "extraido_em": "2026-11-18T02:07:32.941Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016",
+      "sha256": "62c144355ca00f6f7113362f59798f05e4788e233c8aca645aa4ad0f8fbe41a5",
+      "bytes": 2281
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021",
+      "sha256": "4864fbef6380c3d9a3d92e075eeace6dd33ef975e65f92f2f2027399339bc3a0",
+      "bytes": 2317
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026",
+      "sha256": "68465ef99e82ab0126e1c793a4f76f61cccf71cb963b7ff4cae3602d3fab1849",
+      "bytes": 2263
+    }
+  ]
+}
