@@ -86,7 +86,6 @@ html.pub {
     --line: var(--pub-linha);
     --line-strong: var(--pub-linha-forte);
     --paper: var(--pub-superficie);
-    --white: var(--pub-fundo);
     --mist: var(--pub-superficie-2);
     --petrol: var(--pub-link);
     --navy: #cfe0f4;
@@ -95,6 +94,9 @@ html.pub {
   }
   html.pub body { background: var(--pub-fundo); color: var(--pub-tinta); }
   html.pub .site-header, html.pub .site-header__inner { background: var(--pub-fundo); }
+  /* Logotipo e botões do cabeçalho no tema escuro: marca monocromática clara (como a versão branca oficial). */
+  html.pub .brand__logo { filter: brightness(0) invert(0.93); }
+  html.pub .site-header :is(.tool-btn, .lang-btn, button) { background: transparent; color: var(--pub-tinta); border-color: var(--pub-linha-forte); }
 }
 
 html.pub body { background: var(--pub-fundo); color: var(--pub-tinta); }

@@ -486,3 +486,26 @@ leitura econômica sem base. O selo "experimental" não substitui um critério m
     filtro).
   - Constantes normativas com fonte: meta de 3,0 % e intervalo de 1,5–4,5 % (Res. CMN 5.141/2024); neutro do BCB de 5,00 %
     (RPM, p. 80); hiato do BCB de 0,4 % (RPM, p. 83).
+
+### 3. Sistema visual de publicação (redesenho do OPM)
+
+**Contexto.** A revisão do sítio publicado apontou aspecto simples, grandes espaços em branco e elementos saindo do
+contêiner. Medição inicial (`scripts/qa/opm-layout.mjs`, 10 páginas × 2 idiomas × 5 larguras): 156 vãos > 96 px (até
+220 px), 32 contêineres mais de 40 % vazios e 40 colisões de rótulos em gráficos.
+
+**Decisão.** Sistema visual "publicação", descrito em `docs/DESIGN.md`, aplicado só ao OPM nesta etapa e adotável pelo
+resto do sítio:
+- tokens tipográficos e de espaçamento;
+- moldura com cabeçalho e navegação por módulos;
+- faixa de indicadores-chave e mensagens-chave geradas dos dados;
+- fichas com título-achado, estado e selo, e downloads CSV, PNG e SVG;
+- estilo `pub` do renderizador, opcional, que não altera Panorama nem portada;
+- temas claro e escuro, este só nas páginas `pub`;
+- nova página de downloads (`/observatorio/politica-monetaria/dados/`).
+
+**Resultado.**
+- Medição posterior: 0 achados em 11 páginas × 2 idiomas × 5 larguras.
+- axe: 0 violações nos dois temas.
+- Lighthouse móvel nas páginas do OPM: desempenho 95–98, acessibilidade 100.
+
+**Fora.** Faixas de recessão do CODACE: a fonte não tem licença aberta verificável.
