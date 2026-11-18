@@ -112,3 +112,14 @@ O sítio segue a ordem de precedência Estatuto > Regimento > Manual, salvo inst
   fluxos (preço, não taxa).
 - **Taxa do Tesouro Direto:** a taxa de compra inclui o spread do programa. Uma curva de mercado secundário (ANBIMA)
   está excluída por licença (ADR-024).
+
+### Camada 3 (ADR-028) — experimental
+- **I.14:** dupla codificação humana de `docs/td/i14/amostra_codificacao.csv` por dois integrantes. Depois, rodar
+  `python -m opm.tom` e decidir a publicação com o Comitê Editorial.
+- **A2.7 / I.4 (e):** o modelo não passa no critério de identificação (ADR-028). Próximos passos na minuta do TD:
+  estimação por sistema, homogeneidade dinâmica, hiato por componentes não observados e tratamento de 2020–2021.
+- **I.16:** corrigir o viés do VAR e/ou ancorar as expectativas na Focus. O prêmio negativo atual reflete viés de
+  amostra curta.
+- **HLW (NY Fed):** termos de uso não conferidos (a página respondeu com redirecionamento a "404"). Não usado.
+- **TD:** autoria, verificação numérica independente, revisão e conferência das referências da especificação
+  (BCB 2023a/b, 2024a; Fasolo et al., 2023; Araujo e Vicente, 2017) antes da versão 1.0.

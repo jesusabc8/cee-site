@@ -433,3 +433,23 @@ prazo de I.12 (Araujo e Vicente, 2017) e I.21 (alíquota efetiva dos compulsóri
 **Consequências.** O pipeline Python passa a rodar `curvas → neutro → hiato → taylor → repasse → subitens` depois dos
 indicadores em TypeScript (`npm run data:neutro`). O arquivo do Tesouro Direto (cerca de 15 MB, crescendo por cima) é
 guardado inteiro a cada safra; o git armazena as versões por delta.
+
+## ADR-028 — Camada 3 do OPM: indicadores experimentais e critério de publicação (2026-11-18)
+
+**Decisão.**
+- **I.16** (prêmio a termo, ACM) e **I.17** (condições financeiras, PCA) são publicados com selo "experimental" visível
+  na ficha e no gráfico. Ficam assim até a revisão do Comitê Editorial e vêm acompanhados da minuta
+  `docs/td/CEE-TD-2026-01-v0.1-minuta.md`.
+- **I.4 (d)** (TIPS de 5 anos) é mostrado à parte e **fora da faixa**. Sem medida aberta de risco soberano (ADR-024), não
+  estima o neutro brasileiro.
+- **I.4 (e) e cenários do A2.7** só vão ao sítio se o modelo semiestrutural passar num critério mínimo de identificação.
+  - O critério é a inclinação da IS com t ≤ −2 e o coeficiente do hiato positivo na curva de Phillips.
+  - Em 18/11/2026 não passou (t = −0,47; coeficiente −0,03). O sítio mostra só os coeficientes e o motivo; os cenários
+    e o neutro do modelo ficam em `docs/td/dados/`, fora de `/dados/`.
+  - O critério é verificado automaticamente a cada atualização.
+- **I.14** (tom) não é publicado sem dupla codificação humana com kappa de Cohen ≥ 0,6.
+  - Léxico, corpus, amostra de 210 frases e cálculo do kappa estão prontos em `docs/td/i14/` e
+    `analysis/opm/tom.py`.
+
+**Justificativa.** Publicar números de um modelo cujo canal principal (juro → hiato) não é identificado induziria
+leitura econômica sem base. O selo "experimental" não substitui um critério mínimo de qualidade.

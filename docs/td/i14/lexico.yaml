@@ -1,0 +1,30 @@
+# Léxico PRELIMINAR do índice de tom (I.14, camada 3). Hipótese de trabalho do CEE, a validar por dupla codificação
+# humana (kappa de Cohen ≥ 0,6) antes de qualquer publicação. Termos em minúsculas, comparados sem acentos.
+# "contracionista": sinaliza juros mais altos ou por mais tempo; "expansionista": sinaliza afrouxamento.
+contracionista:
+  - elevacao da taxa
+  - elevar a taxa
+  - ajuste adicional
+  - restricao monetaria maior
+  - mais restritiva
+  - restricao adequada
+  - por mais tempo
+  - prolongado
+  - vigilancia
+  - desancoragem
+  - desancoradas
+  - riscos altistas
+  - pressoes inflacionarias
+  - nao hesitara
+  - cautela
+expansionista:
+  - reducao da taxa
+  - reduzir a taxa
+  - flexibilizacao
+  - afrouxamento
+  - riscos baixistas
+  - desaceleracao
+  - arrefecimento
+  - moderacao
+  - desinflacao
+  - ancoragem

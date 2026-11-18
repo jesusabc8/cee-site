@@ -40,8 +40,8 @@
   nome: { pt: 'Faixa de juro neutro', en: 'Neutral-rate band' }
   formula: 'r^{*}_t = \{Q_1,\ \mathrm{mediana},\ Q_3\}\ \text{de}\ \{r^{*,a}_t,\ r^{*,b\text{-}HP}_t,\ r^{*,b\text{-}H}_t,\ \dots\}'
   descricao:
-    pt: "Distribuição de estimativas por métodos independentes. Camada 1: (a) juro real esperado para t+4 pela Focus anual; (b) tendência do juro real ex ante por HP unilateral (λ = 14.400) e por Hamilton (2018; h = 24, p = 12), ambos em tempo real. Camada 2: (c) juro real da NTN-B de 10 anos (curva NSS) menos um prêmio a termo aproximado pela diferença entre a NTN-B de 4 anos e o juro real Focus no mesmo horizonte. Métodos (d) e (e) entram na camada 3. O valor do BCB aparece ao lado, nunca dentro da distribuição."
-    en: "Distribution of estimates from independent methods. Layer 1: (a) expected real rate for t+4 from the annual Focus; (b) trend of the ex ante real rate by one-sided HP (λ = 14,400) and by Hamilton (2018; h = 24, p = 12), both in real time. Layer 2: (c) 10-year NTN-B real yield (NSS curve) minus a term premium approximated by the gap between the 4-year NTN-B and the Focus real rate over the same horizon. Methods (d) and (e) come in layer 3. The BCB value is shown beside, never inside, the distribution."
+    pt: "Distribuição de estimativas por métodos independentes. Camada 1: (a) juro real esperado para t+4 pela Focus anual; (b) tendência do juro real ex ante por HP unilateral (λ = 14.400) e por Hamilton (2018; h = 24, p = 12), ambos em tempo real. Camada 2: (c) juro real da NTN-B de 10 anos (curva NSS) menos um prêmio a termo aproximado pela diferença entre a NTN-B de 4 anos e o juro real Focus no mesmo horizonte. Camada 3: (d) TIPS de 5 anos, sem prêmio de risco soberano (sem medida aberta; ADR-024), mostrado à parte e fora da faixa; (e) modelo semiestrutural, que só entra na faixa se passar no critério de identificação (inclinação da IS com t ≤ −2). O valor do BCB aparece ao lado, nunca dentro da distribuição."
+    en: "Distribution of estimates from independent methods. Layer 1: (a) expected real rate for t+4 from the annual Focus; (b) trend of the ex ante real rate by one-sided HP (λ = 14,400) and by Hamilton (2018; h = 24, p = 12), both in real time. Layer 2: (c) 10-year NTN-B real yield (NSS curve) minus a term premium approximated by the gap between the 4-year NTN-B and the Focus real rate over the same horizon. Layer 3: (d) 5-year TIPS, without sovereign risk premium (no open measure; ADR-024), shown apart and outside the band; (e) semi-structural model, which only enters the band if it passes the identification test (IS slope with t ≤ −2). The BCB value is shown beside, never inside, the distribution."
   convencao:
     pt: Com poucos métodos, os quartis são interpolações entre estimativas; a faixa é indicativa.
     en: With few methods, the quartiles are interpolations between estimates; the band is indicative.
@@ -149,8 +149,9 @@
     pt: Léxico aplicado aos comunicados e atas, validado por dupla codificação humana (kappa de Cohen). Não é publicado sem validação.
     en: Lexicon applied to statements and minutes, validated by double human coding (Cohen's kappa). Not published without validation.
   pendencia:
-    pt: 'Camada 3 (experimental), com Texto para Discussão.'
-    en: 'Layer 3 (experimental), with a Discussion Paper.'
+    pt: 'Léxico preliminar e amostra de 210 frases prontos; falta a dupla codificação humana (kappa de Cohen ≥ 0,6) e a revisão do Comitê Editorial. Sem validação, o índice não é publicado.'
+    en: 'Preliminary lexicon and a 210-sentence sample are ready; double human coding (Cohen kappa ≥ 0.6) and Editorial Committee review are pending. Without validation, the index is not published.'
+
 - codigo: I.15
   modulo: a2-5-transmissao
   camada: 2
@@ -164,27 +165,25 @@
 - codigo: I.16
   modulo: a2-5-transmissao
   camada: 3
-  estado: em-construcao
+  estado: publicado
   nome: { pt: 'Prêmio a termo da curva prefixada', en: 'Term premium on the nominal curve' }
   formula: 'TP_{t}^{(n)} = y_t^{(n)} - \frac{1}{n}\sum_{j=0}^{n-1}\mathbb{E}_t\, y_{t+j}^{(1)}'
   descricao:
-    pt: Modelo de Adrian, Crump e Moench (2013) sobre a curva NSS do Tesouro Direto.
-    en: Adrian, Crump and Moench (2013) model on the Tesouro Direto NSS curve.
-  pendencia:
-    pt: 'Camada 3 (experimental), com Texto para Discussão.'
-    en: 'Layer 3 (experimental), with a Discussion Paper.'
+    pt: 'Adrian, Crump e Moench (2013) sobre a curva nominal NSS do Tesouro Direto (1 a 36 meses), com três fatores e VAR(1). Experimental: amostra curta e prazo máximo de 3 anos; o VAR projeta trajetória de juros diferente da Focus, o que pode tornar o prêmio negativo — limitação de amostra pequena conhecida.'
+    en: 'Adrian, Crump and Moench (2013) on the Tesouro Direto nominal NSS curve (1 to 36 months), with three factors and a VAR(1). Experimental: short sample and 3-year maximum maturity; the VAR projects a rate path different from Focus, which can make the premium negative — a known small-sample limitation.'
+  arquivo: indicadores/i16_premio_termo_acm.csv
+
 - codigo: I.17
   modulo: a2-5-transmissao
   camada: 3
-  estado: em-construcao
+  estado: publicado
   nome: { pt: 'Índice de condições financeiras', en: 'Financial conditions index' }
   formula: 'ICF_t = \sum_{j} \lambda_{1j}\, z_{j,t}'
   descricao:
-    pt: Primeiro componente principal de variáveis padronizadas de fontes abertas (juros, crédito, câmbio, commodities).
-    en: First principal component of standardised variables from open sources (rates, credit, exchange rate, commodities).
-  pendencia:
-    pt: 'Camada 3 (experimental), com Texto para Discussão.'
-    en: 'Layer 3 (experimental), with a Discussion Paper.'
+    pt: 'Primeiro componente principal de sete variáveis padronizadas de fontes abertas (spread e custo do crédito, juro real ex ante, inclinação da curva, câmbio real, dólar global, Treasury de 10 anos); maior = mais apertado. Experimental: PCA na amostra inteira, não em tempo real.'
+    en: 'First principal component of seven standardised open-source variables (credit spread and cost, ex ante real rate, curve slope, real exchange rate, global dollar, 10-year Treasury); higher = tighter. Experimental: full-sample PCA, not real time.'
+  arquivo: indicadores/i17_condicoes_financeiras.csv
+
 - codigo: I.18
   modulo: a2-8-moeda
   camada: 1

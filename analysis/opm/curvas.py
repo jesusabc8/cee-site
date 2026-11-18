@@ -67,7 +67,7 @@ def main() -> None:
     td = pd.read_csv(PROC / "opm" / "tesouro_direto.csv")
     # Taxa 0,00 = título fora de oferta para compra (não é taxa); taxas negativas são legítimas (juro real perto do vencimento).
     td = td[td.titulo.isin(["LTN", "NTN-B Principal"]) & (td.taxa_compra != 0) & td.taxa_compra.notna()]
-    linhas, pontos = [], []
+    linhas, grade = [], []
     for data in datas_alvo(td.data):
         d0 = dt.date.fromisoformat(data)
         for titulo, curva in (("LTN", "nominal"), ("NTN-B Principal", "real")):
@@ -77,12 +77,18 @@ def main() -> None:
             tau = np.array([dias_uteis(d0, dt.date.fromisoformat(v)) / 252 for v in x.vencimento])
             # NTN-B a menos de 6 meses do vencimento: a defasagem de indexação distorce a taxa (curto prazo = Araujo e Vicente).
             ok = tau > (0.5 if curva == "real" else 0.05)
+            if ok.sum() < 4:  # Nelson-Siegel tem 4 parâmetros: com menos títulos o ajuste é indeterminado
+                continue
             par = ajustar_nss(tau[ok], x.taxa_compra.to_numpy()[ok])
+            if curva == "nominal":
+                grade.append({"data": data, **{f"m{n}": round(avaliar(par, n / 12), 4) for n in range(1, 37)}})
             linhas.append({"data": data, "curva": curva, "modelo": par["modelo"], "titulos": par["n"], "prazo_max": round(par["tau_max"], 2),
                            "mae_bp": round(par["mae_bp"], 2), **{f"y_{p}a": round(avaliar(par, p), 4) for p in PRAZOS}})
     df = pd.DataFrame(linhas)
     out = SAIDA / "indicadores"
     df.to_csv(out / "curvas_nss.csv", index=False)
+    # Grade mensal da curva nominal (1 a 36 meses), insumo do prêmio a termo ACM (I.16, camada 3).
+    pd.DataFrame(grade).to_csv(out / "curva_nominal_grade.csv", index=False)
     # I.12 — inflação implícita (longo prazo), mesmo prazo nas duas curvas; 2, 3 e 5 anos.
     nom = df[df.curva == "nominal"].set_index("data")
     rea = df[df.curva == "real"].set_index("data")

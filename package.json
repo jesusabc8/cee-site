@@ -23,7 +23,7 @@
     "data:derive": "node scripts/data/derive.ts",
     "data:dessaz": "cd analysis && ${PYTHON:-python3} -m opm.dessaz && ${PYTHON:-python3} -m opm.validacao",
     "data:opm": "node scripts/data/derive-opm.ts",
-    "data:neutro": "cd analysis && ${PYTHON:-python3} -m opm.curvas && ${PYTHON:-python3} -m opm.neutro && ${PYTHON:-python3} -m opm.hiato && ${PYTHON:-python3} -m opm.taylor && ${PYTHON:-python3} -m opm.repasse && ${PYTHON:-python3} -m opm.subitens",
+    "data:neutro": "cd analysis && for m in curvas hiato modelo neutro taylor repasse subitens acm icf tom; do ${PYTHON:-python3} -m opm.$m || exit 1; done",
     "test:py": "cd analysis && ${PYTHON:-python3} -m pytest",
     "qa:seguranca": "node scripts/qa/seguranca.mjs",
     "qa:audit": "node scripts/qa/audit.mjs"

@@ -46,7 +46,7 @@ const titulo = `${modulo.codigo} ${modulo.titulo[k]}`;
             <tbody>{t.linhas.map((l) => <tr>{l.map((v, i) => (i === 0 ? <th scope="row">{v}</th> : <td class="num">{v}</td>))}</tr>)}</tbody>
           </table>
         </div>
-        <p class="meta">{en ? 'Source' : 'Fonte'}: {t.fontes.map((f, i) => <>{i > 0 && ' · '}<a href={f.url}>{f.instituicao}</a>, {f.codigo} ({en ? 'extracted' : 'extração'} {f.extraido_em})</>)} · {en ? 'Data' : 'Dados'}: {t.csv.map((c) => <a href={c.href} download>{c.rotulo}</a>)}</p>
+        <p class="meta">{en ? 'Source' : 'Fonte'}: {t.fontes.map((f, i) => <>{i > 0 && ' · '}<a href={f.url}>{f.instituicao}</a>, {f.codigo} ({en ? 'extracted' : 'extração'} {f.extraido_em})</>)} · {en ? 'Data' : 'Dados'}: {t.csv.map((c, i) => <>{i > 0 && ' · '}<a href={c.href} download>{c.rotulo}</a></>)}</p>
       </section>
     ))}
 
