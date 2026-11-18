@@ -29,6 +29,17 @@ const fonte = (id: string): Fonte => {
   if (!v) throw new Error(`OPM: série sem vintage: ${id}`);
   return { instituicao: v.instituicao, codigo: v.codigo, extraido_em: v.extraido_em.slice(0, 10), url: v.url_publica, desatualizado: v.desatualizado };
 };
+/** Código curto para a linha de fonte das fichas (o código completo fica no catálogo de dados). */
+export function codigoCurto(c: string): string {
+  return c
+    .replace(/^Olinda Expectativas v1, (\w+).*$/, 'Focus/Olinda $1')
+    .replace(/^(SIDRA \d+).*$/, '$1')
+    .replace(/^API de conteúdo do BCB: .*\/(\w+)$/, 'API BCB $1')
+    .replace(/^Página "Histórico: meta de inflação vs\. inflação efetiva".*$/, 'Histórico de metas')
+    .replace(/^Tesouro Transparente .*$/, 'Tesouro Direto (CKAN)')
+    .replace(/^historico-votacoes-Copom\.xlsx.*$/, 'histórico de votações')
+    .replace(/^Comunicados BCB .*$/, 'calendário do Copom');
+}
 const painelDe = (id: string) => (lerVintage('opm')[id] ? 'opm' : lerVintage('conjuntura')[id] ? 'conjuntura' : 'panorama');
 const csvSerie = (id: string) => ({ rotulo: `${id}.csv`, href: href(`/dados/${painelDe(id)}/${id}.csv`) });
 const csvInd = (arq: string) => ({ rotulo: arq.split('/').pop()!, href: href(`/dados/opm/${arq}`) });
@@ -81,7 +92,9 @@ function monta(m: Monta, lang: Lang): FichaOpm {
   // Estilo de publicação: cor semântica pela posição da série (s1 = principal), faixas na cor de faixa.
   const CLS = ['s1', 's2', 's3', 's4'] as const;
   let k = 0;
-  m.series = m.series.map((s): SerieSpec => ({ ...s, classe: s.classe ?? CLS[Math.min(k++, 3)]! }));
+  // Rótulo direto curto: o texto antes da primeira vírgula ou parêntese (a legenda completa fica na tabela).
+  const curto = (t: string) => t.replace(/^\([a-e]\)\s*/, '').split(/[,(]/)[0]!.trim() || t;
+  m.series = m.series.map((s): SerieSpec => ({ ...s, classe: s.classe ?? CLS[Math.min(k++, 3)]!, endLabel: s.endLabel ?? curto(s.label) }));
   if (m.bandas) m.bandas = m.bandas.map((b, i): BandaSpec => ({ ...b, classe: b.classe ?? (i ? 'banda-2' : 'banda-1') }));
   const vintage = m.fontes.map((f) => f.extraido_em).sort().at(-1);
   const cols = [...m.series.map((s) => ({ titulo: s.label, pontos: s.points })), ...(m.bandas ?? []).flatMap((b) => [
@@ -297,7 +310,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           eixo: 'p.p.',
           unidade: 'p.p.', xFormat: 'month', yDigits: 2, yUnit: 'p.p.', zero: true,
           descricao: en ? 'Line: gap against the median; shaded area: gap against the band (Q1–Q3).' : 'Linha: hiato contra a mediana; área sombreada: hiato contra a faixa (Q1–Q3).',
-          series: [{ id: 'hm', label: en ? 'Gap (median)' : 'Hiato (mediana)', color: COR.navy, width: 2.2, points: pts(h, 'periodo', 'hiato_mediana') }],
+          series: [{ id: 'hm', label: en ? 'Gap (median)' : 'Hiato (mediana)', endLabel: en ? 'Gap' : 'Hiato', color: COR.navy, width: 2.2, points: pts(h, 'periodo', 'hiato_mediana') }],
           bandas: [{ id: 'hb', label: en ? 'Gap (band)' : 'Hiato (faixa)', fill: COR.sky, lo: pts(h, 'periodo', 'hiato_q1'), hi: pts(h, 'periodo', 'hiato_q3') }],
           legenda: [{ id: 'hm', label: en ? 'Gap against the median' : 'Hiato contra a mediana', color: COR.navy, style: 'line' }, { id: 'hb', label: en ? 'Gap against Q1–Q3' : 'Hiato contra Q1–Q3', color: COR.sky, style: 'band' }],
           fontes: [fonte('focus_selic'), fonte('focus_inflacao_12m'), fonte('focus_anuais')], csv: [csvInd('indicadores/i3_hiato_juros.csv')],
@@ -363,7 +376,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
             descricao: en ? 'Lines: 12-month IPCA and core average. Shaded area: continuous-target tolerance band (1.5% to 4.5%), since January 2025.' : 'Linhas: IPCA e média dos núcleos em 12 meses. Área sombreada: intervalo de tolerância da meta contínua (1,5% a 4,5%), desde janeiro de 2025.',
             series: [
               { id: 'ipca', label: en ? 'IPCA, 12 months' : 'IPCA, 12 meses', color: COR.navy, width: 2.4, points: pts(ipca, 'periodo', 'acumulada_12m') },
-              { id: 'nuc', label: en ? 'Core average, 12 months' : 'Média dos núcleos, 12 meses', color: COR.azure, dash: '6 3', width: 2, points: pts(nuc, 'periodo', 'media_12m') },
+              { id: 'nuc', label: en ? 'Core average, 12 months' : 'Média dos núcleos, 12 meses', endLabel: en ? 'Core' : 'Núcleos', color: COR.azure, dash: '6 3', width: 2, points: pts(nuc, 'periodo', 'media_12m') },
             ],
             bandas: [{ id: 'tol', label: en ? 'Tolerance band' : 'Intervalo de tolerância', fill: COR.sky, lo: lim(1.5), hi: lim(4.5) }],
             refs: [{ y: 3, label: en ? 'Target 3.0%' : 'Meta 3,0%', dash: '2 3', color: COR.steel }],
@@ -377,13 +390,13 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
             id: 'opm-regime', icone: 'timer', rotulo: 'I.10',
             titulo: ur.meses_consecutivos === '0'
               ? (en ? `12-month IPCA back inside the tolerance band in ${rotMes(mes(ur.periodo!), lang)}` : `IPCA em 12 meses de volta ao intervalo de tolerância em ${rotMes(mes(ur.periodo!), lang)}`)
-              : (en ? `IPCA ${ur.lado === 'acima' ? 'above the ceiling' : 'below the floor'} for ${ur.meses_consecutivos} consecutive month(s); the target is missed at the sixth` : `IPCA ${ur.lado === 'acima' ? 'acima do teto' : 'abaixo do piso'} há ${ur.meses_consecutivos} mês(es) consecutivo(s); a meta é descumprida no sexto`),
+              : (en ? `IPCA ${ur.lado === 'acima' ? 'above the ceiling' : 'below the floor'} for ${ur.meses_consecutivos} consecutive ${ur.meses_consecutivos === '1' ? 'month' : 'months'}; the target is missed at the sixth` : `IPCA ${ur.lado === 'acima' ? 'acima do teto' : 'abaixo do piso'} há ${ur.meses_consecutivos} ${ur.meses_consecutivos === '1' ? 'mês' : 'meses consecutivos'}; a meta é descumprida no sexto`),
             subtitulo: subtitulo(lang, en ? 'Consecutive months with 12-month IPCA outside 1.5%–4.5%' : 'Meses consecutivos com IPCA em 12 meses fora de 1,5%–4,5%', en ? 'monthly' : 'mensal', pts(r10, 'periodo', 'meses_consecutivos'), 'mes',
               en ? `latest: ${rotMes(mes(ur.periodo!), lang)}, IPCA ${n2(Number(ur.ipca12m))}%` : `último dado: ${rotMes(mes(ur.periodo!), lang)}, IPCA ${n2(Number(ur.ipca12m))}%`),
             eixo: en ? 'months' : 'meses',
             unidade: en ? 'consecutive months outside the band' : 'meses consecutivos fora do intervalo', xFormat: 'month', yDigits: 0, yUnit: en ? 'months' : 'meses', zero: true, ranges: false,
             descricao: en ? 'Bars: consecutive months with 12-month IPCA outside 1.5%–4.5%. Dashed line: six months (target missed).' : 'Barras: meses consecutivos com o IPCA em 12 meses fora de 1,5%–4,5%. Linha tracejada: seis meses (meta descumprida).',
-            series: [{ id: 'c', label: en ? 'Consecutive months' : 'Meses consecutivos', color: COR.navy, kind: 'bar', points: pts(r10, 'periodo', 'meses_consecutivos') }],
+            series: [{ id: 'c', label: en ? 'Consecutive months' : 'Meses consecutivos', endLabel: false, color: COR.navy, kind: 'bar', points: pts(r10, 'periodo', 'meses_consecutivos') }],
             colunasExtra: [{ titulo: en ? 'IPCA, 12 months (%)' : 'IPCA em 12 meses (%)', pontos: pts(r10, 'periodo', 'ipca12m') }],
             refs: [{ y: 6, label: en ? 'Missed (6 months)' : 'Descumprimento (6 meses)', dash: '4 3', color: COR.steel }],
             legenda: [{ id: 'c', label: en ? 'Consecutive months outside the band' : 'Meses consecutivos fora do intervalo', color: COR.navy, style: 'bar' }],
@@ -404,7 +417,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
               descricao: en ? 'Lines: SAAR of the IPCA and of the core average, on series seasonally adjusted by CEE. Dashed line: 3.0% target.' : 'Linhas: SAAR do IPCA e da média dos núcleos, sobre séries dessazonalizadas pelo CEE. Tracejada: meta de 3,0%.',
               series: [
                 { id: 'i', label: 'IPCA', color: COR.navy, width: 2.2, points: pts(q, 'periodo', 'ipca_saar') },
-                { id: 'n', label: en ? 'Core average' : 'Média dos núcleos', color: COR.azure, dash: '6 3', points: pts(q, 'periodo', 'media_nucleos_saar') },
+                { id: 'n', label: en ? 'Core average' : 'Média dos núcleos', endLabel: en ? 'Core' : 'Núcleos', color: COR.azure, dash: '6 3', points: pts(q, 'periodo', 'media_nucleos_saar') },
               ],
               refs: [{ y: 3, label: en ? 'Target 3.0%' : 'Meta 3,0%', dash: '2 3', color: COR.steel }],
               legenda: [{ id: 'i', label: en ? 'IPCA, SAAR' : 'IPCA, SAAR', color: COR.navy, style: 'line' }, { id: 'n', label: en ? 'Core average, SAAR' : 'Média dos núcleos, SAAR', color: COR.azure, style: 'dash' }],
@@ -423,7 +436,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
               eixo: '%',
               unidade: en ? '% of the IPCA weight covered' : '% do peso coberto do IPCA', xFormat: 'month', yDigits: 1, yUnit: '%', zero: true, ranges: false,
               descricao: en ? 'Weighted share of sub-items (SIDRA 7060) with three-month SAAR above 4.5%.' : 'Parcela ponderada dos subitens (SIDRA 7060) com SAAR de três meses acima de 4,5%.',
-              series: [{ id: 'p', label: en ? 'Share above 4.5%' : 'Parcela acima de 4,5%', color: COR.navy, width: 2.2, points: pts(q, 'periodo', 'parcela_acima_4_5') }],
+              series: [{ id: 'p', label: en ? 'Share above 4.5%' : 'Parcela acima de 4,5%', endLabel: en ? 'Share' : 'Parcela', color: COR.navy, width: 2.2, points: pts(q, 'periodo', 'parcela_acima_4_5') }],
               colunasExtra: [{ titulo: en ? 'Weight covered (%)' : 'Peso coberto (%)', pontos: pts(q, 'periodo', 'peso_incluido') }],
               legenda: [{ id: 'p', label: en ? 'Share of weight above 4.5% (SAAR)' : 'Parcela do peso acima de 4,5% (SAAR)', color: COR.navy, style: 'line' }],
               fontes: [fonte('ipca_itens')], csv: [csvInd('indicadores/i11_subitens_acima_teto.csv')],
@@ -464,8 +477,8 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           descricao: en ? 'Line: de-anchoring at t+3. Dashed line: standard deviation of responses at t+3 (dispersion).' : 'Linha: desancoragem em t+3. Tracejada: desvio-padrão das respostas em t+3 (dispersão).',
           colunasExtra: [{ titulo: en ? 'Focus median, t+3 (%)' : 'Mediana Focus, t+3 (%)', pontos: pts(c, 'periodo', 'esperado_t3') }],
           series: [
-            { id: 'd', label: en ? 'De-anchoring (t+3)' : 'Desancoragem (t+3)', color: COR.navy, width: 2.2, points: pts(c, 'periodo', 'desancoragem_t3_pp') },
-            { id: 'dp', label: en ? 'Std. deviation (t+3)' : 'Desvio-padrão (t+3)', color: COR.azure, dash: '6 3', points: pts(c, 'periodo', 'dp_t3') },
+            { id: 'd', label: en ? 'De-anchoring (t+3)' : 'Desancoragem (t+3)', endLabel: en ? 'Gap to target' : 'Distância', color: COR.navy, width: 2.2, points: pts(c, 'periodo', 'desancoragem_t3_pp') },
+            { id: 'dp', label: en ? 'Std. deviation (t+3)' : 'Desvio-padrão (t+3)', endLabel: en ? 'Std. dev.' : 'Desvio-padrão', color: COR.azure, dash: '6 3', points: pts(c, 'periodo', 'dp_t3') },
           ],
           legenda: [{ id: 'd', label: en ? 'Median minus target, t+3' : 'Mediana menos meta, t+3', color: COR.navy, style: 'line' }, { id: 'dp', label: en ? 'Standard deviation of responses, t+3' : 'Desvio-padrão das respostas, t+3', color: COR.azure, style: 'dash' }],
           fontes: [fonte('focus_anuais'), fonte('metas_inflacao')], csv: [csvInd('indicadores/i7_i8_credibilidade_desancoragem.csv')],
@@ -507,7 +520,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           unidade: en ? '% a year (rates) and p.p. (spread)' : '% ao ano (taxas) e p.p. (spread)', xFormat: 'month', yDigits: 1, yUnit: '%', zero: true,
           descricao: en ? 'Three monthly series; the spread shares the axis in percentage points.' : 'Três séries mensais; o spread usa o mesmo eixo, em pontos percentuais.',
           series: [
-            { id: 'j', label: en ? 'Average lending rate' : 'Taxa média do crédito', color: COR.navy, width: 2.2, points: pts(jc, 'periodo', 'valor') },
+            { id: 'j', label: en ? 'Average lending rate' : 'Taxa média do crédito', endLabel: en ? 'Lending' : 'Crédito', color: COR.navy, width: 2.2, points: pts(jc, 'periodo', 'valor') },
             { id: 's', label: 'Spread', color: COR.azure, dash: '6 3', points: pts(sp, 'periodo', 'valor') },
             { id: 'm', label: en ? 'Selic target' : 'Meta Selic', color: COR.steel, kind: 'step', markers: 'square', width: 1.4, points: pts(selic.filter((r) => r.periodo! >= '2011-03'), 'periodo', 'meta_selic') },
           ],
@@ -866,15 +879,15 @@ export function mensagensOpm(lang: Lang): Mensagem[] {
   return [
     {
       texto: en
-        ? `At its ${i5.reuniao}th meeting (${rotDia(dia(i5.data_reuniao!), lang)}), Copom set the Selic at ${n2(Number(i5.meta_decidida))}%${unan ? ', unanimously' : ''}; the Focus median expected ${n2(Number(i5.mediana_focus))}%${S === 0 ? ', so there was no surprise' : `, a surprise of ${S > 0 ? '+' : ''}${n2(S)} p.p.`}.`
-        : `Na ${i5.reuniao}ª reunião (${rotDia(dia(i5.data_reuniao!), lang)}), o Copom fixou a Selic em ${n2(Number(i5.meta_decidida))}%${unan ? ', por unanimidade' : ''}; a mediana Focus esperava ${n2(Number(i5.mediana_focus))}%${S === 0 ? ', sem surpresa' : `, uma surpresa de ${S > 0 ? '+' : ''}${n2(S)} p.p.`}.`,
+        ? `At its ${i5.reuniao}th meeting (${rotDia(dia(i5.data_reuniao!), lang)}), Copom set the Selic at ${n2(Number(i5.meta_decidida))}%${unan ? ', unanimously' : ''}; the Focus median expected ${n2(Number(i5.mediana_focus))}%${S === 0 ? ', so there was no surprise' : `, a surprise of ${S > 0 ? '+' : ''}${n2(S)} p.p`}.`
+        : `Na ${i5.reuniao}ª reunião (${rotDia(dia(i5.data_reuniao!), lang)}), o Copom fixou a Selic em ${n2(Number(i5.meta_decidida))}%${unan ? ', por unanimidade' : ''}; a mediana Focus esperava ${n2(Number(i5.mediana_focus))}%${S === 0 ? ', sem surpresa' : `, uma surpresa de ${S > 0 ? '+' : ''}${n2(S)} p.p`}.`,
       href: mod('a2-1-copom'),
       origens: [o('opm/indicadores/i5_surpresa.csv', 'reuniao', i5.reuniao!, 'meta_decidida'), o('opm/indicadores/i5_surpresa.csv', 'reuniao', i5.reuniao!, 'mediana_focus'), o('opm/indicadores/i5_surpresa.csv', 'reuniao', i5.reuniao!, 'surpresa_pp')],
     },
     {
       texto: fora
-        ? (en ? `12-month IPCA was ${n2(Number(r10.ipca12m))}% in ${rotMes(mes(r10.periodo!), lang)}, ${r10.lado === 'acima' ? 'above the 4.5% ceiling' : 'below the 1.5% floor'} for ${fora} consecutive month(s); under the continuous target, the target is missed at the sixth.`
-          : `O IPCA em 12 meses foi de ${n2(Number(r10.ipca12m))}% em ${rotMes(mes(r10.periodo!), lang)}, ${r10.lado === 'acima' ? 'acima do teto de 4,5%' : 'abaixo do piso de 1,5%'} há ${fora} mês(es) consecutivo(s); na meta contínua, a meta é descumprida no sexto.`)
+        ? (en ? `12-month IPCA was ${n2(Number(r10.ipca12m))}% in ${rotMes(mes(r10.periodo!), lang)}, ${r10.lado === 'acima' ? 'above the 4.5% ceiling' : 'below the 1.5% floor'} for ${fora} consecutive ${fora === 1 ? 'month' : 'months'}; under the continuous target, the target is missed at the sixth.`
+          : `O IPCA em 12 meses foi de ${n2(Number(r10.ipca12m))}% em ${rotMes(mes(r10.periodo!), lang)}, ${r10.lado === 'acima' ? 'acima do teto de 4,5%' : 'abaixo do piso de 1,5%'} há ${fora} ${fora === 1 ? 'mês' : 'meses consecutivos'}; na meta contínua, a meta é descumprida no sexto.`)
         : (en ? `12-month IPCA was ${n2(Number(r10.ipca12m))}% in ${rotMes(mes(r10.periodo!), lang)}, within the 1.5%–4.5% tolerance band.` : `O IPCA em 12 meses foi de ${n2(Number(r10.ipca12m))}% em ${rotMes(mes(r10.periodo!), lang)}, dentro do intervalo de 1,5% a 4,5%.`),
       href: mod('a2-3-inflacao'),
       origens: [o('opm/indicadores/i10_regime_meta_continua.csv', 'periodo', r10.periodo!, 'ipca12m'), o('opm/indicadores/i10_regime_meta_continua.csv', 'periodo', r10.periodo!, 'limite_superior'), o('opm/indicadores/i10_regime_meta_continua.csv', 'periodo', r10.periodo!, 'limite_inferior')],

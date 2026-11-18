@@ -24,8 +24,10 @@ interface Props {
   /** Caminho da imagem Open Graph (gerada em /og/<slug>.png). */
   ogImage?: string;
   ogType?: 'website' | 'article';
+  /** 'pub': sistema visual de publicação (src/styles/publicacao.css; ADR-029), com tema claro e escuro. */
+  estilo?: 'pub';
 }
-const { title, description = '', lang = 'pt-BR', noindex = false, hasTranslation = true, ogImage = '/og/default.png', ogType = 'website' } = Astro.props;
+const { title, description = '', lang = 'pt-BR', noindex = false, hasTranslation = true, ogImage = '/og/default.png', ogType = 'website', estilo } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const robots = !config.launched || noindex ? 'noindex, nofollow' : 'index, follow';
@@ -37,7 +39,7 @@ const alt = hasTranslation
   : [];
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class={estilo}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,7 +50,7 @@ const alt = hasTranslation
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
     {alt.map((a) => <link rel="alternate" hreflang={a.l} href={a.href} />)}
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content={estilo === 'pub' ? 'light dark' : 'light'} />
     <meta name="theme-color" content="#0A2259" />
     <meta property="og:site_name" content={`${config.sigla} · ${t('site.name')}`} />
     <meta property="og:title" content={title} />

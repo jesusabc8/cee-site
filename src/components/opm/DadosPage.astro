@@ -1,0 +1,68 @@
+---
+/** Downloads do OPM: todos os arquivos publicados em /dados/ com descrição, tamanho e licença (ADR-029). */
+import { statSync } from 'node:fs';
+import OpmShell from './OpmShell.astro';
+import { INDICADORES } from '../../lib/opm-dados';
+import { safrasOpm } from '../../lib/opm';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const k = en ? 'en' : 'pt';
+const tam = (rel: string) => { try { const b = statSync(`data/processed/${rel}`).size; return b > 1e6 ? `${(b / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1e3))} kB`; } catch { return '—'; } };
+const porArquivo = new Map<string, string[]>();
+for (const i of INDICADORES) if (i.arquivo) porArquivo.set(i.arquivo, [...(porArquivo.get(i.arquivo) ?? []), `${i.codigo} ${i.nome[k]}`]);
+const extras: [string, string, string][] = [
+  ['indicadores/media_nucleos.csv', 'Média dos núcleos (EX0, EX3, MS, DP, P55), três convenções', 'Core average (EX0, EX3, MS, DP, P55), three conventions'],
+  ['indicadores/i4a_neutro_focus_t4.csv', 'I.4 (a): juro real Focus t+4, diário', 'I.4 (a): Focus real rate t+4, daily'],
+  ['indicadores/curvas_nss.csv', 'Curvas NSS nominal e real (ODbL)', 'Nominal and real NSS curves (ODbL)'],
+  ['indicadores/curva_nominal_grade.csv', 'Curva nominal em grade mensal, 1–36 meses (ODbL)', 'Nominal curve on a monthly grid, 1–36 months (ODbL)'],
+  ['indicadores/i15_hiato_ibcbr_mensal.csv', 'I.15: hiato mensal pelo IBC-Br', 'I.15: monthly gap from the IBC-Br'],
+  ['indicadores/i6_taylor_t3_parametros.csv', 'I.6: parâmetros estimados de T3', 'I.6: estimated T3 parameters'],
+  ['indicadores/i16_acm_diagnostico.csv', 'I.16: diagnóstico do ACM', 'I.16: ACM diagnostics'],
+  ['indicadores/i17_cargas.csv', 'I.17: cargas do primeiro componente', 'I.17: first-component loadings'],
+  ['indicadores/modelo_coeficientes.csv', 'A2.7: coeficientes do modelo semiestrutural', 'A2.7: semi-structural model coefficients'],
+  ['indicadores/modelo_diagnostico.csv', 'A2.7: critério de identificação', 'A2.7: identification test'],
+  ['dessaz/_validacao.csv', 'Validação do X-13 contra o RPM', 'X-13 validation against the MPR'],
+  ['dessaz/_meta.json', 'Modelos e especificações do X-13', 'X-13 models and specifications'],
+  ['vintage.json', 'Registro de safras (JSON)', 'Vintage record (JSON)'],
+];
+const linhas = [
+  ...[...porArquivo.entries()].map(([a, ns]) => ({ a, d: ns.join('; ') })),
+  ...extras.map(([a, pt, enx]) => ({ a, d: en ? enx : pt })),
+];
+const s = safrasOpm();
+---
+<OpmShell lang={lang} ativo="dados" titulo={en ? 'Data and downloads' : 'Dados e downloads'} descricao={en ? 'All OPM files: indicators, seasonally adjusted series and source series.' : 'Todos os arquivos do OPM: indicadores, séries dessazonalizadas e séries das fontes.'}
+  lede={en ? 'Every chart in the observatory is generated from these files. CEE indicators and charts are licensed CC BY 4.0; curves derived from Tesouro Direto, ODbL; source series follow each institution’s terms, listed in the data catalogue.' : 'Todo gráfico do observatório é gerado destes arquivos. Indicadores e gráficos do CEE: licença CC BY 4.0; curvas derivadas do Tesouro Direto: ODbL; séries das fontes seguem os termos de cada instituição, listados no catálogo de dados.'}>
+  <section aria-labelledby="d1">
+    <div class="sec-cab"><h2 id="d1" class="sec-tit">{en ? 'Indicators' : 'Indicadores'}</h2><p class="sec-nota"><a href={href('/observatorio/catalogo/', lang)}>{en ? 'Data catalogue' : 'Catálogo de dados'} →</a></p></div>
+    <div class="table-scroll" role="region" aria-label={en ? 'Table: indicator files' : 'Tabela: arquivos de indicadores'} tabindex="0">
+      <table class="tab">
+        <thead><tr><th scope="col">{en ? 'File' : 'Arquivo'}</th><th scope="col">{en ? 'Content' : 'Conteúdo'}</th><th scope="col" class="num">{en ? 'Size' : 'Tamanho'}</th></tr></thead>
+        <tbody>{linhas.map((l) => <tr><th scope="row"><a href={href(`/dados/opm/${l.a}`)} download>{l.a}</a></th><td>{l.d}</td><td class="num">{tam(`opm/${l.a}`)}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+  <section aria-labelledby="d2">
+    <div class="sec-cab"><h2 id="d2" class="sec-tit">{en ? 'Source series' : 'Séries das fontes'}</h2><p class="sec-nota">{s.series.length} {en ? 'series; codes and official names in the catalogue' : 'séries; códigos e nomes oficiais no catálogo'}</p></div>
+    <ul class="grade-dl">{s.series.map((x) => <li><a href={x.csv} download>{x.id}.csv</a><span>{x.codigo}</span></li>)}</ul>
+  </section>
+</OpmShell>
+<style>
+  .sec-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin-bottom: var(--e-2); padding-bottom: 8px; border-bottom: 1px solid var(--pub-linha); }
+  .sec-tit { margin: 0; font: 600 var(--t-22) / 1.2 var(--serif); color: var(--pub-tinta); }
+  .sec-nota { margin: 0; font-size: var(--t-12); color: var(--pub-suave); }
+  .sec-nota a { color: var(--pub-link); }
+  .tab { border-collapse: collapse; width: 100%; font-size: var(--t-14); font-variant-numeric: tabular-nums; }
+  .tab th, .tab td { text-align: left; padding: 7px 14px 7px 0; border-top: 1px solid var(--pub-linha); vertical-align: top; }
+  .tab thead th { border-top: 0; border-bottom: 1px solid var(--pub-linha-forte); font: 600 var(--t-12) / 1.3 var(--sans); text-transform: uppercase; letter-spacing: 0.03em; color: var(--pub-suave); }
+  .tab tbody th { font-weight: 500; font-family: var(--mono); font-size: var(--t-12); }
+  .tab .num { text-align: right; white-space: nowrap; }
+  .tab a { color: var(--pub-link); }
+  .grade-dl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1px; background: var(--pub-linha); border: 1px solid var(--pub-linha); font-size: var(--t-14); }
+  .grade-dl li { display: grid; gap: 2px; padding: 10px 12px; background: var(--pub-fundo); min-width: 0; }
+  .grade-dl a { color: var(--pub-link); font-weight: 600; overflow-wrap: anywhere; }
+  .grade-dl span { font-size: var(--t-12); color: var(--pub-suave); overflow-wrap: anywhere; }
+</style>

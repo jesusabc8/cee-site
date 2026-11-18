@@ -1,47 +1,55 @@
 # Módulos do Observatório de Política Monetária (especificação v1.1, seção 4; ADR-022). Fonte única das páginas de módulo.
 - id: a2-1-copom
+  curto: { pt: 'Copom', en: 'Copom' }
   codigo: A2.1
   titulo: { pt: 'Decisões e comunicação do Copom', en: 'Copom decisions and communication' }
   pergunta:
     pt: O que o Copom decidiu, por qual placar, e quanto a decisão surpreendeu as expectativas?
     en: What did Copom decide, by what vote, and how much did the decision surprise expectations?
 - id: a2-2-juro-real
+  curto: { pt: 'Juro real', en: 'Real rates' }
   codigo: A2.2
   titulo: { pt: 'Juro real, juro neutro e regras de política', en: 'Real rate, neutral rate and policy rules' }
   pergunta:
     pt: Quão restritiva é a política monetária, medida pelo juro real em relação a uma faixa de juro neutro?
     en: How restrictive is monetary policy, measured by the real rate against a neutral-rate band?
 - id: a2-3-inflacao
+  curto: { pt: 'Inflação', en: 'Inflation' }
   codigo: A2.3
   titulo: { pt: 'Inflação, grupos e núcleos', en: 'Inflation, groups and core measures' }
   pergunta:
     pt: Onde está a inflação, qual é a tendência subjacente e há quanto tempo o IPCA está fora do intervalo de tolerância?
     en: Where is inflation, what is the underlying trend, and for how long has the IPCA been outside the tolerance band?
 - id: a2-4-expectativas
+  curto: { pt: 'Expectativas', en: 'Expectations' }
   codigo: A2.4
   titulo: { pt: 'Expectativas e credibilidade', en: 'Expectations and credibility' }
   pergunta:
     pt: As expectativas de inflação estão ancoradas na meta?
     en: Are inflation expectations anchored at the target?
 - id: a2-5-transmissao
+  curto: { pt: 'Transmissão', en: 'Transmission' }
   codigo: A2.5
   titulo: { pt: 'Transmissão', en: 'Transmission' }
   pergunta:
     pt: Como a política monetária chega ao crédito, ao câmbio, às commodities e à atividade?
     en: How does monetary policy reach credit, the exchange rate, commodities and activity?
 - id: a2-6-externo-fiscal
+  curto: { pt: 'Externo e fiscal', en: 'External, fiscal' }
   codigo: A2.6
   titulo: { pt: 'Ambiente externo e fiscal', en: 'External and fiscal environment' }
   pergunta:
     pt: Quais condições externas e fiscais pesam sobre a política monetária?
     en: Which external and fiscal conditions weigh on monetary policy?
 - id: a2-7-projecoes
+  curto: { pt: 'Projeções', en: 'Projections' }
   codigo: A2.7
   titulo: { pt: 'Projeções e cenários', en: 'Projections and scenarios' }
   pergunta:
     pt: O que projetam o BCB e o mercado, e quanto erraram depois de conhecido o dado?
     en: What do the BCB and the market project, and how far off were they once the data came out?
 - id: a2-8-moeda
+  curto: { pt: 'Moeda', en: 'Money' }
   codigo: A2.8
   titulo: { pt: 'Moeda, reservas bancárias e agregados', en: 'Money, bank reserves and aggregates' }
   pergunta:

@@ -25,9 +25,11 @@ export interface SerieSpec {
   muted?: boolean;
   /** Não aparece no tooltip (ex.: limites da meta, que já estão na legenda). */
   noTooltip?: boolean;
+  /** Estilo 'pub': classe de cor semântica (s1…s4), que o CSS troca conforme o tema. */
+  classe?: 's1' | 's2' | 's3' | 's4';
 }
 
-export interface BandaSpec { id: string; label: string; lo: Ponto[]; hi: Ponto[]; fill: string; step?: boolean }
+export interface BandaSpec { id: string; label: string; lo: Ponto[]; hi: Ponto[]; fill: string; step?: boolean; classe?: 'banda-1' | 'banda-2' }
 
 export interface ChartSpec {
   id: string;
@@ -49,6 +51,17 @@ export interface ChartSpec {
   yMin?: number;
   yMax?: number;
   lang: string;
+  /**
+   * 'pub' (ADR-029): sem moldura, unidade no topo do eixo y, rótulos diretos afastados pela altura real do texto,
+   * marcas de eventos (reuniões do Copom) no pé da área do gráfico e cores por classe (temas claro e escuro).
+   */
+  estilo?: 'pub';
+  /** Unidade escrita no topo do eixo y (estilo 'pub'). */
+  yLabel?: string;
+  /** Marcas verticais curtas no eixo x (ex.: reuniões do Copom). */
+  marcas?: { x: number; rotulo: string }[];
+  /** Safra dos dados, mostrada no tooltip. */
+  vintage?: string;
 }
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -109,8 +122,12 @@ export function layout(spec: ChartSpec, width: number, xFrom?: number): Layout {
   if (spec.yMax === undefined) yMax += pad;
   const narrow = width < 480;
   const hasEnd = spec.series.some((s) => s.endLabel !== false && s.kind !== 'bar' && s.kind !== 'dots');
-  const right = hasEnd ? (narrow ? 64 : 92) : 16;
-  const top = 14;
+  const pub = spec.estilo === 'pub';
+  // Estilo 'pub': a margem direita cabe o rótulo direto mais longo (até 38 % da largura), sem cortar texto.
+  const maxFim = Math.max(0, ...spec.series.filter((s) => s.endLabel !== false && s.kind !== 'bar' && s.kind !== 'dots')
+    .map((s) => `${String(s.endLabel ?? s.label)} ${fmtNum(-88.88, spec.yDigits, spec.lang, spec.yThousands)}`.length));
+  const right = !hasEnd ? 16 : pub ? Math.min(Math.round(width * 0.3), Math.round(maxFim * 6.9) + 18) : (narrow ? 64 : 92);
+  const top = pub && spec.yLabel ? 30 : 14;
   const bottom = 30;
   const ticks = niceTicks(yMin, yMax, Math.max(3, Math.round(spec.height / 56)));
   const y0 = Math.min(yMin, ticks[0]!);
@@ -209,6 +226,9 @@ export function renderSvg(spec: ChartSpec, width: number, xFrom?: number): strin
     out.push(`<text x="${L.left - 8}" y="${y + 4}" text-anchor="end" class="viz-tick">${esc(fmtNum(t, dig, spec.lang, spec.yThousands) + (spec.yTickSuffix ?? ''))}</text>`);
   }
 
+  const pub = spec.estilo === 'pub';
+  if (pub && spec.yLabel) out.push(`<text x="${L.left - 8}" y="14" text-anchor="start" class="viz-eixo">${esc(spec.yLabel)}</text>`);
+
   // Faixas (ex.: intervalo de tolerância da meta)
   for (const b of spec.bands ?? []) {
     const lo = b.lo.filter((p) => p.y !== null && p.x >= L.x0 && p.x <= L.x1);
@@ -221,15 +241,16 @@ export function renderSvg(spec: ChartSpec, width: number, xFrom?: number): strin
       const X = f1(L.sx(p.x)); const Y = f1(L.sy(p.y as number));
       if (b.step && k > 0) back += `V${Y}H${X}`; else back += `L${X} ${Y}`;
     }
-    out.push(`<path d="${top}${back}Z" fill="${b.fill}" class="viz-band"/>`);
+    out.push(`<path d="${top}${back}Z" fill="${b.fill}" class="viz-band${b.classe ? ` ${b.classe}` : ''}"/>`);
   }
 
   // Referências horizontais
   for (const r of spec.refs ?? []) {
     if (r.y < L.y0 || r.y > L.y1) continue;
     const y = f1(L.sy(r.y));
-    out.push(`<line x1="${L.left}" x2="${W - L.right}" y1="${y}" y2="${y}" stroke="${r.color ?? '#56667A'}" stroke-width="1.2" stroke-dasharray="${r.dash ?? '5 4'}"/>`);
-    out.push(`<text x="${W - L.right - 4}" y="${y - 6}" text-anchor="end" class="viz-note">${esc(r.label)}</text>`);
+    out.push(`<line x1="${L.left}" x2="${W - L.right}" y1="${y}" y2="${y}" stroke="${r.color ?? '#56667A'}" stroke-width="1.2" stroke-dasharray="${r.dash ?? '5 4'}"${pub ? ' class="ref-linha"' : ''}/>`);
+    // Rótulo da referência: no estilo 'pub', desenhado por último (sobre as séries), à esquerda e acima da linha.
+    if (!pub) out.push(`<text x="${W - L.right - 4}" y="${y - 6}" text-anchor="end" class="viz-note">${esc(r.label)}</text>`);
   }
 
   // Eixo x
@@ -237,7 +258,15 @@ export function renderSvg(spec: ChartSpec, width: number, xFrom?: number): strin
   for (const t of xTicks(L, spec.xFormat)) {
     const x = f1(L.sx(t.x));
     out.push(`<line x1="${x}" x2="${x}" y1="${H - L.bottom}" y2="${H - L.bottom + 4}" class="viz-base"/>`);
-    out.push(`<text x="${x}" y="${H - L.bottom + 18}" text-anchor="middle" class="viz-tick">${esc(t.label)}</text>`);
+    // Marca colada ao eixo y: texto ancorado no início para não invadir os rótulos do eixo y.
+    const ancora = pub && x - L.left < t.label.length * 3.6 ? 'start' : 'middle';
+    out.push(`<text x="${x}" y="${H - L.bottom + 18}" text-anchor="${ancora}" class="viz-tick">${esc(t.label)}</text>`);
+  }
+  // Marcas de eventos (ex.: reuniões do Copom): traços curtos no pé da área do gráfico.
+  for (const m of spec.marcas ?? []) {
+    if (m.x < L.x0 || m.x > L.x1) continue;
+    const x = f1(L.sx(m.x));
+    out.push(`<line x1="${x}" x2="${x}" y1="${H - L.bottom - 4}" y2="${H - L.bottom}" class="viz-copom"><title>${esc(m.rotulo)}</title></line>`);
   }
 
   // Barras primeiro (atrás das linhas)
@@ -250,7 +279,7 @@ export function renderSvg(spec: ChartSpec, width: number, xFrom?: number): strin
       const y = L.sy(p.y as number);
       return `<rect x="${f1(L.sx(p.x) - bw / 2)}" y="${f1(Math.min(y, y0))}" width="${f1(bw)}" height="${f1(Math.max(0.6, Math.abs(y0 - y)))}"/>`;
     }).join('');
-    out.push(`<g fill="${s.color}" data-serie="${s.id}" class="viz-bars">${g}</g>`);
+    out.push(`<g fill="${s.color}" data-serie="${s.id}" class="viz-bars${s.classe ? ` preenche-${s.classe}` : ''}">${g}</g>`);
   }
 
   // Linhas (as de fundo primeiro, depois as principais)
@@ -259,15 +288,15 @@ export function renderSvg(spec: ChartSpec, width: number, xFrom?: number): strin
   for (const s of ordenadas) {
     if (s.kind === 'dots') {
       const g = s.points.filter((p) => p.y !== null && p.x >= L.x0 && p.x <= L.x1).map((p) => marker(s.markers ?? 'circle', L.sx(p.x), L.sy(p.y as number), s.color, 4)).join('');
-      out.push(`<g data-serie="${s.id}">${g}</g>`);
+      out.push(`<g data-serie="${s.id}"${s.classe ? ` class="preenche-${s.classe}"` : ''}>${g}</g>`);
       continue;
     }
     const d = pathFor(s.points, L, s.kind === 'step');
     if (!d) continue;
-    out.push(`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width ?? 2}" ${s.dash ? `stroke-dasharray="${s.dash}"` : ''} stroke-linejoin="round" stroke-linecap="round" data-serie="${s.id}" class="viz-line${s.muted ? ' is-muted' : ''}"/>`);
+    out.push(`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width ?? 2}" ${s.dash ? `stroke-dasharray="${s.dash}"` : ''} stroke-linejoin="round" stroke-linecap="round" data-serie="${s.id}" class="viz-line${s.muted ? ' is-muted' : ''}${s.classe ? ` serie-${s.classe}` : ''}"/>`);
     if (s.markers) {
       const g = s.points.filter((p) => p.y !== null && p.x >= L.x0 && p.x <= L.x1).map((p) => marker(s.markers!, L.sx(p.x), L.sy(p.y as number), s.color, 2.6)).join('');
-      out.push(`<g data-serie="${s.id}">${g}</g>`);
+      out.push(`<g data-serie="${s.id}"${s.classe ? ` class="preenche-${s.classe}"` : ''}>${g}</g>`);
     }
   }
 
@@ -278,13 +307,25 @@ export function renderSvg(spec: ChartSpec, width: number, xFrom?: number): strin
     return u ? { s, x: L.sx(u.x), y: L.sy(u.y as number), v: u.y as number } : null;
   }).filter((r): r is NonNullable<typeof r> => r !== null).sort((a, b) => a.y - b.y);
   const ys = fins.map((f) => f.y);
-  for (let i = 1; i < ys.length; i++) if (ys[i]! - ys[i - 1]! < 14) ys[i] = ys[i - 1]! + 14;
+  // Afastamento mínimo = altura do texto (12 px) + folga; no estilo 'pub', 17 px, e o bloco cabe na área do gráfico.
+  const passo = pub ? 17 : 14;
+  for (let i = 1; i < ys.length; i++) if (ys[i]! - ys[i - 1]! < passo) ys[i] = ys[i - 1]! + passo;
+  if (pub && ys.length) {
+    const excesso = ys.at(-1)! - (H - L.bottom - 4);
+    if (excesso > 0) for (let i = 0; i < ys.length; i++) ys[i] = ys[i]! - excesso;
+    for (let i = 0; i < ys.length; i++) ys[i] = Math.max(ys[i]!, L.top + 8 + i * passo);
+  }
   const narrow = width < 480;
   fins.forEach((f, i) => {
-    out.push(marker('circle', f.x, f.y, f.s.color, 3.4));
-    const txt = `${narrow ? '' : `${f.s.endLabel ?? f.s.label} `}${fmtNum(f.v, spec.yDigits, spec.lang, spec.yThousands)}`;
+    out.push(pub && f.s.classe ? marker('circle', f.x, f.y, f.s.color, 3.4).replace('<circle', `<circle class="preenche-${f.s.classe} viz-marca"`) : marker('circle', f.x, f.y, f.s.color, 3.4));
+    const txt = `${narrow && !pub ? '' : `${f.s.endLabel ?? f.s.label} `}${fmtNum(f.v, spec.yDigits, spec.lang, spec.yThousands)}`;
     out.push(`<text x="${f1(W - L.right + 8)}" y="${f1(ys[i]! + 4)}" class="viz-end${f.s.muted ? ' is-muted' : ''}" data-serie="${f.s.id}">${esc(txt)}</text>`);
   });
+
+  if (pub) for (const r of spec.refs ?? []) {
+    if (r.y < L.y0 || r.y > L.y1) continue;
+    out.push(`<text x="${L.left + 6}" y="${f1(L.sy(r.y)) - 5}" text-anchor="start" class="viz-note viz-halo">${esc(r.label)}</text>`);
+  }
 
   // Camada de interação (cursor), preenchida no navegador
   out.push(`<g class="viz-hover is-off"><line class="viz-cursor" y1="${L.top}" y2="${H - L.bottom}"/></g>`);

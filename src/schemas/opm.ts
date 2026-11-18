@@ -6,6 +6,8 @@ const bi = z.object({ pt: z.string().min(1), en: z.string().min(1) }).strict();
 export const moduloSchema = z.object({
   id: z.string().regex(/^a2-[1-8]-[a-z0-9-]+$/),
   codigo: z.string().regex(/^A2\.[1-8]$/),
+  /** Nome curto para a navegação por módulos. */
+  curto: bi,
   titulo: bi,
   pergunta: bi,
 }).strict();

@@ -83,11 +83,16 @@ function iniciar(fig: HTMLElement) {
       const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       c.setAttribute('cx', String(cx)); c.setAttribute('cy', String(L.sy(p.y)));
       c.setAttribute('r', '4.5'); c.setAttribute('fill', s.color); c.setAttribute('stroke', '#fff'); c.setAttribute('stroke-width', '2');
+      if (s.classe) c.setAttribute('class', `preenche-${s.classe} viz-marca`);
       hover.appendChild(c);
-      linhas.push(`<span class="viz-tip__row"><i data-cor="${s.color}"></i>${s.label}<b>${fmtNum(p.y, spec.yDigits, spec.lang, spec.yThousands)}${spec.yTickSuffix && !spec.yThousands ? spec.yTickSuffix : ''}</b></span>`);
+      const cor = s.classe ? getComputedStyle(svg.querySelector(`.serie-${s.classe}, .preenche-${s.classe}`) ?? svg).getPropertyValue(svg.querySelector(`.serie-${s.classe}`) ? 'stroke' : 'fill') : s.color;
+      linhas.push(`<span class="viz-tip__row"><i data-cor="${cor}"></i>${s.label}<b>${fmtNum(p.y, spec.yDigits, spec.lang, spec.yThousands)}${spec.yTickSuffix && !spec.yThousands ? spec.yTickSuffix : ''}</b></span>`);
     }
     if (!linhas.length) return esconder();
-    tip.innerHTML = `<span class="viz-tip__x">${fmtX(melhor, spec.xFormat, spec.lang)}</span>${linhas.join('')}`;
+    const en = spec.lang === 'en';
+    const rodape = spec.estilo === 'pub'
+      ? `<span class="viz-tip__meta">${spec.yUnit ? `${en ? 'Unit' : 'Unidade'}: ${spec.yLabel ?? spec.yUnit}` : ''}${spec.vintage ? ` · ${en ? 'vintage' : 'safra'} ${spec.vintage}` : ''}</span>` : '';
+    tip.innerHTML = `<span class="viz-tip__x">${fmtX(melhor, spec.xFormat, spec.lang)}</span>${linhas.join('')}${rodape}`;
     // Cor via CSSOM (permitido pela CSP), não por atributo style.
     tip.querySelectorAll<HTMLElement>('i[data-cor]').forEach((i) => { i.style.background = i.dataset.cor ?? ''; });
     tip.hidden = false;
@@ -105,6 +110,54 @@ function iniciar(fig: HTMLElement) {
   };
   plot.addEventListener('pointermove', (e) => mover(e.clientX, e.clientY));
   plot.addEventListener('pointerleave', esconder);
+
+  // Exportação (SVG e PNG): cores computadas copiadas para os atributos, para o arquivo valer fora do sítio.
+  const svgExportavel = () => {
+    const svg = plot.querySelector('svg');
+    if (!svg) return null;
+    const copia = svg.cloneNode(true) as SVGSVGElement;
+    const orig = [svg, ...svg.querySelectorAll('*')];
+    const dest = [copia, ...copia.querySelectorAll('*')];
+    orig.forEach((el, i) => {
+      const cs = getComputedStyle(el);
+      const d = dest[i] as SVGElement;
+      for (const prop of ['fill', 'stroke', 'stroke-opacity', 'fill-opacity', 'font-size', 'font-weight', 'font-family', 'opacity']) {
+        const v = cs.getPropertyValue(prop);
+        if (v) d.setAttribute(prop, v);
+      }
+    });
+    copia.querySelector('.viz-hover')?.remove();
+    const fundo = getComputedStyle(document.body).backgroundColor || '#fff';
+    const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    r.setAttribute('width', '100%'); r.setAttribute('height', '100%'); r.setAttribute('fill', fundo);
+    copia.insertBefore(r, copia.firstChild);
+    copia.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    return new XMLSerializer().serializeToString(copia);
+  };
+  const baixar = (blob: Blob, nome: string) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = nome;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  };
+  const nome = fig.id || 'grafico';
+  fig.querySelector<HTMLButtonElement>('[data-exportar="svg"]')?.addEventListener('click', () => {
+    const t = svgExportavel(); if (t) baixar(new Blob([t], { type: 'image/svg+xml' }), `${nome}.svg`);
+  });
+  fig.querySelector<HTMLButtonElement>('[data-exportar="png"]')?.addEventListener('click', () => {
+    const t = svgExportavel(); const svg = plot.querySelector('svg');
+    if (!t || !svg) return;
+    const img = new Image();
+    img.onload = () => {
+      const k = 2; const c = document.createElement('canvas');
+      c.width = svg.viewBox.baseVal.width * k; c.height = svg.viewBox.baseVal.height * k;
+      const ctx = c.getContext('2d'); if (!ctx) return;
+      ctx.scale(k, k); ctx.drawImage(img, 0, 0);
+      c.toBlob((b) => { if (b) baixar(b, `${nome}.png`); }, 'image/png');
+    };
+    // data: é permitido em img-src pela CSP; blob: não.
+    img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(t)}`;
+  });
 
   desenhar();
   let raf = 0;
