@@ -1,0 +1,14 @@
+# Especificação X-13 (ADR-023): IPCA administrados (SGS 4449). Variação mensal ajustada no número-índice encadeado e reconvertida.
+serie: ipca_administrados
+entrada: opm/ipca_administrados.csv
+coluna: valor
+tipo: variacao
+transformacao: log
+arima: "(0 1 1)(0 1 1)"  # modelo airline fixo (validação de 18/11/2026: a seleção automática escolhia, no IPCA, (1 1 0)(1 0 0) sem diferença sazonal e errava o SAAR de mai/2026 em 0,61 p.p.)
+regressores: []
+teste_aic: [td]
+carnaval: true
+outliers:
+  tipos: [ao, ls]
+inicio: "2012-01"
+revisado_em: "2026-11-18"

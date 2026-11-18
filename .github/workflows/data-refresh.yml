@@ -26,13 +26,26 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --ignore-scripts
+      # Python do OPM (ADR-022/023): python3 do runner, dependências só com hash; o binário X-13 é baixado
+      # em versão fixa e conferido por SHA-256 dentro de analysis/opm/x13.py.
+      - run: python3 -m venv .venv && .venv/bin/pip install --require-hashes -r analysis/requirements.txt
       # Extração: se uma fonte falhar, o vintage anterior é mantido e a falha registrada (não quebra).
       - run: npm run data:fetch
       - run: npm run data:process
       - run: npm run data:derive
+      - run: npm run data:dessaz
+        env:
+          PYTHON: ${{ github.workspace }}/.venv/bin/python
+      - run: npm run data:opm
+      - run: npm run data:neutro
+        env:
+          PYTHON: ${{ github.workspace }}/.venv/bin/python
       - run: npm run data:catalogo
-      # Testes de formato, intervalos, duplicatas e integridade: se falharem, nada é publicado.
+      # Testes de formato, intervalos, duplicatas, integridade e referência: se falharem, nada é publicado.
       - run: npm test
+      - run: npm run test:py
+        env:
+          PYTHON: ${{ github.workspace }}/.venv/bin/python
       - name: Commit do novo vintage
         run: |
           if [ -z "$(git status --porcelain data)" ]; then

@@ -46,6 +46,11 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run check
       - run: npm run lint
+      # Testes do pacote Python do OPM sobre os dados versionados (dependências só com hash).
+      - run: python3 -m venv .venv && .venv/bin/pip install --require-hashes -r analysis/requirements.txt
+      - run: npm run test:py
+        env:
+          PYTHON: ${{ github.workspace }}/.venv/bin/python
       - run: npm test
       - name: Build (versão preliminar, como publicada)
         run: npm run build
