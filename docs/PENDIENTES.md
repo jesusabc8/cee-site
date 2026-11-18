@@ -34,8 +34,8 @@ Itens que não puderam ser verificados ou concluídos. Nada listado aqui é publ
 - **SIDRA 5877 / 5817 (ODS 1.2.1 e 1.1.1)**: valores diferentes dos da SIS (26,5 % e 4,7 % em 2024) e linha não documentada. Não usadas (ADR-013).
 
 ## Observatório (arquitetura de 2026-10)
-- **TODO — slug de A2.** Renomear `/observatorio/conjuntura/` para `/observatorio/politica-monetaria/` numa edição futura, com
-  redirecionamento 301 (e `/en/`). O slug foi mantido por causa dos vintages arquivados (data e hash) e de eventuais citações externas.
+- ~~**TODO — slug de A2.**~~ Resolvido pelo ADR-026 (edição 2.0, OPM): `/observatorio/politica-monetaria/` com 301 a partir de
+  `/observatorio/conjuntura/` (e `/en/`). Os dados derivados de `data/processed/conjuntura/` ficam no mesmo caminho.
 - **TODO — desocupação (SIDRA 6381)** continua na página de A2. É indicador de ciclo e provavelmente migrará para A1 quando A1 for publicado.
 - **A1 e setor externo:** os indicadores ainda não foram definidos. O setor externo como programa é o D (em formação); o Manual não atribui indicadores a A1.
 - **Perguntas por painel:** o Manual não associa perguntas a painéis; as linhas mostram só código e nome. Se a coordenação quiser essa associação, ela precisa constar do plano anual (Regimento, art. 44).
