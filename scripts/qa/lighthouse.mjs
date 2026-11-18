@@ -9,7 +9,7 @@ import { execFileSync } from 'node:child_process';
 const base = process.argv[2] ?? 'http://localhost:4321';
 const out = process.argv[3] ?? 'docs/qa/lighthouse';
 mkdirSync(out, { recursive: true });
-const rotas = ['/', '/observatorio/politica-monetaria/', '/observatorio/politica-monetaria/a2-3-inflacao/', '/sobre/', '/publicacoes/', '/pesquisa/a/', '/en/'];
+const rotas = process.env.ROTAS ? process.env.ROTAS.split(',') : ['/', '/observatorio/politica-monetaria/', '/observatorio/politica-monetaria/a2-3-inflacao/', '/sobre/', '/publicacoes/', '/pesquisa/a/', '/en/'];
 const linhas = ['| Página | Performance | Acessibilidade | Boas práticas | SEO |', '|---|---|---|---|---|'];
 let falhou = false;
 for (const r of rotas) {
