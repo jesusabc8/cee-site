@@ -705,6 +705,34 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
         .filter((r) => r.data >= `${a - 2}-01-01`).map((r) => ({ x: mes(r.data.slice(0, 7)), y: Number(r.mediana) }));
       const v = (a: number) => fa.filter((r) => r.data === ultima && Number(r.ano_referencia) === a)[0];
       return { graficos: [
+        (() => {
+          const c = ler('opm/indicadores/a27_projecoes_copom.csv');
+          const u = c.at(-1)!;
+          const xd = (d: string) => dia(d);
+          const hz = (h: string) => (/T\d$/.test(h) ? (en ? `Q${h.slice(-1)} ${h.slice(0, 4)}` : `${h.slice(-1)}º tri de ${h.slice(0, 4)}`) : h);
+          return monta({
+            id: 'opm-copom-focus-meta', icone: 'target', rotulo: 'A2.7', largo: true,
+            titulo: en
+              ? `Copom projects ${n1(Number(u.projecao_copom))}% for the relevant horizon (${hz(u.horizonte!)}); Focus expects ${n2(Number(u.focus_ipca_ano_horizonte))}% for ${u.ano_horizonte}, against the 3.0% target`
+              : `Copom projeta ${n1(Number(u.projecao_copom))}% no horizonte relevante (${hz(u.horizonte!)}); Focus espera ${n2(Number(u.focus_ipca_ano_horizonte))}% para ${u.ano_horizonte}, ante a meta de 3,0%`,
+            subtitulo: subtitulo(lang, en ? '% IPCA; Copom reference scenario at each meeting and Focus median before it' : '% IPCA; cenário de referência do Copom em cada reunião e mediana Focus da véspera', en ? 'by meeting' : 'por reunião', pts(c, 'data_reuniao', 'projecao_copom', xd), 'dia',
+              en ? `${u.reuniao}th meeting` : `${u.reuniao}ª reunião`),
+            eixo: '%', unidade: '%', xFormat: 'month', yDigits: 1, yUnit: '%', zero: true, ranges: false,
+            descricao: en ? 'Markers: Copom projection for the relevant horizon and Focus median for the horizon year, at each meeting since the 265th. Shaded: tolerance band.' : 'Marcadores: projeção do Copom para o horizonte relevante e mediana Focus para o ano do horizonte, em cada reunião desde a 265ª. Área: intervalo de tolerância.',
+            series: [
+              { id: 'copom', label: en ? 'Copom, relevant horizon' : 'Copom, horizonte relevante', endLabel: 'Copom', color: COR.navy, width: 2, kind: 'step', markers: 'circle', points: pts(c, 'data_reuniao', 'projecao_copom', xd) },
+              { id: 'focus', label: en ? 'Focus, horizon year' : 'Focus, ano do horizonte', endLabel: 'Focus', color: COR.azure, dash: '6 3', kind: 'step', markers: 'square', points: pts(c, 'data_reuniao', 'focus_ipca_ano_horizonte', xd) },
+            ],
+            bandas: [{ id: 'tol', label: en ? 'Tolerance band' : 'Intervalo de tolerância', fill: COR.sky, lo: c.map((r) => ({ x: xd(r.data_reuniao!), y: 1.5 })), hi: c.map((r) => ({ x: xd(r.data_reuniao!), y: 4.5 })) }],
+            refs: [{ y: 3, label: en ? 'Target 3.0%' : 'Meta 3,0%', dash: '2 3', color: COR.steel }],
+            colunasExtra: [{ titulo: en ? 'Target (%)' : 'Meta (%)', pontos: pts(c, 'data_reuniao', 'meta', xd) }],
+            legenda: [{ id: 'copom', label: en ? 'Copom projection, relevant horizon' : 'Projeção do Copom, horizonte relevante', color: COR.navy, style: 'marker' }, { id: 'focus', label: en ? 'Focus median, horizon year' : 'Mediana Focus, ano do horizonte', color: COR.azure, style: 'dash' }, { id: 'tol', label: en ? 'Tolerance band' : 'Intervalo de tolerância', color: COR.sky, style: 'band' }],
+            fontes: [fonte('copom_comunicados'), fonte('focus_anuais'), fonte('metas_inflacao')], csv: [csvInd('indicadores/a27_projecoes_copom.csv')],
+            nota: en
+              ? 'Copom projection extracted from each statement (sentence “inflation projection for … current relevant horizon”), in the format used since the 265th meeting. Copom projects 12-month inflation up to the horizon quarter; Focus is the calendar-year median for that year, so the comparison is approximate. Copom uses the Focus Selic path in its reference scenario. The CEE semi-structural model does not pass the identification check (ADR-028) and is not shown here.'
+              : 'Projeção do Copom extraída de cada comunicado (frase “projeção de inflação … atual horizonte relevante”), no formato usado desde a 265ª reunião. O Copom projeta a inflação em 12 meses até o trimestre do horizonte; a Focus é a mediana do ano-calendário, por isso a comparação é aproximada. O Copom usa a trajetória da Selic da Focus no cenário de referência. O modelo semiestrutural do CEE não passa no critério de identificação (ADR-028) e não aparece aqui.',
+          }, lang);
+        })(),
         monta({
           id: 'opm-focus-ipca', icone: 'line-chart', rotulo: 'A2.7', largo: true,
           titulo: en ? `Focus expects IPCA of ${n2(Number(v(anoAtual)?.mediana))}% in ${anoAtual} and ${n2(Number(v(anoAtual + 1)?.mediana))}% in ${anoAtual + 1}` : `Focus projeta IPCA de ${n2(Number(v(anoAtual)?.mediana))}% em ${anoAtual} e ${n2(Number(v(anoAtual + 1)?.mediana))}% em ${anoAtual + 1}`,
@@ -718,20 +746,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           nota: en ? 'Layer 1 only records and compares projections. Forecast errors of the BCB and of Focus will be computed once each outcome is known, from the vintages stored from this edition on (ADR-025). CEE scenarios (layer 3) will be conditional exercises, never CEE forecasts.'
             : 'A camada 1 só registra e compara projeções. Os erros de previsão do BCB e da Focus serão calculados quando cada dado for conhecido, a partir das safras guardadas desde esta edição (ADR-025). Os cenários do CEE (camada 3) serão exercícios condicionais, nunca previsões do CEE.',
         }, lang),
-      ], tabelas: [(() => {
-        const co = ler('opm/indicadores/modelo_coeficientes.csv');
-        const dg = ler('opm/indicadores/modelo_diagnostico.csv')[0]!;
-        const pub = dg.publicavel === '1';
-        return {
-          id: 'opm-modelo', titulo: en ? 'CEE semi-structural model (experimental): estimated coefficients' : 'Modelo semiestrutural do CEE (experimental): coeficientes estimados',
-          descricao: (en ? `Quarterly OLS, Newey-West errors (IS, Phillips, Taylor, UIP). Identification check for publishing the model's neutral rate (I.4 e) and conditional scenarios: IS slope t ≤ −2 and positive output-gap coefficient in the Phillips curve. Current result: t = ${n2(Number(dg.t_inclinacao_is))} and coefficient ${n2(Number(dg.coef_hiato_phillips))} — ` : `MQO trimestral, erros de Newey-West (IS, Phillips, Taylor, UIP). Critério para publicar o juro neutro do modelo (I.4 e) e os cenários condicionais: inclinação da IS com t ≤ −2 e coeficiente do hiato positivo na curva de Phillips. Resultado atual: t = ${n2(Number(dg.t_inclinacao_is))} e coeficiente ${n2(Number(dg.coef_hiato_phillips))} — `)
-            + (pub ? (en ? 'passed; scenarios in modelo_cenarios.csv.' : 'aprovado; cenários em modelo_cenarios.csv.') : (en ? 'not passed: the scenarios would not distinguish interest-rate paths, so they are not published; the full exercise is in the draft Discussion Paper.' : 'não aprovado: os cenários não distinguiriam trajetórias de juros e por isso não são publicados; o exercício completo está na minuta de Texto para Discussão.')),
-          colunas: [en ? 'Equation · variable' : 'Equação · variável', en ? 'Coefficient' : 'Coeficiente', en ? 'Std. error' : 'Erro-padrão', 'n', 'R²'],
-          linhas: co.map((r) => [`${r.equacao} · ${r.variavel}`, n2(Number(r.coeficiente)), n2(Number(r.erro_padrao)), r.n!, n2(Number(r.r2))]),
-          fontes: [fonte('pib_volume_sa'), fonte('focus_selic'), fonte('focus_inflacao_12m'), fonte('ipca'), fonte('cambio_real'), fonte('selic_meta'), fonte('fed_funds_sup')],
-          csv: [csvInd('indicadores/modelo_coeficientes.csv'), csvInd('indicadores/modelo_diagnostico.csv')],
-        };
-      })()] };
+      ] };
     }
     case 'a2-8-moeda': {
       const a = ler('opm/indicadores/i18_agregados.csv');

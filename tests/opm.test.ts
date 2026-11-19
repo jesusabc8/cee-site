@@ -207,3 +207,20 @@ describe('Selic média esperada pela Focus em n dias úteis (I.16, ADR-031)', ()
     expect(r.coberto).toBe(false);
   });
 });
+
+describe('A2.7: projeções do Copom extraídas dos comunicados (ADR-031)', () => {
+  const c = ler(`${IND}/a27_projecoes_copom.csv`);
+  it('valores de referência conferidos no texto dos comunicados', () => {
+    const r = (n: string) => c.find((x) => x.reuniao === n)!;
+    expect([r('282').horizonte, r('282').projecao_copom]).toEqual(['2028-T2', '3.5']);
+    expect([r('281').horizonte, r('281').projecao_copom]).toEqual(['2028-T1', '3.2']);
+    expect([r('276').horizonte, r('276').projecao_copom]).toEqual(['2027-T3', '3.2']);
+    expect([r('270').horizonte, r('270').projecao_copom]).toEqual(['2026', '3.6']);
+  });
+  it('uma linha por reunião, desde a 265ª, Focus anterior à reunião, meta contínua de 3,0%', () => {
+    expect(Number(c[0]!.reuniao)).toBe(265);
+    expect(new Set(c.map((x) => x.reuniao)).size).toBe(c.length);
+    for (const x of c) { expect(x.coleta_focus! < x.data_reuniao!).toBe(true); expect(Number(x.meta)).toBe(3); }
+  });
+});
+

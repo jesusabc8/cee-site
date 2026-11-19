@@ -4,7 +4,7 @@
  * Os indicadores que dependem de estimação (I.3, I.4 b e a faixa de juro neutro) são calculados em analysis/opm.
  * Uso: node scripts/data/derive-opm.ts
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { csv, lerCsvTexto, type Linha } from './csv.ts';
 import { somaDias } from './opm/calendario.ts';
@@ -151,6 +151,36 @@ for (const [rot, f] of [...fimReuniao.entries()].sort(([, a], [, b]) => a.fim.lo
   });
 }
 await grava('i5_surpresa', i5);
+
+// ——— A2.7 (ADR-031): projeção do Copom para o horizonte relevante × Focus × meta ———
+// Texto dos comunicados (API de conteúdo do BCB, arquivo bruto da safra). O formato "A projeção de inflação do Copom para
+// o <trimestre> de AAAA (ou o ano de AAAA), atual horizonte relevante …, <verbo> X% no cenário de referência" existe desde
+// a 265ª reunião; antes, os comunicados citam projeções por ano-calendário em formatos variados e não são extraídos.
+// A Focus comparada é a mediana do IPCA do ano do horizonte na última coleta antes da reunião (o Copom projeta a
+// inflação em 12 meses até o trimestre do horizonte: comparação aproximada, declarada).
+{
+  const vint = JSON.parse(readFileSync(`${P}/opm/vintage.json`, 'utf8')) as Record<string, { vintage_dir: string }>;
+  const dir = vint.copom_comunicados!.vintage_dir;
+  const ORD: Record<string, number> = { primeiro: 1, segundo: 2, terceiro: 3, quarto: 4 };
+  const rx = /proje\S+ de infla\S+ do Copom para (?:o (primeiro|segundo|terceiro|quarto) trimestre de|o ano de) (\d{4}),? (?:atual )?horizonte relevante[^%]{0,120}?(\d+,\d+)\s?%/i;
+  const datas = new Map((await ler('opm/copom_comunicados.csv')).map((c) => [c.reuniao!, c.data!]));
+  const fIpca = focusAnuais.filter((r) => r.indicador === 'IPCA' && r.mediana);
+  const a27: Linha[] = [];
+  for (const arq of readdirSync(dir).filter((f) => /^\d+\.json$/.test(f)).sort((a, b) => parseInt(a) - parseInt(b))) {
+    const reuniao = arq.replace('.json', '');
+    const texto = JSON.stringify(JSON.parse(readFileSync(`${dir}/${arq}`, 'utf8'))).replace(/\\[nrt]/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
+    const m = rx.exec(texto);
+    const data = datas.get(reuniao);
+    if (!m || !data) continue;
+    const ano = Number(m[2]);
+    const f = fIpca.filter((r) => r.data! < data && Number(r.ano_referencia) === ano).at(-1);
+    a27.push({
+      reuniao: Number(reuniao), data_reuniao: data, horizonte: m[1] ? `${ano}-T${ORD[m[1].toLowerCase()]}` : String(ano), ano_horizonte: ano,
+      projecao_copom: Number(m[3]!.replace(',', '.')), focus_ipca_ano_horizonte: f ? Number(f.mediana) : null, coleta_focus: f?.data ?? null, meta: metaAno(ano),
+    });
+  }
+  await grava('a27_projecoes_copom', a27);
+}
 
 // ——— I.7 Credibilidade e I.8 desancoragem/dispersão (último dado de cada mês) ———
 const ultimoDoMes = <T extends { data?: string }>(xs: T[]) => {
