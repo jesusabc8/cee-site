@@ -8,6 +8,8 @@
 import Key from '../charts/LegendKey.astro';
 import { renderSvg } from '../../lib/viz/render';
 import { codigoCurto, type FichaOpm } from '../../lib/opm';
+import { ehOdbl } from '../../../scripts/data/opm/odbl.ts';
+import { href } from '../../i18n/routing';
 import type { Lang } from '../../i18n/ui';
 
 interface Props { g: FichaOpm; lang: Lang; nivel?: 'h2' | 'h3' }
@@ -75,6 +77,9 @@ const L = en
         <>{i > 0 && '; '}<a href={f.url} title={f.codigo}>{sigla(f.instituicao)}</a> {codigoCurto(f.codigo)}{f.desatualizado && <strong> — {L.stale}</strong>}</>
       ))}. <span class="ficha__safra">{L.safraDe} {fd(safra)}</span>
     </p>
+    {g.csv.some((c) => ehOdbl(c.href)) && (
+      <p class="ficha__fonte">{en ? 'Contains information from Tesouro Transparente under the ODbL v1.0; the CEE derived data are published under the same licence' : 'Contém informações do Tesouro Transparente sob a ODbL v1.0; os dados derivados do CEE são publicados sob a mesma licença'} (<a href={href('/dados/opm/LICENCA-ODbL.txt')}>{en ? 'notice' : 'aviso'}</a>).</p>
+    )}
     <div class="ficha__acoes">
       <p class="ficha__grupo"><span class="ficha__rot">{L.csv}:</span> {g.csv.map((c, i) => <>{i > 0 && ' · '}<a href={c.href} download>{c.rotulo.replace(/\.csv$/, '')}</a></>)}</p>
       <p class="ficha__grupo"><span class="ficha__rot">{L.fig}:</span> <button type="button" class="ficha__btn" data-exportar="png">PNG</button> <button type="button" class="ficha__btn" data-exportar="svg">SVG</button></p>

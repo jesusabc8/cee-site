@@ -26,6 +26,7 @@
     "data:inflacao": "node scripts/data/derive-inflacao.ts",
     "data:neutro": "cd analysis && for m in curvas hiato modelo neutro taylor repasse subitens acm icf tom; do ${PYTHON:-python3} -m opm.$m || exit 1; done",
     "test:py": "cd analysis && ${PYTHON:-python3} -m pytest",
+    "qa:tamanho": "node scripts/qa/tamanho.mjs",
     "qa:seguranca": "node scripts/qa/seguranca.mjs",
     "qa:audit": "node scripts/qa/audit.mjs"
   },

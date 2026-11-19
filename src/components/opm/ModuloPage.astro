@@ -150,7 +150,8 @@ const ant = MODULOS[pos - 1], prox = MODULOS[pos + 1];
   .aviso p { margin: 0; max-width: 95ch; font: 400 var(--t-16) / 1.6 var(--serif); }
   .tab { border-collapse: collapse; width: 100%; font-size: var(--t-14); font-variant-numeric: tabular-nums; }
   .tab th, .tab td { text-align: left; padding: 6px 14px 6px 0; border-top: 1px solid var(--pub-linha); }
-  .tab thead th { border-top: 0; border-bottom: 1px solid var(--pub-linha-forte); font: 600 var(--t-12) / 1.3 var(--sans); text-transform: uppercase; letter-spacing: 0.03em; color: var(--pub-suave); }
+  /* Sem caixa alta: símbolos gregos (β, ρ) virariam letras latinas (B, P). */
+  .tab thead th { border-top: 0; border-bottom: 1px solid var(--pub-linha-forte); font: 600 var(--t-12) / 1.3 var(--sans); letter-spacing: 0.02em; color: var(--pub-suave); }
   .tab tbody th { font-weight: 500; }
   .tab .num { text-align: right; white-space: nowrap; }
   .tab__sub th { font-weight: 400; color: var(--pub-suave); }

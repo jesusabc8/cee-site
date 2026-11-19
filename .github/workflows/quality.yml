@@ -59,6 +59,8 @@ jobs:
         env:
           CEE_NOMES_PROIBIDOS: ${{ secrets.CEE_NOMES_PROIBIDOS }}
         run: npm run qa:seguranca
+      - name: Orçamento de tamanho do repositório (ADR-031)
+        run: npm run qa:tamanho
       - name: Acessibilidade (axe) em todas as páginas
         run: |
           npx astro preview --port 4321 &

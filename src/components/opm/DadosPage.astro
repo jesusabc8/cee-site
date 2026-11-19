@@ -5,6 +5,7 @@ import OpmShell from './OpmShell.astro';
 import { INDICADORES } from '../../lib/opm-dados';
 import { safrasOpm } from '../../lib/opm';
 import { href } from '../../i18n/routing';
+import { ehOdbl } from '../../../scripts/data/opm/odbl.ts';
 import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -16,8 +17,12 @@ for (const i of INDICADORES) if (i.arquivo) porArquivo.set(i.arquivo, [...(porAr
 const extras: [string, string, string][] = [
   ['indicadores/media_nucleos.csv', 'Média dos núcleos (EX0, EX3, MS, DP, P55), três convenções', 'Core average (EX0, EX3, MS, DP, P55), three conventions'],
   ['indicadores/i4a_neutro_focus_t4.csv', 'I.4 (a): juro real Focus t+4, diário', 'I.4 (a): Focus real rate t+4, daily'],
-  ['indicadores/curvas_nss.csv', 'Curvas NSS nominal e real (ODbL)', 'Nominal and real NSS curves (ODbL)'],
-  ['indicadores/curva_nominal_grade.csv', 'Curva nominal em grade mensal, 1–36 meses (ODbL)', 'Nominal curve on a monthly grid, 1–36 months (ODbL)'],
+  ['indicadores/curvas_nss.csv', 'Curvas NSS nominal e real', 'Nominal and real NSS curves'],
+  ['indicadores/curva_nominal_grade.csv', 'Curva nominal em grade mensal, 1–36 meses', 'Nominal curve on a monthly grid, 1–36 months'],
+  ['indicadores/i16_criterio_plausibilidade.csv', 'I.16: critério de plausibilidade do ACM', 'I.16: ACM plausibility criterion'],
+  ['indicadores/i16_selic_esperada_focus.csv', 'I.16: Selic média esperada pela Focus, 12–36 meses', 'I.16: average Selic expected by Focus, 12–36 months'],
+  ['indicadores/a27_projecoes_copom.csv', 'A2.7: projeção do Copom × Focus × meta', 'A2.7: Copom projection × Focus × target'],
+  ['indicadores/i13_repasse_surpresa.csv', 'I.13: repasse com a surpresa Focus como choque', 'I.13: pass-through with the Focus surprise as shock'],
   ['indicadores/i15_hiato_ibcbr_mensal.csv', 'I.15: hiato mensal pelo IBC-Br', 'I.15: monthly gap from the IBC-Br'],
   ['indicadores/i6_taylor_t3_parametros.csv', 'I.6: parâmetros estimados de T3', 'I.6: estimated T3 parameters'],
   ['indicadores/i16_acm_diagnostico.csv', 'I.16: diagnóstico do ACM', 'I.16: ACM diagnostics'],
@@ -35,19 +40,19 @@ const linhas = [
 const s = safrasOpm();
 ---
 <OpmShell lang={lang} ativo="dados" titulo={en ? 'Data and downloads' : 'Dados e downloads'} descricao={en ? 'All OPM files: indicators, seasonally adjusted series and source series.' : 'Todos os arquivos do OPM: indicadores, séries dessazonalizadas e séries das fontes.'}
-  lede={en ? 'Every chart in the observatory is generated from these files. CEE indicators and charts are licensed CC BY 4.0; curves derived from Tesouro Direto, ODbL; source series follow each institution’s terms, listed in the data catalogue.' : 'Todo gráfico do observatório é gerado destes arquivos. Indicadores e gráficos do CEE: licença CC BY 4.0; curvas derivadas do Tesouro Direto: ODbL; séries das fontes seguem os termos de cada instituição, listados no catálogo de dados.'}>
+  lede={en ? 'Every chart in the observatory is generated from these files. CEE indicators and charts: CC BY 4.0, except databases derived from Tesouro Direto data (the curves and every indicator computed from them, marked ODbL in the table), which are published under the ODbL v1.0; source series follow each institution’s terms, listed in the data catalogue.' : 'Todo gráfico do observatório é gerado destes arquivos. Indicadores e gráficos do CEE: CC BY 4.0, salvo as bases derivadas dos dados do Tesouro Direto (as curvas e todo indicador calculado a partir delas, marcados ODbL na tabela), publicadas sob a ODbL v1.0; séries das fontes seguem os termos de cada instituição, listados no catálogo de dados.'}>
   <section aria-labelledby="d1">
     <div class="sec-cab"><h2 id="d1" class="sec-tit">{en ? 'Indicators' : 'Indicadores'}</h2><p class="sec-nota"><a href={href('/observatorio/catalogo/', lang)}>{en ? 'Data catalogue' : 'Catálogo de dados'} →</a></p></div>
     <div class="table-scroll" role="region" aria-label={en ? 'Table: indicator files' : 'Tabela: arquivos de indicadores'} tabindex="0">
       <table class="tab">
-        <thead><tr><th scope="col">{en ? 'File' : 'Arquivo'}</th><th scope="col">{en ? 'Content' : 'Conteúdo'}</th><th scope="col" class="num">{en ? 'Size' : 'Tamanho'}</th></tr></thead>
-        <tbody>{linhas.map((l) => <tr><th scope="row"><a href={href(`/dados/opm/${l.a}`)} download>{l.a}</a></th><td>{l.d}</td><td class="num">{tam(`opm/${l.a}`)}</td></tr>)}</tbody>
+        <thead><tr><th scope="col">{en ? 'File' : 'Arquivo'}</th><th scope="col">{en ? 'Content' : 'Conteúdo'}</th><th scope="col">{en ? 'Licence' : 'Licença'}</th><th scope="col" class="num">{en ? 'Size' : 'Tamanho'}</th></tr></thead>
+        <tbody>{linhas.map((l) => <tr><th scope="row"><a href={href(`/dados/opm/${l.a}`)} download>{l.a}</a></th><td>{l.d}</td><td>{ehOdbl(l.a) ? <a href={href('/dados/opm/LICENCA-ODbL.txt')}>ODbL 1.0</a> : 'CC BY 4.0'}</td><td class="num">{tam(`opm/${l.a}`)}</td></tr>)}</tbody>
       </table>
     </div>
   </section>
   <section aria-labelledby="d2">
     <div class="sec-cab"><h2 id="d2" class="sec-tit">{en ? 'Source series' : 'Séries das fontes'}</h2><p class="sec-nota">{s.series.length} {en ? 'series; codes and official names in the catalogue' : 'séries; códigos e nomes oficiais no catálogo'}</p></div>
-    <ul class="grade-dl">{s.series.map((x) => <li><a href={x.csv} download>{x.id}.csv</a><span>{x.codigo}</span></li>)}</ul>
+    <ul class="grade-dl">{s.series.map((x) => <li><a href={x.csv} download>{x.id}.csv</a><span>{x.codigo}{ehOdbl(`${x.id}.csv`) && <> · <a href={href('/dados/opm/LICENCA-ODbL.txt')}>ODbL 1.0</a></>}</span></li>)}</ul>
   </section>
 </OpmShell>
 <style>

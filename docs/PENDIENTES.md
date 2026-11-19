@@ -134,3 +134,13 @@ O sítio segue a ordem de precedência Estatuto > Regimento > Manual, salvo inst
 - **Contribuição em 12 meses por grupo:** hoje é soma de contribuições mensais (aproximação aditiva, declarada).
   Avaliar decomposição exata por encadeamento (p. ex., ajuste de Ribe) se a coluna passar a ser destacada.
 - **Subgrupos por área:** a extração regional cobre índice geral e 9 grupos; subgrupos por área ficam para depois.
+
+### Antes e depois da integração (ADR-031)
+- **Poda de safras no árvore** (`CEE_PODA_SAFRAS=1` no `data-refresh`): requer autorização expressa do responsável.
+- **I.16:** reavaliar o ACM a cada safra; se passar no critério, ele volta à figura automaticamente. Avaliar curva DI
+  aberta, se surgir fonte com licença, para retirar o spread do Tesouro Direto.
+- **A2.7:** extrair as projeções anuais da Tabela 1 dos comunicados e, para reuniões anteriores à 265ª, os formatos
+  antigos (projeções por ano-calendário). Calcular os erros de previsão quando os dados do horizonte forem conhecidos.
+- **I.13:** LP-IV com a surpresa como instrumento, se o número de surpresas não nulas crescer; hoje o primeiro estágio
+  é fraco.
+

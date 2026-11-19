@@ -557,3 +557,80 @@ lista só esses.
 **Figuras estáticas.** Mapa, ordenação, múltiplos e barras são SVG gerados no build (`src/lib/viz/estaticos.ts`), uma
 versão por faixa de largura (texto legível a 360 px), com classes de cor nos temas claro e escuro, tabela alternativa,
 CSV e exportação PNG/SVG. Não têm cursor; o valor de cada área está no rótulo, no `title` e na tabela.
+
+## ADR-031 — Correções antes da integração em `main`: I.16, A2.7, I.13, varredura por dados, "inferida", ODbL e tamanho (2026-11-19)
+
+**Contexto.** Revisão das camadas 2–3 e do redesenho antes de levar `opm-inflacao` a `main`.
+
+### 1. I.16 — critério de plausibilidade e prêmio pela Focus
+- Medida principal: **prêmio pela Focus**, TP^F(n) = y(n) − E^F(n). y(n) é a taxa prefixada NSS; E^F(n) é a Selic média
+  esperada em n meses pela Focus, com a trajetória por reunião e, depois da última reunião, interpolação linear até as
+  medianas de Selic de fim de ano. Não depende do VAR.
+- O **ACM** só entra na figura se passar, nos últimos 36 meses, em três condições:
+  - neutra ao risco a até 1,0 p.p. da Selic esperada pela Focus (24 e 36 meses);
+  - sinal do prêmio igual ao da Focus em pelo menos 2/3 dos meses;
+  - erro de ajuste ≤ 10 bp.
+- Resultado nesta safra: diferença de 2,50 e 3,08 p.p. e sinal coincidente em 3 % dos meses. **Reprovado**: o ACM fica
+  só no CSV (`i16_criterio_plausibilidade.csv`).
+- O prêmio pela Focus é rotulado "inferido". Contém o spread do Tesouro Direto e a diferença Selic–DI; a Focus é mediana
+  de pesquisa, não expectativa neutra ao risco.
+
+### 2. A2.7 — Copom, Focus e meta
+- A página compara, reunião a reunião, três números: a projeção do Copom para o horizonte relevante (cenário de
+  referência, extraída do texto do comunicado), a mediana Focus do ano do horizonte na véspera e a meta.
+- O formato da frase existe desde a 265ª reunião; antes, não se extrai.
+- A comparação é aproximada: o Copom projeta 12 meses até o trimestre do horizonte; a Focus, o ano-calendário.
+- Os cenários do modelo semiestrutural saem da página: o modelo não passa no critério de identificação (ADR-028).
+
+### 3. I.13 — o que mede o "4,0 p.p." e qual é o choque
+- β₁₂ = 4,01 p.p. (total) era a variação da taxa do crédito 12 meses após 1 p.p. de mudança da meta no mês t. O choque
+  era Δi_t, **não** a surpresa em relação à Focus.
+- Como a Selic é persistente, β₁₂ inclui as decisões seguintes: em 12 meses a própria Selic anda θ₁₂ = 4,78 p.p.
+- Publica-se agora o repasse por p.p. de Selic acumulada, ρ_h = β_h/θ_h, com IC pelo método delta e covariância HAC
+  conjunta. Total: ρ₁₂ = 0,84 [0,69; 0,99].
+- Versão alternativa com a **surpresa** do Copom em relação à Focus (I.5) como choque, controlando a mudança antecipada:
+  ρ₁₂ = 0,74 [−0,37; 1,85]. São poucas surpresas não nulas, logo o resultado é indicativo.
+- Teste com dados simulados: com ciclos de Selic e ℓ = 2i, β_h cresce com h e ρ_h ≈ 2.
+
+### 4. `qa:seguranca` por dados, não por nomes
+- A regra "termo-proibido" (qualquer GIEF, FIEMG ou FGV em `dist/`) foi substituída por verificações de **dado**,
+  definidas em `scripts/qa/fontes-excluidas.json`:
+  - arquivo em `/dados/` que cite a instituição ou o host;
+  - código SGS de série excluída (189, 190, 193);
+  - link de download para o host.
+- Toda frase que cite GIEF, FIEMG ou FGV precisa registrar exclusão; a regra 6 do CLAUDE.md (nunca como meta ou
+  aspiração) continua valendo.
+- O sítio agora nomeia as fontes excluídas e o motivo (A2.3 e metodologia).
+
+### 5. Rótulo "inferida"
+Fichas cuja série principal é inferida pelo CEE, e não publicada pela fonte, levam o selo "Inferida" com explicação:
+- juro real ex ante;
+- faixas de juro neutro;
+- hiato de juros;
+- envelope de Taylor;
+- inflação implícita;
+- hiato do produto;
+- prêmio a termo.
+
+### 6. ODbL das bases derivadas
+- Os dados do Tesouro Direto estão sob ODbL v1.0, que exige publicar toda base derivada sob a mesma licença, com aviso.
+- O fecho transitivo vai além das curvas: inflação implícita, prêmio a termo, faixa de juro neutro (método c), hiato de
+  juros, Taylor e ICF. A lista única fica em `scripts/data/opm/odbl.ts`; `tests/odbl.test.ts` recalcula o fecho a partir
+  do código e falha se a lista divergir.
+- Os produtos levam:
+  - na página de dados, uma coluna de licença por arquivo;
+  - nas fichas, uma linha de aviso;
+  - o aviso público em `/dados/opm/LICENCA-ODbL.txt`;
+  - no rodapé, a frase corrigida.
+
+### 7. Tamanho do repositório
+- O histórico git cresce pouco por safra: medido com 5 safras da Focus anual, +1 a +6 KB por safra após deltas.
+- O problema é o **árvore de trabalho**: cada safra semanal repete ~93 MB sem compressão, até ~4,7 GB/ano em cada
+  checkout (CI, vista prévia).
+- Medidas:
+  1. `npm run qa:tamanho` no CI: falha com arquivo versionado > 45 MB ou `data/raw/` > 400 MB, e mostra a projeção.
+  2. Safras idênticas já não são duplicadas (`fetch.ts`).
+  3. Poda opcional `CEE_PODA_SAFRAS=1`: o árvore guarda só a última safra de cada série. As anteriores ficam no
+     histórico e se recuperam com `node scripts/data/safra.mjs <fonte>/<id> <data>`, que confere o SHA-256.
+- **Desligada**: ligar apaga diretórios do árvore e exige autorização expressa do responsável (CLAUDE.md). Recomenda-se
+  ligá-la no `data-refresh` antes de o orçamento ser atingido.
