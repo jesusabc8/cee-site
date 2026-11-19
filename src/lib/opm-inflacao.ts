@@ -56,8 +56,8 @@ export function inflacaoAmpliada(lang: Lang): { graficos: FichaOpm[]; tabelas: T
     refs: [{ y: 3, label: en ? 'Target 3.0%' : 'Meta 3,0%', dash: '2 3', color: COR.steel }],
     legenda: [{ id: 'ipca', label: 'IPCA', color: COR.navy, style: 'line' }, { id: 'ipca15', label: 'IPCA-15', color: COR.azure, style: 'dash' }, { id: 'inpc', label: 'INPC', color: COR.steel, style: 'dash' }],
     fontes: [fonte('ipca'), fonte('ipca15'), fonte('inpc')], csv: [csvInd('indicadores/inflacao_medidas.csv'), csvSerie('ipca15'), csvSerie('inpc')],
-    nota: en ? 'The inflation target refers to the IPCA only; IPCA-15 and INPC are shown for comparison. Same methodology and basket structure (POF 2017–2018), different reference period (IPCA-15) and income range (INPC).'
-      : 'A meta de inflação refere-se apenas ao IPCA; IPCA-15 e INPC aparecem para comparação. Mesma metodologia e estrutura de pesos (POF 2017–2018), com período de coleta (IPCA-15) e faixa de renda (INPC) diferentes.',
+    nota: en ? 'The inflation target refers to the IPCA only; IPCA-15 and INPC are shown for comparison. Same methodology and basket structure (POF 2017–2018), different reference period (IPCA-15) and income range (INPC). The IGP-M, IGP-DI and IPC-S (FGV/IBRE) and the IPC-Fipe are excluded: no verified redistribution licence (ADR-030).'
+      : 'A meta de inflação refere-se apenas ao IPCA; IPCA-15 e INPC aparecem para comparação. Mesma metodologia e estrutura de pesos (POF 2017–2018), com período de coleta (IPCA-15) e faixa de renda (INPC) diferentes. IGP-M, IGP-DI e IPC-S (FGV/IBRE) e IPC-Fipe ficam fora: sem licença de redistribuição verificada (ADR-030).',
   }, lang);
 
   // 2. Produtor: IPP indústria de transformação.

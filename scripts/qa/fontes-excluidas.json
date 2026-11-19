@@ -1,0 +1,14 @@
+{
+  "_doc": "Fontes excluídas do sítio por licença de redistribuição não verificada ou restrita (ADR-024, ADR-030, ADR-031). qa:seguranca falha se um DADO publicado vier delas (arquivo em /dados/, código de série, link de download). Mencioná-las no texto é permitido quando a frase registra a exclusão.",
+  "fontes": [
+    { "id": "igp", "nome": "IGP-M, IGP-DI e IPC-S", "instituicoes": ["FGV", "IBRE", "Fundação Getulio Vargas"], "hosts": ["portalibre.fgv.br", "ibre.fgv.br", "extra-ibre.fgv.br"], "sgs": [189, 190] },
+    { "id": "fipe", "nome": "IPC-Fipe", "instituicoes": ["Fipe"], "hosts": ["fipe.org.br"], "sgs": [193] },
+    { "id": "b3", "nome": "B3 (DI futuro, opções)", "instituicoes": ["B3 S.A."], "hosts": ["b3.com.br"], "sgs": [] },
+    { "id": "anbima", "nome": "ANBIMA (ETTJ, IMA)", "instituicoes": ["ANBIMA"], "hosts": ["anbima.com.br"], "sgs": [] },
+    { "id": "jpm", "nome": "J.P. Morgan (EMBI)", "instituicoes": ["J.P. Morgan", "JPMorgan"], "hosts": ["jpmorgan.com"], "sgs": [] },
+    { "id": "cboe", "nome": "Cboe (VIX)", "instituicoes": ["Cboe"], "hosts": ["cboe.com"], "sgs": [] }
+  ],
+  "_doc_mencao": "GIEF, FIEMG e FGV não podem aparecer como meta ou aspiração (CLAUDE.md, regra 6): toda frase que os cite precisa registrar exclusão ou ausência.",
+  "termos_contexto": ["GIEF", "FIEMG", "FGV"],
+  "marcas_exclusao": ["fora", "exclu", "sem licença", "não são extraíd", "não é extraíd", "não incluíd", "not included", "excluded", "left out", "without a verified", "no verified", "not extracted"]
+}

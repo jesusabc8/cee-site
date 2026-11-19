@@ -5,7 +5,11 @@
  *  - telefone, CPF ou padrão de chave/segredo;
  *  - arquivos .map, .env, .tex, .docx, .sty ou .pdf fora de /documentos/;
  *  - nome da lista proibida (docs/seguranca/nomes-proibidos.txt, fora do git, ou segredo CEE_NOMES_PROIBIDOS no CI);
- *  - link para o repositório (github.com/jesusabc8) ou menção a GIEF, FIEMG ou FGV (CLAUDE.md, regra 6).
+ *  - link para o repositório (github.com/jesusabc8);
+ *  - DADO de fonte excluída (scripts/qa/fontes-excluidas.json; ADR-031): arquivo em /dados/ que cite a instituição ou o
+ *    host, código SGS da série excluída em qualquer página, ou link de download (csv/xls/zip/api) para o host;
+ *  - frase que cite GIEF, FIEMG ou FGV sem registrar exclusão (CLAUDE.md, regra 6: nunca como meta ou aspiração).
+ *    A varredura é por dados, não por nomes: mencionar a fonte excluída e o motivo é permitido.
  * Lê HTML, XML, TXT, JSON, CSV, JS, CSS e os fragmentos comprimidos do Pagefind.
  * Uso: npm run build && npm run qa:seguranca  (DIST=outro/dir para outro diretório)
  */
@@ -38,8 +42,17 @@ const REGRAS = [
   { id: 'api-key', re: /\bapi[_-]?key\s*[:=]\s*['"]?[A-Za-z0-9_-]{12,}/gi },
   { id: 'token-cloudflare', re: /\bCLOUDFLARE_API_TOKEN\s*[:=]\s*\S{20,}/g },
   { id: 'repositorio', re: /github\.com\/jesusabc8/gi },
-  { id: 'termo-proibido', re: /\b(?:GIEF|FIEMG|FGV)\b/g },
 ];
+const EXCL = JSON.parse(readFileSync(join(RAIZ, 'scripts/qa/fontes-excluidas.json'), 'utf8'));
+const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const SGS_EXCL = EXCL.fontes.flatMap((f) => f.sgs.map((c) => ({ f: f.id, re: new RegExp(`(?:\\bSGS\\s*${c}\\b|bcdata\\.sgs\\.${c}\\b|hdOidSeriesSelecionadas=${c}\\b)`, 'i') })));
+const DADO_EXCL = EXCL.fontes.flatMap((f) => [...f.instituicoes.map((n) => ({ f: f.id, re: new RegExp(`\\b${escRe(n)}\\b`) })), ...f.hosts.map((h) => ({ f: f.id, re: new RegExp(escRe(h), 'i') }))]);
+const LINK_EXCL = EXCL.fontes.flatMap((f) => f.hosts.map((h) => ({ f: f.id, re: new RegExp(`href="https?://(?:[\\w-]+\\.)*${escRe(h)}[^"]*(?:\\.(?:csv|xlsx?|zip|json)|/api/)[^"]*"`, 'i') })));
+const TERMOS = new RegExp(`\\b(?:${EXCL.termos_contexto.map(escRe).join('|')})\\b`);
+const marcaExclusao = (frase) => EXCL.marcas_exclusao.some((m) => frase.toLowerCase().includes(m.toLowerCase()));
+/** Frases do texto visível (sem marcação), para o contexto das menções. */
+const frases = (txt) => txt.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').split(/(?<=[.;!?])\s+|\n{2,}/);
+
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
 // E-mails técnicos que não identificam pessoas (ex.: exemplos de esquema) podem ser listados aqui.
 const EMAILS_TOLERADOS = new Set([institucional].filter(Boolean));
@@ -70,6 +83,12 @@ function varrer(dir) {
     else if (ext === '.pf_fragment' || ext === '.pf_meta' || ext === '.pf_index') txt = lerFragmentoPagefind(readFileSync(caminho));
     else continue;
     for (const { id, re } of REGRAS) for (const m of txt.matchAll(re)) add(rel, id, m[0]);
+    // Dados de fontes excluídas (por dado, não por nome).
+    const ehDado = /^dados\//.test(rel.replace(/\\/g, '/')) || ['.csv'].includes(ext);
+    if (ehDado) for (const { f, re } of DADO_EXCL) { const m = txt.match(re); if (m) add(rel, 'fonte-excluida-dado', `${f}: ${m[0]}`); }
+    for (const { f, re } of SGS_EXCL) { const m = txt.match(re); if (m) add(rel, 'fonte-excluida-serie', `${f}: ${m[0]}`); }
+    for (const { f, re } of LINK_EXCL) { const m = txt.match(re); if (m) add(rel, 'fonte-excluida-link', `${f}: ${m[0]}`); }
+    if (TERMOS.test(txt)) for (const fr of frases(txt)) if (TERMOS.test(fr) && !marcaExclusao(fr)) add(rel, 'mencao-sem-exclusao', fr.trim().replace(/\s+/g, ' '));
     for (const m of VENDOR_EMAIL.test(rel) ? [] : txt.matchAll(EMAIL)) {
       const e = m[0].toLowerCase();
       if (EMAILS_TOLERADOS.has(e)) continue;
