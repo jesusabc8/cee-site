@@ -52,3 +52,19 @@ def test_saidas_camada2_coerentes():
     assert s.parcela_acima_4_5.between(0, 100).all() and (s.peso_incluido > 80).all()
     h = pd.read_csv(IND / "i15_hiato_produto_trimestral.csv").dropna()
     assert (h.minimo <= h.maximo).all() and h[["hp_unilateral", "hamilton"]].abs().max().max() < 15
+
+
+def test_repasse_normalizado_separa_persistencia_da_selic():
+    """Selic persistente (ciclos) e ℓ = 2·i: β_h cresce com h, mas β_h/θ_h ≈ 2 em todos os horizontes (ADR-031)."""
+    rng = np.random.default_rng(7)
+    n = 500
+    di = np.zeros(n)
+    for t in range(1, n):
+        di[t] = 0.7 * di[t - 1] + rng.choice([-0.25, 0, 0, 0.25])  # ciclos: um movimento puxa os seguintes
+    i = pd.Series(10 + np.cumsum(di))
+    l = 30 + 2.0 * i + rng.normal(0, 0.05, n)
+    idx = pd.period_range("1980-01", periods=n, freq="M").astype(str)
+    r = projecoes(pd.Series(l.values, index=idx), pd.Series(i.values, index=idx), H=6)
+    assert r.beta.iloc[-1] > 2.5 * 2.0 / 2  # β_6 bem acima do repasse imediato porque a Selic continua subindo
+    assert ((r.repasse_normalizado - 2.0).abs() < 0.15).all()
+    assert ((r.ic90_norm_inf <= 2.0) & (2.0 <= r.ic90_norm_sup)).mean() >= 0.8

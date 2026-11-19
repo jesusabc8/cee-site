@@ -134,10 +134,10 @@
   camada: 2
   estado: publicado
   nome: { pt: 'Repasse da Selic ao custo do crédito', en: 'Pass-through of the Selic to lending rates' }
-  formula: '\Delta_h \ell_{t+h} = \alpha_h + \beta_h\,\Delta i_t + \Gamma_h^{\prime} X_t + u_{t+h},\quad h=1,\dots,12'
+  formula: '\Delta_h \ell_{t+h} = \alpha_h + \beta_h\,s_t + \Gamma_h^{\prime} X_t + u_{t+h},\quad \rho_h=\frac{\beta_h}{\theta_h},\quad s_t\in\{\Delta i_t,\ \text{surpresa}_t\}'
   descricao:
-    pt: 'Projeções locais (Jordà, 2005), mensais, h = 1…12, com três defasagens de Δℓ e Δi como controles e erros de Newey-West; ℓ = taxa média total, PJ e PF livres. β_h é o repasse acumulado (p.p. por p.p. de Selic). Associações condicionais, não efeitos causais identificados.'
-    en: 'Monthly local projections (Jordà, 2005), h = 1…12, with three lags of Δℓ and Δi as controls and Newey-West errors; ℓ = average rate, total, firms and households (non-earmarked). β_h is the cumulative pass-through (p.p. per p.p. of Selic). Conditional associations, not identified causal effects.'
+    pt: 'Projeções locais (Jordà, 2005), mensais, h = 1…12, com três defasagens de Δℓ e Δi como controles e erros de Newey-West; ℓ = taxa média total, PJ e PF livres. β_h é a variação acumulada de ℓ após 1 p.p. de mudança da meta e inclui as decisões seguintes do Copom; o repasse por p.p. de Selic é ρ_h = β_h/θ_h, com θ_h a variação acumulada da própria Selic. Versão alternativa com a surpresa do Copom em relação à Focus (I.5) como choque. Associações condicionais, não efeitos causais identificados.'
+    en: 'Monthly local projections (Jordà, 2005), h = 1…12, with three lags of Δℓ and Δi as controls and Newey-West errors; ℓ = average rate, total, firms and households (non-earmarked). β_h is the cumulative change in ℓ after a 1 p.p. change in the target and includes the Copom decisions that follow; the pass-through per p.p. of Selic is ρ_h = β_h/θ_h, with θ_h the cumulative change of the Selic itself. Alternative version with the Copom surprise against Focus (I.5) as the shock. Conditional associations, not identified causal effects.'
   arquivo: indicadores/i13_repasse_lp.csv
 - codigo: I.14
   modulo: a2-1-copom

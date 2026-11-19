@@ -631,16 +631,28 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           }, lang);
         })(),
       ], tabelas: [(() => {
+        // I.13 (ADR-031): β_h inclui as decisões seguintes do Copom; o repasse por p.p. de Selic é ρ_h = β_h/θ_h.
         const r = ler('opm/indicadores/i13_repasse_lp.csv');
+        const rs = ler('opm/indicadores/i13_repasse_surpresa.csv');
         const nomes: Record<string, string> = en ? { total: 'Total', pj: 'Firms', pf_livres: 'Households (non-earmarked)' } : { total: 'Total', pj: 'Pessoas jurídicas', pf_livres: 'Pessoas físicas (livres)' };
-        const series = ['total', 'pj', 'pf_livres'];
+        const L = (tab: Record<string, string>[], x: string, h: number) => tab.find((y) => y.serie === x && y.h === String(h))!;
+        const ic = (v: string, a: string, b: string) => `${n2(Number(v))} [${n2(Number(a))}; ${n2(Number(b))}]`;
+        const t12 = L(r, 'total', 12);
         return {
-          id: 'opm-repasse', titulo: en ? 'I.13 — Cumulative pass-through of the Selic to lending rates (local projections)' : 'I.13 — Repasse acumulado da Selic ao custo do crédito (projeções locais)',
-          descricao: en ? 'β_h in p.p. of the average lending rate per 1 p.p. of Selic, h months after the change; 90% interval (Newey-West) in brackets. Conditional associations, not identified causal effects.'
-            : 'β_h em p.p. da taxa média do crédito por 1 p.p. de Selic, h meses após a mudança; intervalo de 90% (Newey-West) entre colchetes. Associações condicionais, não efeitos causais identificados.',
-          colunas: [en ? 'Horizon (months)' : 'Horizonte (meses)', ...series.map((x) => nomes[x]!)],
-          linhas: Array.from({ length: 12 }, (_, k) => [String(k + 1), ...series.map((x) => { const l = r.find((y) => y.serie === x && y.h === String(k + 1))!; return `${n2(Number(l.beta))} [${n2(Number(l.ic90_inf))}; ${n2(Number(l.ic90_sup))}]`; })]),
-          fontes: [fonte('juros_credito'), fonte('juros_pj'), fonte('juros_pf_livres'), fonte('selic_meta')], csv: [csvInd('indicadores/i13_repasse_lp.csv')],
+          id: 'opm-repasse',
+          titulo: en ? `I.13 — Pass-through of the Selic to lending rates: ${n2(Number(t12.repasse_normalizado))} p.p. per p.p. of accumulated Selic after 12 months (total)` : `I.13 — Repasse da Selic ao custo do crédito: ${n2(Number(t12.repasse_normalizado))} p.p. por p.p. de Selic acumulada em 12 meses (total)`,
+          descricao: en
+            ? `Local projections. β_h: change in the lending rate h months after a 1 p.p. change in the Selic target in month t — it includes the Copom decisions that follow, since the Selic is persistent (after 12 months the Selic itself has moved ${n2(Number(t12.selic_acumulada))} p.p.; hence β₁₂ = ${n2(Number(t12.beta))} p.p. is not a pass-through of ${n2(Number(t12.beta))} per point). ρ_h = β_h/θ_h divides by the accumulated Selic change θ_h and is the pass-through per p.p. of Selic. Last columns: the shock is the Copom surprise against the Focus median of the day before (I.5), net of the anticipated change; few non-zero surprises, so wide intervals. 90% intervals (Newey-West; delta method for ρ). Conditional associations, not identified causal effects.`
+            : `Projeções locais. β_h: variação da taxa do crédito h meses após uma mudança de 1 p.p. na meta Selic no mês t — inclui as decisões seguintes do Copom, porque a Selic é persistente (em 12 meses a própria Selic andou ${n2(Number(t12.selic_acumulada))} p.p.; por isso β₁₂ = ${n2(Number(t12.beta))} p.p. não é repasse de ${n2(Number(t12.beta))} por ponto). ρ_h = β_h/θ_h divide pela variação acumulada da Selic θ_h e é o repasse por p.p. de Selic. Últimas colunas: o choque é a surpresa do Copom em relação à mediana Focus da véspera (I.5), descontada a mudança antecipada; poucas surpresas não nulas, por isso intervalos largos. Intervalos de 90% (Newey-West; método delta para ρ). Associações condicionais, não efeitos causais identificados.`,
+          colunas: [en ? 'Horizon (months)' : 'Horizonte (meses)', en ? 'β_h total (p.p.)' : 'β_h total (p.p.)', en ? 'θ_h Selic accumulated (p.p.)' : 'θ_h Selic acumulada (p.p.)',
+            ...['total', 'pj', 'pf_livres'].map((x) => `ρ_h ${nomes[x]}`), en ? 'ρ_h total, Focus-surprise shock' : 'ρ_h total, choque = surpresa Focus'],
+          linhas: Array.from({ length: 12 }, (_, k) => {
+            const h = k + 1, t = L(r, 'total', h), u = L(rs, 'total', h);
+            return [String(h), ic(t.beta!, t.ic90_inf!, t.ic90_sup!), n2(Number(t.selic_acumulada)),
+              ...['total', 'pj', 'pf_livres'].map((x) => { const y = L(r, x, h); return ic(y.repasse_normalizado!, y.ic90_norm_inf!, y.ic90_norm_sup!); }),
+              ic(u.repasse_normalizado!, u.ic90_norm_inf!, u.ic90_norm_sup!)];
+          }),
+          fontes: [fonte('juros_credito'), fonte('juros_pj'), fonte('juros_pf_livres'), fonte('selic_meta'), fonte('focus_selic')], csv: [csvInd('indicadores/i13_repasse_lp.csv'), csvInd('indicadores/i13_repasse_surpresa.csv')],
         };
       })()] };
     }
