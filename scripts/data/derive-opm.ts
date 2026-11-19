@@ -10,7 +10,7 @@ import { csv, lerCsvTexto, type Linha } from './csv.ts';
 import { somaDias } from './opm/calendario.ts';
 import { credibilidade, metaHorizonte12m, surpresa, ultimaAntes } from './opm/expectativas.ts';
 import { acumula, contadorRegime, media, NUCLEOS_MEDIA, saar3m } from './opm/inflacao.ts';
-import { fisher, selicAcumulada252, selicEsperada12m, vigenciaDe, type ReuniaoFutura } from './opm/juros.ts';
+import { fisher, selicAcumulada252, selicEsperada12m, selicEsperadaHorizonte, vigenciaDe, type ReuniaoFutura } from './opm/juros.ts';
 import { coeficientes, cresc12, real, velocidade } from './opm/moeda.ts';
 
 const P = 'data/processed';
@@ -89,6 +89,22 @@ for (const [d, linhas] of [...selicPorData.entries()].sort(([a], [b]) => a.local
   });
 }
 await grava('i1_juro_real_ex_ante', i1);
+
+// ——— I.16 (Focus; ADR-031): Selic média esperada em 12, 24 e 36 meses pela Focus ———
+// O prêmio (taxa prefixada da curva − Selic média esperada) é calculado em analysis/opm/acm.py, que lê a curva.
+const anuaisSelic = new Map<string, { ano: number; mediana: number }[]>();
+for (const r of focusAnuais) if (r.indicador === 'Selic' && r.mediana) anuaisSelic.set(r.data!, [...(anuaisSelic.get(r.data!) ?? []), { ano: Number(r.ano_referencia), mediana: Number(r.mediana) }]);
+const i16f: Linha[] = [];
+for (const [d, linhas] of [...selicPorData.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  const meta = metaEm(d);
+  const fa = anuaisSelic.get(d);
+  if (meta === null || !fa) continue;
+  const reunioes: ReuniaoFutura[] = [];
+  for (const l of linhas) { const f = fimReuniao.get(l.reuniao!); if (f && l.mediana) reunioes.push({ reuniao: l.reuniao!, vigencia: vigenciaDe(f.fim), mediana: Number(l.mediana) }); }
+  const e = [252, 504, 756].map((n) => selicEsperadaHorizonte(d, meta, reunioes, fa, n));
+  i16f.push({ data: d, meta_selic_vigente: meta, selic_esperada_12m: r4(e[0]!.selic_media), selic_esperada_24m: r4(e[1]!.selic_media), selic_esperada_36m: r4(e[2]!.selic_media), horizonte_36m_coberto: e[2]!.coberto ? 1 : 0 });
+}
+await grava('i16_selic_esperada_focus', i16f);
 
 // ——— I.2 Juro real ex post 12 meses (SGS 1178 composta diariamente / IPCA 12m) ———
 const selicEf = (await ler('opm/selic_efetiva.csv')).filter((r) => r.valor);

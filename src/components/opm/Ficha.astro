@@ -30,8 +30,8 @@ const linhas = g.legenda.filter((l) => l.style !== 'band');
 const legenda = linhas.length > 4 ? g.legenda : g.legenda.filter((l) => l.style === 'band' || (l.style === 'bar' && s.series.length > 1));
 const ESTADO = { V: en ? 'Verified series' : 'Série verificada', A: en ? 'Series to be verified' : 'Série a verificar', R: en ? 'Restricted source' : 'Fonte restrita' } as const;
 const L = en
-  ? { fonte: 'Source', safraDe: 'Vintage of', safra: 'vintage', csv: 'Data (CSV)', fig: 'Figure', dados: 'Data', tabela: 'Data table', periodo: 'Period', legenda: 'Key', exp: 'Experimental', stale: 'source unavailable at last update; previous vintage shown', baixar: 'Download' }
-  : { fonte: 'Fonte', safraDe: 'Safra de', safra: 'safra', csv: 'Dados (CSV)', fig: 'Figura', dados: 'Dados', tabela: 'Tabela de dados', periodo: 'Período', legenda: 'Chave', exp: 'Experimental', stale: 'fonte indisponível na última atualização; exibe-se a safra anterior', baixar: 'Baixar' };
+  ? { fonte: 'Source', safraDe: 'Vintage of', safra: 'vintage', csv: 'Data (CSV)', fig: 'Figure', dados: 'Data', tabela: 'Data table', periodo: 'Period', legenda: 'Key', exp: 'Experimental', inf: 'Inferred', infT: 'Inferred by CEE from source data (expectation, premium, band or path); not published by the source', stale: 'source unavailable at last update; previous vintage shown', baixar: 'Download' }
+  : { fonte: 'Fonte', safraDe: 'Safra de', safra: 'safra', csv: 'Dados (CSV)', fig: 'Figura', dados: 'Dados', tabela: 'Tabela de dados', periodo: 'Período', legenda: 'Chave', exp: 'Experimental', inf: 'Inferida', infT: 'Inferida pelo CEE a partir de dados da fonte (expectativa, prêmio, faixa ou trajetória); não é publicada pela fonte', stale: 'fonte indisponível na última atualização; exibe-se a safra anterior', baixar: 'Baixar' };
 ---
 <figure class:list={['ficha', { 'ficha--larga': g.largo, 'ficha--exp': g.experimental }]} id={g.id} data-viz={est ? undefined : ''} data-viz-estatico={est ? '' : undefined} aria-labelledby={`${g.id}-t`} aria-describedby={`${g.id}-d`}>
   <header class="ficha__cab">
@@ -39,6 +39,7 @@ const L = en
       <span class="ficha__cod">{g.rotulo}</span>
       <abbr class={`estado estado--${(g.estado ?? 'V').toLowerCase()}`} title={ESTADO[g.estado ?? 'V']}>{g.estado ?? 'V'}</abbr>
       {g.experimental && <span class="selo-exp">{L.exp}</span>}
+      {g.inferida && <span class="selo-inf" title={L.infT}>{L.inf}</span>}
     </p>
     <H id={`${g.id}-t`} class="ficha__titulo">{g.titulo}</H>
     <p class="ficha__sub">{g.subtitulo}</p>
@@ -114,6 +115,7 @@ const L = en
   .ficha__cod { text-transform: none; letter-spacing: 0.02em; }
   .estado { display: inline-grid; place-items: center; width: 18px; height: 18px; border: 1px solid var(--pub-linha-forte); border-radius: 50%; font-size: 10px; text-decoration: none; cursor: help; }
   .estado--v { color: var(--pub-destaque); }
+  .selo-inf { padding: 2px 6px; border: 1px solid var(--pub-linha-forte); color: var(--pub-suave); letter-spacing: 0.06em; cursor: help; }
   .selo-exp { padding: 2px 6px; border: 1px dashed var(--pub-suave); color: var(--pub-tinta); letter-spacing: 0.06em; }
   .ficha__titulo { margin: 0; font: 600 var(--t-18) / 1.3 var(--sans); color: var(--pub-tinta); text-wrap: balance; max-width: 62ch; }
   .ficha--larga .ficha__titulo { font-size: var(--t-22); }

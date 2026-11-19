@@ -55,7 +55,7 @@ function fimDeMes<T extends { data: string }>(xs: T[]): T[] {
 
 /** Ficha do OPM: gráfico + estado da série (V/A/R) e selo experimental (ADR-029). */
 /** `estatico`: figura gerada no build (mapa, múltiplos, barras), uma SVG por faixa de largura, sem cursor nem períodos. */
-export type FichaOpm = Grafico & { estado?: 'V' | 'A' | 'R'; experimental?: boolean; estatico?: { svg: string; classe: 'larga' | 'estreita' | 'unica' }[] };
+export type FichaOpm = Grafico & { estado?: 'V' | 'A' | 'R'; experimental?: boolean; inferida?: boolean; estatico?: { svg: string; classe: 'larga' | 'estreita' | 'unica' }[] };
 
 /** Reuniões ordinárias do Copom (marcas no eixo x). */
 let reunioesCache: { x: number; rotulo: string }[] | null = null;
@@ -84,6 +84,8 @@ export interface Monta {
   id: string; icone: string; rotulo: string; titulo: string; subtitulo: string; unidade: string; descricao: string;
   /** Unidade curta escrita no topo do eixo y. */
   eixo?: string; marcas?: boolean; estado?: 'V' | 'A' | 'R'; experimental?: boolean;
+  /** Série inferida pelo CEE (expectativa, prêmio, faixa ou trajetória deduzida de dados da fonte), não publicada pela fonte. */
+  inferida?: boolean;
   xFormat: XFormat; yDigits: number; yUnit: string; series: SerieSpec[]; bandas?: BandaSpec[]; refs?: { y: number; label: string; dash?: string; color?: string }[];
   legenda: Legenda[]; fontes: Fonte[]; csv: { rotulo: string; href: string }[]; nota?: string; largo?: boolean; zero?: boolean;
   ranges?: boolean; defaultRange?: string; altura?: number; colunasExtra?: { titulo: string; pontos: Ponto[] }[];
@@ -117,7 +119,7 @@ export function monta(m: Monta, lang: Lang): FichaOpm {
   const mapa = cols.map((c) => new Map(c.pontos.map((p) => [p.x, p.y])));
   return {
     id: m.id, bloco: 'precos', icone: m.icone, rotulo: m.rotulo, titulo: m.titulo, subtitulo: m.subtitulo, unidade: m.unidade, descricao: m.descricao,
-    ...(m.largo ? { largo: true } : {}), estado: m.estado ?? 'V', ...(m.experimental ? { experimental: true } : {}),
+    ...(m.largo ? { largo: true } : {}), estado: m.estado ?? 'V', ...(m.experimental ? { experimental: true } : {}), ...(m.inferida ? { inferida: true } : {}),
     spec: {
       id: m.id, height: m.altura ?? (m.largo ? 340 : 300), xFormat: m.xFormat, yDigits: m.yDigits, yUnit: m.yUnit, lang, series: m.series,
       estilo: 'pub', yLabel: m.eixo ?? m.yUnit, ...(vintage ? { vintage: rotDia(dia(vintage), lang) } : {}),
@@ -249,7 +251,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
       const BCB = 5;
       return { graficos: [
         monta({
-          id: 'opm-juro-real', icone: 'percent', rotulo: 'I.1 · I.2 · I.4', largo: true,
+          id: 'opm-juro-real', icone: 'percent', rotulo: 'I.1 · I.2 · I.4', inferida: true, largo: true,
           titulo: (() => { const r = Number(uf.juro_real_ex_ante), q1 = Number(uf.q1), q3 = Number(uf.q3);
             const pos = r > q3 ? (en ? 'above' : 'acima da') : r < q1 ? (en ? 'below' : 'abaixo da') : (en ? 'inside' : 'dentro da');
             return en ? `Ex ante real rate of ${n2(r)}% sits ${pos} the CEE neutral-rate band` : `Juro real ex ante de ${n2(r)}% fica ${pos} faixa de juro neutro do CEE`; })(),
@@ -275,7 +277,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
             : 'O juro neutro não é observável e é estimado com elevada incerteza; aparece sempre como faixa, com método e data, nunca como recomendação. BCB: médias trimestrais quatro trimestres à frente (RPM set./2026, p. 80), convenção diferente.',
         }, lang),
         monta({
-          id: 'opm-neutro-mercado', icone: 'git-compare', rotulo: 'I.4 (a) · (c)',
+          id: 'opm-neutro-mercado', icone: 'git-compare', rotulo: 'I.4 (a) · (c)', inferida: true,
           titulo: en ? `Survey and market methods put the neutral rate at ${n2(Number(uf.a_focus_t4))}% and ${n2(Number(uf.c_ntnb_longa))}%` : `Métodos de pesquisa e de mercado situam o juro neutro em ${n2(Number(uf.a_focus_t4))}% e ${n2(Number(uf.c_ntnb_longa))}%`,
           subtitulo: subtitulo(lang, en ? '% a year, real' : '% ao ano, real', en ? 'monthly' : 'mensal', pts(f, 'periodo', 'a_focus_t4'), 'mes', en ? '(a) Focus t+4 and (c) long NTN-B net of term premium; (d) outside the band' : '(a) Focus t+4 e (c) NTN-B longa líquida do prêmio a termo; (d) fora da faixa'),
           eixo: en ? '% a year' : '% ao ano',
@@ -292,7 +294,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
             : 'Dados do Tesouro Direto sob ODbL; as curvas do CEE (curvas_nss.csv) são base derivada publicada sob a mesma licença. O método (d) usa só o juro real americano: sem medida aberta de risco soberano e cambial (ADR-024), não estima o neutro brasileiro e fica fora da faixa.',
         }, lang),
         monta({
-          id: 'opm-neutro-filtros', icone: 'git-compare', rotulo: 'I.4 (b)',
+          id: 'opm-neutro-filtros', icone: 'git-compare', rotulo: 'I.4 (b)', inferida: true,
           titulo: en ? `Trend filters put the neutral rate at ${n2(Number(uf.b_hamilton))}% (Hamilton) and ${n2(Number(uf.b_hp_unilateral))}% (one-sided HP)` : `Filtros de tendência situam o juro neutro em ${n2(Number(uf.b_hamilton))}% (Hamilton) e ${n2(Number(uf.b_hp_unilateral))}% (HP unilateral)`,
           subtitulo: subtitulo(lang, en ? '% a year, real' : '% ao ano, real', en ? 'monthly, real time' : 'mensal, em tempo real', pts(f, 'periodo', 'b_hp_unilateral'), 'mes'),
           eixo: en ? '% a year' : '% ao ano',
@@ -306,7 +308,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           fontes: [fonte('focus_selic'), fonte('focus_inflacao_12m')], csv: [csvInd('indicadores/i4_faixa_neutro.csv')],
         }, lang),
         monta({
-          id: 'opm-hiato-juros', icone: 'move-vertical', rotulo: 'I.3',
+          id: 'opm-hiato-juros', icone: 'move-vertical', rotulo: 'I.3', inferida: true,
           titulo: en ? `Interest-rate gap of ${n2(Number(uh.hiato_mediana))} p.p. against the median neutral rate` : `Hiato de juros de ${n2(Number(uh.hiato_mediana))} p.p. em relação à mediana do juro neutro`,
           subtitulo: subtitulo(lang, en ? 'Ex ante real rate minus the neutral-rate band, p.p.' : 'Juro real ex ante menos a faixa de juro neutro, p.p.', en ? 'monthly' : 'mensal', pts(h, 'periodo', 'hiato_mediana'), 'mes',
             uh.acima_q3 === '1' ? (en ? 'above the third quartile: unambiguously restrictive' : 'acima do 3º quartil: restritiva sem ambiguidade') : (en ? 'not above the third quartile' : 'não supera o 3º quartil')),
@@ -323,7 +325,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           const ut = t.at(-1)!;
           const par = ler('opm/indicadores/i6_taylor_t3_parametros.csv')[0]!;
           return monta({
-            id: 'opm-taylor', icone: 'scale', rotulo: 'I.6', largo: true,
+            id: 'opm-taylor', icone: 'scale', rotulo: 'I.6', inferida: true, largo: true,
             titulo: (() => { const s0 = Number(ut.selic), a = Number(ut.envelope_min), b = Number(ut.envelope_max);
               const pos = s0 > b ? (en ? 'above' : 'acima do') : s0 < a ? (en ? 'below' : 'abaixo do') : (en ? 'within' : 'dentro do');
               return en ? `Selic of ${n2(s0)}% is ${pos} the Taylor-rule envelope (${n2(a)}–${n2(b)}%)` : `Selic de ${n2(s0)}% está ${pos} envelope das regras de Taylor (${n2(a)}–${n2(b)}%)`; })(),
@@ -490,7 +492,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           const b = ler('opm/indicadores/i12_inflacao_implicita.csv');
           const ub = b.at(-1)!;
           return monta({
-            id: 'opm-implicita', icone: 'line-chart', rotulo: 'I.12', largo: true,
+            id: 'opm-implicita', icone: 'line-chart', rotulo: 'I.12', inferida: true, largo: true,
             titulo: en ? `Breakeven inflation of ${n2(Number(ub.implicita_2a))}% at two years in Tesouro Direto prices` : `Inflação implícita de ${n2(Number(ub.implicita_2a))}% em dois anos nos preços do Tesouro Direto`,
             subtitulo: subtitulo(lang, en ? '% a year; includes risk and liquidity premia — not an expectation' : '% ao ano; inclui prêmios de risco e de liquidez — não é expectativa', en ? 'month end' : 'fim de mês', pts(b, 'data', 'implicita_2a', (d) => dia(d)), 'dia'),
             eixo: en ? '% a year' : '% ao ano',
@@ -554,24 +556,39 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           fontes: [fonte('ibcbr')], csv: [csvSerie('ibcbr')],
         }, lang),
         (() => {
-          const a = ler('opm/indicadores/i16_premio_termo_acm.csv');
+          // I.16 (ADR-031): medida principal = prêmio pela Focus (taxa prefixada − Selic média esperada pela Focus).
+          // O ACM só entra na figura se passar no critério de plausibilidade (analysis/opm/acm.py).
+          const a = ler('opm/indicadores/i16_premio_termo_acm.csv').filter((r) => r.premio_focus_24m);
           const ua = a.at(-1)!;
           const dg = ler('opm/indicadores/i16_acm_diagnostico.csv')[0]!;
+          const cr = ler('opm/indicadores/i16_criterio_plausibilidade.csv')[0]!;
+          const ok = cr.plausivel === '1';
+          const xm = (d: string) => mes(d.slice(0, 7));
+          const series: SerieSpec[] = [
+            { id: 'f24', label: en ? '24 months (Focus)' : '24 meses (Focus)', endLabel: '24m', color: COR.navy, width: 2.2, points: pts(a, 'data', 'premio_focus_24m', xm) },
+            { id: 'f36', label: en ? '36 months (Focus)' : '36 meses (Focus)', endLabel: '36m', color: COR.azure, dash: '6 3', points: pts(a, 'data', 'premio_focus_36m', xm) },
+            ...(ok ? [{ id: 'acm24', label: en ? '24 months (ACM)' : '24 meses (ACM)', endLabel: 'ACM', color: COR.steel, dash: '1.5 3', points: pts(a, 'data', 'premio_24m', xm) } as SerieSpec] : []),
+          ];
+          const p24 = Number(ua.premio_focus_24m);
           return monta({
-            id: 'opm-premio-termo', icone: 'flask-conical', rotulo: en ? 'I.16 · Experimental' : 'I.16 · Experimental', largo: true,
-            titulo: en ? `Estimated term premium of ${n2(Number(ua.premio_24m))} p.p. at 24 months` : `Prêmio a termo estimado de ${n2(Number(ua.premio_24m))} p.p. em 24 meses`,
-            subtitulo: subtitulo(lang, en ? 'Fitted minus risk-neutral yield, p.p. (ACM, 3 factors)' : 'Taxa ajustada menos taxa neutra ao risco, p.p. (ACM, 3 fatores)', en ? 'month end' : 'fim de mês', pts(a, 'data', 'premio_24m', (d) => dia(d)), 'dia'),
+            id: 'opm-premio-termo', icone: 'flask-conical', rotulo: 'I.16 · Experimental', largo: true, inferida: true,
+            titulo: en ? `Fixed-rate curve ${p24 >= 0 ? 'above' : 'below'} the Focus Selic path by ${n2(Math.abs(p24))} p.p. at 24 months` : `Curva prefixada ${p24 >= 0 ? 'acima' : 'abaixo'} da trajetória Focus da Selic em ${n2(Math.abs(p24))} p.p. em 24 meses`,
+            subtitulo: subtitulo(lang, en ? 'Inferred premium: NSS fixed-rate yield minus average Selic expected by Focus, p.p.' : 'Prêmio inferido: taxa prefixada NSS menos Selic média esperada pela Focus, p.p.', en ? 'month end' : 'fim de mês', pts(a, 'data', 'premio_focus_24m', (d) => dia(d)), 'dia',
+              en ? `36 months: ${n2(Number(ua.premio_focus_36m))} p.p.` : `36 meses: ${n2(Number(ua.premio_focus_36m))} p.p.`),
             eixo: 'p.p.', experimental: true,
-            unidade: en ? 'p.p. (fitted yield minus risk-neutral yield)' : 'p.p. (taxa ajustada menos taxa neutra ao risco)', xFormat: 'month', yDigits: 2, yUnit: 'p.p.', zero: true,
-            descricao: en ? 'Month-end term premium at 24 and 36 months.' : 'Prêmio a termo de fim de mês em 24 e 36 meses.',
-            series: [
-              { id: 'p24', label: en ? '24 months' : '24 meses', color: COR.navy, width: 2.2, points: pts(a, 'data', 'premio_24m', (d) => mes(d.slice(0, 7))) },
-              { id: 'p36', label: en ? '36 months' : '36 meses', color: COR.azure, dash: '6 3', points: pts(a, 'data', 'premio_36m', (d) => mes(d.slice(0, 7))) },
+            unidade: en ? 'p.p. (yield minus expected average Selic)' : 'p.p. (taxa menos Selic média esperada)', xFormat: 'month', yDigits: 2, yUnit: 'p.p.', zero: true,
+            descricao: en ? 'Month-end inferred term premium at 24 and 36 months, from the fixed-rate curve and the Focus Selic path.' : 'Prêmio a termo inferido de fim de mês em 24 e 36 meses, pela curva prefixada e pela trajetória Focus da Selic.',
+            series,
+            colunasExtra: [
+              { titulo: en ? 'Expected average Selic, 24 months (Focus, %)' : 'Selic média esperada, 24 meses (Focus, %)', pontos: pts(a, 'data', 'selic_esperada_focus_24m', xm) },
+              { titulo: en ? 'ACM premium, 24 months (p.p.)' : 'Prêmio ACM, 24 meses (p.p.)', pontos: pts(a, 'data', 'premio_24m', xm) },
             ],
-            legenda: [{ id: 'p24', label: en ? '24 months' : '24 meses', color: COR.navy, style: 'line' }, { id: 'p36', label: en ? '36 months' : '36 meses', color: COR.azure, style: 'dash' }],
-            fontes: [fonte('tesouro_direto')], csv: [csvInd('indicadores/i16_premio_termo_acm.csv'), csvInd('indicadores/i16_acm_diagnostico.csv'), csvInd('indicadores/curva_nominal_grade.csv')],
-            nota: en ? `EXPERIMENTAL (layer 3), pending Editorial Committee review; method in the draft Discussion Paper. Adrian, Crump and Moench (2013) with 3 factors (${n1(100 * Number(dg.variancia_explicada))}% of variance), fit error ${n1(Number(dg.erro_ajuste_bp))} bp. Short sample and maturities up to 3 years: the VAR projects rising short rates, unlike Focus, which pushes the premium below zero — a known small-sample bias. Do not read as market expectation.`
-              : `EXPERIMENTAL (camada 3), sujeito à revisão do Comitê Editorial; método na minuta de Texto para Discussão. Adrian, Crump e Moench (2013) com 3 fatores (${n1(100 * Number(dg.variancia_explicada))}% da variância), erro de ajuste de ${n1(Number(dg.erro_ajuste_bp))} bp. Amostra curta e prazos até 3 anos: o VAR projeta alta dos juros curtos, ao contrário da Focus, o que empurra o prêmio para baixo de zero — viés de amostra pequena conhecido. Não ler como expectativa de mercado.`,
+            legenda: series.map((x, i) => ({ id: x.id, label: x.label, color: x.color, style: i ? 'dash' as const : 'line' as const })),
+            fontes: [fonte('tesouro_direto'), fonte('focus_selic'), fonte('focus_anuais')],
+            csv: [csvInd('indicadores/i16_premio_termo_acm.csv'), csvInd('indicadores/i16_selic_esperada_focus.csv'), csvInd('indicadores/i16_criterio_plausibilidade.csv'), csvInd('indicadores/i16_acm_diagnostico.csv')],
+            nota: (en
+              ? `EXPERIMENTAL (layer 3). Inferred, not observed: it also contains the Tesouro Direto spread and the Selic–DI gap, and Focus is a survey median, not a risk-neutral expectation. ACM (Adrian, Crump and Moench, 2013; 3 factors, fit error ${n1(Number(dg.erro_ajuste_bp))} bp) ${ok ? 'passes' : 'fails'} the plausibility criterion over the last ${cr.janela_meses} months: its risk-neutral rate differs from the Focus path by ${n2(Number(cr.dif_media_neutra_focus_24m_pp))} p.p. (24m) and ${n2(Number(cr.dif_media_neutra_focus_36m_pp))} p.p. (36m) on average (limit 1.0) and the sign agrees in ${n1(100 * Number(cr.concordancia_sinal_24m))}% of months (minimum 67%). ${ok ? '' : 'It is therefore kept out of the figure and published only in the CSV.'}`
+              : `EXPERIMENTAL (camada 3). Inferido, não observado: contém também o spread do Tesouro Direto e a diferença Selic–DI, e a Focus é mediana de pesquisa, não expectativa neutra ao risco. O ACM (Adrian, Crump e Moench, 2013; 3 fatores, erro de ajuste de ${n1(Number(dg.erro_ajuste_bp))} bp) ${ok ? 'passa' : 'não passa'} no critério de plausibilidade nos últimos ${cr.janela_meses} meses: sua taxa neutra ao risco difere da trajetória Focus em ${n2(Number(cr.dif_media_neutra_focus_24m_pp))} p.p. (24m) e ${n2(Number(cr.dif_media_neutra_focus_36m_pp))} p.p. (36m) em média (limite 1,0) e o sinal coincide em ${n1(100 * Number(cr.concordancia_sinal_24m))}% dos meses (mínimo 67%). ${ok ? '' : 'Por isso fica fora da figura e é publicado só no CSV.'}`).trim(),
           }, lang);
         })(),
         (() => {
@@ -598,7 +615,7 @@ export function graficosModulo(modulo: string, lang: Lang): ModuloGraficos {
           const h = ler('opm/indicadores/i15_hiato_produto_trimestral.csv').filter((r) => r.minimo);
           const uh = h.at(-1)!;
           return monta({
-            id: 'opm-hiato-produto', icone: 'gauge', rotulo: 'I.15', largo: true,
+            id: 'opm-hiato-produto', icone: 'gauge', rotulo: 'I.15', inferida: true, largo: true,
             titulo: en ? `Output gap between ${n1(Number(uh.minimo))}% and ${n1(Number(uh.maximo))}% in ${uh.trimestre}, depending on the method` : `Hiato do produto entre ${n1(Number(uh.minimo))}% e ${n1(Number(uh.maximo))}% em ${uh.trimestre}, conforme o método`,
             subtitulo: subtitulo(lang, en ? '% of potential output; BCB estimate 0.4% in Q3 2026 (MPR, p. 83)' : '% do produto potencial; BCB estima 0,4% no 3º tri de 2026 (RPM, p. 83)', en ? 'quarterly' : 'trimestral', pts(h, 'trimestre', 'hp_unilateral', tri), 'tri'),
             eixo: '%',

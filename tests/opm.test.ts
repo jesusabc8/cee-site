@@ -8,7 +8,7 @@ import { lerCsvTexto } from '../scripts/data/csv.ts';
 import { diaUtil, feriados, pascoa, proximosDiasUteis } from '../scripts/data/opm/calendario.ts';
 import { credibilidade, metaHorizonte12m, surpresa, ultimaAntes } from '../scripts/data/opm/expectativas.ts';
 import { acumula, contadorRegime, saar3m } from '../scripts/data/opm/inflacao.ts';
-import { fisher, selicAcumulada252, selicEsperada12m } from '../scripts/data/opm/juros.ts';
+import { fisher, selicAcumulada252, selicEsperada12m, selicEsperadaHorizonte } from '../scripts/data/opm/juros.ts';
 import { coeficientes, real, velocidade } from '../scripts/data/opm/moeda.ts';
 import { datasCalendario } from '../scripts/data/process-opm.ts';
 import { SERIES } from '../scripts/data/series.ts';
@@ -189,5 +189,21 @@ describe('referência: identidades monetárias', () => {
   });
   it('M1 = papel-moeda em poder do público + depósitos à vista (±R$ 2 mil)', () => {
     for (const [p, x] of m1!) if (pmpp!.has(p) && dv!.has(p)) expect(Math.abs(x - pmpp!.get(p)! - dv!.get(p)!), p).toBeLessThanOrEqual(2);
+  });
+});
+
+describe('Selic média esperada pela Focus em n dias úteis (I.16, ADR-031)', () => {
+  it('trajetória constante reproduz a taxa', () => {
+    const r = selicEsperadaHorizonte('2026-01-02', 10, [{ reuniao: 'R1', vigencia: '2026-01-29', mediana: 10 }], [2026, 2027, 2028, 2029].map((ano) => ({ ano, mediana: 10 })), 756);
+    expect(r.selic_media).toBeCloseTo(10, 8);
+    expect(r.coberto).toBe(true);
+  });
+  it('queda linear de 12 para 8 em um ano e 8 no seguinte: média ≈ 9', () => {
+    const r = selicEsperadaHorizonte('2026-01-02', 12, [{ reuniao: 'R1', vigencia: '2026-01-05', mediana: 12 }], [{ ano: 2026, mediana: 8 }, { ano: 2027, mediana: 8 }], 504);
+    expect(Math.abs(r.selic_media - 9)).toBeLessThan(0.15);
+  });
+  it('sem expectativa para o fim do horizonte: não coberto', () => {
+    const r = selicEsperadaHorizonte('2026-01-02', 10, [{ reuniao: 'R1', vigencia: '2026-01-29', mediana: 10 }], [{ ano: 2026, mediana: 10 }], 756);
+    expect(r.coberto).toBe(false);
   });
 });

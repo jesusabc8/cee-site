@@ -7,6 +7,14 @@ Dados: curva nominal NSS do Tesouro Direto em grade mensal de 1 a 36 meses (fim 
 3. MQO de rx em [1, v_{t+1}, X_t] para cada prazo → a, β, c; λ1 = (ββ')⁻¹β C', λ0 = (ββ')⁻¹β(a + ½(B* vec Σ + σ²));
 4. recursões afins com e sem preço de risco; prêmio a termo = taxa ajustada − taxa neutra ao risco.
 Limitações: amostra curta (~14 anos), prazos até 3 anos, taxa com spread do Tesouro Direto. Uso: python -m opm.acm
+
+Prêmio pela Focus e critério de plausibilidade (ADR-031):
+- prêmio pela Focus: TP^F(n) = y(n) − E^F(n), com E^F(n) a Selic média esperada em n meses pela Focus (trajetória por
+  reunião e medianas de fim de ano; scripts/data/derive-opm.ts → i16_selic_esperada_focus.csv), última coleta até a data
+  da curva. É a medida principal publicada: não depende do VAR.
+- o ACM só entra na figura se, nos últimos 36 meses, (i) a taxa neutra ao risco do ACM ficar, em média, a até 1,0 p.p.
+  da Selic média esperada pela Focus em 24 e 36 meses; (ii) o sinal do prêmio ACM coincidir com o do prêmio pela Focus em
+  pelo menos 2/3 dos meses; (iii) o erro médio de ajuste for ≤ 10 bp. Reprovado, fica só no CSV, com o diagnóstico.
 """
 from __future__ import annotations
 
@@ -71,7 +79,22 @@ def main() -> None:
     r = acm(y)
     out = pd.DataFrame({"data": g.data, **{f"premio_{n}m": r["premio"][:, n - 1].round(4) for n in (12, 24, 36)},
                         **{f"neutra_{n}m": r["neutra"][:, n - 1].round(4) for n in (24, 36)}, "taxa_36m": y[:, 35].round(4)})
+    f = pd.read_csv(IND / "i16_selic_esperada_focus.csv").sort_values("data")
+    fx = pd.merge_asof(out[["data"]].assign(_d=pd.to_datetime(out.data)).sort_values("_d"),
+                       f.assign(_d=pd.to_datetime(f.data)).rename(columns={"data": "coleta_focus"}), on="_d", direction="backward")
+    for n in (12, 24, 36):
+        out[f"selic_esperada_focus_{n}m"] = fx[f"selic_esperada_{n}m"].to_numpy()
+        out[f"premio_focus_{n}m"] = (y[:, n - 1] - fx[f"selic_esperada_{n}m"].to_numpy()).round(4)
+    out["coleta_focus"] = fx.coleta_focus.to_numpy()
     out.to_csv(IND / "i16_premio_termo_acm.csv", index=False)
+    janela = out.tail(36)
+    gaps = [float((janela[f"neutra_{n}m"] - janela[f"selic_esperada_focus_{n}m"]).abs().mean()) for n in (24, 36)]
+    sinais = float((np.sign(janela.premio_24m) == np.sign(janela.premio_focus_24m)).mean())
+    plausivel = max(gaps) <= 1.0 and sinais >= 2 / 3 and r["erro_bp"] <= 10
+    pd.DataFrame([{"janela_meses": len(janela), "dif_media_neutra_focus_24m_pp": round(gaps[0], 4), "dif_media_neutra_focus_36m_pp": round(gaps[1], 4),
+                   "concordancia_sinal_24m": round(sinais, 4), "erro_ajuste_bp": round(r["erro_bp"], 2), "limite_dif_pp": 1.0,
+                   "limite_sinal": round(2 / 3, 4), "limite_erro_bp": 10, "plausivel": int(plausivel)}]).to_csv(IND / "i16_criterio_plausibilidade.csv", index=False)
+    print(f"  critério: dif. neutra−Focus {gaps[0]:.2f}/{gaps[1]:.2f} p.p., sinal {sinais:.0%} → {'plausível' if plausivel else 'NÃO plausível (ACM só no CSV)'}")
     pd.DataFrame([{"fatores": K, "variancia_explicada": round(r["var_explicada"], 4), "erro_ajuste_bp": round(r["erro_bp"], 2), "meses": len(out), "prazo_max_meses": 36}]).to_csv(IND / "i16_acm_diagnostico.csv", index=False)
     u = out.iloc[-1]
     print(f"✓ i16 (experimental): {len(out)} meses; {u.data}: prêmio 24m {u.premio_24m:.2f} p.p., 36m {u.premio_36m:.2f} p.p.; erro de ajuste {r['erro_bp']:.1f} bp")
