@@ -59,6 +59,14 @@ const LIM_OPM: [RegExp, Record<string, [number, number]>][] = [
   [/^copom_comunicados$/, { caracteres: [100, 200000] }],
   [/^copom_atas$/, { caracteres: [0, 400000] }],
   [/^copom_calendario$/, {}],
+  [/^tesouro_direto$/, { taxa_compra: [-10, 30], taxa_venda: [-10, 30] }], // juro real de NTN-B perto do vencimento pode ser negativo
+  [/^pib_volume_sa$/, { indice: [50, 400] }],
+  // Inflação ampliada e regional (ADR-030).
+  [/^(ipca15|inpc)$/, { variacao_mensal: [-3, 5], acumulada_12m: [-5, 30] }],
+  [/^ipp$/, { geral_mensal: [-15, 15], transformacao_mensal: [-15, 15], geral_12m: [-30, 60], transformacao_12m: [-30, 60] }],
+  [/^(ipca|inpc)_regional$/, { variacao_mensal: [-20, 20], variacao_12m: [-20, 40], peso: [0, 100] }],
+  [/^pesos_regionais$/, { peso_inpc: [0, 100], peso_ipca: [0, 100] }],
+  [/^capitais_coordenadas$/, { longitude: [-75, -34], latitude: [-34, 6] }],
 ];
 for (const s of SERIES) if (s.painel === 'opm') LIMITES[s.id] = LIM_OPM.find(([re]) => re.test(s.id))?.[1] ?? (() => { throw new Error(`Sem intervalo plausível para ${s.id}`); })();
 
@@ -108,6 +116,9 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
       focus_top5_mensais: (l) => `${l.data}|${l.mes_referencia}|${l.tipo_calculo}`,
       ipca_itens: (l) => `${l.periodo}|${l.codigo}`,
       copom_decisoes: (l) => `${l.reuniao}|${l.inicio_vigencia}`,
+      tesouro_direto: (l) => `${l.data}|${l.titulo}|${l.vencimento}`,
+      ipca_regional: (l) => `${l.periodo}|${l.area}|${l.categoria}`,
+      inpc_regional: (l) => `${l.periodo}|${l.area}|${l.categoria}`,
     };
     const chaves = linhas.map((l) => (chaveComp[id] ?? ((x) => x[chave]!))(l));
     expect(new Set(chaves).size).toBe(chaves.length);
@@ -120,7 +131,7 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
     } else if (id === 'copom_decisoes') {
       const datas = linhas.map((l) => l.inicio_vigencia!);
       expect([...datas].sort()).toEqual(datas);
-    } else if (id !== 'pwt') {
+    } else if (!['pwt', 'pesos_regionais', 'capitais_coordenadas'].includes(id)) {
       const datas = linhas.map((l) => l[chave]!);
       expect([...datas].sort()).toEqual(datas);
     }
@@ -129,7 +140,7 @@ describe.each(SERIES.map((s) => s.id))('série %s', (id) => {
   it('nenhuma observação posterior à data de extração', () => {
     const limite = v.extraido_em.slice(0, 10);
     // O calendário do Copom lista reuniões futuras por definição; as séries por reunião não têm data na 1ª coluna.
-    if (['pwt', 'metas_inflacao', 'copom_calendario', 'copom_decisoes', 'copom_votos', 'copom_comunicados', 'copom_atas'].includes(id)) return;
+    if (['pwt', 'metas_inflacao', 'copom_calendario', 'copom_decisoes', 'copom_votos', 'copom_comunicados', 'copom_atas', 'pesos_regionais', 'capitais_coordenadas'].includes(id)) return;
     // Trimestres (AAAA-Tn) comparados pelo último mês do trimestre.
     const comoData = (v: string) => (/^\d{4}-T\d$/.test(v) ? `${v.slice(0, 4)}-${String(Number(v.slice(6)) * 3).padStart(2, '0')}` : v);
     for (const l of linhas) expect(comoData(String(l[chave])) <= limite).toBe(true);

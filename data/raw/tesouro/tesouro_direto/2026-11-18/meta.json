@@ -1,0 +1,14 @@
+{
+  "serie": "tesouro_direto",
+  "fonte": "tesouro",
+  "codigo": "Tesouro Transparente (CKAN), conjunto \"Taxas dos Títulos Ofertados pelo Tesouro Direto\", arquivo precotaxatesourodireto.csv",
+  "extraido_em": "2026-11-18T14:15:08.473Z",
+  "arquivos": [
+    {
+      "arquivo": "precotaxatesourodireto.csv",
+      "url": "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv",
+      "sha256": "f5da737a615dab61a812d557eb8e6c18c8acaae32f83d91db4a0b1ddccf83137",
+      "bytes": 14700232
+    }
+  ]
+}

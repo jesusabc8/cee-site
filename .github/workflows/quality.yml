@@ -59,11 +59,16 @@ jobs:
         env:
           CEE_NOMES_PROIBIDOS: ${{ secrets.CEE_NOMES_PROIBIDOS }}
         run: npm run qa:seguranca
+      - name: Orçamento de tamanho do repositório (ADR-031)
+        run: npm run qa:tamanho
       - name: Acessibilidade (axe) em todas as páginas
         run: |
           npx astro preview --port 4321 &
           for i in $(seq 1 30); do curl -sf -o /dev/null http://localhost:4321/ && break; sleep 1; done
           node scripts/qa/axe.mjs http://localhost:4321
+          # Layout do OPM (ADR-029): sem rolagem horizontal, vazamentos, vãos > 96 px, contêineres ocos ou rótulos
+          # sobrepostos, em 360, 768, 1024, 1440 e 1920 px, PT e EN.
+          EXTRA=dados/ node scripts/qa/opm-layout.mjs http://localhost:4321
           kill %1
       - name: Lighthouse (build com CEE_LANCADO=1 para medir SEO sem o noindex preliminar)
         run: |

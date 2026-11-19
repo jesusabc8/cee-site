@@ -398,3 +398,239 @@ Nenhuma safra é apagada (CLAUDE.md, "Dados brutos em `data/raw/` são imutávei
 **Consequências.** Links internos passam a usar o novo slug via `href()`. O GitHub Pages (transitório) não lê
 `_redirects`; o 301 só vale na Cloudflare. Enquanto isso, uma página de transição em `/observatorio/conjuntura/`
 (meta refresh e `rel=canonical`, sem JavaScript) aponta para o novo endereço.
+
+## ADR-027 — Camada 2 do OPM: curvas, filtros e estimação (2026-11-18)
+
+**Decisão.** A camada 2 publica I.4 (c), I.6, I.9, I.11, I.12 (longo prazo), I.13 e I.15. Seguem em construção o curto
+prazo de I.12 (Araujo e Vicente, 2017) e I.21 (alíquota efetiva dos compulsórios).
+
+**Convenções declaradas.**
+- **Curvas (I.12, I.4 c):**
+  - Fonte: Tesouro Direto (Tesouro Transparente, ODbL; as curvas do CEE são base derivada sob ODbL).
+  - Títulos sem cupom (LTN e NTN-B Principal), taxa de compra da manhã, que inclui o spread do Tesouro Direto.
+  - Prazo em dias úteis/252.
+  - Modelo: Nelson-Siegel-Svensson com 7 ou mais títulos; Nelson-Siegel com menos.
+  - Ajuste: grade de λ com β por MQO, sem extrapolar além do prazo máximo + 6 meses.
+  - NTN-B a menos de 6 meses do vencimento ficam fora, por causa da defasagem de indexação.
+  - Erro médio absoluto publicado por data (mediana de 0,6 bp).
+- **I.4 (c):** NTN-B de 10 anos menos [NTN-B de 4 anos − juro real Focus médio dos anos t+1…t+4], este pela média
+  geométrica de Fisher das medianas anuais da Selic e do IPCA.
+- **I.15:**
+  - Trimestral: HP unilateral (λ = 1.600) e Hamilton (h = 8, p = 4) sobre o PIB dessazonalizado pelo IBGE (SIDRA 1621).
+  - Mensal: o mesmo sobre o IBC-Br (λ = 129.600; h = 24, p = 12).
+  - Faixa: mínimo e máximo entre os métodos.
+- **I.6:**
+  - T3 estimada por MQO em 2012–2019 (antes da pandemia e da meta contínua).
+  - θ ≈ 0,96 torna φ = b/(1 − θ) muito impreciso, o que se declara na ficha.
+  - O envelope cobre os quartis de r* e o mínimo e o máximo do hiato mensal.
+  - O envelope é referência descritiva, nunca prescrição.
+- **I.11:** X-13 (airline, sem regressores) por subitem do SIDRA 7060.
+  - Subitens em que o ajuste falha ficam fora: 20 de 377 em 18/11/2026.
+  - A parcela é calculada sobre o peso coberto, que é publicado (cerca de 92 %).
+- **I.13:** projeções locais mensais com três defasagens de Δℓ e Δi e erros de Newey-West. É associação condicional, não
+  efeito causal; o resultado vai em tabela, porque o eixo é o horizonte, não o tempo.
+
+**Consequências.** O pipeline Python passa a rodar `curvas → neutro → hiato → taylor → repasse → subitens` depois dos
+indicadores em TypeScript (`npm run data:neutro`). O arquivo do Tesouro Direto (cerca de 15 MB, crescendo por cima) é
+guardado inteiro a cada safra; o git armazena as versões por delta.
+
+## ADR-028 — Camada 3 do OPM: indicadores experimentais e critério de publicação (2026-11-18)
+
+**Decisão.**
+- **I.16** (prêmio a termo, ACM) e **I.17** (condições financeiras, PCA) são publicados com selo "experimental" visível
+  na ficha e no gráfico. Ficam assim até a revisão do Comitê Editorial e vêm acompanhados da minuta
+  `docs/td/CEE-TD-2026-01-v0.1-minuta.md`.
+- **I.4 (d)** (TIPS de 5 anos) é mostrado à parte e **fora da faixa**. Sem medida aberta de risco soberano (ADR-024), não
+  estima o neutro brasileiro.
+- **I.4 (e) e cenários do A2.7** só vão ao sítio se o modelo semiestrutural passar num critério mínimo de identificação.
+  - O critério é a inclinação da IS com t ≤ −2 e o coeficiente do hiato positivo na curva de Phillips.
+  - Em 18/11/2026 não passou (t = −0,47; coeficiente −0,03). O sítio mostra só os coeficientes e o motivo; os cenários
+    e o neutro do modelo ficam em `docs/td/dados/`, fora de `/dados/`.
+  - O critério é verificado automaticamente a cada atualização.
+- **I.14** (tom) não é publicado sem dupla codificação humana com kappa de Cohen ≥ 0,6.
+  - Léxico, corpus, amostra de 210 frases e cálculo do kappa estão prontos em `docs/td/i14/` e
+    `analysis/opm/tom.py`.
+
+**Justificativa.** Publicar números de um modelo cujo canal principal (juro → hiato) não é identificado induziria
+leitura econômica sem base. O selo "experimental" não substitui um critério mínimo de qualidade.
+
+## ADR-029 — Reconciliação da faixa de juro neutro, textos gerados e sistema visual de publicação (2026-11-18)
+
+### 1. Reconciliação (6,16–7,81 % × 6,30–7,13 %)
+
+**Causa.**
+- **Mesma safra, conjuntos de métodos diferentes.** As duas faixas vêm da safra de 18/11/2026 (dado de nov./2026).
+- **6,16–7,81 %:** faixa da **camada 1**, com 3 métodos: (a) Focus t+4 5,88 %, (b) HP unilateral 9,19 % e (b) Hamilton
+  6,44 %. Com três estimativas, Q1 e Q3 são pontos médios.
+- **6,30–7,13 %:** faixa da **camada 2**, que acrescenta (c) NTN-B longa (6,44 %). Com 4 métodos, Q1 e Q3 se estreitam.
+- A mediana (6,44 %) é a mesma por coincidência: o valor de (c) quase iguala o de Hamilton.
+- **Por que a página e o relatório divergiram.** Os PR #15 e #16 foram integrados em ramos intermediários
+  (`observatorio-politica-monetaria` e `opm-camada-2`) e não em `main`. O sítio publicado a partir de `main` mostra a
+  camada 1 (3 métodos), enquanto o relatório citava a camada 2 (4 métodos).
+
+**Decisão.**
+- O subtítulo da ficha passa a nomear os métodos usados em cada data: "(a) Focus t+4, (b) HP, (b) Hamilton, (c) NTN-B".
+- A mediana da faixa vai para a tabela e para o CSV.
+- Página, CSV (`indicadores/i4_faixa_neutro.csv`, colunas `q1`, `mediana`, `q3`, `metodos`) e minuta de TD citam a mesma
+  saída. A minuta não cita a faixa; o ADR-027 não cita cifras.
+
+### 2. Textos gerados
+
+- As datas passam a ser a data de referência real de cada série, por exemplo "último dado: set/2026" ou "13 nov 2026".
+  Acabam formas como "Em nov 2026" para mês incompleto.
+- Os títulos passam a ter forma de achado ("Núcleos desaceleram em 3,9 % anualizados").
+- Os tempos verbais vão no presente ("vai de", não "ia de").
+- O teste `tests/opm-textos.test.ts` falha se um número decimal de título, subtítulo, faixa de indicadores-chave ou
+  mensagem-chave não coincidir, nas casas exibidas, com o CSV publicado.
+  - Para fichas, vale a tabela da ficha. Para indicadores e mensagens, vale a origem declarada (arquivo, chave, coluna,
+    filtro).
+  - Constantes normativas com fonte: meta de 3,0 % e intervalo de 1,5–4,5 % (Res. CMN 5.141/2024); neutro do BCB de 5,00 %
+    (RPM, p. 80); hiato do BCB de 0,4 % (RPM, p. 83).
+
+### 3. Sistema visual de publicação (redesenho do OPM)
+
+**Contexto.** A revisão do sítio publicado apontou aspecto simples, grandes espaços em branco e elementos saindo do
+contêiner. Medição inicial (`scripts/qa/opm-layout.mjs`, 10 páginas × 2 idiomas × 5 larguras): 156 vãos > 96 px (até
+220 px), 32 contêineres mais de 40 % vazios e 40 colisões de rótulos em gráficos.
+
+**Decisão.** Sistema visual "publicação", descrito em `docs/DESIGN.md`, aplicado só ao OPM nesta etapa e adotável pelo
+resto do sítio:
+- tokens tipográficos e de espaçamento;
+- moldura com cabeçalho e navegação por módulos;
+- faixa de indicadores-chave e mensagens-chave geradas dos dados;
+- fichas com título-achado, estado e selo, e downloads CSV, PNG e SVG;
+- estilo `pub` do renderizador, opcional, que não altera Panorama nem portada;
+- temas claro e escuro, este só nas páginas `pub`;
+- nova página de downloads (`/observatorio/politica-monetaria/dados/`).
+
+**Resultado.**
+- Medição posterior: 0 achados em 11 páginas × 2 idiomas × 5 larguras.
+- axe: 0 violações nos dois temas.
+- Lighthouse móvel nas páginas do OPM: desempenho 95–98, acessibilidade 100.
+
+**Fora.** Faixas de recessão do CODACE: a fonte não tem licença aberta verificável.
+
+## ADR-030 — Inflação ampliada e regional no módulo A2.3 (2026-11-18)
+
+**Contexto.** O módulo A2.3 mostrava só IPCA, núcleos, regime da meta, SAAR e subitens. A revisão pediu outras medidas
+de preços (IPCA-15, INPC, IPP, grupos, classificações, dispersão) e inflação regional com Belo Horizonte em destaque.
+
+**Decisão — medidas incluídas.**
+- IPCA-15 (SIDRA 3065), INPC (SIDRA 1736) e IPP da indústria geral e de transformação (SIDRA 6903, classificação 842).
+- Classificações do BCB já extraídas (livres, administrados, serviços, industriais, alimentação no domicílio,
+  comercializáveis, não comercializáveis), compostas em 12 meses pelo CEE (C.3).
+- Média aparada (MA, SGS 11426) e percentil 55 (P55, SGS 28750) **do BCB**. O CEE não calcula média aparada nem
+  percentil próprios: as medidas oficiais, com metodologia publicada pelo BCB, já existem e são abertas.
+- Difusão (SGS 21379) e sua média móvel de 12 meses.
+- Grupos e subgrupos do IPCA no último mês (SIDRA 7060), com contribuição = peso × variação / 100. O subgrupo
+  "Recreação e fumo" (código 47656, criado com a POF 2017–2018) fica fora da sequência de códigos e é atribuído
+  explicitamente a "Despesas pessoais"; um teste exige que os pesos dos subgrupos somem o do grupo.
+
+**Decisão — regional.**
+- IPCA e INPC das 16 áreas (SIDRA 7060 e 7063; níveis N7 regiões metropolitanas e N6 capitais), com pesos regionais
+  oficiais (arquivo do FTP do IBGE, estrutura POF 2017–2018, SHA-256 registrado no vintage).
+- A interface diz explicitamente que não existe IPCA por estado.
+- Mapa de **símbolos** nos centroides das capitais (API de malhas v3 do IBGE, mesma família de APIs do SIDRA), com área
+  proporcional ao peso e tom pela inflação em 12 meses; classes fixas em relação à meta (1,5 · 3,0 · 4,5 · 6,0).
+- **Sem coroplético e sem contornos:** a página de termos citada no LEIA-ME da malha ("Nota metodológica —
+  Informações técnicas e legais") não pôde ser lida (403 para clientes automatizados). Até conferir a licença, nenhum
+  polígono é publicado (PENDIENTES).
+- Ordenação das áreas, múltiplos pequenos (16 × Brasil, escala comum), dispersão ponderada (C.1: desvio-padrão e
+  intervalo interquartil; faixa mínimo–máximo), contribuição por grupo à diferença área − Brasil (C.2, Belo Horizonte
+  na figura; todas as áreas no CSV) e tabela ordenável com IPCA, INPC e grupos.
+- Testes de referência (`tests/inflacao.test.ts`):
+  - a linha Brasil da tabela regional é igual ao IPCA nacional (SIDRA 1737), mensal e 12 meses;
+  - os pesos regionais somam 100 % no IPCA e no INPC;
+  - a média das áreas ponderada pelos pesos reproduz o IPCA mensal do Brasil (|dif| < 0,03 p.p.; máximo observado
+    0,016 p.p., arredondamento);
+  - a soma das contribuições por grupo é igual à diferença área − Brasil (|dif| < 0,02 p.p.).
+
+**Decisão — fora.**
+- IGP-M, IGP-DI e IPC-S (provedor privado de índices gerais) e IPC-Fipe: sem licença de redistribuição verificada.
+  Não são extraídos nem citados no sítio (PENDIENTES).
+- Faixas de recessão (CODACE): mantida a decisão do ADR-029.
+
+**Indicadores complementares.** C.1–C.3 entram em `indicadores.yaml` com `complementar: true` e código `C.n`. A
+especificação continua com exatamente 21 indicadores (I.1–I.21), validados no build; o quadro "Os 21 indicadores"
+lista só esses.
+
+**Figuras estáticas.** Mapa, ordenação, múltiplos e barras são SVG gerados no build (`src/lib/viz/estaticos.ts`), uma
+versão por faixa de largura (texto legível a 360 px), com classes de cor nos temas claro e escuro, tabela alternativa,
+CSV e exportação PNG/SVG. Não têm cursor; o valor de cada área está no rótulo, no `title` e na tabela.
+
+## ADR-031 — Correções antes da integração em `main`: I.16, A2.7, I.13, varredura por dados, "inferida", ODbL e tamanho (2026-11-19)
+
+**Contexto.** Revisão das camadas 2–3 e do redesenho antes de levar `opm-inflacao` a `main`.
+
+### 1. I.16 — critério de plausibilidade e prêmio pela Focus
+- Medida principal: **prêmio pela Focus**, TP^F(n) = y(n) − E^F(n). y(n) é a taxa prefixada NSS; E^F(n) é a Selic média
+  esperada em n meses pela Focus, com a trajetória por reunião e, depois da última reunião, interpolação linear até as
+  medianas de Selic de fim de ano. Não depende do VAR.
+- O **ACM** só entra na figura se passar, nos últimos 36 meses, em três condições:
+  - neutra ao risco a até 1,0 p.p. da Selic esperada pela Focus (24 e 36 meses);
+  - sinal do prêmio igual ao da Focus em pelo menos 2/3 dos meses;
+  - erro de ajuste ≤ 10 bp.
+- Resultado nesta safra: diferença de 2,50 e 3,08 p.p. e sinal coincidente em 3 % dos meses. **Reprovado**: o ACM fica
+  só no CSV (`i16_criterio_plausibilidade.csv`).
+- O prêmio pela Focus é rotulado "inferido". Contém o spread do Tesouro Direto e a diferença Selic–DI; a Focus é mediana
+  de pesquisa, não expectativa neutra ao risco.
+
+### 2. A2.7 — Copom, Focus e meta
+- A página compara, reunião a reunião, três números: a projeção do Copom para o horizonte relevante (cenário de
+  referência, extraída do texto do comunicado), a mediana Focus do ano do horizonte na véspera e a meta.
+- O formato da frase existe desde a 265ª reunião; antes, não se extrai.
+- A comparação é aproximada: o Copom projeta 12 meses até o trimestre do horizonte; a Focus, o ano-calendário.
+- Os cenários do modelo semiestrutural saem da página: o modelo não passa no critério de identificação (ADR-028).
+
+### 3. I.13 — o que mede o "4,0 p.p." e qual é o choque
+- β₁₂ = 4,01 p.p. (total) era a variação da taxa do crédito 12 meses após 1 p.p. de mudança da meta no mês t. O choque
+  era Δi_t, **não** a surpresa em relação à Focus.
+- Como a Selic é persistente, β₁₂ inclui as decisões seguintes: em 12 meses a própria Selic anda θ₁₂ = 4,78 p.p.
+- Publica-se agora o repasse por p.p. de Selic acumulada, ρ_h = β_h/θ_h, com IC pelo método delta e covariância HAC
+  conjunta. Total: ρ₁₂ = 0,84 [0,69; 0,99].
+- Versão alternativa com a **surpresa** do Copom em relação à Focus (I.5) como choque, controlando a mudança antecipada:
+  ρ₁₂ = 0,74 [−0,37; 1,85]. São poucas surpresas não nulas, logo o resultado é indicativo.
+- Teste com dados simulados: com ciclos de Selic e ℓ = 2i, β_h cresce com h e ρ_h ≈ 2.
+
+### 4. `qa:seguranca` por dados, não por nomes
+- A regra "termo-proibido" (qualquer GIEF, FIEMG ou FGV em `dist/`) foi substituída por verificações de **dado**,
+  definidas em `scripts/qa/fontes-excluidas.json`:
+  - arquivo em `/dados/` que cite a instituição ou o host;
+  - código SGS de série excluída (189, 190, 193);
+  - link de download para o host.
+- Toda frase que cite GIEF, FIEMG ou FGV precisa registrar exclusão; a regra 6 do CLAUDE.md (nunca como meta ou
+  aspiração) continua valendo.
+- O sítio agora nomeia as fontes excluídas e o motivo (A2.3 e metodologia).
+
+### 5. Rótulo "inferida"
+Fichas cuja série principal é inferida pelo CEE, e não publicada pela fonte, levam o selo "Inferida" com explicação:
+- juro real ex ante;
+- faixas de juro neutro;
+- hiato de juros;
+- envelope de Taylor;
+- inflação implícita;
+- hiato do produto;
+- prêmio a termo.
+
+### 6. ODbL das bases derivadas
+- Os dados do Tesouro Direto estão sob ODbL v1.0, que exige publicar toda base derivada sob a mesma licença, com aviso.
+- O fecho transitivo vai além das curvas: inflação implícita, prêmio a termo, faixa de juro neutro (método c), hiato de
+  juros, Taylor e ICF. A lista única fica em `scripts/data/opm/odbl.ts`; `tests/odbl.test.ts` recalcula o fecho a partir
+  do código e falha se a lista divergir.
+- Os produtos levam:
+  - na página de dados, uma coluna de licença por arquivo;
+  - nas fichas, uma linha de aviso;
+  - o aviso público em `/dados/opm/LICENCA-ODbL.txt`;
+  - no rodapé, a frase corrigida.
+
+### 7. Tamanho do repositório
+- O histórico git cresce pouco por safra: medido com 5 safras da Focus anual, +1 a +6 KB por safra após deltas.
+- O problema é o **árvore de trabalho**: cada safra semanal repete ~93 MB sem compressão, até ~4,7 GB/ano em cada
+  checkout (CI, vista prévia).
+- Medidas:
+  1. `npm run qa:tamanho` no CI: falha com arquivo versionado > 45 MB ou `data/raw/` > 400 MB, e mostra a projeção.
+  2. Safras idênticas já não são duplicadas (`fetch.ts`).
+  3. Poda opcional `CEE_PODA_SAFRAS=1`: o árvore guarda só a última safra de cada série. As anteriores ficam no
+     histórico e se recuperam com `node scripts/data/safra.mjs <fonte>/<id> <data>`, que confere o SHA-256.
+- **Desligada**: ligar apaga diretórios do árvore e exige autorização expressa do responsável (CLAUDE.md). Recomenda-se
+  ligá-la no `data-refresh` antes de o orçamento ser atingido.

@@ -1,0 +1,28 @@
+---
+/** Mensagens-chave (3–5) geradas dos dados (ADR-029). */
+import type { Mensagem } from '../../lib/opm';
+import type { Lang } from '../../i18n/ui';
+interface Props { itens: Mensagem[]; lang: Lang; data: string }
+const { itens, lang, data } = Astro.props;
+const en = lang === 'en';
+---
+<section class="msg" aria-labelledby="msg-t">
+  <header class="msg__cab">
+    <h2 id="msg-t" class="msg__tit">{en ? 'Key messages' : 'Mensagens-chave'}</h2>
+    <p class="msg__data">{en ? 'Generated from the data of' : 'Geradas dos dados de'} {data}</p>
+  </header>
+  <ol class="msg__lista">
+    {itens.map((m) => <li><p>{m.texto}</p><a href={m.href}>{en ? 'See the module' : 'Ver o módulo'}<span aria-hidden="true"> →</span></a></li>)}
+  </ol>
+</section>
+<style>
+  .msg { border-top: 2px solid var(--pub-destaque); padding-top: var(--e-2); }
+  .msg__cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin-bottom: var(--e-2); }
+  .msg__tit { margin: 0; font: 600 var(--t-22) / 1.25 var(--serif); color: var(--pub-tinta); }
+  .msg__data { margin: 0; font-size: var(--t-12); color: var(--pub-suave); }
+  .msg__lista { margin: 0; padding: 0; list-style: none; counter-reset: m; display: grid; gap: 0; }
+  .msg__lista li { counter-increment: m; display: grid; grid-template-columns: 28px 1fr; column-gap: 8px; padding: 12px 0; border-top: 1px solid var(--pub-linha); }
+  .msg__lista li::before { content: counter(m); grid-row: span 2; font: 600 var(--t-18) / 1.35 var(--serif); color: var(--pub-suave); }
+  .msg__lista p { margin: 0; font: 400 var(--t-16) / 1.55 var(--serif); color: var(--pub-tinta); max-width: 80ch; }
+  .msg__lista a { justify-self: start; margin-top: 2px; font: 500 var(--t-12) / 1.4 var(--sans); color: var(--pub-link); }
+</style>

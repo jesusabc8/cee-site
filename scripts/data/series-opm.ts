@@ -16,6 +16,7 @@
 import {
   ANO_INICIAL, LIC_BCB, LIC_IBGE, odata, sgs, sgsPublica, sidra, sidraValores, type Requisicao, type Serie,
 } from './series.ts';
+import { CAPITAIS } from './opm/areas.ts';
 
 const VERIF_DATA = '2026-11-18';
 const VERIF_SGS_PAGINA = 'Página pública de consulta do SGS em português (consultarValoresSeries), que lista código, nome completo, unidade, periodicidade, início e último valor; série consultada na API do SGS';
@@ -247,6 +248,90 @@ export function seriesOpm(): Serie[] {
     fred('tips5', 'DFII5', 'Rendimento real do Tesouro americano de 5 anos (TIPS)', '% a.a.', 'Market Yield on U.S. Treasury Securities at 5-Year Constant Maturity, Quoted on an Investment Basis, Inflation-Indexed, Percent, Daily, Not Seasonally Adjusted', FRED_LIC_FED, 'Board of Governors of the Federal Reserve System, H.15 (via FRED)', 'Insumo do método (d) do juro neutro (I.4, camada 3), sem prêmio de risco soberano (ADR-024).'),
     fred('dolar_global', 'DTWEXBGS', 'Índice amplo nominal do dólar americano', 'índice (jan./2006 = 100)', 'Nominal Broad U.S. Dollar Index, Index Jan 2006=100, Daily, Not Seasonally Adjusted', FRED_LIC_FED, 'Board of Governors of the Federal Reserve System, H.10 (via FRED)'),
     fred('brent', 'DCOILBRENTEU', 'Petróleo Brent — preço à vista (Europa)', 'US$ por barril', 'Crude Oil Prices: Brent - Europe, Dollars per Barrel, Daily, Not Seasonally Adjusted', FRED_LIC_EIA, 'U.S. Energy Information Administration (via FRED)'),
+
+    // ——— Camada 2: curvas (Tesouro Direto) e PIB trimestral dessazonalizado ———
+    {
+      id: 'tesouro_direto', painel: 'opm', fonte: 'tesouro', instituicao: 'Tesouro Nacional (Tesouro Transparente)',
+      nome: 'Taxas e preços dos títulos ofertados pelo Tesouro Direto', codigo: 'Tesouro Transparente (CKAN), conjunto "Taxas dos Títulos Ofertados pelo Tesouro Direto", arquivo precotaxatesourodireto.csv',
+      unidade: '% a.a. (base 252) e R$', frequencia: 'diária (dias úteis)', url_publica: 'https://www.tesourotransparente.gov.br/ckan/dataset/taxas-dos-titulos-ofertados-pelo-tesouro-direto',
+      licenca_fonte: 'Open Data Commons Open Database License (ODbL): uso e redistribuição com atribuição; bases derivadas publicadas sob a mesma licença',
+      formato: 'csv', cabecalho_csv: 'Tipo Titulo;',
+      requisicoes: () => [{ url: 'https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv', arquivo: 'precotaxatesourodireto.csv' }],
+      verificacao: {
+        data: VERIF_DATA, metodo: 'API CKAN do Tesouro Transparente (package_show: título, licença e recursos) e leitura do arquivo',
+        nome_oficial: 'Taxas dos Títulos Ofertados pelo Tesouro Direto; colunas: Tipo Titulo; Data Vencimento; Data Base; Taxa Compra Manha; Taxa Venda Manha; PU Compra Manha; PU Venda Manha; PU Base Manha',
+        observacoes: 'Licença ODbL (permite redistribuição; exige atribuição e que as bases derivadas — as curvas NSS do CEE — sejam publicadas sob ODbL). Tipos usados: Tesouro Prefixado (LTN) e Tesouro IPCA+ (NTN-B Principal), sem cupom; os títulos com juros semestrais ficam no CSV, fora do ajuste.',
+      },
+    },
+    {
+      id: 'pib_volume_sa', painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+      nome: 'PIB — índice de volume trimestral com ajuste sazonal', codigo: 'SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil)',
+      unidade: 'índice (média de 1995 = 100)', frequencia: 'trimestral', url_publica: 'https://sidra.ibge.gov.br/tabela/1621', licenca_fonte: LIC_IBGE,
+      requisicoes: () => [{ url: sidra(1621, 'all', [584], '&classificacao=11255%5B90707%5D'), alternativa: sidraValores(1621, 'all', [584], [11255, 90707]), arquivo: 'resposta.json' }],
+      verificacao: {
+        data: VERIF_DATA, metodo: 'GET /api/v3/agregados/1621/metadados (API de agregados do IBGE)',
+        nome_oficial: 'Série encadeada do índice de volume trimestral com ajuste sazonal (Base: média 1995 = 100); var. 584; categoria 90707 "PIB a preços de mercado"',
+        observacoes: 'Já dessazonalizado pela fonte: o CEE não reajusta (ADR-023). Base do hiato do produto (I.15).',
+      },
+    },
+
+    // ——— Inflação ampliada e regional (PR 5; ADR-030) ———
+    {
+      id: 'ipca15', painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+      nome: 'IPCA-15 — variação mensal e acumulada em 12 meses', codigo: 'SIDRA 3065, variáveis 355 e 1120 (Brasil)',
+      unidade: '%', frequencia: 'mensal', url_publica: 'https://sidra.ibge.gov.br/tabela/3065', licenca_fonte: LIC_IBGE,
+      requisicoes: () => [{ url: sidra(3065, `${ANO_INICIAL}01`, [355, 1120]), alternativa: sidraValores(3065, `${ANO_INICIAL}01`, [355, 1120]), arquivo: 'resposta.json' }],
+      verificacao: { data: VERIF_DATA, metodo: 'GET /api/v3/agregados/3065/metadados (API de agregados do IBGE)', nome_oficial: 'IPCA15 - Série histórica com número-índice, variação mensal e variações acumuladas (a partir de maio/2000); var. 355 "IPCA15 - Variação mensal" (%); var. 1120 "IPCA15 - Variação acumulada em 12 meses" (%)' },
+    },
+    {
+      id: 'inpc', painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+      nome: 'INPC — variação mensal e acumulada em 12 meses', codigo: 'SIDRA 1736, variáveis 44 e 2292 (Brasil)',
+      unidade: '%', frequencia: 'mensal', url_publica: 'https://sidra.ibge.gov.br/tabela/1736', licenca_fonte: LIC_IBGE,
+      requisicoes: () => [{ url: sidra(1736, `${ANO_INICIAL}01`, [44, 2292]), alternativa: sidraValores(1736, `${ANO_INICIAL}01`, [44, 2292]), arquivo: 'resposta.json' }],
+      verificacao: { data: VERIF_DATA, metodo: 'GET /api/v3/agregados/1736/metadados (API de agregados do IBGE)', nome_oficial: 'INPC - Série histórica com número-índice, variação mensal e variações acumuladas (a partir de abril/1979); var. 44 "INPC - Variação mensal" (%); var. 2292 "INPC - Variação acumulada em 12 meses" (%)' },
+    },
+    {
+      id: 'ipp', painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+      nome: 'IPP — indústria geral e indústrias de transformação, variação mensal e em 12 meses', codigo: 'SIDRA 6903, variáveis 1396 e 1394, classificação 842 [46608, 46610] (Brasil)',
+      unidade: '%', frequencia: 'mensal (desde dez./2013)', url_publica: 'https://sidra.ibge.gov.br/tabela/6903', licenca_fonte: LIC_IBGE,
+      requisicoes: () => [{ url: sidra(6903, '201401', [1396, 1394], '&classificacao=842%5B46608,46610%5D'), alternativa: sidraValores(6903, '201401', [1396, 1394]) + '/c842/46608,46610', arquivo: 'resposta.json' }],
+      verificacao: { data: VERIF_DATA, metodo: 'GET /api/v3/agregados/6903/metadados (API de agregados do IBGE)', nome_oficial: 'Índice de Preços ao Produtor, por tipo de índice, indústria geral, indústrias extrativas e indústrias de transformação e atividades (dezembro de 2018 = 100); var. 1396 "IPP - Variação mês/mês imediatamente anterior" (%); var. 1394 "IPP - Variação mês/mesmo mês do ano anterior" (%); categorias 46608 "Indústria Geral" e 46610 "C Indústrias de Transformação"' },
+    },
+    ...(['ipca', 'inpc'] as const).map((idx): Serie => {
+      const t = idx === 'ipca' ? 7060 : 7063;
+      const vars = idx === 'ipca' ? [63, 2265, 66] : [44, 2292, 45];
+      return {
+        id: `${idx}_regional`, painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+        nome: `${idx.toUpperCase()} por área — índice geral e grupos (variação mensal, 12 meses e peso)`,
+        codigo: `SIDRA ${t}, variáveis ${vars.join(', ')}, classificação 315 (índice geral e 9 grupos), Brasil, regiões metropolitanas (N7) e municípios (N6)`,
+        unidade: '% e peso (%)', frequencia: 'mensal (desde jan./2020)', url_publica: `https://sidra.ibge.gov.br/tabela/${t}`, licenca_fonte: LIC_IBGE,
+        requisicoes: (hoje: Date) => Array.from({ length: hoje.getUTCFullYear() - 2020 + 1 }, (_, k) => 2020 + k).map((ano) => ({
+          url: `${sidra(t, `${ano}01`, vars, '&classificacao=315%5B7169,7170,7445,7486,7558,7625,7660,7712,7766,7786%5D').replace('-209912', `-${ano}12`).replace('localidades=N1%5Ball%5D', 'localidades=N1%5Ball%5D%7CN6%5Ball%5D%7CN7%5Ball%5D')}`,
+          arquivo: `${ano}.json`,
+        })),
+        verificacao: {
+          data: VERIF_DATA, metodo: `GET /api/v3/agregados/${t}/metadados (níveis N1, N6, N7) e consulta das localidades retornadas`,
+          nome_oficial: `${idx.toUpperCase()} - Variação mensal, acumulada no ano, acumulada em 12 meses e peso mensal, para o índice geral, grupos, subgrupos, itens e subitens de produtos e serviços (a partir de janeiro/2020); 16 áreas: 10 regiões metropolitanas (Belém, Fortaleza, Recife, Salvador, Belo Horizonte, Grande Vitória, Rio de Janeiro, São Paulo, Curitiba, Porto Alegre) e 6 municípios (Rio Branco, São Luís, Aracaju, Campo Grande, Goiânia, Brasília)`,
+          observacoes: 'Não existe IPCA/INPC por unidade da federação: as áreas são regiões metropolitanas e capitais.',
+        },
+      };
+    }),
+    {
+      id: 'pesos_regionais', painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+      nome: 'Pesos regionais do IPCA e do INPC (POF 2017-2018)', codigo: 'FTP IBGE, Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip',
+      unidade: '% do índice nacional', frequencia: 'fixo (estrutura POF 2017-2018, em vigor desde jan./2020)',
+      url_publica: 'https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Atualizacao_das_Estruturas_POF2017-2018/', licenca_fonte: LIC_IBGE,
+      formato: 'binario',
+      requisicoes: () => [{ url: 'https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Atualizacao_das_Estruturas_POF2017-2018/Pesos_Regionais_IPCA_e_INPC.zip', arquivo: 'Pesos_Regionais_IPCA_e_INPC.zip' }],
+      verificacao: { data: VERIF_DATA, metodo: 'Arquivo oficial no FTP do IBGE; planilha "IPCA e INPC - Pesos regionais.xlsx" lida (16 áreas; soma 100)', nome_oficial: 'ESTRUTURAS DE PESOS REGIONAIS SEGUNDO AS ÁREAS PESQUISADAS — IPCA e INPC - POF 2017-2018' },
+    },
+    {
+      id: 'capitais_coordenadas', painel: 'opm', fonte: 'ibge-sidra', instituicao: 'IBGE',
+      nome: 'Centroides dos municípios-sede das áreas do IPCA', codigo: 'API de malhas v3 do IBGE, /malhas/municipios/{id}/metadados (campo centroide)',
+      unidade: 'graus (longitude, latitude)', frequencia: 'fixo', url_publica: 'https://servicodados.ibge.gov.br/api/docs/malhas?versao=3', licenca_fonte: LIC_IBGE,
+      requisicoes: () => CAPITAIS.map(([id]) => ({ url: `https://servicodados.ibge.gov.br/api/v3/malhas/municipios/${id}/metadados`, arquivo: `${id}.json` })),
+      verificacao: { data: VERIF_DATA, metodo: 'Consulta à API de malhas v3 (metadados de município, centroide)', nome_oficial: 'Metadados de município: id, nivel-geografico, centroide {longitude, latitude}, regiao-limitrofe, area', observacoes: 'Só os centroides (coordenadas) são usados. Os polígonos da malha não são publicados: os termos de uso remetem à nota "Informações técnicas e legais", inacessível a clientes automatizados (docs/PENDIENTES.md).' },
+    },
 
     // ——— A2.8 Moeda, reservas bancárias e agregados ———
     sgsOpm('base_restrita', 1788, 'Base monetária restrita (saldo em final de período)', 'R$ mil', 'BM - Base monetária restrita (saldo em final de período)', { unidadeFonte: 'u.m.c. (mil)' }),

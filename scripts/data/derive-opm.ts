@@ -4,13 +4,13 @@
  * Os indicadores que dependem de estimação (I.3, I.4 b e a faixa de juro neutro) são calculados em analysis/opm.
  * Uso: node scripts/data/derive-opm.ts
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { csv, lerCsvTexto, type Linha } from './csv.ts';
 import { somaDias } from './opm/calendario.ts';
 import { credibilidade, metaHorizonte12m, surpresa, ultimaAntes } from './opm/expectativas.ts';
-import { acumula, contadorRegime, media, NUCLEOS_MEDIA } from './opm/inflacao.ts';
-import { fisher, selicAcumulada252, selicEsperada12m, vigenciaDe, type ReuniaoFutura } from './opm/juros.ts';
+import { acumula, contadorRegime, media, NUCLEOS_MEDIA, saar3m } from './opm/inflacao.ts';
+import { fisher, selicAcumulada252, selicEsperada12m, selicEsperadaHorizonte, vigenciaDe, type ReuniaoFutura } from './opm/juros.ts';
 import { coeficientes, cresc12, real, velocidade } from './opm/moeda.ts';
 
 const P = 'data/processed';
@@ -90,6 +90,22 @@ for (const [d, linhas] of [...selicPorData.entries()].sort(([a], [b]) => a.local
 }
 await grava('i1_juro_real_ex_ante', i1);
 
+// ——— I.16 (Focus; ADR-031): Selic média esperada em 12, 24 e 36 meses pela Focus ———
+// O prêmio (taxa prefixada da curva − Selic média esperada) é calculado em analysis/opm/acm.py, que lê a curva.
+const anuaisSelic = new Map<string, { ano: number; mediana: number }[]>();
+for (const r of focusAnuais) if (r.indicador === 'Selic' && r.mediana) anuaisSelic.set(r.data!, [...(anuaisSelic.get(r.data!) ?? []), { ano: Number(r.ano_referencia), mediana: Number(r.mediana) }]);
+const i16f: Linha[] = [];
+for (const [d, linhas] of [...selicPorData.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  const meta = metaEm(d);
+  const fa = anuaisSelic.get(d);
+  if (meta === null || !fa) continue;
+  const reunioes: ReuniaoFutura[] = [];
+  for (const l of linhas) { const f = fimReuniao.get(l.reuniao!); if (f && l.mediana) reunioes.push({ reuniao: l.reuniao!, vigencia: vigenciaDe(f.fim), mediana: Number(l.mediana) }); }
+  const e = [252, 504, 756].map((n) => selicEsperadaHorizonte(d, meta, reunioes, fa, n));
+  i16f.push({ data: d, meta_selic_vigente: meta, selic_esperada_12m: r4(e[0]!.selic_media), selic_esperada_24m: r4(e[1]!.selic_media), selic_esperada_36m: r4(e[2]!.selic_media), horizonte_36m_coberto: e[2]!.coberto ? 1 : 0 });
+}
+await grava('i16_selic_esperada_focus', i16f);
+
 // ——— I.2 Juro real ex post 12 meses (SGS 1178 composta diariamente / IPCA 12m) ———
 const selicEf = (await ler('opm/selic_efetiva.csv')).filter((r) => r.valor);
 const i2: Linha[] = [];
@@ -135,6 +151,36 @@ for (const [rot, f] of [...fimReuniao.entries()].sort(([, a], [, b]) => a.fim.lo
   });
 }
 await grava('i5_surpresa', i5);
+
+// ——— A2.7 (ADR-031): projeção do Copom para o horizonte relevante × Focus × meta ———
+// Texto dos comunicados (API de conteúdo do BCB, arquivo bruto da safra). O formato "A projeção de inflação do Copom para
+// o <trimestre> de AAAA (ou o ano de AAAA), atual horizonte relevante …, <verbo> X% no cenário de referência" existe desde
+// a 265ª reunião; antes, os comunicados citam projeções por ano-calendário em formatos variados e não são extraídos.
+// A Focus comparada é a mediana do IPCA do ano do horizonte na última coleta antes da reunião (o Copom projeta a
+// inflação em 12 meses até o trimestre do horizonte: comparação aproximada, declarada).
+{
+  const vint = JSON.parse(readFileSync(`${P}/opm/vintage.json`, 'utf8')) as Record<string, { vintage_dir: string }>;
+  const dir = vint.copom_comunicados!.vintage_dir;
+  const ORD: Record<string, number> = { primeiro: 1, segundo: 2, terceiro: 3, quarto: 4 };
+  const rx = /proje\S+ de infla\S+ do Copom para (?:o (primeiro|segundo|terceiro|quarto) trimestre de|o ano de) (\d{4}),? (?:atual )?horizonte relevante[^%]{0,120}?(\d+,\d+)\s?%/i;
+  const datas = new Map((await ler('opm/copom_comunicados.csv')).map((c) => [c.reuniao!, c.data!]));
+  const fIpca = focusAnuais.filter((r) => r.indicador === 'IPCA' && r.mediana);
+  const a27: Linha[] = [];
+  for (const arq of readdirSync(dir).filter((f) => /^\d+\.json$/.test(f)).sort((a, b) => parseInt(a) - parseInt(b))) {
+    const reuniao = arq.replace('.json', '');
+    const texto = JSON.stringify(JSON.parse(readFileSync(`${dir}/${arq}`, 'utf8'))).replace(/\\[nrt]/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
+    const m = rx.exec(texto);
+    const data = datas.get(reuniao);
+    if (!m || !data) continue;
+    const ano = Number(m[2]);
+    const f = fIpca.filter((r) => r.data! < data && Number(r.ano_referencia) === ano).at(-1);
+    a27.push({
+      reuniao: Number(reuniao), data_reuniao: data, horizonte: m[1] ? `${ano}-T${ORD[m[1].toLowerCase()]}` : String(ano), ano_horizonte: ano,
+      projecao_copom: Number(m[3]!.replace(',', '.')), focus_ipca_ano_horizonte: f ? Number(f.mediana) : null, coleta_focus: f?.data ?? null, meta: metaAno(ano),
+    });
+  }
+  await grava('a27_projecoes_copom', a27);
+}
 
 // ——— I.7 Credibilidade e I.8 desancoragem/dispersão (último dado de cada mês) ———
 const ultimoDoMes = <T extends { data?: string }>(xs: T[]) => {
@@ -232,3 +278,21 @@ for (const p of mesesAg) {
 await grava('i18_agregados', i18);
 await grava('i19_multiplicador_coeficientes', i19);
 await grava('i20_velocidade_monetizacao', i20);
+
+// ——— Camada 2 — I.9: SAAR de 3 meses sobre as séries dessazonalizadas pelo CEE (X-13; ADR-023) ———
+const SAAR_SERIES = ['ipca', 'ipca_livres', 'ipca_administrados', 'ipca_servicos', 'ipca_industriais', 'ipca_alim_dom', 'nucleo_ex3_servicos', 'nucleo_ex3_industriais'] as const;
+const saMensal = async (id: string) => new Map((await ler(`opm/dessaz/${id}.csv`)).map((r) => [r.periodo!, Number(r.ajustada)]));
+if (existsSync(`${P}/opm/dessaz/ipca.csv`)) {
+  const sa = Object.fromEntries(await Promise.all(SAAR_SERIES.map(async (id) => [id, await saMensal(id)] as const)));
+  const nucSa = await Promise.all(NUCLEOS_MEDIA.map(saMensal));
+  const meses = [...sa.ipca!.keys()].sort();
+  const i9: Linha[] = [];
+  for (let k = 2; k < meses.length; k++) {
+    const jan = meses.slice(k - 2, k + 1);
+    const linha: Linha = { periodo: meses[k]! };
+    for (const id of SAAR_SERIES) linha[`${id}_saar`] = jan.every((p) => sa[id]!.has(p)) ? r2(saar3m(jan.map((p) => sa[id]!.get(p)!))) : null;
+    linha.media_nucleos_saar = jan.every((p) => nucSa.every((m) => m.has(p))) ? r2(saar3m(jan.map((p) => media(nucSa.map((m) => m.get(p)!))))) : null;
+    i9.push(linha);
+  }
+  await grava('i9_saar', i9);
+}

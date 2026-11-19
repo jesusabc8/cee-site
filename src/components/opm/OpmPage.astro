@@ -1,14 +1,16 @@
 ---
 /**
- * Página principal do Observatório de Política Monetária (painel A2, edição 2.0; ADR-022): leitura atual gerada do
- * dado, módulos, calendário do Copom, conferência com o estado de partida (Anexo B), indicadores, metodologia e citação.
+ * Visão geral do Observatório de Política Monetária (painel A2, edição 2.0; ADR-022, ADR-029): indicadores-chave,
+ * mensagens-chave, calendário do Copom, gráficos em destaque, módulos, indicadores, conferência com o estado de
+ * partida (Anexo B), metodologia, downloads, histórico e citação.
  */
 import { getEntry } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import PageHero from '../layout/PageHero.astro';
-import Icon from '../ui/Icon.astro';
-import { ESTADO_PARTIDA, INDICADORES, MODULOS } from '../../lib/opm-dados';
-import { calendarioCopom, OPM_SLUG, resumoOpm, valoresCee, vintagesOpm } from '../../lib/opm';
+import OpmShell from './OpmShell.astro';
+import KpiStrip from './KpiStrip.astro';
+import Mensagens from './Mensagens.astro';
+import Ficha from './Ficha.astro';
+import { ESTADO_PARTIDA, INDICADORES, INDICADORES_ESPEC, MODULOS } from '../../lib/opm-dados';
+import { calendarioCopom, graficosModulo, kpisOpm, mensagensOpm, OPM_SLUG, rotDia, valoresCee, vintagesOpm } from '../../lib/opm';
 import { fmtNum } from '../../lib/viz/render';
 import { fmtDate, isoDate } from '../../lib/publicacoes';
 import { href } from '../../i18n/routing';
@@ -20,179 +22,163 @@ const k = lang === 'en' ? 'en' : 'pt';
 const en = k === 'en';
 const painel = (await getEntry('paineis', 'politica-monetaria'))!;
 const p = painel.data;
-const area = await getEntry('programas', p.area);
-const r = resumoOpm();
 const cee = valoresCee();
 const cal = calendarioCopom();
 const n2 = (v: number) => fmtNum(v, 2, lang);
-const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`));
-const fm = (per: string) => new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${per}-01T00:00:00Z`));
+const fd = (iso: string) => rotDia(Date.parse(`${iso}T00:00:00Z`), lang);
+/** Intervalo de datas compacto: "8–9 dez 2026"; "30 jun – 1 jul 2026" quando o mês muda. */
+const faixa = (a: string, b: string) => { const A = fd(a).split(' '), B = fd(b).split(' '); return A[1] === B[1] && A[2] === B[2] ? `${A[0]}–${B.join(' ')}` : `${A[0]} ${A[1]} – ${B.join(' ')}`; };
 const vint = Object.values(vintagesOpm()).map((v) => v.extraido_em).sort().at(-1)!;
-const desatualizadas = Object.entries(vintagesOpm()).filter(([, v]) => v.desatualizado).map(([s]) => s);
 const opm = en ? 'Monetary Policy Observatory' : 'Observatório de Política Monetária';
 const url = new URL(href(OPM_SLUG), Astro.site).href;
 const citacao = `CENTRO DE ESTUDOS ECONÔMICOS (CEE). Observatório de Política Monetária. Observatório CEE — Economia Brasileira em Dados, ${p.linha}. Edição ${p.versao}. Dados extraídos em ${vint.slice(0, 10)}. Belo Horizonte: CEE, ${vint.slice(0, 4)}. Disponível em: ${url}.`;
-const contagem = (id: string) => INDICADORES.filter((i) => i.modulo === id && i.estado === 'publicado').length;
-const proximas = cal.filter((c) => !c.realizada).slice(0, 3);
+const destaque = [
+  graficosModulo('a2-2-juro-real', lang).graficos.find((g) => g.id === 'opm-juro-real')!,
+  graficosModulo('a2-3-inflacao', lang).graficos.find((g) => g.id === 'opm-ipca-nucleos')!,
+].map((g) => ({ ...g, largo: false, id: `${g.id}-destaque` }));
+const proximas = cal.filter((c) => !c.realizada).slice(0, 4);
+const ultimas = cal.filter((c) => c.realizada).slice(-3).reverse();
+const conta = (id: string) => INDICADORES_ESPEC.filter((i) => i.modulo === id && i.estado === 'publicado').length;
+const selo = (i: { estado: string; camada: number }) => (i.estado === 'publicado' ? (i.camada === 3 ? (en ? 'Experimental' : 'Experimental') : (en ? 'Published' : 'Publicado')) : (en ? 'In construction' : 'Em construção'));
 const jsonld = {
   '@context': 'https://schema.org', '@type': 'Dataset', name: `${p.linha}. ${opm}`, description: p.resumo[k], version: p.versao,
   dateModified: vint.slice(0, 10), license: 'https://creativecommons.org/licenses/by/4.0/', url, isAccessibleForFree: true,
   creator: { '@type': 'Organization', name: 'Centro de Estudos Econômicos (CEE)' },
   distribution: INDICADORES.filter((i) => i.arquivo).map((i) => ({ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: new URL(href(`/dados/opm/${i.arquivo}`), Astro.site).href })),
 };
-const selo = (e: string) => (e === 'publicado' ? (en ? 'Published' : 'Publicado') : e === 'camada-2' ? (en ? 'Layer 2' : 'Camada 2') : (en ? 'Layer 3 · experimental' : 'Camada 3 · experimental'));
 ---
-<Base title={`${p.linha}. ${opm}`} description={p.resumo[k]} lang={lang} ogImage="/og/painel-politica-monetaria.png">
+<OpmShell lang={lang} ativo="visao" titulo={opm} tituloPagina={`${p.linha}. ${opm}`} descricao={p.resumo[k]}
+  lede={en ? 'How monetary policy is conducted in Brazil under inflation targeting: Copom decisions, real and neutral rates, inflation, expectations, transmission and money, measured with public formulas, open data and stored vintages.'
+    : 'Como se conduz a política monetária no Brasil sob o regime de metas: decisões do Copom, juro real e neutro, inflação, expectativas, transmissão e moeda, medidos com fórmulas públicas, dados abertos e safras guardadas.'}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonld)} />
-  <PageHero lang={lang} eyebrow={`${en ? 'CEE Observatory' : 'Observatório CEE'} · ${en ? 'Programme' : 'Programa'} ${area?.data.codigo ?? ''} · ${p.linha} ${p.titulo[k]}`} title={opm}
-    lede={en ? 'How monetary policy is conducted in Brazil under inflation targeting: decisions, real and neutral rates, inflation, expectations, transmission and money — measured with public formulas, open data and stored vintages.'
-      : 'Como se conduz a política monetária no Brasil sob o regime de metas: decisões, juro real e neutro, inflação, expectativas, transmissão e moeda — medidos com fórmulas públicas, dados abertos e safras guardadas.'}>
-    <dl class="meta pmeta">
-      <div><dt>{en ? 'Edition' : 'Edição'}</dt><dd>{p.versao}</dd></div>
-      <div><dt>{en ? 'Data extracted on' : 'Dados extraídos em'}</dt><dd><time datetime={vint.slice(0, 10)}>{fmtDate(new Date(vint), lang)}</time></dd></div>
-      <div><dt>{en ? 'Licence' : 'Licença'}</dt><dd>CC BY 4.0</dd></div>
-    </dl>
-  </PageHero>
-  <div class="wrap">
-    {desatualizadas.length > 0 && <p class="aviso meta">{en ? 'Last automated update failed for: ' : 'A última atualização automática falhou para: '}{desatualizadas.join(', ')}. {en ? 'The previous vintage is shown.' : 'Exibe-se a safra anterior.'}</p>}
 
-    <section class="section" aria-labelledby="leitura-t">
-      <h2 id="leitura-t" class="section__title">{en ? 'Current reading' : 'Leitura atual'}</h2>
-      <ul class="kpis">
-        <li><span class="kpis__l">{en ? 'Selic target' : 'Meta Selic'}</span><span class="kpis__v num">{n2(r.selic.valor)}%</span>
-          <span class="kpis__s">{en ? `Meeting ${r.selic.reuniao}, ${fd(r.selic.data)}; ${r.selic.placar === 'Unanimidade' ? 'unanimous' : r.selic.placar}; surprise ${n2(r.selic.surpresa)} p.p.` : `${r.selic.reuniao}ª reunião, ${fd(r.selic.data)}; ${r.selic.placar === 'Unanimidade' ? 'unânime' : r.selic.placar}; surpresa de ${n2(r.selic.surpresa)} p.p.`}</span></li>
-        <li><span class="kpis__l">{en ? 'Ex ante real rate (12 m)' : 'Juro real ex ante (12 m)'}</span><span class="kpis__v num">{n2(r.realEa.valor)}%</span>
-          <span class="kpis__s">{en ? `Focus survey of ${fd(r.realEa.data)}` : `Focus de ${fd(r.realEa.data)}`}</span></li>
-        <li><span class="kpis__l">{en ? 'CEE neutral-rate band' : 'Faixa de juro neutro do CEE'}</span><span class="kpis__v num">{n2(r.faixa.q1)}–{n2(r.faixa.q3)}%</span>
-          <span class="kpis__s">{en ? `Median ${n2(r.faixa.mediana)}%, ${r.faixa.metodos} methods, ${fm(r.faixa.periodo)}; BCB: 5.00%` : `Mediana ${n2(r.faixa.mediana)}%, ${r.faixa.metodos} métodos, ${fm(r.faixa.periodo)}; BCB: 5,00%`}</span></li>
-        <li><span class="kpis__l">{en ? 'Regime counter' : 'Contador do regime'}</span><span class="kpis__v num">{r.regime.meses} {en ? (r.regime.meses === 1 ? 'month' : 'months') : (r.regime.meses === 1 ? 'mês' : 'meses')}</span>
-          <span class="kpis__s">{r.regime.meses ? (en ? `12-month IPCA ${n2(r.regime.ipca12m)}% ${r.regime.lado === 'acima' ? 'above' : 'below'} the band (${fm(r.regime.periodo)}); missed at 6` : `IPCA 12 meses de ${n2(r.regime.ipca12m)}% ${r.regime.lado} do intervalo (${fm(r.regime.periodo)}); descumprimento no 6º`) : (en ? `12-month IPCA inside the band (${fm(r.regime.periodo)})` : `IPCA 12 meses dentro do intervalo (${fm(r.regime.periodo)})`)}</span></li>
-        <li><span class="kpis__l">{en ? 'Credibility, year t+3' : 'Credibilidade, ano t+3'}</span><span class="kpis__v num">{n2(r.credibilidade.ic_t3)}</span>
-          <span class="kpis__s">{en ? `Focus median ${n2(r.credibilidade.desancoragem)} p.p. from the target (${fm(r.credibilidade.periodo)})` : `Mediana Focus a ${n2(r.credibilidade.desancoragem)} p.p. da meta (${fm(r.credibilidade.periodo)})`}</span></li>
-      </ul>
-      <p class="principio meta">{en
-        ? 'The OPM describes and measures; it does not recommend the Selic rate nor say what Copom should decide. Neutral rates, gaps and Taylor rules are unobservable or counterfactual and always appear as bands, with method and date.'
-        : 'O OPM descreve e mede; não recomenda a taxa Selic nem diz o que o Copom deveria decidir. Juro neutro, hiatos e regras de Taylor são não observáveis ou contrafactuais e aparecem sempre como faixas, com método e data.'}</p>
-    </section>
+  <KpiStrip itens={kpisOpm(lang)} lang={lang} />
 
-    <section class="section" aria-labelledby="mod-t">
-      <h2 id="mod-t" class="section__title">{en ? 'Modules' : 'Módulos'}</h2>
-      <ol class="mods">
-        {MODULOS.map((m) => (
-          <li><a class="mods__a" href={href(`${OPM_SLUG}${m.id}/`, lang)}>
-            <span class="mods__c mono">{m.codigo}</span><span class="mods__t">{m.titulo[k]}</span>
-            <span class="mods__q">{m.pergunta[k]}</span>
-            <span class="mods__n meta">{contagem(m.id)} {en ? 'published indicator(s)' : 'indicador(es) publicado(s)'}</span>
-          </a></li>
-        ))}
-      </ol>
-    </section>
+  <div class="g12">
+    <div class="c8"><Mensagens itens={mensagensOpm(lang)} lang={lang} data={rotDia(Date.parse(vint), lang)} /></div>
+    <aside class="c4 cal" aria-labelledby="cal-t">
+      <h2 id="cal-t" class="bloco-tit">{en ? 'Copom calendar' : 'Calendário do Copom'}</h2>
+      <p class="cal__sub">{en ? 'Next meetings' : 'Próximas reuniões'}</p>
+      <ul class="cal__lista">{proximas.map((c) => <li><span class="cal__rot">{c.rotulo}</span><time datetime={c.fim}>{faixa(c.inicio, c.fim)}</time></li>)}</ul>
+      <p class="cal__sub">{en ? 'Latest decisions' : 'Últimas decisões'}</p>
+      <ul class="cal__lista">{ultimas.map((c) => <li><span class="cal__rot">{c.reuniao}ª</span><time datetime={c.fim}>{fd(c.fim)}</time><b>{c.meta !== null ? `${n2(c.meta)}%` : '—'}</b></li>)}</ul>
+      <p class="nota">{en ? 'BCB, Comunicados 43,383 and 45,452; interest-rate history.' : 'BCB, Comunicados nº 43.383 e nº 45.452; histórico de taxas de juros.'} <a href={href(`${OPM_SLUG}a2-1-copom/`, lang)}>{en ? 'Decisions and surprises' : 'Decisões e surpresas'} →</a></p>
+    </aside>
+  </div>
 
-    <section class="section split" aria-labelledby="cal-t">
-      <h2 id="cal-t" class="section__title"><Icon name="calendar" /> {en ? 'Copom calendar' : 'Calendário do Copom'}</h2>
-      <div class="stack">
-        {proximas.length > 0 && <p>{en ? 'Next meetings: ' : 'Próximas reuniões: '}{proximas.map((c, i) => <>{i > 0 && ' · '}<time datetime={c.fim}>{fd(c.inicio)}–{fd(c.fim)}</time></>)}</p>}
-        <div class="table-scroll" role="region" aria-label={en ? 'Table: Copom meetings and decisions' : 'Tabela: reuniões e decisões do Copom'} tabindex="0">
-          <table class="tab">
-            <thead><tr><th scope="col">{en ? 'Meeting' : 'Reunião'}</th><th scope="col">{en ? 'Dates' : 'Datas'}</th><th scope="col">{en ? 'Decision' : 'Decisão'}</th></tr></thead>
-            <tbody>{cal.map((c) => <tr><th scope="row">{c.rotulo}{c.reuniao && <span class="meta"> ({c.reuniao}ª)</span>}</th><td>{fd(c.inicio)} – {fd(c.fim)}</td><td class="num">{c.meta !== null ? `${n2(c.meta)}%` : '—'}</td></tr>)}</tbody>
-          </table>
-        </div>
-        <p class="meta">{en ? 'Source: BCB, Comunicados 43,383 (2026) and 45,452 (2027); decisions from the BCB interest-rate history.' : 'Fonte: BCB, Comunicados nº 43.383 (2026) e nº 45.452 (2027); decisões do histórico de taxas de juros do BCB.'}</p>
-      </div>
-    </section>
+  <section aria-labelledby="dest-t">
+    <div class="sec-cab"><h2 id="dest-t" class="sec-tit">{en ? 'Highlights' : 'Em destaque'}</h2></div>
+    <div class="g12 fichas">{destaque.map((g) => <div class="c6"><Ficha g={g} lang={lang} /></div>)}</div>
+  </section>
 
-    <section class="section split" aria-labelledby="ep-t">
-      <h2 id="ep-t" class="section__title">{en ? 'Starting point: consistency check' : 'Estado de partida: conferência'}</h2>
-      <div class="stack">
-        <p class="meta">{en ? 'Values published by the BCB (specification, Annex B) and the same values computed by CEE from the archived data. Rows without a CEE value are BCB references shown beside, not inside, the CEE measures.'
-          : 'Valores publicados pelo BCB (especificação, Anexo B) e os mesmos valores calculados pelo CEE a partir dos dados arquivados. Linhas sem valor do CEE são referências do BCB, mostradas ao lado, e não dentro, das medidas do CEE.'}</p>
-        <div class="table-scroll" role="region" aria-label={en ? 'Starting point' : 'Estado de partida'} tabindex="0">
-          <table class="tab">
-            <thead><tr><th scope="col">{en ? 'Item' : 'Item'}</th><th scope="col" class="num">BCB</th><th scope="col" class="num">CEE</th><th scope="col" class="num">{en ? 'Difference' : 'Diferença'}</th><th scope="col">{en ? 'Source' : 'Fonte'}</th></tr></thead>
-            <tbody>{ESTADO_PARTIDA.map((e) => {
-              const v = e.cee ? cee[e.cee] ?? null : null;
-              return <tr><th scope="row">{e.rotulo[k]} <span class="meta">({e.unidade})</span></th><td class="num">{n2(e.bcb)}</td><td class="num">{v === null ? '—' : n2(v)}</td><td class="num">{v === null ? '—' : n2(v - e.bcb)}</td><td>{e.fonte}</td></tr>;
-            })}</tbody>
-          </table>
-        </div>
-        <p class="meta">{en ? 'Differences in the seasonally adjusted rows come from the CEE specification (ADR-023); tolerance 0.5 p.p. Focus values are medians from the survey of 30 Oct 2026, the last before the 282nd meeting.'
-          : 'As diferenças nas linhas dessazonalizadas vêm da especificação do CEE (ADR-023); tolerância de 0,5 p.p. Os valores da Focus são medianas da coleta de 30/10/2026, a última antes da 282ª reunião.'}</p>
-      </div>
-    </section>
+  <section aria-labelledby="mod-t">
+    <div class="sec-cab"><h2 id="mod-t" class="sec-tit">{en ? 'Modules' : 'Módulos'}</h2><p class="sec-nota">{en ? 'Eight modules, 21 indicators with public formulas' : 'Oito módulos, 21 indicadores com fórmula pública'}</p></div>
+    <ol class="mods">
+      {MODULOS.map((m) => (
+        <li><a class="mods__a" href={href(`${OPM_SLUG}${m.id}/`, lang)}>
+          <span class="mods__c">{m.codigo}</span><span class="mods__t">{m.titulo[k]}</span>
+          <span class="mods__q">{m.pergunta[k]}</span>
+          <span class="mods__n">{conta(m.id)} {en ? (conta(m.id) === 1 ? 'published indicator' : 'published indicators') : (conta(m.id) === 1 ? 'indicador publicado' : 'indicadores publicados')}</span>
+        </a></li>
+      ))}
+    </ol>
+  </section>
 
-    <section class="section" aria-labelledby="inds-t">
-      <h2 id="inds-t" class="section__title">{en ? 'The 21 indicators' : 'Os 21 indicadores'}</h2>
-      <div class="table-scroll" role="region" aria-label={en ? 'Indicators' : 'Indicadores'} tabindex="0">
+  <div class="g12">
+    <section class="c7" aria-labelledby="inds-t">
+      <div class="sec-cab"><h2 id="inds-t" class="sec-tit">{en ? 'The 21 indicators' : 'Os 21 indicadores'}</h2></div>
+      <div class="table-scroll" role="region" aria-label={en ? 'Table: indicators' : 'Tabela: indicadores'} tabindex="0">
         <table class="tab">
-          <thead><tr><th scope="col">Nº</th><th scope="col">{en ? 'Indicator' : 'Indicador'}</th><th scope="col">{en ? 'Module' : 'Módulo'}</th><th scope="col">{en ? 'Status' : 'Situação'}</th></tr></thead>
-          <tbody>{INDICADORES.map((i) => {
+          <thead><tr><th scope="col">Nº</th><th scope="col">{en ? 'Indicator' : 'Indicador'}</th><th scope="col">{en ? 'Module' : 'Módulo'}</th><th scope="col">{en ? 'Layer' : 'Camada'}</th><th scope="col">{en ? 'Status' : 'Situação'}</th></tr></thead>
+          <tbody>{INDICADORES_ESPEC.map((i) => {
             const m = MODULOS.find((x) => x.id === i.modulo)!;
-            return <tr><th scope="row" class="mono">{i.codigo}</th><td><a href={href(`${OPM_SLUG}${m.id}/#ind-${i.codigo.replace('.', '-')}`, lang)}>{i.nome[k]}</a></td><td>{m.codigo}</td><td><span class:list={['chip', `chip--${i.estado}`]}>{selo(i.estado)}</span></td></tr>;
+            return <tr><th scope="row">{i.codigo}</th><td><a href={href(`${OPM_SLUG}${m.id}/#ind-${i.codigo.replace('.', '-')}`, lang)}>{i.nome[k]}</a></td><td>{m.codigo}</td><td class="num">{i.camada}</td><td><span class:list={['chip', `chip--${i.estado}`, { 'chip--exp': i.camada === 3 && i.estado === 'publicado' }]}>{selo(i)}</span></td></tr>;
           })}</tbody>
         </table>
       </div>
-      <p class="meta">{en ? 'Layer-3 indicators carry the "experimental" seal until reviewed by the Editorial Committee and come with a Discussion Paper.' : 'Os indicadores da camada 3 levam o selo "experimental" até a revisão do Comitê Editorial e vêm acompanhados de Texto para Discussão.'}</p>
     </section>
-
-    <section class="section split" aria-labelledby="met-t">
-      <h2 id="met-t" class="section__title">{en ? 'Methodological note' : 'Nota metodológica'}</h2>
-      <details class="prose metodo">
-        <summary>{en ? 'Read the methodological note' : 'Ler a nota metodológica'}</summary>
-        <p>{p.metodologia?.[k]}</p>
-        <p><a href={href('/observatorio/catalogo/', lang)}>{en ? 'Data and source catalogue' : 'Catálogo de dados e fontes'}</a> · <a href={href(`${OPM_SLUG}safras/`, lang)}>{en ? 'Archived vintages' : 'Safras arquivadas'}</a> · <span>{p.codigo_url ? <a href={p.codigo_url}>{en ? 'Code' : 'Código'}</a> : (en ? 'Code available from CEE on request.' : 'Código disponível mediante solicitação ao CEE.')}</span></p>
-      </details>
+    <section class="c5" aria-labelledby="ep-t">
+      <div class="sec-cab"><h2 id="ep-t" class="sec-tit">{en ? 'Starting point check' : 'Conferência com o estado de partida'}</h2></div>
+      <p class="nota">{en ? 'BCB figures (specification, Annex B) and the same figures computed by CEE from the archived data. Rows without a CEE value are BCB references, shown beside the CEE measures.' : 'Valores do BCB (especificação, Anexo B) e os mesmos valores calculados pelo CEE com os dados arquivados. Linhas sem valor do CEE são referências do BCB, mostradas ao lado das medidas do CEE.'}</p>
+      <div class="table-scroll" role="region" aria-label={en ? 'Table: starting point' : 'Tabela: estado de partida'} tabindex="0">
+        <table class="tab tab--comp">
+          <thead><tr><th scope="col">{en ? 'Item' : 'Item'}</th><th scope="col" class="num">BCB</th><th scope="col" class="num">CEE</th><th scope="col" class="num">{en ? 'Diff.' : 'Dif.'}</th></tr></thead>
+          <tbody>{ESTADO_PARTIDA.map((e) => {
+            const v = e.cee ? cee[e.cee] ?? null : null;
+            return <tr><th scope="row">{e.rotulo[k]}<span class="fonte">{e.fonte}</span></th><td class="num">{n2(e.bcb)}</td><td class="num">{v === null ? '—' : n2(v)}</td><td class="num">{v === null ? '—' : n2(v - e.bcb)}</td></tr>;
+          })}</tbody>
+        </table>
+      </div>
     </section>
-
-    <section class="section split" id="downloads" aria-labelledby="dl-t">
-      <h2 id="dl-t" class="section__title">Downloads</h2>
-      <ul class="dl">
-        {[...new Set(INDICADORES.filter((i) => i.arquivo).map((i) => i.arquivo!))].map((a) => <li><a href={href(`/dados/opm/${a}`)} download>{a}</a></li>)}
-        <li><a href={href('/dados/opm/indicadores/media_nucleos.csv')} download>indicadores/media_nucleos.csv</a></li>
-        <li><a href={href('/dados/opm/dessaz/_validacao.csv')} download>dessaz/_validacao.csv</a> · <a href={href('/dados/opm/dessaz/_meta.json')}>dessaz/_meta.json</a></li>
-        <li><a href={href('/dados/opm/vintage.json')}>{en ? 'Vintage record (JSON)' : 'Registro de vintage (JSON)'}</a></li>
-      </ul>
-    </section>
-
-    <section class="section split" aria-labelledby="ch-t">
-      <h2 id="ch-t" class="section__title">{en ? 'Change log' : 'Histórico de mudanças'}</h2>
-      <ol class="dl">{p.changelog.map((c) => <li><span class="meta"><time datetime={isoDate(c.data)}>{fmtDate(c.data, lang, 'short')}</time> · {en ? 'Edition' : 'Edição'} {c.versao}</span> {c.nota}</li>)}</ol>
-    </section>
-
-    <section class="section split" aria-labelledby="cit-t">
-      <h2 id="cit-t" class="section__title">{en ? 'How to cite' : 'Como citar'}</h2>
-      <div class="stack"><p class="cite">{citacao}</p>{!p.doi && <p class="meta">{en ? 'No DOI yet.' : 'DOI ainda não atribuído.'}</p>}</div>
-    </section>
-    <p class="meta"><a href={href('/observatorio/', lang)}>← {en ? 'CEE Observatory' : 'Observatório CEE'}</a></p>
   </div>
-</Base>
+
+  <div class="g12">
+    <section class="c7" id="metodologia" aria-labelledby="met-t">
+      <div class="sec-cab"><h2 id="met-t" class="sec-tit">{en ? 'Methodological note' : 'Nota metodológica'}</h2></div>
+      <div class="texto">
+        <p>{p.metodologia?.[k]}</p>
+        <p><a href={href('/observatorio/catalogo/', lang)}>{en ? 'Data and source catalogue' : 'Catálogo de dados e fontes'}</a> · <a href={href(`${OPM_SLUG}safras/`, lang)}>{en ? 'Archived vintages' : 'Safras arquivadas'}</a> · {p.codigo_url ? <a href={p.codigo_url}>{en ? 'Code' : 'Código'}</a> : <span>{en ? 'Code available from CEE on request.' : 'Código disponível mediante solicitação ao CEE.'}</span>}</p>
+      </div>
+    </section>
+    <div class="c5 lateral">
+      <section id="citar" aria-labelledby="cit-t">
+        <h2 id="cit-t" class="bloco-tit">{en ? 'How to cite' : 'Como citar'}</h2>
+        <p class="cite">{citacao}</p>
+        {!p.doi && <p class="nota">{en ? 'No DOI yet.' : 'DOI ainda não atribuído.'}</p>}
+      </section>
+      <section aria-labelledby="ch-t">
+        <h2 id="ch-t" class="bloco-tit">{en ? 'Change log' : 'Histórico de mudanças'}</h2>
+        <ol class="hist">{p.changelog.map((c) => <li><span class="hist__d"><time datetime={isoDate(c.data)}>{fmtDate(c.data, lang, 'short')}</time> · {en ? 'Edition' : 'Edição'} {c.versao}</span> {c.nota}</li>)}</ol>
+        <p class="nota"><a href={href(`${OPM_SLUG}dados/`, lang)}>{en ? 'All downloads' : 'Todos os downloads'} →</a></p>
+      </section>
+    </div>
+  </div>
+</OpmShell>
+
 <style>
-  .pmeta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: var(--s-2) 0 0; padding-top: var(--s-3); border-top: var(--hairline); }
-  .pmeta div { display: flex; gap: 0.4em; }
-  .pmeta dt { font-weight: 600; }
-  .pmeta dd { margin: 0; }
-  .aviso { border-left: 3px solid var(--steel); padding-left: var(--s-3); }
-  .kpis { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .kpis li { background: #fff; padding: var(--s-4); display: grid; gap: var(--s-1); align-content: start; }
-  .kpis__l { font: 500 var(--step--1) / 1.3 var(--sans); color: var(--muted); }
-  .kpis__v { font: 600 var(--step-3) / 1.1 var(--sans); color: var(--navy); }
-  .kpis__s { font-size: var(--step--1); color: var(--ink); }
-  .principio { max-width: var(--measure); margin-top: var(--s-4); padding-left: var(--s-3); border-left: 3px solid var(--sky); }
-  .mods { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--s-4); }
-  .mods__a { display: grid; gap: var(--s-2); height: 100%; padding: var(--s-4); border-top: 3px solid var(--navy); background: var(--paper); color: inherit; text-decoration: none; }
-  .mods__a:hover .mods__t, .mods__a:focus-visible .mods__t { text-decoration: underline; }
-  .mods__c { color: var(--petrol); font-weight: 500; }
-  .mods__t { font: 600 var(--step-0) / 1.3 var(--sans); color: var(--navy); }
-  .mods__q { font-size: var(--step--1); }
-  .mods__n { align-self: end; }
-  .tab { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
-  .tab th, .tab td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-top: var(--hairline); vertical-align: top; }
-  .tab thead th { border-top: 0; border-bottom: 1px solid var(--line-strong); }
-  .tab .num { text-align: right; font-variant-numeric: tabular-nums; }
-  .chip { display: inline-block; font: 500 10px / 1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 6px; border: 1px solid var(--line-strong); white-space: nowrap; }
-  .chip--publicado { background: var(--navy); color: #fff; border-color: var(--navy); }
-  .chip--camada-3 { border-style: dashed; }
-  .metodo summary { cursor: pointer; color: var(--petrol); }
-  .dl { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); font-family: var(--mono); font-size: var(--step--1); overflow-wrap: anywhere; }
-  .cite { overflow-wrap: anywhere; font-family: var(--serif); background: var(--paper); border: var(--hairline); padding: var(--s-3); max-width: var(--measure); }
+  .g12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--e-4); align-items: start; }
+  .c4 { grid-column: span 4; } .c5 { grid-column: span 5; } .c6 { grid-column: span 6; } .c7 { grid-column: span 7; } .c8 { grid-column: span 8; }
+  .fichas { align-items: stretch; }
+  .fichas > div { display: grid; }
+  .sec-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin-bottom: var(--e-2); padding-bottom: 8px; border-bottom: 1px solid var(--pub-linha); }
+  .sec-tit { margin: 0; font: 600 var(--t-28) / 1.2 var(--serif); color: var(--pub-tinta); }
+  .sec-nota { margin: 0; font-size: var(--t-14); color: var(--pub-suave); }
+  .bloco-tit { margin: 0 0 var(--e-1); font: 600 var(--t-18) / 1.3 var(--serif); color: var(--pub-tinta); }
+  .nota { margin: var(--e-1) 0 0; font-size: var(--t-12); line-height: 1.5; color: var(--pub-suave); }
+  .nota a, .texto a, .tab a { color: var(--pub-link); }
+  .cal { border-top: 2px solid var(--pub-destaque); padding-top: var(--e-2); }
+  .cal__sub { margin: var(--e-2) 0 4px; font: 600 var(--t-12) / 1.3 var(--sans); text-transform: uppercase; letter-spacing: 0.04em; color: var(--pub-suave); }
+  .cal__lista { list-style: none; margin: 0; padding: 0; font-size: var(--t-14); font-variant-numeric: tabular-nums; }
+  .cal__lista li { display: flex; gap: 12px; align-items: baseline; padding: 6px 0; border-top: 1px solid var(--pub-linha); }
+  .cal__rot { min-width: 4.5em; font-weight: 600; color: var(--pub-tinta); }
+  .cal__lista b { margin-left: auto; }
+  .mods { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--pub-linha); border: 1px solid var(--pub-linha); }
+  .mods__a { display: grid; grid-template-rows: auto auto 1fr auto; gap: 6px; height: 100%; padding: var(--e-2) var(--e-2) 12px; background: var(--pub-fundo); color: inherit; text-decoration: none; }
+  .mods__a:hover { background: var(--pub-superficie); }
+  .mods__a:hover .mods__t { text-decoration: underline; }
+  .mods__a:focus-visible { outline: 2px solid var(--pub-link); outline-offset: -2px; }
+  .mods__c { font: 600 var(--t-12) / 1 var(--sans); color: var(--pub-suave); letter-spacing: 0.04em; }
+  .mods__t { font: 600 var(--t-18) / 1.25 var(--serif); color: var(--pub-tinta); }
+  .mods__q { font-size: var(--t-14); line-height: 1.45; color: var(--pub-suave); }
+  .mods__n { font: 500 var(--t-12) / 1.3 var(--sans); color: var(--pub-link); }
+  .tab { border-collapse: collapse; width: 100%; font-size: var(--t-14); font-variant-numeric: tabular-nums; }
+  .tab th, .tab td { text-align: left; padding: 7px 12px 7px 0; border-top: 1px solid var(--pub-linha); vertical-align: top; }
+  .tab thead th { border-top: 0; border-bottom: 1px solid var(--pub-linha-forte); font: 600 var(--t-12) / 1.3 var(--sans); text-transform: uppercase; letter-spacing: 0.03em; color: var(--pub-suave); }
+  .tab tbody th { font-weight: 500; }
+  .tab .num { text-align: right; white-space: nowrap; }
+  .tab--comp tbody th { font-weight: 400; }
+  .fonte { display: block; font-size: var(--t-12); color: var(--pub-suave); }
+  .chip { display: inline-block; font: 600 10.5px / 1 var(--sans); letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 6px; border: 1px solid var(--pub-linha-forte); white-space: nowrap; color: var(--pub-suave); }
+  .chip--publicado { border-color: var(--pub-destaque); color: var(--pub-destaque); }
+  .chip--exp { border-style: dashed; color: var(--pub-tinta); }
+  .texto p { margin: 0 0 var(--e-2); font: 400 var(--t-16) / 1.65 var(--serif); color: var(--pub-tinta); max-width: 75ch; }
+  .lateral { display: grid; gap: var(--e-4); }
+  .cite { margin: 0; overflow-wrap: anywhere; font: 400 var(--t-14) / 1.55 var(--serif); background: var(--pub-superficie); border-left: 3px solid var(--pub-linha-forte); padding: 12px 14px; }
+  .hist { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: var(--t-14); line-height: 1.5; }
+  .hist__d { display: block; font-size: var(--t-12); color: var(--pub-suave); }
+  @media (max-width: 64rem) {
+    .c4, .c5, .c6, .c7, .c8 { grid-column: 1 / -1; }
+    .mods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 40rem) { .g12 { gap: var(--e-3); } .mods { grid-template-columns: minmax(0, 1fr); } .sec-tit { font-size: var(--t-22); } }
 </style>

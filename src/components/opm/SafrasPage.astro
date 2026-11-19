@@ -1,43 +1,45 @@
 ---
-/** Safras (vintages) do OPM: série, data da extração, hash e CSV; safras da dessazonalização (ADR-025, ADR-026). */
-import Base from '../../layouts/Base.astro';
-import PageHero from '../layout/PageHero.astro';
-import { OPM_SLUG, safrasOpm } from '../../lib/opm';
-import { href } from '../../i18n/routing';
+/** Safras (vintages) do OPM: série, data da extração, hash e CSV; safras da dessazonalização (ADR-025, ADR-026, ADR-029). */
+import OpmShell from './OpmShell.astro';
+import { safrasOpm } from '../../lib/opm';
 import type { Lang } from '../../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const en = lang === 'en';
 const s = safrasOpm();
-const opm = en ? 'Monetary Policy Observatory' : 'Observatório de Política Monetária';
 const t = en ? 'Archived vintages' : 'Safras arquivadas';
 ---
-<Base title={`${t} — ${opm}`} description={en ? 'Raw extractions behind the OPM, with date and SHA-256 hash.' : 'Extrações brutas que alimentam o OPM, com data e hash SHA-256.'} lang={lang}>
-  <PageHero lang={lang} eyebrow={opm} title={t} crumbs={[{ label: en ? 'Observatory' : 'Observatório', path: '/observatorio/' }, { label: opm, path: OPM_SLUG }, { label: t }]}
-    lede={en ? 'Every extraction is stored unchanged with its URL, date and SHA-256 hash, so each edition can be reproduced with the data available on its date (Orphanides, 2001). Raw files are kept in the CEE repository; the processed CSV of the latest vintage is linked below.'
-      : 'Cada extração é guardada sem alteração, com URL, data e hash SHA-256, para que cada edição possa ser reproduzida com os dados disponíveis na sua data (Orphanides, 2001). Os arquivos brutos ficam no repositório do CEE; abaixo, o CSV processado da safra mais recente.'} />
-  <div class="wrap">
-    <section class="section">
-      <h2 class="section__title">{en ? 'Latest vintage by series' : 'Safra mais recente por série'}</h2>
-      <div class="table-scroll" role="region" aria-label={t} tabindex="0">
-        <table class="tab">
-          <thead><tr><th scope="col">{en ? 'Series' : 'Série'}</th><th scope="col">{en ? 'Code' : 'Código'}</th><th scope="col">{en ? 'Extracted' : 'Extraída em'}</th><th scope="col">{en ? 'Files' : 'Arquivos'}</th><th scope="col">SHA-256 ({en ? 'first file' : '1º arquivo'})</th><th scope="col">CSV</th></tr></thead>
-          <tbody>{s.series.map((x) => <tr><th scope="row"><code>{x.id}</code><br /><span class="meta">{x.nome}</span></th><td>{x.codigo}</td><td><time datetime={x.extraido_em}>{x.extraido_em}</time></td><td class="num">{x.arquivos}</td><td class="mono hash">{x.sha256.slice(0, 16)}…</td><td><a href={x.csv} download>{x.id}.csv</a></td></tr>)}</tbody>
-        </table>
-      </div>
-    </section>
-    <section class="section">
-      <h2 class="section__title">{en ? 'Seasonal-adjustment vintages' : 'Safras da dessazonalização'}</h2>
-      <p class="meta">{en ? 'Each run of X-13 is stored under the last period it used; earlier estimates are never overwritten (ADR-023).' : 'Cada rodada do X-13 é guardada pelo último período usado; estimativas anteriores nunca são sobrescritas (ADR-023).'}</p>
-      <ul class="dl">{s.dessaz.map((d) => <li><a href={d.href} download>{d.id} · {d.ultimo}</a> <span class="meta">{d.modelo}</span></li>)}</ul>
-    </section>
-    <p class="meta"><a href={href(OPM_SLUG, lang)}>← {opm}</a></p>
-  </div>
-</Base>
+<OpmShell lang={lang} ativo="safras" titulo={t} descricao={en ? 'Raw extractions behind the OPM, with date and SHA-256 hash.' : 'Extrações brutas que alimentam o OPM, com data e hash SHA-256.'}
+  lede={en ? 'Every extraction is stored unchanged with its URL, date and SHA-256 hash, so that each edition can be reproduced with the data available on its date (Orphanides, 2001).' : 'Cada extração é guardada sem alteração, com URL, data e hash SHA-256, para que cada edição possa ser reproduzida com os dados disponíveis na sua data (Orphanides, 2001).'}>
+  <section aria-labelledby="s1">
+    <div class="sec-cab"><h2 id="s1" class="sec-tit">{en ? 'Latest vintage by series' : 'Safra mais recente por série'}</h2><p class="sec-nota">{s.series.length} {en ? 'series' : 'séries'}</p></div>
+    <div class="table-scroll" role="region" aria-label={`${en ? 'Table' : 'Tabela'}: ${t}`} tabindex="0">
+      <table class="tab">
+        <thead><tr><th scope="col">{en ? 'Series' : 'Série'}</th><th scope="col">{en ? 'Code' : 'Código'}</th><th scope="col">{en ? 'Extracted' : 'Extraída em'}</th><th scope="col" class="num">{en ? 'Files' : 'Arquivos'}</th><th scope="col">SHA-256</th><th scope="col">CSV</th></tr></thead>
+        <tbody>{s.series.map((x) => <tr><th scope="row"><code>{x.id}</code><span class="sub">{x.nome}</span></th><td class="cod">{x.codigo}</td><td><time datetime={x.extraido_em}>{x.extraido_em}</time></td><td class="num">{x.arquivos}</td><td class="hash" title={x.sha256}>{x.sha256.slice(0, 12)}…</td><td><a href={x.csv} download>CSV</a></td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+  <section aria-labelledby="s2">
+    <div class="sec-cab"><h2 id="s2" class="sec-tit">{en ? 'Seasonal-adjustment vintages' : 'Safras da dessazonalização'}</h2><p class="sec-nota">{en ? 'Each X-13 run is stored under the last period it used; earlier estimates are never overwritten (ADR-023)' : 'Cada rodada do X-13 é guardada pelo último período usado; estimativas anteriores nunca são sobrescritas (ADR-023)'}</p></div>
+    <ul class="grade-dl">{s.dessaz.map((d) => <li><a href={d.href} download>{d.id}</a><span>{d.ultimo} · {d.modelo}</span></li>)}</ul>
+  </section>
+</OpmShell>
 <style>
-  .tab { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
-  .tab th, .tab td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-top: var(--hairline); vertical-align: top; }
-  .tab thead th { border-top: 0; border-bottom: 1px solid var(--line-strong); }
-  .hash { overflow-wrap: anywhere; }
-  .dl { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-2); font-size: var(--step--1); }
+  .sec-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin-bottom: var(--e-2); padding-bottom: 8px; border-bottom: 1px solid var(--pub-linha); }
+  .sec-tit { margin: 0; font: 600 var(--t-22) / 1.2 var(--serif); color: var(--pub-tinta); }
+  .sec-nota { margin: 0; font-size: var(--t-12); color: var(--pub-suave); max-width: 60ch; }
+  .tab { border-collapse: collapse; width: 100%; font-size: var(--t-14); font-variant-numeric: tabular-nums; }
+  .tab th, .tab td { text-align: left; padding: 7px 14px 7px 0; border-top: 1px solid var(--pub-linha); vertical-align: top; }
+  .tab thead th { border-top: 0; border-bottom: 1px solid var(--pub-linha-forte); font: 600 var(--t-12) / 1.3 var(--sans); text-transform: uppercase; letter-spacing: 0.03em; color: var(--pub-suave); }
+  .tab tbody th { font-weight: 500; }
+  .tab .num { text-align: right; }
+  .tab a { color: var(--pub-link); }
+  .sub { display: block; font-weight: 400; font-size: var(--t-12); color: var(--pub-suave); max-width: 46ch; }
+  .cod { font-size: var(--t-12); max-width: 34ch; }
+  .hash { font-family: var(--mono); font-size: var(--t-12); white-space: nowrap; }
+  .grade-dl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 1px; background: var(--pub-linha); border: 1px solid var(--pub-linha); font-size: var(--t-14); }
+  .grade-dl li { display: grid; gap: 2px; padding: 10px 12px; background: var(--pub-fundo); }
+  .grade-dl a { color: var(--pub-link); font-weight: 600; }
+  .grade-dl span { font-size: var(--t-12); color: var(--pub-suave); font-variant-numeric: tabular-nums; }
 </style>

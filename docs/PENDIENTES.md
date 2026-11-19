@@ -102,3 +102,45 @@ O sítio segue a ordem de precedência Estatuto > Regimento > Manual, salvo inst
   porque é a única que reproduz os dois valores publicados (RPM set./2026, p. 35). A nota 31 do RPM não descreve o cálculo.
 - **I.4, faixa com três métodos na camada 1:** os quartis são pontos médios entre três estimativas. A faixa é indicativa
   e ganha métodos nas camadas 2 e 3.
+
+### Camada 2 (ADR-027)
+- **I.12, curto prazo (Araujo e Vicente, 2017):** o método corrige a defasagem de indexação da NTN-B e a sazonalidade
+  da inflação. Não foi implementado sem o texto do trabalho no repositório; enquanto isso, só se publicam 2, 3 e 5 anos.
+- **I.21, alíquota efetiva dos compulsórios:** faltam séries mensais verificadas de recolhimentos e bases por
+  modalidade. O conjunto aberto "Recolhimentos Compulsórios – Quadro Resumo" (BCB, ODbL) traz só as alíquotas legais.
+- **Títulos com cupom (NTN-F, NTN-B):** estão no CSV, mas fora do ajuste das curvas. Ajustá-los exigiria precificar os
+  fluxos (preço, não taxa).
+- **Taxa do Tesouro Direto:** a taxa de compra inclui o spread do programa. Uma curva de mercado secundário (ANBIMA)
+  está excluída por licença (ADR-024).
+
+### Camada 3 (ADR-028) — experimental
+- **I.14:** dupla codificação humana de `docs/td/i14/amostra_codificacao.csv` por dois integrantes. Depois, rodar
+  `python -m opm.tom` e decidir a publicação com o Comitê Editorial.
+- **A2.7 / I.4 (e):** o modelo não passa no critério de identificação (ADR-028). Próximos passos na minuta do TD:
+  estimação por sistema, homogeneidade dinâmica, hiato por componentes não observados e tratamento de 2020–2021.
+- **I.16:** corrigir o viés do VAR e/ou ancorar as expectativas na Focus. O prêmio negativo atual reflete viés de
+  amostra curta.
+- **HLW (NY Fed):** termos de uso não conferidos (a página respondeu com redirecionamento a "404"). Não usado.
+- **TD:** autoria, verificação numérica independente, revisão e conferência das referências da especificação
+  (BCB 2023a/b, 2024a; Fasolo et al., 2023; Araujo e Vicente, 2017) antes da versão 1.0.
+
+### Inflação ampliada e regional (ADR-030)
+- **IGP-M, IGP-DI, IPC-S** (FGV/IBRE) e **IPC-Fipe**: obter e registrar licença de redistribuição antes de incluir.
+  Sem licença verificada, não se extraem nem se citam no sítio (a varredura de `dist/` também exige ausência do nome
+  do provedor dos IGPs).
+- **Malha territorial do IBGE (polígonos):** ler a "Nota metodológica — Informações técnicas e legais" indicada no
+  LEIA-ME da malha (a página responde 403 a clientes automatizados) e decidir sobre um mapa coroplético das áreas.
+  Até lá, só o mapa de símbolos nos centroides.
+- **Contribuição em 12 meses por grupo:** hoje é soma de contribuições mensais (aproximação aditiva, declarada).
+  Avaliar decomposição exata por encadeamento (p. ex., ajuste de Ribe) se a coluna passar a ser destacada.
+- **Subgrupos por área:** a extração regional cobre índice geral e 9 grupos; subgrupos por área ficam para depois.
+
+### Antes e depois da integração (ADR-031)
+- **Poda de safras no árvore** (`CEE_PODA_SAFRAS=1` no `data-refresh`): requer autorização expressa do responsável.
+- **I.16:** reavaliar o ACM a cada safra; se passar no critério, ele volta à figura automaticamente. Avaliar curva DI
+  aberta, se surgir fonte com licença, para retirar o spread do Tesouro Direto.
+- **A2.7:** extrair as projeções anuais da Tabela 1 dos comunicados e, para reuniões anteriores à 265ª, os formatos
+  antigos (projeções por ano-calendário). Calcular os erros de previsão quando os dados do horizonte forem conhecidos.
+- **I.13:** LP-IV com a surpresa como instrumento, se o número de surpresas não nulas crescer; hoje o primeiro estágio
+  é fraco.
+

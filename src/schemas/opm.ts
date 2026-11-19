@@ -6,24 +6,31 @@ const bi = z.object({ pt: z.string().min(1), en: z.string().min(1) }).strict();
 export const moduloSchema = z.object({
   id: z.string().regex(/^a2-[1-8]-[a-z0-9-]+$/),
   codigo: z.string().regex(/^A2\.[1-8]$/),
+  /** Nome curto para a navegação por módulos. */
+  curto: bi,
   titulo: bi,
   pergunta: bi,
 }).strict();
 
 export const indicadorSchema = z.object({
-  codigo: z.string().regex(/^I\.(?:[1-9]|1\d|2[01])$/),
+  /** I.1–I.21: indicadores da especificação; C.n: complementares do CEE (ADR-030), fora da contagem de 21. */
+  codigo: z.string().regex(/^(?:I\.(?:[1-9]|1\d|2[01])|C\.[1-9]\d?)$/),
+  complementar: z.boolean().optional(),
   modulo: z.string(),
   camada: z.union([z.literal(1), z.literal(2), z.literal(3)]),
-  /** publicado = camada 1 com dados; camada-2 / camada-3 = previstos (camada 3 leva o selo "experimental"). */
-  estado: z.enum(['publicado', 'camada-2', 'camada-3']),
+  /** publicado = com dados no sítio; em-construcao = sem cifras. A camada 3 publicada leva o selo "experimental". */
+  estado: z.enum(['publicado', 'em-construcao']),
   nome: bi,
   formula: z.string().min(3),
   descricao: bi,
   convencao: bi.optional(),
   /** Caminho em data/processed/opm/ (obrigatório quando publicado). */
   arquivo: z.string().regex(/^indicadores\/[a-z0-9_]+\.csv$/).optional(),
+  /** Pendência que impede a publicação (obrigatória quando em construção). */
+  pendencia: bi.optional(),
 }).strict().refine((i) => i.estado !== 'publicado' || Boolean(i.arquivo), { message: 'indicador publicado precisa de arquivo' })
-  .refine((i) => (i.estado === 'publicado' ? i.camada === 1 : i.estado === `camada-${i.camada}`), { message: 'estado incoerente com a camada' });
+  .refine((i) => (i.complementar === true) === i.codigo.startsWith('C.'), { message: 'códigos C.n são exatamente os complementares' })
+  .refine((i) => i.estado !== 'em-construcao' || Boolean(i.pendencia), { message: 'indicador em construção precisa de pendência' });
 
 export const estadoPartidaSchema = z.object({
   id: z.string(),

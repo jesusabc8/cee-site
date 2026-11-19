@@ -88,3 +88,43 @@ animação (verificado por `scripts/qa/movimento.mjs`).
 - `frame.mjs` (capturas).
 
 Evidência em [`docs/qa/`](qa/).
+
+## Sistema "publicação" (ADR-029)
+
+O padrão das páginas de dados e pesquisa, no nível de portais de dados de organismos internacionais. Adotado primeiro
+pelo Observatório de Política Monetária. Outra seção adere com `estilo="pub"` em `Base.astro` e com os componentes de
+`src/components/opm/`, que são genéricos apesar do nome da pasta.
+
+- **Tokens** (`src/styles/publicacao.css`):
+  - Escala tipográfica 12/14/16/18/22/28/36/48 (`--t-12` … `--t-48`).
+  - Espaçamento em múltiplos de 8 px (`--e-1` … `--e-8`); seções separadas por no máximo 64 px (`--secao`).
+  - Largura máxima de 1280 px, grade de 12 colunas.
+  - Temas claro e escuro (`prefers-color-scheme`), com cores semânticas de série `--s1` … `--s4`, bandas, grade e eixo.
+- **Tipografia:**
+  - IBM Plex Sans na interface, nos gráficos e nos números; algarismos tabulares em tabelas e rótulos.
+  - Source Serif 4 nos títulos de seção e no texto corrido (mensagens-chave, notas, metodologia).
+- **Moldura** (`OpmShell`):
+  - Cabeçalho institucional compacto: migas, painel, título em serif, lede, princípio, edição, data dos dados, licença.
+  - Navegação por módulos, fixa ao rolar.
+  - Rodapé com fontes, licenças, versão e data.
+- **Faixa de indicadores-chave** (`KpiStrip`): valor, variação (▲▼■ e valor), minigráfico e data de referência
+  própria de cada série.
+- **Mensagens-chave** (`Mensagens`): 3 a 5 frases geradas dos dados, cada número com origem declarada.
+- **Ficha de gráfico** (`Ficha`):
+  - Cabeçalho: código, estado da série (V/A/R), selo "experimental" quando couber.
+  - Título em forma de achado; subtítulo com unidade, frequência, período e data de referência.
+  - Gráfico com rótulos diretos curtos; a legenda só mostra faixas, ou todas as séries se houver mais de quatro.
+  - Rodapé: nota curta, fonte com código curto (o completo fica no catálogo) e safra, CSV, PNG e SVG, tabela
+    alternativa.
+- **Gráficos no estilo `pub`** (`render.ts`, opção `estilo: 'pub'`):
+  - Sem moldura, unidade no topo do eixo y, grade tênue.
+  - Rótulos diretos afastados pela altura real do texto, numa margem de até 30 % da largura.
+  - Rótulos de referência por cima das séries, com halo.
+  - Marcas das reuniões do Copom no pé do eixo x.
+  - Cores por classe, que acompanham o tema.
+  - Recessões do CODACE não são marcadas: as datações são publicadas por uma fundação privada sem licença aberta
+    verificável, e o nome dessa fundação não pode aparecer no sítio.
+- **Regras medidas** (`scripts/qa/opm-layout.mjs`, no CI): sem rolagem horizontal; nenhum elemento vazando fora de
+  contêiner rolável marcado; nenhum vão vertical > 96 px; nenhum contêiner > 40 % vazio; nenhum par de rótulos
+  sobreposto em gráfico. Tudo em 360, 768, 1024, 1440 e 1920 px, PT e EN.
+- **Antes e depois:** `docs/qa/opm-redesenho/` (uma folha por página).

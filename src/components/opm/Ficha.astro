@@ -1,0 +1,165 @@
+---
+/**
+ * Ficha de gráfico no padrão de publicação (ADR-029): título em forma de achado, subtítulo com unidade e período,
+ * estado da série (V verificado · A a verificar · R restrito), selo "experimental", gráfico com rótulos diretos
+ * (legenda só para faixas, referências ou mais de quatro séries), nota curta, fonte com safra, CSV, PNG e SVG,
+ * e tabela alternativa. Usa o mesmo cliente de gráficos do sítio (src/lib/viz/client.ts).
+ */
+import Key from '../charts/LegendKey.astro';
+import { renderSvg } from '../../lib/viz/render';
+import { codigoCurto, type FichaOpm } from '../../lib/opm';
+import { ehOdbl } from '../../../scripts/data/opm/odbl.ts';
+import { href } from '../../i18n/routing';
+import type { Lang } from '../../i18n/ui';
+
+interface Props { g: FichaOpm; lang: Lang; nivel?: 'h2' | 'h3' }
+const { g, lang, nivel = 'h3' } = Astro.props;
+const H = nivel;
+const en = lang === 'en';
+const s = g.spec;
+const est = g.estatico;
+const xMax = est ? 0 : Math.max(...s.series.flatMap((x) => x.points.map((p) => p.x)));
+const def = s.ranges?.find((r) => r.id === s.defaultRange) ?? s.ranges?.[0];
+const xFrom = def?.years ? Date.UTC(new Date(xMax).getUTCFullYear() - def.years, new Date(xMax).getUTCMonth(), 1) : undefined;
+const svg = est ? '' : renderSvg(s, g.largo ? 1180 : 580, xFrom);
+const nf = new Intl.NumberFormat(lang, { maximumFractionDigits: 4 });
+const cell = (v: string | number | null) => (v === null || v === '' ? '—' : typeof v === 'number' ? nf.format(v) : v);
+const safra = g.fontes.map((f) => f.extraido_em).sort().at(-1) ?? '';
+const sigla = (i: string) => (i === 'Banco Central do Brasil' ? 'BCB' : i.startsWith('Board of Governors') ? 'Federal Reserve Board' : i.startsWith('U.S. Energy') ? 'EIA' : i.startsWith('Tesouro Nacional') ? 'Tesouro Nacional' : i.replace(/ \(via FRED\)$/, ''));
+const fd = (iso: string) => new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso));
+// Rótulos diretos substituem a legenda das linhas; faixas e referências continuam com chave.
+const linhas = g.legenda.filter((l) => l.style !== 'band');
+const legenda = linhas.length > 4 ? g.legenda : g.legenda.filter((l) => l.style === 'band' || (l.style === 'bar' && s.series.length > 1));
+const ESTADO = { V: en ? 'Verified series' : 'Série verificada', A: en ? 'Series to be verified' : 'Série a verificar', R: en ? 'Restricted source' : 'Fonte restrita' } as const;
+const L = en
+  ? { fonte: 'Source', safraDe: 'Vintage of', safra: 'vintage', csv: 'Data (CSV)', fig: 'Figure', dados: 'Data', tabela: 'Data table', periodo: 'Period', legenda: 'Key', exp: 'Experimental', inf: 'Inferred', infT: 'Inferred by CEE from source data (expectation, premium, band or path); not published by the source', stale: 'source unavailable at last update; previous vintage shown', baixar: 'Download' }
+  : { fonte: 'Fonte', safraDe: 'Safra de', safra: 'safra', csv: 'Dados (CSV)', fig: 'Figura', dados: 'Dados', tabela: 'Tabela de dados', periodo: 'Período', legenda: 'Chave', exp: 'Experimental', inf: 'Inferida', infT: 'Inferida pelo CEE a partir de dados da fonte (expectativa, prêmio, faixa ou trajetória); não é publicada pela fonte', stale: 'fonte indisponível na última atualização; exibe-se a safra anterior', baixar: 'Baixar' };
+---
+<figure class:list={['ficha', { 'ficha--larga': g.largo, 'ficha--exp': g.experimental }]} id={g.id} data-viz={est ? undefined : ''} data-viz-estatico={est ? '' : undefined} aria-labelledby={`${g.id}-t`} aria-describedby={`${g.id}-d`}>
+  <header class="ficha__cab">
+    <p class="ficha__sup">
+      <span class="ficha__cod">{g.rotulo}</span>
+      <abbr class={`estado estado--${(g.estado ?? 'V').toLowerCase()}`} title={ESTADO[g.estado ?? 'V']}>{g.estado ?? 'V'}</abbr>
+      {g.experimental && <span class="selo-exp">{L.exp}</span>}
+      {g.inferida && <span class="selo-inf" title={L.infT}>{L.inf}</span>}
+    </p>
+    <H id={`${g.id}-t`} class="ficha__titulo">{g.titulo}</H>
+    <p class="ficha__sub">{g.subtitulo}</p>
+  </header>
+
+  {!est && (legenda.length > 0 || s.ranges) && (
+    <div class="ficha__controles">
+      {legenda.length > 0 && (
+        <ul class="ficha__chave" aria-label={L.legenda}>
+          {legenda.map((l) => <li data-legend={l.id}><Key style={l.style} cor={l.color} />{l.label}</li>)}
+        </ul>
+      )}
+      {s.ranges && (
+        <div class="ficha__periodos" role="tablist" aria-label={L.periodo}>
+          {s.ranges.map((r) => (
+            <button type="button" role="tab" data-range={r.id} aria-selected={r.id === def?.id ? 'true' : 'false'} tabindex={r.id === def?.id ? 0 : -1} aria-controls={`${g.id}-plot`}>{r.label}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  )}
+
+  {est
+    ? <div class="ficha__plot" id={`${g.id}-plot`} data-viz-plot>{est.map((e) => <div class={`ficha__var ficha__var--${e.classe}`} set:html={e.svg} />)}</div>
+    : <><div class="ficha__plot" id={`${g.id}-plot`} data-viz-plot set:html={svg} /><div class="viz-tip" data-viz-tip hidden></div></>}
+  <p id={`${g.id}-d`} class="visually-hidden">{g.descricao}</p>
+
+  <figcaption class="ficha__rodape">
+    {g.nota && <p class="ficha__nota">{g.nota}</p>}
+    <p class="ficha__fonte">
+      <span class="ficha__rot">{L.fonte}:</span>
+      {g.fontes.map((f, i) => (
+        <>{i > 0 && '; '}<a href={f.url} title={f.codigo}>{sigla(f.instituicao)}</a> {codigoCurto(f.codigo)}{f.desatualizado && <strong> — {L.stale}</strong>}</>
+      ))}. <span class="ficha__safra">{L.safraDe} {fd(safra)}</span>
+    </p>
+    {g.csv.some((c) => ehOdbl(c.href)) && (
+      <p class="ficha__fonte">{en ? 'Contains information from Tesouro Transparente under the ODbL v1.0; the CEE derived data are published under the same licence' : 'Contém informações do Tesouro Transparente sob a ODbL v1.0; os dados derivados do CEE são publicados sob a mesma licença'} (<a href={href('/dados/opm/LICENCA-ODbL.txt')}>{en ? 'notice' : 'aviso'}</a>).</p>
+    )}
+    <div class="ficha__acoes">
+      <p class="ficha__grupo"><span class="ficha__rot">{L.csv}:</span> {g.csv.map((c, i) => <>{i > 0 && ' · '}<a href={c.href} download>{c.rotulo.replace(/\.csv$/, '')}</a></>)}</p>
+      <p class="ficha__grupo"><span class="ficha__rot">{L.fig}:</span> <button type="button" class="ficha__btn" data-exportar="png">PNG</button> <button type="button" class="ficha__btn" data-exportar="svg">SVG</button></p>
+    </div>
+    <details class="ficha__tabela" data-pagefind-ignore>
+      <summary>{L.tabela}</summary>
+      <div class="table-scroll" role="region" aria-label={`${L.tabela}: ${g.titulo}`} tabindex="0">
+        <table>
+          <thead><tr>{g.tabela.colunas.map((c, i) => <th scope="col" class={i ? 'num' : undefined}>{c}</th>)}</tr></thead>
+          <tbody>{g.tabela.linhas.map((l) => <tr>{l.map((v, i) => (i === 0 ? <th scope="row">{v}</th> : <td class="num">{cell(v)}</td>))}</tr>)}</tbody>
+        </table>
+      </div>
+    </details>
+  </figcaption>
+  {!est && <script type="application/json" set:html={JSON.stringify(s)} />}
+</figure>
+
+<script>
+  import '../../lib/viz/client';
+</script>
+
+<style>
+  .ficha {
+    position: relative;
+    margin: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--e-2);
+    padding: var(--e-3) var(--e-3) var(--e-2);
+    background: var(--pub-fundo);
+    border: 1px solid var(--pub-linha);
+    border-top: 2px solid var(--pub-destaque);
+  }
+  .ficha--exp { border-top-style: dashed; }
+  .ficha__cab { display: grid; gap: 6px; }
+  .ficha__sup { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; font: 600 var(--t-12) / 1.2 var(--sans); letter-spacing: 0.04em; text-transform: uppercase; color: var(--pub-suave); }
+  .ficha__cod { text-transform: none; letter-spacing: 0.02em; }
+  .estado { display: inline-grid; place-items: center; width: 18px; height: 18px; border: 1px solid var(--pub-linha-forte); border-radius: 50%; font-size: 10px; text-decoration: none; cursor: help; }
+  .estado--v { color: var(--pub-destaque); }
+  .selo-inf { padding: 2px 6px; border: 1px solid var(--pub-linha-forte); color: var(--pub-suave); letter-spacing: 0.06em; cursor: help; }
+  .selo-exp { padding: 2px 6px; border: 1px dashed var(--pub-suave); color: var(--pub-tinta); letter-spacing: 0.06em; }
+  .ficha__titulo { margin: 0; font: 600 var(--t-18) / 1.3 var(--sans); color: var(--pub-tinta); text-wrap: balance; max-width: 62ch; }
+  .ficha--larga .ficha__titulo { font-size: var(--t-22); }
+  .ficha__sub { margin: 0; font-size: var(--t-14); line-height: 1.5; color: var(--pub-suave); max-width: 80ch; }
+  .ficha__controles { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+  .ficha__chave { display: flex; flex-wrap: wrap; gap: 4px 16px; list-style: none; margin: 0; padding: 0; font-size: var(--t-12); color: var(--pub-suave); }
+  .ficha__chave li { display: inline-flex; align-items: center; gap: 6px; }
+  .ficha__periodos { display: inline-flex; border: 1px solid var(--pub-linha); margin-left: auto; }
+  .ficha__periodos button { font: 500 var(--t-12) / 1 var(--sans); padding: 6px 10px; background: none; border: 0; color: var(--pub-suave); cursor: pointer; }
+  .ficha__periodos button[aria-selected='true'] { background: var(--pub-superficie-2); color: var(--pub-tinta); box-shadow: inset 0 -2px 0 var(--pub-destaque); }
+  .ficha__periodos button:focus-visible { outline: 2px solid var(--pub-link); outline-offset: -2px; }
+  .ficha__plot { position: relative; min-width: 0; }
+  .ficha__plot :global(svg) { display: block; width: 100%; height: auto; }
+  /* Figuras estáticas: uma SVG por faixa de largura (o texto mantém tamanho legível no telefone). */
+  .ficha__var--estreita { display: none; }
+  @media (max-width: 40rem) { .ficha__var--larga { display: none; } .ficha__var--estreita { display: block; } }
+  .ficha__rodape { display: grid; gap: 8px; padding-top: var(--e-1); border-top: 1px solid var(--pub-linha); font-size: var(--t-12); line-height: 1.55; color: var(--pub-suave); }
+  .ficha__nota { margin: 0; color: var(--pub-tinta); font-size: var(--t-14); line-height: 1.5; max-width: 90ch; }
+  .ficha__fonte { margin: 0; overflow-wrap: anywhere; }
+  .ficha__fonte a, .ficha__acoes a { color: var(--pub-link); }
+  .ficha__rot { font-weight: 600; color: var(--pub-tinta); margin-right: 4px; }
+  .ficha__safra { white-space: nowrap; }
+  .ficha__acoes { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; }
+  .ficha__grupo { margin: 0; overflow-wrap: anywhere; }
+  .ficha__grupo a { color: var(--pub-link); }
+  .ficha__btn { display: inline-flex; gap: 3px; align-items: center; padding: 2px 8px; border: 1px solid var(--pub-linha); background: var(--pub-superficie); color: var(--pub-link); font: 500 var(--t-12) / 1.3 var(--sans); text-decoration: none; cursor: pointer; max-width: 100%; overflow-wrap: anywhere; }
+  .ficha__btn span { color: var(--pub-suave); }
+  .ficha__btn:hover, .ficha__btn:focus-visible { border-color: var(--pub-link); }
+  .ficha__tabela summary { cursor: pointer; font-weight: 600; color: var(--pub-link); }
+  .ficha__tabela table { border-collapse: collapse; width: 100%; font-size: var(--t-12); font-variant-numeric: tabular-nums; }
+  .ficha__tabela th, .ficha__tabela td { padding: 4px 12px 4px 0; border-top: 1px solid var(--pub-linha); text-align: left; white-space: nowrap; }
+  .ficha__tabela .num { text-align: right; }
+  .ficha__tabela .table-scroll { max-height: 320px; overflow: auto; margin-top: 8px; }
+  .viz-tip { position: absolute; z-index: 5; pointer-events: none; display: grid; gap: 3px; min-width: 150px; padding: 8px 10px; background: var(--pub-faixa); color: var(--pub-faixa-texto); font: 500 12px / 1.35 var(--sans); font-variant-numeric: tabular-nums; box-shadow: 0 8px 24px -12px rgb(0 0 0 / 50%); }
+  .viz-tip[hidden] { display: none; }
+  .viz-tip :global(.viz-tip__x) { color: var(--pub-faixa-suave); }
+  .viz-tip :global(.viz-tip__row) { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .viz-tip :global(.viz-tip__row b) { margin-left: auto; padding-left: 12px; }
+  .viz-tip :global(.viz-tip__row i) { width: 10px; height: 3px; display: inline-block; }
+  .viz-tip :global(.viz-tip__meta) { margin-top: 2px; color: var(--pub-faixa-suave); font-size: 11px; }
+  @media (max-width: 40rem) { .ficha { padding: var(--e-2); } .ficha--larga .ficha__titulo { font-size: var(--t-18); } }
+</style>

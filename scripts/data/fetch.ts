@@ -6,7 +6,7 @@
  * Uso: node scripts/data/fetch.ts [--only=id1,id2]
  */
 import { createHash } from 'node:crypto';
-import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { SERIES, type Requisicao, type Serie } from './series.ts';
 
@@ -112,6 +112,10 @@ async function extrair(s: Serie) {
   const meta = { serie: s.id, fonte: s.fonte, codigo: s.codigo, extraido_em: hoje.toISOString(), arquivos };
   await writeFile(join(dir, 'meta.json'), JSON.stringify(meta, null, 2) + '\n');
   console.log(`✓ ${s.id}: ${arquivos.length} arquivo(s) em ${dir}`);
+  // Poda opcional (ADR-031): com CEE_PODA_SAFRAS=1, o árvore guarda só a safra nova; as anteriores continuam no histórico
+  // do git (cada commit do data-refresh é uma safra) e são recuperáveis com scripts/data/safra.mjs. Desligada por padrão:
+  // ligar exige autorização do responsável (CLAUDE.md: "nunca apagar dados" sem autorização expressa).
+  if (process.env.CEE_PODA_SAFRAS === '1') for (const d of anteriores) await rm(join(base, d), { recursive: true });
 }
 
 const falhas: { serie: string; data: string; erro: string }[] = [];

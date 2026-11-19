@@ -8,7 +8,7 @@ import { lerCsvTexto } from '../scripts/data/csv.ts';
 import { diaUtil, feriados, pascoa, proximosDiasUteis } from '../scripts/data/opm/calendario.ts';
 import { credibilidade, metaHorizonte12m, surpresa, ultimaAntes } from '../scripts/data/opm/expectativas.ts';
 import { acumula, contadorRegime, saar3m } from '../scripts/data/opm/inflacao.ts';
-import { fisher, selicAcumulada252, selicEsperada12m } from '../scripts/data/opm/juros.ts';
+import { fisher, selicAcumulada252, selicEsperada12m, selicEsperadaHorizonte } from '../scripts/data/opm/juros.ts';
 import { coeficientes, real, velocidade } from '../scripts/data/opm/moeda.ts';
 import { datasCalendario } from '../scripts/data/process-opm.ts';
 import { SERIES } from '../scripts/data/series.ts';
@@ -191,3 +191,36 @@ describe('referência: identidades monetárias', () => {
     for (const [p, x] of m1!) if (pmpp!.has(p) && dv!.has(p)) expect(Math.abs(x - pmpp!.get(p)! - dv!.get(p)!), p).toBeLessThanOrEqual(2);
   });
 });
+
+describe('Selic média esperada pela Focus em n dias úteis (I.16, ADR-031)', () => {
+  it('trajetória constante reproduz a taxa', () => {
+    const r = selicEsperadaHorizonte('2026-01-02', 10, [{ reuniao: 'R1', vigencia: '2026-01-29', mediana: 10 }], [2026, 2027, 2028, 2029].map((ano) => ({ ano, mediana: 10 })), 756);
+    expect(r.selic_media).toBeCloseTo(10, 8);
+    expect(r.coberto).toBe(true);
+  });
+  it('queda linear de 12 para 8 em um ano e 8 no seguinte: média ≈ 9', () => {
+    const r = selicEsperadaHorizonte('2026-01-02', 12, [{ reuniao: 'R1', vigencia: '2026-01-05', mediana: 12 }], [{ ano: 2026, mediana: 8 }, { ano: 2027, mediana: 8 }], 504);
+    expect(Math.abs(r.selic_media - 9)).toBeLessThan(0.15);
+  });
+  it('sem expectativa para o fim do horizonte: não coberto', () => {
+    const r = selicEsperadaHorizonte('2026-01-02', 10, [{ reuniao: 'R1', vigencia: '2026-01-29', mediana: 10 }], [{ ano: 2026, mediana: 10 }], 756);
+    expect(r.coberto).toBe(false);
+  });
+});
+
+describe('A2.7: projeções do Copom extraídas dos comunicados (ADR-031)', () => {
+  const c = ler(`${IND}/a27_projecoes_copom.csv`);
+  it('valores de referência conferidos no texto dos comunicados', () => {
+    const r = (n: string) => c.find((x) => x.reuniao === n)!;
+    expect([r('282').horizonte, r('282').projecao_copom]).toEqual(['2028-T2', '3.5']);
+    expect([r('281').horizonte, r('281').projecao_copom]).toEqual(['2028-T1', '3.2']);
+    expect([r('276').horizonte, r('276').projecao_copom]).toEqual(['2027-T3', '3.2']);
+    expect([r('270').horizonte, r('270').projecao_copom]).toEqual(['2026', '3.6']);
+  });
+  it('uma linha por reunião, desde a 265ª, Focus anterior à reunião, meta contínua de 3,0%', () => {
+    expect(Number(c[0]!.reuniao)).toBe(265);
+    expect(new Set(c.map((x) => x.reuniao)).size).toBe(c.length);
+    for (const x of c) { expect(x.coleta_focus! < x.data_reuniao!).toBe(true); expect(Number(x.meta)).toBe(3); }
+  });
+});
+

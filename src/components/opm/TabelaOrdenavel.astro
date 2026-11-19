@@ -1,0 +1,97 @@
+---
+/**
+ * Tabela ordenável (ADR-030): cabeçalhos são botões; aria-sort indica a coluna e o sentido. Sem JavaScript, a tabela
+ * continua legível na ordem de origem (12 meses, decrescente). Linha de referência (Brasil) fica no rodapé, fora da ordenação.
+ */
+import type { Lang } from '../../i18n/ui';
+
+export interface Coluna { titulo: string; num?: boolean; casas?: number }
+export interface Linha { celulas: (string | number | null)[]; destaque?: boolean }
+interface Props { id: string; legenda: string; colunas: Coluna[]; linhas: Linha[]; rodape?: Linha; lang: Lang; ordemInicial?: { coluna: number; sentido: 'ascending' | 'descending' } }
+const { id, legenda, colunas, linhas, rodape, lang, ordemInicial } = Astro.props;
+const nf = (c: number) => new Intl.NumberFormat(lang, { minimumFractionDigits: c, maximumFractionDigits: c });
+const fmt = (v: string | number | null, col: Coluna) => (v === null || v === '' ? '—' : typeof v === 'number' ? nf(col.casas ?? 2).format(v) : v);
+const en = lang === 'en';
+---
+<div class="tord" data-ordenavel>
+  <p id={`${id}-ajuda`} class="visually-hidden">{en ? 'Column headers are buttons that sort the table.' : 'Os cabeçalhos das colunas são botões que ordenam a tabela.'}</p>
+  <div class="table-scroll" role="region" aria-labelledby={`${id}-cap`} tabindex="0">
+    <table id={id} aria-describedby={`${id}-ajuda`}>
+      <caption id={`${id}-cap`}>{legenda}</caption>
+      <thead>
+        <tr>
+          {colunas.map((c, i) => (
+            <th scope="col" class={c.num ? 'num' : undefined} aria-sort={ordemInicial?.coluna === i ? ordemInicial.sentido : undefined}>
+              <button type="button" data-col={i} data-num={c.num ? '1' : undefined}>{c.titulo}<span class="tord__seta" aria-hidden="true"></span></button>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {linhas.map((l) => (
+          <tr class={l.destaque ? 'tord__destaque' : undefined}>
+            {l.celulas.map((v, i) => (i === 0
+              ? <th scope="row" data-v={String(v ?? '')}>{fmt(v, colunas[i]!)}</th>
+              : <td class={colunas[i]!.num ? 'num' : undefined} data-v={v === null ? '' : String(v)}>{fmt(v, colunas[i]!)}</td>))}
+          </tr>
+        ))}
+      </tbody>
+      {rodape && (
+        <tfoot>
+          <tr>{rodape.celulas.map((v, i) => (i === 0 ? <th scope="row">{fmt(v, colunas[i]!)}</th> : <td class={colunas[i]!.num ? 'num' : undefined}>{fmt(v, colunas[i]!)}</td>))}</tr>
+        </tfoot>
+      )}
+    </table>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-ordenavel]').forEach((raiz) => {
+    const tabela = raiz.querySelector('table');
+    const corpo = tabela?.tBodies[0];
+    if (!tabela || !corpo) return;
+    const ths = [...tabela.tHead!.rows[0]!.cells];
+    const lang = document.documentElement.lang || 'pt-BR';
+    raiz.querySelectorAll<HTMLButtonElement>('thead button').forEach((b) => {
+      b.addEventListener('click', () => {
+        const col = Number(b.dataset.col);
+        const num = b.dataset.num === '1';
+        const th = ths[col]!;
+        const atual = th.getAttribute('aria-sort');
+        const sentido = atual === 'descending' ? 'ascending' : atual === 'ascending' ? 'descending' : num ? 'descending' : 'ascending';
+        ths.forEach((t) => t.removeAttribute('aria-sort'));
+        th.setAttribute('aria-sort', sentido);
+        const k = sentido === 'ascending' ? 1 : -1;
+        const val = (tr: HTMLTableRowElement) => tr.cells[col]?.dataset.v ?? '';
+        const linhas = [...corpo.rows].sort((a, z) => {
+          const va = val(a), vz = val(z);
+          if (va === '' && vz === '') return 0;
+          if (va === '') return 1;
+          if (vz === '') return -1;
+          return k * (num ? Number(va) - Number(vz) : va.localeCompare(vz, lang));
+        });
+        corpo.append(...linhas);
+      });
+    });
+  });
+</script>
+
+<style>
+  .tord { min-width: 0; max-width: 100%; }
+  .tord table { border-collapse: collapse; width: 100%; font-size: var(--t-14); font-variant-numeric: tabular-nums; }
+  .tord caption { caption-side: top; text-align: left; padding-bottom: var(--e-1); font-size: var(--t-12); color: var(--pub-suave); }
+  .tord th, .tord td { text-align: left; padding: 6px 12px 6px 0; border-top: 1px solid var(--pub-linha); white-space: nowrap; }
+  .tord thead th { border-top: 0; border-bottom: 1px solid var(--pub-linha-forte); vertical-align: bottom; }
+  .tord thead button { display: inline-flex; align-items: flex-end; gap: 4px; padding: 0; background: none; border: 0; cursor: pointer; font: 600 var(--t-12) / 1.3 var(--sans); text-transform: uppercase; letter-spacing: 0.03em; color: var(--pub-suave); text-align: inherit; white-space: normal; max-width: 12ch; }
+  .tord thead th.num button { justify-content: flex-end; margin-left: auto; text-align: right; }
+  .tord thead button:hover, .tord thead button:focus-visible { color: var(--pub-tinta); }
+  .tord thead button:focus-visible { outline: 2px solid var(--pub-link); outline-offset: 2px; }
+  .tord__seta::after { content: '↕'; opacity: 0.45; }
+  .tord th[aria-sort='ascending'] .tord__seta::after { content: '↑'; opacity: 1; }
+  .tord th[aria-sort='descending'] .tord__seta::after { content: '↓'; opacity: 1; }
+  .tord th[aria-sort] button { color: var(--pub-tinta); }
+  .tord .num { text-align: right; }
+  .tord tbody th { font-weight: 500; }
+  .tord__destaque th, .tord__destaque td { background: var(--pub-superficie); font-weight: 700; }
+  .tord tfoot th, .tord tfoot td { border-top: 1px solid var(--pub-linha-forte); font-weight: 600; }
+</style>

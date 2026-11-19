@@ -21,17 +21,29 @@ describe('qa:seguranca', () => {
     const d = mkdtempSync(join(tmpdir(), 'cee-dist-'));
     const pat = 'ghp_' + 'a'.repeat(36);
     writeFileSync(join(d, 'index.html'), `fulano.tal@gmail.com (31) 99999-1234 123.456.789-09 ${pat} AKIA${'A'.repeat(16)}
-      -----BEGIN OPENSSH PRIVATE KEY----- api_key="abcdefghijklmnop" https://github.com/jesusabc8/cee-site FGV Ana Exemplo`);
+      -----BEGIN OPENSSH PRIVATE KEY----- api_key="abcdefghijklmnop" https://github.com/jesusabc8/cee-site Ana Exemplo. O CEE segue o modelo do GIEF.`);
     writeFileSync(join(d, 'app.js.map'), '{}');
     writeFileSync(join(d, 'minuta.tex'), 'x');
     writeFileSync(join(d, 'anexo.pdf'), '%PDF');
     writeFileSync(join(d, '.env'), 'X=1');
     const r = rodar(d, { CEE_NOMES_PROIBIDOS: 'Ána Exemplo' });
     expect(r.status).toBe(1);
-    for (const id of ['email', 'telefone', 'cpf', 'chave-github', 'chave-aws', 'chave-privada', 'api-key', 'repositorio', 'termo-proibido', 'nome-proibido', 'arquivo-proibido', 'pdf-fora-de-documentos']) {
+    for (const id of ['email', 'telefone', 'cpf', 'chave-github', 'chave-aws', 'chave-privada', 'api-key', 'repositorio', 'mencao-sem-exclusao', 'nome-proibido', 'arquivo-proibido', 'pdf-fora-de-documentos']) {
       expect(r.stderr).toContain(`[${id}]`);
     }
     // O nome proibido não é impresso por extenso no log.
     expect(r.stderr).not.toContain('Ana Exemplo');
+  });
+  it('varre dados, não nomes: menção à fonte excluída com o motivo passa; dado da fonte falha', () => {
+    const ok = mkdtempSync(join(tmpdir(), 'cee-dist-'));
+    writeFileSync(join(ok, 'index.html'), '<p>IGP-M, IGP-DI e IPC-S (FGV/IBRE) e IPC-Fipe ficam fora: sem licença de redistribuição verificada.</p><p>IGP-M and IPC-Fipe are excluded.</p>');
+    expect(rodar(ok).status, rodar(ok).stderr).toBe(0);
+    const ruim = mkdtempSync(join(tmpdir(), 'cee-dist-'));
+    mkdirSync(join(ruim, 'dados', 'opm'), { recursive: true });
+    writeFileSync(join(ruim, 'dados', 'opm', 'igpm.csv'), 'periodo,valor,instituicao\n2026-10,0.5,FGV\n');
+    writeFileSync(join(ruim, 'index.html'), '<p>Fonte: BCB, SGS 189.</p><a href="https://www.fipe.org.br/pt-br/indices/ipc/serie.xlsx">dados</a>');
+    const r = rodar(ruim);
+    expect(r.status).toBe(1);
+    for (const id of ['fonte-excluida-dado', 'fonte-excluida-serie', 'fonte-excluida-link']) expect(r.stderr).toContain(`[${id}]`);
   });
 });

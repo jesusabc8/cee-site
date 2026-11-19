@@ -15,8 +15,11 @@ export const MODULOS: Modulo[] = le('modulos.yaml', moduloSchema);
 export const INDICADORES: Indicador[] = le('indicadores.yaml', indicadorSchema);
 export const ESTADO_PARTIDA: EstadoPartida[] = le('estado-partida.yaml', estadoPartidaSchema);
 
-// Integridade referencial: 21 indicadores únicos, cada um ligado a um módulo existente.
-if (INDICADORES.length !== 21 || new Set(INDICADORES.map((i) => i.codigo)).size !== 21) throw new Error('OPM: são esperados 21 indicadores únicos (I.1–I.21).');
+// Integridade referencial: 21 indicadores únicos da especificação (I.1–I.21), mais complementares (C.n, ADR-030),
+// cada um ligado a um módulo existente.
+export const INDICADORES_ESPEC = INDICADORES.filter((i) => !i.complementar);
+if (INDICADORES_ESPEC.length !== 21 || new Set(INDICADORES_ESPEC.map((i) => i.codigo)).size !== 21) throw new Error('OPM: são esperados 21 indicadores únicos (I.1–I.21).');
+if (new Set(INDICADORES.map((i) => i.codigo)).size !== INDICADORES.length) throw new Error('OPM: código de indicador repetido.');
 for (const i of INDICADORES) if (!MODULOS.some((m) => m.id === i.modulo)) throw new Error(`OPM: ${i.codigo} aponta para módulo inexistente ${i.modulo}`);
 if (MODULOS.length !== 8) throw new Error('OPM: são esperados oito módulos (A2.1–A2.8).');
 

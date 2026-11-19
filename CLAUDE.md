@@ -30,13 +30,15 @@ não invente: registre em `docs/PENDIENTES.md`. A Proposta v3.0 está superada.
    Códigos verificados contra a API oficial e registrados em `data/CATALOGO.md`. Não verificado → `docs/PENDIENTES.md`.
    Nenhuma cifra de B1 vai ao sítio (discrepância não reconciliada: 4,24 p.p. vs 4,1 %).
 5. **Privacidade (LGPD).** Sem cookies, sem analytics de terceiros, sem CDNs. Fontes autoalojadas. Sem formulários próprios.
-6. **Não mencionar** GIEF, FIEMG nem FGV como meta ou aspiração (a varredura final exige ausência em `dist/`).
+6. **Não mencionar** GIEF, FIEMG nem FGV como meta ou aspiração. Citar uma fonte excluída e o motivo da exclusão é permitido;
+   `qa:seguranca` exige, em toda frase que os cite, marca de exclusão, e barra dados dessas fontes (ADR-031).
 
 ## Segurança (inegociável; ADR-018)
 - O repositório será **privado**; tudo o que o sítio serve continua público. Nada interno em `dist/`:
   `npm run qa:seguranca` falha o build com e-mails não institucionais, telefones, CPF, padrões de chave, `.map`, `.env`,
   `.tex`, `.docx`, `.pdf` fora de `/documentos/`, nomes da lista proibida (`docs/seguranca/nomes-proibidos.txt`,
-  fora do git) e links para o repositório (`github.com/jesusabc8`).
+  fora do git), links para o repositório (`github.com/jesusabc8`) e dados de fontes excluídas
+  (`scripts/qa/fontes-excluidas.json`: arquivo em `/dados/`, código de série, link de download).
 - Publicação na Cloudflare (Workers com arquivos estáticos, `wrangler.jsonc`). Cabeçalhos em `public/_headers`
   (CSP sem `'unsafe-inline'` em `script-src`; Pagefind exige `'wasm-unsafe-eval'`); redirecionamentos 301 em
   `public/_redirects`. Nenhum slug público muda sem 301.

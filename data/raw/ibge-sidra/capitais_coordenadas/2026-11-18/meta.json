@@ -1,0 +1,104 @@
+{
+  "serie": "capitais_coordenadas",
+  "fonte": "ibge-sidra",
+  "codigo": "API de malhas v3 do IBGE, /malhas/municipios/{id}/metadados (campo centroide)",
+  "extraido_em": "2026-11-18T18:56:53.037Z",
+  "arquivos": [
+    {
+      "arquivo": "1200401.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1200401/metadados",
+      "sha256": "1fedd50d88e68e840557ea1af089e0588603e77aa57cf43db701afeba3b76d08",
+      "bytes": 305
+    },
+    {
+      "arquivo": "1501402.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/1501402/metadados",
+      "sha256": "3f131b3b5f2219be3b0f27b515f077760b38bb7703fcd954722913585482dab4",
+      "bytes": 303
+    },
+    {
+      "arquivo": "2111300.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/2111300/metadados",
+      "sha256": "d73a64561890b1ecdeeeef5e72a35f04ad1e1f04de1c882c98d4f3382e98a316",
+      "bytes": 302
+    },
+    {
+      "arquivo": "2304400.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/2304400/metadados",
+      "sha256": "e423879f3022953f16514c290d6240bbb2ce0efc40ca7373e96889fd6ff2d12c",
+      "bytes": 300
+    },
+    {
+      "arquivo": "2611606.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/2611606/metadados",
+      "sha256": "b518e79e41b729291fe4a9b436912b7a3c38e200248d2e5d2d3751a45a4012d2",
+      "bytes": 301
+    },
+    {
+      "arquivo": "2800308.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/2800308/metadados",
+      "sha256": "6c33461a828b1947ae7f56d0004d6bed4ef4b497986edc34f0b2da8a9db8b60a",
+      "bytes": 305
+    },
+    {
+      "arquivo": "2927408.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/2927408/metadados",
+      "sha256": "03f5e259b14654eccefb55dfeaab381f723e29f959dc6655162b4ee2dec1a49c",
+      "bytes": 305
+    },
+    {
+      "arquivo": "3106200.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/3106200/metadados",
+      "sha256": "cbb6a41da63adf8bb4f65de1d42296db4b241216e496b10e01537aae23b9a531",
+      "bytes": 303
+    },
+    {
+      "arquivo": "3205309.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/3205309/metadados",
+      "sha256": "b42ff13550a55a77b2541a1532b928e99aee417ec04078898a89ca1c70e9479f",
+      "bytes": 304
+    },
+    {
+      "arquivo": "3304557.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/3304557/metadados",
+      "sha256": "f69a3f8b6c597b3fe8cdd7b7172d46de22a809eca5882c6b5fed6d46b5857138",
+      "bytes": 304
+    },
+    {
+      "arquivo": "3550308.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/3550308/metadados",
+      "sha256": "43ae272bbf17734db542306807bb3213e97ba029aad20897201be6c2db5a0e79",
+      "bytes": 306
+    },
+    {
+      "arquivo": "4106902.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/4106902/metadados",
+      "sha256": "187ad4552362f25aa0ee7d442b0069daead4926dda4af16cd8e60e5e17b3a495",
+      "bytes": 305
+    },
+    {
+      "arquivo": "4314902.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/4314902/metadados",
+      "sha256": "8bfe0dc0ec45d604cc7582f1b21c959875a19d661fa43ae2b040a8b8f0204a90",
+      "bytes": 304
+    },
+    {
+      "arquivo": "5002704.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5002704/metadados",
+      "sha256": "32f85ca5327091e21f44559ec0541858c2a7758f51932d32d0e8db259963adab",
+      "bytes": 305
+    },
+    {
+      "arquivo": "5208707.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5208707/metadados",
+      "sha256": "fe48a1cebd24891dd3bfda8956385646b0a036ca52a66e8cd690dc08acba7bdd",
+      "bytes": 304
+    },
+    {
+      "arquivo": "5300108.json",
+      "url": "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/5300108/metadados",
+      "sha256": "1d2e0f4ed06512637f02e4b33242d653304b6f567b0ea5ebefe8f30e0fc19ae8",
+      "bytes": 304
+    }
+  ]
+}
