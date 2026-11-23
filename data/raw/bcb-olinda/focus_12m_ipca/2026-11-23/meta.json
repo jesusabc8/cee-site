@@ -1,0 +1,14 @@
+{
+  "serie": "focus_12m_ipca",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0",
+  "extraido_em": "2026-11-23T13:53:12.600Z",
+  "arquivos": [
+    {
+      "arquivo": "resposta.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20Suavizada%20eq%20'S'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2012-01-01'&$select=Data%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "e5e25d10636f63e1c0757ccafd3daccbc635b6819ca07285dc79a2c1834aca73",
+      "bytes": 238249
+    }
+  ]
+}

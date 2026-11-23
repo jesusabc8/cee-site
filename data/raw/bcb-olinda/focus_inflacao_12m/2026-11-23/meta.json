@@ -1,0 +1,98 @@
+{
+  "serie": "focus_inflacao_12m",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', baseCalculo=0",
+  "extraido_em": "2026-11-23T13:53:12.600Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "d58dfce0e54fbd3d5e79eb99e1c68dcab645e355d15422fdd227db457c890dcb",
+      "bytes": 75525
+    },
+    {
+      "arquivo": "2013.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "65ca5988e7a459a88f5bba122ef08028e46f39f48c039914496ffad11b7071f5",
+      "bytes": 76125
+    },
+    {
+      "arquivo": "2014.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "ac12f374e26af24127389a9be587dc96c6b7dc310717f50e56c6929089fa9d3d",
+      "bytes": 75119
+    },
+    {
+      "arquivo": "2015.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2015-01-01'%20and%20Data%20le%20'2015-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "813e44250c70f3ab7edb4299f37ccf0536edc906e311fecd6d5e7094f9c0e2e1",
+      "bytes": 74225
+    },
+    {
+      "arquivo": "2016.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2016-01-01'%20and%20Data%20le%20'2016-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "239d784cd596fc0b46c8de584879055393f9c22b19e75578d9a17e489a4752aa",
+      "bytes": 74552
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2017-01-01'%20and%20Data%20le%20'2017-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "fc3d8975fdae2858aa5ad6c772f204e4c7fb602f03c0e364ac13fd2458229c70",
+      "bytes": 73962
+    },
+    {
+      "arquivo": "2018.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2018-01-01'%20and%20Data%20le%20'2018-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "5f68cdc6efb8e84d61400a30e2a2acb279e93e7a0d06701ae6e47d9d3edfad27",
+      "bytes": 74230
+    },
+    {
+      "arquivo": "2019.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2019-01-01'%20and%20Data%20le%20'2019-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "52d493561773b1e9196447530bea9113836413bd6a573cce727a71c13147276d",
+      "bytes": 75220
+    },
+    {
+      "arquivo": "2020.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2020-01-01'%20and%20Data%20le%20'2020-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "4d925c36f3fd9ab558f7be8c0f8474ed7d1def854f822102e43bff6ce9e2584b",
+      "bytes": 74703
+    },
+    {
+      "arquivo": "2021.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2021-01-01'%20and%20Data%20le%20'2021-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "d20ebcaba1980b564eea736f877e681cd9422ab5410ea2889cf089be8a2a1498",
+      "bytes": 74965
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2022-01-01'%20and%20Data%20le%20'2022-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "4532ea0c2311cbeb2c3497b1e7dc9e2364ce1508bda9ee1c7b04eebf976ec6b5",
+      "bytes": 75015
+    },
+    {
+      "arquivo": "2023.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2023-01-01'%20and%20Data%20le%20'2023-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "1fc6ec9656c07bb41c50c3de782f2837a57fd0e7af76c6bfcf24ceacd0e4840c",
+      "bytes": 74427
+    },
+    {
+      "arquivo": "2024.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2024-01-01'%20and%20Data%20le%20'2024-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "1ab623bbb66444af7e329f6506125408df1d50ee62e69877f797d1684e5cb2e5",
+      "bytes": 75619
+    },
+    {
+      "arquivo": "2025.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2025-01-01'%20and%20Data%20le%20'2025-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "800e5924ae45ac798c5896252c8a2246f8e72edce1ee1c261f0da10316314e60",
+      "bytes": 75316
+    },
+    {
+      "arquivo": "2026.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoInflacao12Meses?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-01-01'%20and%20Data%20le%20'2026-12-31'&$select=Data%2CSuavizada%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "e51a354b76ee7f4650cb47e2f707ad9e4487b627fa4a7873c8c84ea8c7a75a8a",
+      "bytes": 66079
+    }
+  ]
+}

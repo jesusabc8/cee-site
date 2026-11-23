@@ -6,8 +6,8 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=1178",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/bcb-sgs/selic_efetiva/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-sgs/selic_efetiva/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -67,12 +67,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "89b9bd202be210eedba407e19841f6dd0d45311f2ec0ae8f4e29ee5ec6edca4d"
+        "sha256": "4e99ddf3e523ec644650c0909bd6c12559c0fb9f91be55b0586b851cb85a21d0"
       }
     ],
-    "linhas": 3736,
+    "linhas": 3738,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-17",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -864,8 +864,8 @@
     "unidade": "% a.a.",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_selic/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_selic/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -925,12 +925,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "f00fc41a156e3e2442cdeaf7b4a9af78e6445303ff0200ffecf3a70b3d6b7cab"
+        "sha256": "4d12ecf11bda034d7ed9f0c43bde7ecec6c111241b4908fe0176ed46308664f0"
       }
     ],
-    "linhas": 50814,
+    "linhas": 50878,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-13",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -941,8 +941,8 @@
     "unidade": "% a.a.",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-18T02:13:32.833Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_selic_top5/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_selic_top5/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -1002,12 +1002,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "3d563f52441c152942a363d8afe690e6464d541576becda5aa5ad10ad0793362"
+        "sha256": "11f7cadf8c92d1237bff702b52cabe569e46a885fd05ee13ce486a013e6cbdcb"
       }
     ],
-    "linhas": 50710,
+    "linhas": 50774,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-13",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -1018,8 +1018,8 @@
     "unidade": "conforme o indicador",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_anuais/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_anuais/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -1079,12 +1079,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "91276684372fcd2fcc8f5dbf21b3d3eba8fde35c9fa4a849c24e4ea8333b01f8"
+        "sha256": "b94ddecfac12b1b11d8d59c7c02d3090eabe9183f86efc3d1153c432309cbaa2"
       }
     ],
-    "linhas": 74675,
+    "linhas": 74755,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-13",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -1095,8 +1095,8 @@
     "unidade": "% (variação no mês)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_mensais/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_mensais/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -1156,12 +1156,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "39a42d7b023fcfc99829f99f44ad5c6a4e46a73d245c3de01256418e10b90975"
+        "sha256": "4ce6cbc8d72e67d7bfbcd8b73648c067ead724aca474e4b164f966122f45a2f5"
       }
     ],
-    "linhas": 77446,
+    "linhas": 77546,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-13",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -1172,8 +1172,8 @@
     "unidade": "% (próximos 12 meses)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_inflacao_12m/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_inflacao_12m/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -1233,12 +1233,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "44b73fc27c015fb585f35b54466189af608c48863e2ef915673d6c1a4099f40f"
+        "sha256": "e51a354b76ee7f4650cb47e2f707ad9e4487b627fa4a7873c8c84ea8c7a75a8a"
       }
     ],
-    "linhas": 7468,
+    "linhas": 7476,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-13",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -1249,8 +1249,8 @@
     "unidade": "conforme o indicador",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-18T02:13:32.833Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_top5_anuais/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_top5_anuais/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -1310,12 +1310,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "ffef90e258f31fc8ca4e53ed0053e67760188dd459f0ba4f37cfaa8d98bef49b"
+        "sha256": "008a1f8bc03ad89cf686aecbff22b8deb278cacc41f903cb9fdf5ee6c1b24696"
       }
     ],
-    "linhas": 37203,
+    "linhas": 37243,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-13",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -1326,8 +1326,8 @@
     "unidade": "% (variação no mês)",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www3.bcb.gov.br/expectativas2/#/consultaSeriesEstatisticas",
-    "extraido_em": "2026-11-18T02:13:32.833Z",
-    "vintage_dir": "data/raw/bcb-olinda/focus_top5_mensais/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/bcb-olinda/focus_top5_mensais/2026-11-23",
     "arquivos": [
       {
         "arquivo": "2012.json",
@@ -1387,12 +1387,12 @@
       },
       {
         "arquivo": "2026.json",
-        "sha256": "e0e9dcaadef81b437a6e6e7cea4db6018ea3db6d3be2e3bf0fda7f17666be8ce"
+        "sha256": "931a53fac95802d7300616beea77e5f35c9c870ee58719919d96aa33bf2e9cef"
       }
     ],
-    "linhas": 76781,
+    "linhas": 76881,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-13",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -2405,17 +2405,17 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://fred.stlouisfed.org/series/DFEDTARU",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/fred/fed_funds_sup/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/fred/fed_funds_sup/2026-11-23",
     "arquivos": [
       {
         "arquivo": "DFEDTARU.csv",
-        "sha256": "4e9921e1e609b35ddd69514d11e40b6d41447d19df7c4424dbcd19f6c46cf58e"
+        "sha256": "7b20d0e554ba458dd51460bab9034e419147cca4cd01abead4e00ad15962067b"
       }
     ],
-    "linhas": 5435,
+    "linhas": 5441,
     "primeiro": "2012-01-01",
-    "ultimo": "2026-11-17",
+    "ultimo": "2026-11-23",
     "desatualizado": false,
     "falha": null
   },
@@ -2426,17 +2426,17 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://fred.stlouisfed.org/series/DGS10",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/fred/ust10/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/fred/ust10/2026-11-23",
     "arquivos": [
       {
         "arquivo": "DGS10.csv",
-        "sha256": "bbf43d1247d3fb793f107461bcf31e817e31b7e47e5a67f4e41d42b939f185da"
+        "sha256": "86fc02421129657662f677edd242ff1a3a89986868dddb16f127e0f18cd1aa67"
       }
     ],
-    "linhas": 3719,
+    "linhas": 3722,
     "primeiro": "2012-01-03",
-    "ultimo": "2026-11-16",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -2447,17 +2447,17 @@
     "unidade": "% a.a.",
     "frequencia": "diária",
     "url_publica": "https://fred.stlouisfed.org/series/DFII5",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/fred/tips5/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/fred/tips5/2026-11-23",
     "arquivos": [
       {
         "arquivo": "DFII5.csv",
-        "sha256": "238f73012a5cb002122290fc4809c81d16a12118c96af850ee17654eb6e2f9ca"
+        "sha256": "d8a26f2a47e92e00079fbf3fc0d1c4efbf1f31110627be2603a44304a196beee"
       }
     ],
-    "linhas": 3719,
+    "linhas": 3722,
     "primeiro": "2012-01-03",
-    "ultimo": "2026-11-16",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },
@@ -2489,17 +2489,17 @@
     "unidade": "US$ por barril",
     "frequencia": "diária",
     "url_publica": "https://fred.stlouisfed.org/series/DCOILBRENTEU",
-    "extraido_em": "2026-11-18T02:07:32.941Z",
-    "vintage_dir": "data/raw/fred/brent/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/fred/brent/2026-11-23",
     "arquivos": [
       {
         "arquivo": "DCOILBRENTEU.csv",
-        "sha256": "fec74d9515aa392494030775d490eb298a7ddfd7a381f8ce50770a8f551ef19a"
+        "sha256": "fc9f49503c6a679a2e91a3900cb26aaefb13d0239fd22e0f35f17fe0682d0d5c"
       }
     ],
-    "linhas": 3766,
+    "linhas": 3770,
     "primeiro": "2012-01-03",
-    "ultimo": "2026-11-11",
+    "ultimo": "2026-11-17",
     "desatualizado": false,
     "falha": null
   },
@@ -2510,17 +2510,17 @@
     "unidade": "% a.a. (base 252) e R$",
     "frequencia": "diária (dias úteis)",
     "url_publica": "https://www.tesourotransparente.gov.br/ckan/dataset/taxas-dos-titulos-ofertados-pelo-tesouro-direto",
-    "extraido_em": "2026-11-18T14:15:08.473Z",
-    "vintage_dir": "data/raw/tesouro/tesouro_direto/2026-11-18",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
+    "vintage_dir": "data/raw/tesouro/tesouro_direto/2026-11-23",
     "arquivos": [
       {
         "arquivo": "precotaxatesourodireto.csv",
-        "sha256": "f5da737a615dab61a812d557eb8e6c18c8acaae32f83d91db4a0b1ddccf83137"
+        "sha256": "33c80e7053362124ab0774897cd14f6f313544ee970e12cd180021e344dee143"
       }
     ],
-    "linhas": 79454,
+    "linhas": 79506,
     "primeiro": "2012-01-02",
-    "ultimo": "2026-11-17",
+    "ultimo": "2026-11-19",
     "desatualizado": false,
     "falha": null
   },

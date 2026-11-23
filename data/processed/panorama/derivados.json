@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-11-17T23:36:56.520Z",
+  "gerado_em": "2026-11-23T13:58:53.966Z",
   "juro_real": {
     "entradas": [
       "selic_meta",
@@ -14,7 +14,7 @@
       "metas_inflacao",
       "focus_mensal_ipca"
     ],
-    "data_focus_mensal": "2026-11-13",
+    "data_focus_mensal": "2026-11-19",
     "metodo": "IPCA 12 meses observado; meta e limites do ano (meta contínua desde 2025); trajetória: acumulação de 12 meses com variações observadas e, nos meses futuros, a mediana Focus mensal."
   },
   "pwt": {
@@ -32,7 +32,7 @@
       "dlsp",
       "focus_anual"
     ],
-    "data_focus": "2026-11-13"
+    "data_focus": "2026-11-19"
   },
   "cambio_real": {
     "entradas": [

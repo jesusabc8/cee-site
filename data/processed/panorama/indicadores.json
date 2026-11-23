@@ -207,7 +207,7 @@
     "valor": 13.75,
     "unidade": "% a.a.",
     "descricao": "Definida pelo Copom",
-    "referencia": "2026-11-17",
+    "referencia": "2026-11-23",
     "tipo_ref": "dia",
     "variacao": "■",
     "spark": [
@@ -335,7 +335,7 @@
     "ancora": "grafico-juros",
     "fonte": "Banco Central do Brasil",
     "serie": "SGS 432",
-    "extraido_em": "2026-11-17T18:53:51.571Z",
+    "extraido_em": "2026-11-23T13:53:12.600Z",
     "url": "https://www3.bcb.gov.br/sgspub/consultarvalores/consultarValoresSeries.do?method=consultarGraficoPorId&hdOidSeriesSelecionadas=432",
     "desatualizado": false
   },

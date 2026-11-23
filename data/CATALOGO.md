@@ -6,37 +6,37 @@
 | Série | Painel | Código | Unidade | Frequência | Verificada em | Última extração | Cobertura |
 |---|---|---|---|---|---|---|---|
 | IPCA — variação mensal e acumulada em 12 meses | conjuntura | SIDRA 1737, variáveis 63 e 2265 (Brasil) | % | mensal | 2026-10-20 | 2026-11-17 | 2012-01 → 2026-10 |
-| Taxa de juros — Meta Selic definida pelo Copom | conjuntura | SGS 432 | % a.a. | diária | 2026-10-20 | 2026-11-17 | 2012-01 → 2026-11 |
+| Taxa de juros — Meta Selic definida pelo Copom | conjuntura | SGS 432 | % a.a. | diária | 2026-10-20 | 2026-11-23 | 2012-01 → 2026-11 |
 | Taxa de desocupação (PNAD Contínua), trimestre móvel | conjuntura | SIDRA 6381, variáveis 4099 e 4103 (Brasil) | % | trimestre móvel (mensal) | 2026-10-20 | 2026-11-17 | 2012-03 → 2026-09 |
-| Expectativas de mercado (Focus) — IPCA anual, mediana | conjuntura | Olinda Expectativas v1, ExpectativasMercadoAnuais, Indicador='IPCA', baseCalculo=0 | % (variação no ano de referência) | diária (dias úteis) | 2026-10-20 | 2026-11-16 | 2024-01-02 → 2026-11-13 |
+| Expectativas de mercado (Focus) — IPCA anual, mediana | conjuntura | Olinda Expectativas v1, ExpectativasMercadoAnuais, Indicador='IPCA', baseCalculo=0 | % (variação no ano de referência) | diária (dias úteis) | 2026-10-20 | 2026-11-23 | 2024-01-02 → 2026-11-19 |
 | PIB a preços de mercado — taxa interanual e taxa contra o trimestre anterior (dessazonalizada) | panorama | SIDRA 5932, variáveis 6561 e 6564, classificação 11255 [90707] (Brasil) | % | trimestral | 2026-10-20 | 2026-10-20 | 1996-T1 → 2026-T2 |
-| Taxa de câmbio — livre — dólar americano (venda), PTAX | panorama | SGS 1 | R$/US$ | diária | 2026-10-20 | 2026-11-17 | 2012-01 → 2026-11 |
+| Taxa de câmbio — livre — dólar americano (venda), PTAX | panorama | SGS 1 | R$/US$ | diária | 2026-10-20 | 2026-11-23 | 2012-01 → 2026-11 |
 | Índice da taxa de câmbio real efetiva (IPCA), jun/1994 = 100 | panorama | SGS 11752 | índice (jun/1994 = 100) | mensal | 2026-11-17 | 2026-11-17 | 2012-01 → 2026-08 |
 | Transações correntes acumuladas em 12 meses em relação ao PIB | panorama | SGS 23079 | % do PIB | mensal | 2026-10-20 | 2026-10-28 | 2012-01 → 2026-09 |
 | NFSP — resultado primário do setor público consolidado, acumulado em 12 meses | panorama | SGS 5793 | % do PIB (NFSP: positivo = déficit) | mensal | 2026-10-20 | 2026-11-02 | 2012-01 → 2026-09 |
 | Dívida bruta do governo geral (DBGG) | panorama | SGS 13762 | % do PIB | mensal | 2026-10-20 | 2026-11-16 | 2012-01 → 2026-09 |
 | Dívida líquida do setor público (DLSP) | panorama | SGS 4513 | % do PIB | mensal | 2026-10-20 | 2026-11-16 | 2012-01 → 2026-09 |
-| Expectativas de mercado (Focus) — indicadores anuais, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0; Indicador ∈ {IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário} | conforme o indicador (% ; R$/US$ ; % do PIB) | diária (dias úteis) | 2026-10-20 | 2026-11-16 | 2026-07-20 → 2026-11-13 |
-| Expectativas de mercado (Focus) — IPCA mensal, mediana | panorama | Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 | % (variação no mês de referência) | diária (dias úteis) | 2026-10-20 | 2026-11-17 | 2026-10-05 → 2026-11-13 |
-| Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-10-20 | 2026-11-16 | 2012-01-02 → 2026-11-13 |
+| Expectativas de mercado (Focus) — indicadores anuais, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0; Indicador ∈ {IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário} | conforme o indicador (% ; R$/US$ ; % do PIB) | diária (dias úteis) | 2026-10-20 | 2026-11-23 | 2026-07-27 → 2026-11-19 |
+| Expectativas de mercado (Focus) — IPCA mensal, mediana | panorama | Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 | % (variação no mês de referência) | diária (dias úteis) | 2026-10-20 | 2026-11-23 | 2026-10-09 → 2026-11-19 |
+| Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana | panorama | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', Suavizada='S', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-10-20 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
 | Metas para a inflação e intervalos de tolerância | panorama | Página "Histórico: meta de inflação vs. inflação efetiva" (API de conteúdo do sítio do BCB) | % | anual (1999–2024); meta contínua desde 2025 | 2026-10-20 | 2026-10-20 | 2005 → 2025 |
 | Penn World Table, versão 11.0 | panorama | pwt110.xlsx (Dataverse, DOI 10.34894/FABVLR, arquivo 554105) | conforme a variável | anual (1950–2023) | 2026-10-20 | 2026-10-20 | ARG → USA |
 | PIB acumulado dos últimos 12 meses, em US$ milhões | panorama | SGS 4192 | US$ milhões (12 meses) | mensal | 2026-10-20 | 2026-11-16 | 2014-01 → 2026-10 |
 | Exportações e importações brasileiras de bens, total mensal | panorama | ComexStat API /general: flow export e import, monthDetail, metricFOB | US$ FOB | mensal | 2026-10-20 | 2026-11-09 | 2014-01 → 2026-10 |
 | Proporção de pessoas abaixo das linhas de pobreza do Banco Mundial (Tabela 2.18) | panorama | SIS 2025, Tabela 2.18 (Pobr_Geo), Brasil: menos de US$ 6,85 e US$ 2,15 PPC 2017 por dia | % da população | anual (2012–) | 2026-10-20 | 2026-10-20 | 2012 → 2024 |
-| Taxa Selic efetiva, anualizada base 252 | opm | SGS 1178 | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-17 |
+| Taxa Selic efetiva, anualizada base 252 | opm | SGS 1178 | % a.a. | diária | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
 | Histórico das taxas de juros fixadas pelo Copom | opm | API de conteúdo do BCB: /api/servico/sitebcb/historicotaxasjuros | % a.a. | por reunião | 2026-11-18 | 2026-11-18 | 1 → 99 |
 | Histórico de votações das reuniões do Copom | opm | historico-votacoes-Copom.xlsx (sítio do BCB, página do Copom) | placar e votos (p.p.) | por reunião | 2026-11-18 | 2026-11-18 | 100 → 99 |
 | Calendário das reuniões ordinárias do Copom | opm | Comunicados BCB nº 43383, 45452 (API de normativos) | datas | anual | 2026-11-18 | 2026-11-18 | R1/2026 → R8/2027 |
 | Comunicados das decisões do Copom (texto integral) | opm | API de conteúdo do BCB: /api/servico/sitebcb/copom/comunicados_detalhes | texto (HTML) | por reunião | 2026-11-18 | 2026-11-18 | 200 → 282 |
 | Atas das reuniões do Copom (texto integral) | opm | API de conteúdo do BCB: /api/servico/sitebcb/copom/atas_detalhes | texto (HTML) | por reunião | 2026-11-18 | 2026-11-18 | 200 → 282 |
-| Focus — Selic por reunião do Copom | opm | Olinda Expectativas v1, ExpectativasMercadoSelic, baseCalculo=0 | % a.a. | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
-| Focus Top 5 (curto prazo) — Selic por reunião do Copom | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Selic, tipoCalculo='C' | % a.a. | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
-| Focus — indicadores anuais (IPCA, Selic, PIB, câmbio), todas as estatísticas | opm | Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0, Indicador ∈ {IPCA; Selic; PIB Total; Câmbio} | conforme o indicador | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
-| Focus — IPCA mensal, todas as estatísticas | opm | Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 | % (variação no mês) | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
-| Focus — IPCA nos 12 meses seguintes (suavizada e não suavizada), todas as estatísticas | opm | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
-| Focus Top 5 (curto prazo) — IPCA e Selic anuais | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Anuais, tipoCalculo='C', Indicador ∈ {IPCA; Selic} | conforme o indicador | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
-| Focus Top 5 (curto prazo) — IPCA mensal | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Mensais, Indicador='IPCA', tipoCalculo='C' | % (variação no mês) | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-13 |
+| Focus — Selic por reunião do Copom | opm | Olinda Expectativas v1, ExpectativasMercadoSelic, baseCalculo=0 | % a.a. | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
+| Focus Top 5 (curto prazo) — Selic por reunião do Copom | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Selic, tipoCalculo='C' | % a.a. | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
+| Focus — indicadores anuais (IPCA, Selic, PIB, câmbio), todas as estatísticas | opm | Olinda Expectativas v1, ExpectativasMercadoAnuais, baseCalculo=0, Indicador ∈ {IPCA; Selic; PIB Total; Câmbio} | conforme o indicador | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
+| Focus — IPCA mensal, todas as estatísticas | opm | Olinda Expectativas v1, ExpectativaMercadoMensais, Indicador='IPCA', baseCalculo=0 | % (variação no mês) | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
+| Focus — IPCA nos 12 meses seguintes (suavizada e não suavizada), todas as estatísticas | opm | Olinda Expectativas v1, ExpectativasMercadoInflacao12Meses, Indicador='IPCA', baseCalculo=0 | % (próximos 12 meses) | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
+| Focus Top 5 (curto prazo) — IPCA e Selic anuais | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Anuais, tipoCalculo='C', Indicador ∈ {IPCA; Selic} | conforme o indicador | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
+| Focus Top 5 (curto prazo) — IPCA mensal | opm | Olinda Expectativas v1, ExpectativasMercadoTop5Mensais, Indicador='IPCA', tipoCalculo='C' | % (variação no mês) | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
 | IPCA — preços livres | opm | SGS 11428 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
 | IPCA — preços administrados (monitorados) | opm | SGS 4449 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
 | IPCA — serviços | opm | SGS 10844 | % (variação mensal) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
@@ -71,12 +71,12 @@
 | IC-Br — energia | opm | SGS 27577 | índice | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
 | IBC-Br com ajuste sazonal | opm | SGS 24364 | índice (2002 = 100) | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-09 |
 | PIB acumulado dos últimos 12 meses, valores correntes | opm | SGS 4382 | R$ milhões | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
-| Fed funds — limite superior do intervalo-alvo | opm | FRED DFEDTARU | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-01 → 2026-11-17 |
-| Rendimento do Tesouro americano de 10 anos | opm | FRED DGS10 | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-16 |
-| Rendimento real do Tesouro americano de 5 anos (TIPS) | opm | FRED DFII5 | % a.a. | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-16 |
+| Fed funds — limite superior do intervalo-alvo | opm | FRED DFEDTARU | % a.a. | diária | 2026-11-18 | 2026-11-23 | 2012-01-01 → 2026-11-23 |
+| Rendimento do Tesouro americano de 10 anos | opm | FRED DGS10 | % a.a. | diária | 2026-11-18 | 2026-11-23 | 2012-01-03 → 2026-11-19 |
+| Rendimento real do Tesouro americano de 5 anos (TIPS) | opm | FRED DFII5 | % a.a. | diária | 2026-11-18 | 2026-11-23 | 2012-01-03 → 2026-11-19 |
 | Índice amplo nominal do dólar americano | opm | FRED DTWEXBGS | índice (jan./2006 = 100) | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-13 |
-| Petróleo Brent — preço à vista (Europa) | opm | FRED DCOILBRENTEU | US$ por barril | diária | 2026-11-18 | 2026-11-18 | 2012-01-03 → 2026-11-11 |
-| Taxas e preços dos títulos ofertados pelo Tesouro Direto | opm | Tesouro Transparente (CKAN), conjunto "Taxas dos Títulos Ofertados pelo Tesouro Direto", arquivo precotaxatesourodireto.csv | % a.a. (base 252) e R$ | diária (dias úteis) | 2026-11-18 | 2026-11-18 | 2012-01-02 → 2026-11-17 |
+| Petróleo Brent — preço à vista (Europa) | opm | FRED DCOILBRENTEU | US$ por barril | diária | 2026-11-18 | 2026-11-23 | 2012-01-03 → 2026-11-17 |
+| Taxas e preços dos títulos ofertados pelo Tesouro Direto | opm | Tesouro Transparente (CKAN), conjunto "Taxas dos Títulos Ofertados pelo Tesouro Direto", arquivo precotaxatesourodireto.csv | % a.a. (base 252) e R$ | diária (dias úteis) | 2026-11-18 | 2026-11-23 | 2012-01-02 → 2026-11-19 |
 | PIB — índice de volume trimestral com ajuste sazonal | opm | SIDRA 1621, variável 584, classificação 11255 [90707] (Brasil) | índice (média de 1995 = 100) | trimestral | 2026-11-18 | 2026-11-18 | 1996-T1 → 2026-T2 |
 | IPCA-15 — variação mensal e acumulada em 12 meses | opm | SIDRA 3065, variáveis 355 e 1120 (Brasil) | % | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
 | INPC — variação mensal e acumulada em 12 meses | opm | SIDRA 1736, variáveis 44 e 2292 (Brasil) | % | mensal | 2026-11-18 | 2026-11-18 | 2012-01 → 2026-10 |
@@ -186,7 +186,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11752/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## conta_corrente — Transações correntes acumuladas em 12 meses em relação ao PIB
 
@@ -199,7 +199,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.23079/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## primario — NFSP — resultado primário do setor público consolidado, acumulado em 12 meses
 
@@ -213,7 +213,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.5793/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## dbgg — Dívida bruta do governo geral (DBGG)
 
@@ -226,7 +226,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## dlsp — Dívida líquida do setor público (DLSP)
 
@@ -239,7 +239,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4513/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## focus_anual — Expectativas de mercado (Focus) — indicadores anuais, mediana
 
@@ -251,9 +251,9 @@
 - **Nome oficial retornado pela fonte:** IPCA; Selic; PIB Total; Câmbio; Dívida bruta do governo geral; Dívida líquida do setor público; Resultado primário
 - **Observações:** IPCA anual vem da série focus_ipca (painel Conjuntura).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-21'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-21'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-21'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'Selic'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-26'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'PIB%20Total'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-26'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoAnuais?$filter=Indicador%20eq%20'C%C3%A2mbio'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-07-26'&$select=Indicador%2CData%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
   - … (6 requisições, uma por ano)
 
 ## focus_mensal_ipca — Expectativas de mercado (Focus) — IPCA mensal, mediana
@@ -266,7 +266,7 @@
 - **Nome oficial retornado pela fonte:** ExpectativaMercadoMensais: Indicador, Data, DataReferencia (MM/AAAA), Media, Mediana, DesvioPadrao, Minimo, Maximo, numeroRespondentes, baseCalculo
 - **Observações:** Horizonte observado em 16/10/2026: até 10/2028. Usado para compor a trajetória do IPCA em 12 meses (cálculo do CEE).
 - **Requisições da extração:**
-  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-10-04'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
+  - `https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativaMercadoMensais?$filter=Indicador%20eq%20'IPCA'%20and%20baseCalculo%20eq%200%20and%20Data%20ge%20'2026-10-09'&$select=Data%2CDataReferencia%2CMediana%2CnumeroRespondentes&$orderby=Data%20asc&$format=json&$top=50000`
 
 ## focus_12m_ipca — Expectativas de mercado (Focus) — IPCA para os 12 meses seguintes, suavizada, mediana
 
@@ -313,7 +313,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2014&dataFinal=31/12/2018`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2019&dataFinal=31/12/2023`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4192/dados?formato=json&dataInicial=01/01/2024&dataFinal=23/11/2026`
 
 ## comercio — Exportações e importações brasileiras de bens, total mensal
 
@@ -535,7 +535,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11428/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_administrados — IPCA — preços administrados (monitorados)
 
@@ -548,7 +548,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4449/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_servicos — IPCA — serviços
 
@@ -561,7 +561,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10844/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_industriais — IPCA — bens industriais
 
@@ -574,7 +574,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27863/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_alim_dom — IPCA — alimentação no domicílio
 
@@ -587,7 +587,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27864/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_comercializaveis — IPCA — comercializáveis
 
@@ -600,7 +600,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4447/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_nao_comercializaveis — IPCA — não comercializáveis
 
@@ -613,7 +613,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_duraveis — IPCA — bens duráveis
 
@@ -626,7 +626,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10843/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_semiduraveis — IPCA — bens semiduráveis
 
@@ -639,7 +639,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10842/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_nao_duraveis — IPCA — bens não duráveis
 
@@ -652,7 +652,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.10841/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ex0 — Núcleo do IPCA — EX0
 
@@ -665,7 +665,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11427/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11427/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11427/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11427/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ex1 — Núcleo do IPCA — EX1
 
@@ -678,7 +678,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ex2 — Núcleo do IPCA — EX2
 
@@ -691,7 +691,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27838/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ex3 — Núcleo do IPCA — EX3
 
@@ -704,7 +704,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27839/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27839/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27839/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27839/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_exfe — Núcleo do IPCA — EX-FE (ex-alimentação e energia)
 
@@ -717,7 +717,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28751/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ms — Núcleo do IPCA — médias aparadas com suavização (MS)
 
@@ -730,7 +730,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4466/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4466/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4466/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4466/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ma — Núcleo do IPCA — médias aparadas sem suavização (MA)
 
@@ -743,7 +743,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.11426/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_dp — Núcleo do IPCA — dupla ponderação (DP)
 
@@ -756,7 +756,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16122/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16122/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16122/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.16122/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_p55 — Núcleo do IPCA — percentil 55 (P55)
 
@@ -769,7 +769,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28750/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28750/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28750/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.28750/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ex3_servicos — Núcleo do IPCA — EX3 serviços
 
@@ -782,7 +782,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29683/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## nucleo_ex3_industriais — Núcleo do IPCA — EX3 industriais
 
@@ -795,7 +795,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.29684/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_difusao — IPCA — índice de difusão
 
@@ -808,7 +808,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.21379/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ipca_itens — IPCA — variação mensal e peso de grupos, subgrupos, itens e subitens
 
@@ -837,7 +837,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20714/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## juros_pj — Taxa média de juros das operações de crédito — pessoas jurídicas
 
@@ -850,7 +850,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20715/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## juros_pf_livres — Taxa média de juros do crédito livre — pessoas físicas
 
@@ -863,7 +863,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20740/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## spread_credito — Spread médio das operações de crédito — total
 
@@ -876,7 +876,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.20783/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## icc — Indicador de Custo do Crédito (ICC) — total
 
@@ -889,7 +889,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2013&dataFinal=31/12/2017`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2018&dataFinal=31/12/2022`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2023&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.25351/dados?formato=json&dataInicial=01/01/2023&dataFinal=23/11/2026`
 
 ## icbr — Índice de Commodities — Brasil (IC-Br)
 
@@ -902,7 +902,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27574/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27574/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27574/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27574/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## icbr_agro — IC-Br — agropecuária
 
@@ -915,7 +915,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27575/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## icbr_metal — IC-Br — metal
 
@@ -928,7 +928,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27576/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## icbr_energia — IC-Br — energia
 
@@ -941,7 +941,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.27577/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## ibcbr — IBC-Br com ajuste sazonal
 
@@ -955,7 +955,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.24364/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## pib_nominal_12m — PIB acumulado dos últimos 12 meses, valores correntes
 
@@ -969,7 +969,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.4382/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## fed_funds_sup — Fed funds — limite superior do intervalo-alvo
 
@@ -1155,7 +1155,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1788/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1788/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1788/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1788/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## papel_moeda_circulacao — Papel-moeda em circulação (emitido), componente da base (saldo em final de período)
 
@@ -1169,7 +1169,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1786/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## reservas_bancarias — Reservas bancárias (saldo em final de período)
 
@@ -1182,7 +1182,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1787/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## base_ampliada — Base monetária ampliada (saldo em final de período)
 
@@ -1195,7 +1195,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1833/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## bma_compulsorio — Base ampliada — depósitos compulsórios em espécie (saldo em final de período)
 
@@ -1208,7 +1208,7 @@
 - **Requisições da extração:**
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2012&dataFinal=31/12/2016`
   - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2017&dataFinal=31/12/2021`
-  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2022&dataFinal=18/11/2026`
+  - `https://api.bcb.gov.br/dados/serie/bcdata.sgs.1828/dados?formato=json&dataInicial=01/01/2022&dataFinal=23/11/2026`
 
 ## pmpp — Papel-moeda em poder do público (saldo em final de período) — Novo
 

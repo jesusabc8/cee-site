@@ -1,0 +1,98 @@
+{
+  "serie": "focus_top5_anuais",
+  "fonte": "bcb-olinda",
+  "codigo": "Olinda Expectativas v1, ExpectativasMercadoTop5Anuais, tipoCalculo='C', Indicador ∈ {IPCA; Selic}",
+  "extraido_em": "2026-11-23T13:53:12.600Z",
+  "arquivos": [
+    {
+      "arquivo": "2012.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2012-01-01'%20and%20Data%20le%20'2012-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "8fbe9f446a216eb82e81ec22dbd21f86a5ecfd6d259a0a31ea8bc4fe8865db9d",
+      "bytes": 418941
+    },
+    {
+      "arquivo": "2013.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2013-01-01'%20and%20Data%20le%20'2013-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "ac8be5a5abcc636dfac8e833b24879a0d21ee9dae3180758cf41137e5916e9ed",
+      "bytes": 429773
+    },
+    {
+      "arquivo": "2014.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2014-01-01'%20and%20Data%20le%20'2014-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "45d8be575c8c7b3e8f27a174a62caf81ff1b1007e5e182078a2faa369ffc946d",
+      "bytes": 432993
+    },
+    {
+      "arquivo": "2015.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2015-01-01'%20and%20Data%20le%20'2015-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "ab369d2b27ac198ca79b7af1970a185d75026d4521a9a429342d38c265e74dd3",
+      "bytes": 425871
+    },
+    {
+      "arquivo": "2016.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2016-01-01'%20and%20Data%20le%20'2016-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "2ddd4a156f9e1314deee07e48db09120033e326ef3c5a2b0727dd3edbd05d10a",
+      "bytes": 429619
+    },
+    {
+      "arquivo": "2017.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2017-01-01'%20and%20Data%20le%20'2017-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "9878437ec71b931652f36c3a7846d6d2113efe54c23731b280039423ebee879f",
+      "bytes": 422501
+    },
+    {
+      "arquivo": "2018.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2018-01-01'%20and%20Data%20le%20'2018-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "e40bce2bdb109f6eaa4b9bb69dfab3e22e9232252b09b8f6019435d841a6e3c1",
+      "bytes": 423847
+    },
+    {
+      "arquivo": "2019.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2019-01-01'%20and%20Data%20le%20'2019-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "433f0a28db5a2bfd3fe68866ca13712680a1482277f53c5ef70f27e32a5e1b0c",
+      "bytes": 428044
+    },
+    {
+      "arquivo": "2020.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2020-01-01'%20and%20Data%20le%20'2020-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "a5446328744063993251db3ada6b4228ecff7764f756246ae631627272c33a10",
+      "bytes": 424653
+    },
+    {
+      "arquivo": "2021.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2021-01-01'%20and%20Data%20le%20'2021-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "eb0dea2e6a2ddd30c4a8ae4c98a24a72ab09c14b07d35212ed454bf8e92a1606",
+      "bytes": 425494
+    },
+    {
+      "arquivo": "2022.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2022-01-01'%20and%20Data%20le%20'2022-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "fe8f670dfebbf21df9cda8909f69c3301fd523471b496dee232505471c1bd838",
+      "bytes": 426358
+    },
+    {
+      "arquivo": "2023.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2023-01-01'%20and%20Data%20le%20'2023-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "f1ddd991a2ecdf20d3dbcdf5d20515fac741458b4fe4d562699f02df664fe71f",
+      "bytes": 423961
+    },
+    {
+      "arquivo": "2024.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2024-01-01'%20and%20Data%20le%20'2024-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "549aacceca545bae4309ed635e50f87060083775880c25660cbf736f58e4ee5f",
+      "bytes": 430252
+    },
+    {
+      "arquivo": "2025.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2025-01-01'%20and%20Data%20le%20'2025-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "0179131de20c020cd1d496e677d98d60041b020639f2d3a92deeddb8084070ce",
+      "bytes": 430157
+    },
+    {
+      "arquivo": "2026.json",
+      "url": "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/ExpectativasMercadoTop5Anuais?$filter=(Indicador%20eq%20'IPCA'%20or%20Indicador%20eq%20'Selic')%20and%20tipoCalculo%20eq%20'C'%20and%20Data%20ge%20'2026-01-01'%20and%20Data%20le%20'2026-12-31'&$select=Indicador%2CData%2CDataReferencia%2CtipoCalculo%2CMedia%2CMediana%2CDesvioPadrao%2CMinimo%2CMaximo&$orderby=Data%20asc&$format=json&$top=50000",
+      "sha256": "008a1f8bc03ad89cf686aecbff22b8deb278cacc41f903cb9fdf5ee6c1b24696",
+      "bytes": 372323
+    }
+  ]
+}

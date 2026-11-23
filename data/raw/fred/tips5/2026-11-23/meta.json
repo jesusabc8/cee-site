@@ -1,0 +1,14 @@
+{
+  "serie": "tips5",
+  "fonte": "fred",
+  "codigo": "FRED DFII5",
+  "extraido_em": "2026-11-23T13:53:12.600Z",
+  "arquivos": [
+    {
+      "arquivo": "DFII5.csv",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII5&cosd=2012-01-01",
+      "sha256": "d8a26f2a47e92e00079fbf3fc0d1c4efbf1f31110627be2603a44304a196beee",
+      "bytes": 63009
+    }
+  ]
+}
